@@ -11,3 +11,7 @@ You can do (almost) *anything* you want! Feel free to copy the code and use it i
 ## Stuff You Can't Do to This Code
 
 Copy the entire thing verbatim.
+
+## Wait, that's it?
+
+Yep! Have fun!
