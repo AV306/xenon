@@ -6,7 +6,7 @@ Hello! This is a custom license created for my (AV3_08's) projects.
 
 ## Stuff You Can Do to This Code
 
-You can do *anything* you want! Feel free to copy the code and use it in your own projects **AS LONG AS YOU MODIFY IT**.
+You can do (almost) *anything* you want! Feel free to copy the code and use it in your own projects **AS LONG AS YOU MODIFY IT**.
 
 ## Stuff You Can't Do to This Code
 
