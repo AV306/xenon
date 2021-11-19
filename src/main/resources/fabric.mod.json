@@ -1,38 +1,39 @@
 {
   "schemaVersion": 1,
-  "id": "modid",
+  "id": "xenon",
   "version": "${version}",
 
-  "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "Xenon",
+  "description": "utility",
   "authors": [
     "Me!"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "homepage": "",
+    "sources": ""
   },
 
-  "license": "CC0-1.0",
-  "icon": "assets/modid/icon.png",
+  "license": "wied-license",
+  "icon": "assets/xenon/icon.png",
 
   "environment": "*",
   "entrypoints": {
-    "main": [
-      "net.fabricmc.example.ExampleMod"
+    "client": [
+      "me.av306.xenon.ClientInitializer"
     ]
   },
   "mixins": [
-    "modid.mixins.json"
+    "xenon.mixins.json"
   ],
 
   "depends": {
     "fabricloader": ">=0.11.3",
+    "fabric-key-binding-api-v1": "*",
     "fabric": "*",
     "minecraft": "1.17.x",
     "java": ">=16"
   },
   "suggests": {
-    "another-mod": "*"
+    "another-mod": "https://github.com/nianny/minecraft-mod-1"
   }
 }
