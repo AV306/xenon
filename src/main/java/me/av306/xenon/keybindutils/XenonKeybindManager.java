@@ -3,6 +3,7 @@ package me.av306.xenon.keybindutils;
 import me.av306.xenon.Xenon;
 import me.av306.xenon.features.FullBrightFeature;
 import me.av306.xenon.features.TestUpdatableFeature;
+import me.av306.xenon.features.interfaces.IContinuousFeature;
 import me.av306.xenon.features.interfaces.IFeature;
 import me.av306.xenon.features.interfaces.IToggleableFeature;
 import me.av306.xenon.features.interfaces.IUpdatableFeature;
@@ -47,12 +48,23 @@ public class XenonKeybindManager
                     }
             );
         }
-        else
+        else if ( kb.feature instanceof IContinuousFeature)
         {
             // Holding ("Normal") feature
             ClientTickEvents.END_CLIENT_TICK.register( (client) ->
                     {
                         if ( kb.keybind.isPressed() )
+                        {
+                            kb.feature.onEnable();
+                        }
+                    }
+            );
+        }
+        else
+        {
+            ClientTickEvents.END_CLIENT_TICK.register( (client) ->
+                    {
+                        if ( kb.keybind.wasPressed() )
                         {
                             kb.feature.onEnable();
                         }

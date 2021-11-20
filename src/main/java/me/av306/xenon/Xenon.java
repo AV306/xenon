@@ -1,8 +1,9 @@
 package me.av306.xenon;
 
+import me.av306.xenon.features.AutoReplyFeature;
 import me.av306.xenon.features.FullBrightFeature;
-import me.av306.xenon.features.TestToggleableFeature;
 import me.av306.xenon.features.TestUpdatableFeature;
+import me.av306.xenon.features.interfaces.IFeature;
 import me.av306.xenon.features.interfaces.IToggleableFeature;
 import me.av306.xenon.features.interfaces.IUpdatableFeature;
 import me.av306.xenon.keybindutils.XenonKeybind;
@@ -14,8 +15,6 @@ import net.minecraft.client.util.InputUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.glfw.GLFW;
-
-import javax.swing.text.JTextComponent;
 
 public enum Xenon
 {
@@ -37,6 +36,7 @@ public enum Xenon
         // set client
         CLIENT = MinecraftClient.getInstance();
 
+
         // register keybinds
         log( "Registering FullBright key!" );
         keybindManager.register(
@@ -55,23 +55,23 @@ public enum Xenon
         );
 
 
-        /*
-        if ( debug ) LOGGER.info( "Registering TestUpdatableFeature key!" );
+
+        log( "Registering AutoResponse key!" );
         keybindManager.register(
-                new XenonKeybind<IUpdatableFeature>(
+                new XenonKeybind<IFeature>(
                         fullBrightKey =  KeyBindingHelper.registerKeyBinding(
                                 new KeyBinding(
-                                        "key.xenon.testupdatablefeature",
+                                        "key.xenon.autoresponse",
                                         InputUtil.Type.KEYSYM,
                                         GLFW.GLFW_KEY_H,
                                         "category.xenon.features"
                                 )
                         ),
 
-                        new TestUpdatableFeature()
+                        new AutoReplyFeature()
                 )
         );
-        */
+
     }
 
 
