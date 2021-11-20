@@ -56,12 +56,12 @@ public enum Xenon
 
 
 
-        log( "Registering AutoResponse key!" );
+        log( "Registering AutoReply key!" );
         keybindManager.register(
                 new XenonKeybind<IFeature>(
                         fullBrightKey =  KeyBindingHelper.registerKeyBinding(
                                 new KeyBinding(
-                                        "key.xenon.autoresponse",
+                                        "key.xenon.autoreply",
                                         InputUtil.Type.KEYSYM,
                                         GLFW.GLFW_KEY_H,
                                         "category.xenon.features"
