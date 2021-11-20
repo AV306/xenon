@@ -12,6 +12,7 @@ public class FullBrightFeature implements IToggleableFeature
 {
     public static boolean isEnabled = false;
 
+
     @Override
     public void onEnable()
     {

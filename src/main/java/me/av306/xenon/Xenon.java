@@ -23,7 +23,7 @@ public enum Xenon
 
     public boolean debug = true;
 
-    public static XenonKeybindManager keybindManager = new XenonKeybindManager();
+    public XenonKeybindManager keybindManager = new XenonKeybindManager();
 
     public final Logger LOGGER = LogManager.getLogger( "xenon" );
 
@@ -32,14 +32,13 @@ public enum Xenon
     public KeyBinding fullBrightKey;
 
 
-
     public void initialise()
     {
         // set client
         CLIENT = MinecraftClient.getInstance();
 
         // register keybinds
-        if ( debug ) LOGGER.info( "Registering FullBright key!" );
+        log( "Registering FullBright key!" );
         keybindManager.register(
                 new XenonKeybind<IToggleableFeature>(
                         fullBrightKey =  KeyBindingHelper.registerKeyBinding(
@@ -72,23 +71,10 @@ public enum Xenon
                         new TestUpdatableFeature()
                 )
         );
-
-
-        if ( debug ) LOGGER.info( "Registering Vanish key!" );
-        keybindManager.register(
-                new XenonKeybind<IToggleableFeature>(
-                        fullBrightKey =  KeyBindingHelper.registerKeyBinding(
-                                new KeyBinding(
-                                        "key.xenon.vanish",
-                                        InputUtil.Type.KEYSYM,
-                                        GLFW.GLFW_KEY_M,
-                                        "category.xenon.features"
-                                )
-                        ),
-
-                        new TestToggleableFeature()
-                )
-        );
         */
     }
+
+
+
+    public void log( String msg ) { if ( debug ) LOGGER.info( msg ); }
 }
