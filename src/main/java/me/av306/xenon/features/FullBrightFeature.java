@@ -16,8 +16,8 @@ public class FullBrightFeature implements IToggleableFeature
     @Override
     public void onEnable()
     {
-        isEnabled = true;
-        Xenon.INSTANCE.CLIENT.options.gamma = 100.0f;
+        isEnabled = true;;
+        Xenon.INSTANCE.CLIENT.options.gamma = 15.0d;
         Xenon.INSTANCE.CLIENT.player.sendMessage( new LiteralText( "Fullbright ENABLED!" ), true );
     }
 
@@ -26,7 +26,7 @@ public class FullBrightFeature implements IToggleableFeature
     public void onDisable()
     {
         isEnabled = false;
-        Xenon.INSTANCE.CLIENT.options.gamma = 1.0f;
+        Xenon.INSTANCE.CLIENT.options.gamma = 1.0d;
         Xenon.INSTANCE.CLIENT.player.sendMessage( new LiteralText( "Fullbright DISABLED!" ), true );
     }
 
