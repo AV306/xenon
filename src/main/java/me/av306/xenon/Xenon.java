@@ -1,5 +1,6 @@
 package me.av306.xenon;
 
+import me.av306.xenon.features.ActivateGuiFeature;
 import me.av306.xenon.features.AutoReplyFeature;
 import me.av306.xenon.features.FullBrightFeature;
 import me.av306.xenon.features.TestUpdatableFeature;
@@ -56,21 +57,23 @@ public enum Xenon
 
 
 
-        log( "Registering AutoResponse key!" );
+        log( "Registering GUI key!" );
         keybindManager.register(
                 new XenonKeybind<IFeature>(
                         fullBrightKey =  KeyBindingHelper.registerKeyBinding(
                                 new KeyBinding(
-                                        "key.xenon.autoresponse",
+                                        "key.xenon.gui",
                                         InputUtil.Type.KEYSYM,
-                                        GLFW.GLFW_KEY_H,
+                                        GLFW.GLFW_KEY_M,
                                         "category.xenon.features"
                                 )
                         ),
 
-                        new AutoReplyFeature()
+                        new ActivateGuiFeature()
                 )
         );
+
+
 
     }
 
