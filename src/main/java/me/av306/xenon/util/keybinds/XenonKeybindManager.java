@@ -1,18 +1,9 @@
-package me.av306.xenon.keybindutils;
+package me.av306.xenon.util.keybinds;
 
-import me.av306.xenon.Xenon;
-import me.av306.xenon.features.FullBrightFeature;
-import me.av306.xenon.features.TestUpdatableFeature;
 import me.av306.xenon.features.interfaces.IContinuousFeature;
-import me.av306.xenon.features.interfaces.IFeature;
 import me.av306.xenon.features.interfaces.IToggleableFeature;
 import me.av306.xenon.features.interfaces.IUpdatableFeature;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket;
-import net.minecraft.text.LiteralText;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class XenonKeybindManager
 {

@@ -1,4 +1,4 @@
-package me.av306.xenon.keybindutils;
+package me.av306.xenon.util.keybinds;
 
 
 import me.av306.xenon.features.interfaces.IFeature;
