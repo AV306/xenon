@@ -2,19 +2,21 @@ package me.av306.xenon;
 
 import me.av306.xenon.features.AutoReplyFeature;
 import me.av306.xenon.features.FullBrightFeature;
-import me.av306.xenon.features.TestUpdatableFeature;
 import me.av306.xenon.features.interfaces.IFeature;
 import me.av306.xenon.features.interfaces.IToggleableFeature;
-import me.av306.xenon.features.interfaces.IUpdatableFeature;
-import me.av306.xenon.keybindutils.XenonKeybind;
-import me.av306.xenon.keybindutils.XenonKeybindManager;
+import me.av306.xenon.util.keybinds.XenonKeybind;
+import me.av306.xenon.util.keybinds.XenonKeybindManager;
+
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.glfw.GLFW;
+
 
 public enum Xenon
 {
@@ -78,4 +80,3 @@ public enum Xenon
 
     public void log( String msg ) { if ( debug ) LOGGER.info( msg ); }
 }
->>>>>>> ad1d3f4cb1537e90f17726b9652b2806669ee5b0
