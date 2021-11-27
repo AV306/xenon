@@ -1,11 +1,13 @@
 package me.av306.xenon;
 
-import me.av306.xenon.features.ActivateGuiFeature;
+import me.av306.xenon.features.AutoReplyFeature;
 import me.av306.xenon.features.FullBrightFeature;
+import me.av306.xenon.features.TestUpdatableFeature;
 import me.av306.xenon.features.interfaces.IFeature;
 import me.av306.xenon.features.interfaces.IToggleableFeature;
-import me.av306.xenon.util.keybinds.XenonKeybind;
-import me.av306.xenon.util.keybinds.XenonKeybindManager;
+import me.av306.xenon.features.interfaces.IUpdatableFeature;
+import me.av306.xenon.keybindutils.XenonKeybind;
+import me.av306.xenon.keybindutils.XenonKeybindManager;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
@@ -54,23 +56,21 @@ public enum Xenon
 
 
 
-        log( "Registering GUI key!" );
+        log( "Registering AutoReply key!" );
         keybindManager.register(
                 new XenonKeybind<IFeature>(
                         fullBrightKey =  KeyBindingHelper.registerKeyBinding(
                                 new KeyBinding(
-                                        "key.xenon.gui",
+                                        "key.xenon.autoreply",
                                         InputUtil.Type.KEYSYM,
-                                        GLFW.GLFW_KEY_M,
+                                        GLFW.GLFW_KEY_H,
                                         "category.xenon.features"
                                 )
                         ),
 
-                        new ActivateGuiFeature()
+                        new AutoReplyFeature()
                 )
         );
-
-
 
     }
 
@@ -78,3 +78,4 @@ public enum Xenon
 
     public void log( String msg ) { if ( debug ) LOGGER.info( msg ); }
 }
+>>>>>>> ad1d3f4cb1537e90f17726b9652b2806669ee5b0
