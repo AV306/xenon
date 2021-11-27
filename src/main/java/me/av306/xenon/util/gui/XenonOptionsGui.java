@@ -10,9 +10,9 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 
-public class XenonGui extends LightweightGuiDescription
+public class XenonOptionsGui extends LightweightGuiDescription
 {
-    public XenonGui()
+    public XenonOptionsGui()
     {
         WGridPanel root = new WGridPanel();
         setRootPanel( root );
