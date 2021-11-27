@@ -9,8 +9,8 @@
     "AV3_08"
   ],
   "contact": {
-    "homepage": "",
-    "sources": ""
+    "homepage": "https://github.com/AV306",
+    "sources": "https://github.com/AV306/xenon"
   },
 
   "license": "wied-license",
@@ -20,6 +20,9 @@
   "entrypoints": {
     "client": [
       "me.av306.xenon.ClientInitializer"
+    ],
+    "modmenu": [
+      "me.av306.xenon.ModMenuConfig"
     ]
   },
   "mixins": [
