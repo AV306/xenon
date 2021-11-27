@@ -2,8 +2,8 @@ package me.av306.xenon.features;
 
 import me.av306.xenon.Xenon;
 import me.av306.xenon.features.interfaces.IFeature;
-import me.av306.xenon.gui.XenonGui;
-import me.av306.xenon.gui.XenonGuiScreen;
+import me.av306.xenon.util.gui.XenonGui;
+import me.av306.xenon.util.gui.XenonGuiScreen;
 
 public class ActivateGuiFeature implements IFeature
 {

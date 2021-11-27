@@ -1,14 +1,11 @@
 package me.av306.xenon;
 
 import me.av306.xenon.features.ActivateGuiFeature;
-import me.av306.xenon.features.AutoReplyFeature;
 import me.av306.xenon.features.FullBrightFeature;
-import me.av306.xenon.features.TestUpdatableFeature;
 import me.av306.xenon.features.interfaces.IFeature;
 import me.av306.xenon.features.interfaces.IToggleableFeature;
-import me.av306.xenon.features.interfaces.IUpdatableFeature;
-import me.av306.xenon.keybindutils.XenonKeybind;
-import me.av306.xenon.keybindutils.XenonKeybindManager;
+import me.av306.xenon.util.keybinds.XenonKeybind;
+import me.av306.xenon.util.keybinds.XenonKeybindManager;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
