@@ -2,6 +2,7 @@ package me.av306.xenon;
 
 import me.av306.xenon.features.AutoReplyFeature;
 import me.av306.xenon.features.FullBrightFeature;
+import me.av306.xenon.features.XenonOptionsGuiFeature;
 import me.av306.xenon.features.interfaces.IFeature;
 import me.av306.xenon.features.interfaces.IToggleableFeature;
 import me.av306.xenon.util.keybinds.XenonKeybind;
@@ -71,6 +72,23 @@ public enum Xenon
                         ),
 
                         new AutoReplyFeature()
+                )
+        );
+
+
+        log( "Registering OptionsGui key!" );
+        keybindManager.register(
+                new XenonKeybind<IFeature>(
+                        fullBrightKey =  KeyBindingHelper.registerKeyBinding(
+                                new KeyBinding(
+                                        "key.xenon.options",
+                                        InputUtil.Type.KEYSYM,
+                                        GLFW.GLFW_KEY_N,
+                                        "category.xenon.features"
+                                )
+                        ),
+
+                        new XenonOptionsGuiFeature()
                 )
         );
 

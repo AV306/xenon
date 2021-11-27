@@ -5,11 +5,9 @@ import net.minecraft.text.Text;
 
 public class XenonClickGui extends Screen
 {
-    public XenonClickGui( Text title)
+    public XenonClickGui( Text title )
     {
         super(title);
-
-
     }
 
 
