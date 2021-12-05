@@ -2,6 +2,7 @@ package me.av306.xenon;
 
 import me.av306.xenon.features.AutoReplyFeature;
 import me.av306.xenon.features.FullBrightFeature;
+import me.av306.xenon.features.NoFireOverlayFeature;
 import me.av306.xenon.features.XenonOptionsGuiFeature;
 import me.av306.xenon.features.interfaces.IFeature;
 import me.av306.xenon.features.interfaces.IToggleableFeature;
@@ -31,8 +32,6 @@ public enum Xenon
 
     public MinecraftClient CLIENT;
 
-    public KeyBinding fullBrightKey;
-
 
     public void initialise()
     {
@@ -44,7 +43,7 @@ public enum Xenon
         log( "Registering FullBright key!" );
         keybindManager.register(
                 new XenonKeybind<IToggleableFeature>(
-                        fullBrightKey =  KeyBindingHelper.registerKeyBinding(
+                        KeyBindingHelper.registerKeyBinding(
                                 new KeyBinding(
                                         "key.xenon.togglefullbright",
                                         InputUtil.Type.KEYSYM,
@@ -62,7 +61,7 @@ public enum Xenon
         log( "Registering AutoReply key!" );
         keybindManager.register(
                 new XenonKeybind<IFeature>(
-                        fullBrightKey =  KeyBindingHelper.registerKeyBinding(
+                        KeyBindingHelper.registerKeyBinding(
                                 new KeyBinding(
                                         "key.xenon.autoreply",
                                         InputUtil.Type.KEYSYM,
@@ -79,7 +78,7 @@ public enum Xenon
         log( "Registering OptionsGui key!" );
         keybindManager.register(
                 new XenonKeybind<IFeature>(
-                        fullBrightKey =  KeyBindingHelper.registerKeyBinding(
+                        KeyBindingHelper.registerKeyBinding(
                                 new KeyBinding(
                                         "key.xenon.options",
                                         InputUtil.Type.KEYSYM,
@@ -89,6 +88,23 @@ public enum Xenon
                         ),
 
                         new XenonOptionsGuiFeature()
+                )
+        );
+
+
+        log( "Registering NoFireOverlay key!" );
+        keybindManager.register(
+                new XenonKeybind<IToggleableFeature>(
+                        KeyBindingHelper.registerKeyBinding(
+                                new KeyBinding(
+                                        "key.xenon.nofireoverlay",
+                                        InputUtil.Type.KEYSYM,
+                                        GLFW.GLFW_KEY_N,
+                                        "category.xenon.features"
+                                )
+                        ),
+
+                        new NoFireOverlayFeature()
                 )
         );
 
