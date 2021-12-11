@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin( InGameOverlayRenderer.class )
 public class InGameOverlayRendererMixin
 {
-    ///*
+    /*
     @Inject(
             at = {@At("HEAD")},
             method = {
@@ -54,7 +54,7 @@ public class InGameOverlayRendererMixin
             overlay.render( matrixStack, (int) mouse.getX(), (int) mouse.getY(), 0f );
         }
     }
-    //*/
+    */
 
 
     ///*
