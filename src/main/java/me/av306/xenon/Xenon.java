@@ -1,11 +1,12 @@
 package me.av306.xenon;
 
+import java.util.ArrayList;
+
 import me.av306.xenon.features.AutoReplyFeature;
 import me.av306.xenon.features.FullBrightFeature;
 import me.av306.xenon.features.NoFireOverlayFeature;
 import me.av306.xenon.features.XenonOptionsGuiFeature;
-import me.av306.xenon.features.interfaces.IFeature;
-import me.av306.xenon.features.interfaces.IToggleableFeature;
+import me.av306.xenon.features.interfaces.*;
 import me.av306.xenon.util.keybinds.XenonKeybind;
 import me.av306.xenon.util.keybinds.XenonKeybindManager;
 
@@ -17,6 +18,7 @@ import net.minecraft.client.util.InputUtil;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import org.lwjgl.glfw.GLFW;
 
 
