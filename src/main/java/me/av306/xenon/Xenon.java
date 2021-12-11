@@ -115,4 +115,9 @@ public enum Xenon
 
 
     public void log( String msg ) { if ( debug ) LOGGER.info( msg ); }
+    
+    
+    public void addToEnabledList( IFeature feature ) { this.enabledFeatures.add( feature ); }
+    public void addToEnabledList( IToggleableFeature feature ) { this.enabledFeatures.add( feature ); }
+    public void addToEnabledList( IUpdatableFeature feature ) { this.enabledFeatures.add( feature ); }
 }
