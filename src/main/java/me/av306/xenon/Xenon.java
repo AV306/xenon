@@ -31,6 +31,8 @@ public enum Xenon
     public final Logger LOGGER = LogManager.getLogger( "xenon" );
 
     public MinecraftClient CLIENT;
+    
+    public static ArrayList<? extends IFeature> enabledFeatures = new ArrayList<>();
 
 
     public void initialise()
