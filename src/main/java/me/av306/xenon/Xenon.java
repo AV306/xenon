@@ -125,6 +125,6 @@ public enum Xenon
                                                             
     public void disable( IFeature feature ) { this.enabledFeatures.remove( feature ); }
     public void disable( IToggleableFeature feature ) { this.enabledFeatures.remove( feature ); }
-    public void disable( IUpdatableFeature feature ) { this.enabledFeatures.remove( feature );
+    public void disable( IUpdatableFeature feature ) { this.enabledFeatures.remove( feature ); }
     
 }
