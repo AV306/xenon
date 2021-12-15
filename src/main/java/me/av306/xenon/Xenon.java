@@ -1,11 +1,12 @@
 package me.av306.xenon;
 
+import java.util.ArrayList;
+
 import me.av306.xenon.features.AutoReplyFeature;
 import me.av306.xenon.features.FullBrightFeature;
 import me.av306.xenon.features.NoFireOverlayFeature;
 import me.av306.xenon.features.XenonOptionsGuiFeature;
-import me.av306.xenon.features.interfaces.IFeature;
-import me.av306.xenon.features.interfaces.IToggleableFeature;
+import me.av306.xenon.features.interfaces.*;
 import me.av306.xenon.util.keybinds.XenonKeybind;
 import me.av306.xenon.util.keybinds.XenonKeybindManager;
 
@@ -17,6 +18,7 @@ import net.minecraft.client.util.InputUtil;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import org.lwjgl.glfw.GLFW;
 
 
@@ -31,6 +33,8 @@ public enum Xenon
     public final Logger LOGGER = LogManager.getLogger( "xenon" );
 
     public MinecraftClient CLIENT;
+    
+    public static ArrayList<? extends IFeature> enabledFeatures = new ArrayList<>();
 
 
     public void initialise()
@@ -113,4 +117,14 @@ public enum Xenon
 
 
     public void log( String msg ) { if ( debug ) LOGGER.info( msg ); }
+    
+    
+    public void enable( IFeature feature ) { this.enabledFeatures.add( feature ); }
+    public void enable( IToggleableFeature feature ) { this.enabledFeatures.add( feature ); }
+    public void enable( IUpdatableFeature feature ) { this.enabledFeatures.add( feature ); }
+                                                            
+    public void disable( IFeature feature ) { this.enabledFeatures.remove( feature ); }
+    public void disable( IToggleableFeature feature ) { this.enabledFeatures.remove( feature ); }
+    public void disable( IUpdatableFeature feature ) { this.enabledFeatures.remove( feature ); }
+    
 }

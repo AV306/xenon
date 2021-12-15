@@ -11,7 +11,7 @@ public class ClientInitializer implements ClientModInitializer
 
     @Override
     public void onInitializeClient() {
-        Xenon.INSTANCE.LOGGER.info("Hello Fabric world!");
+        Xenon.INSTANCE.LOGGER.info("Initialising!");
 
         Xenon.INSTANCE.debug = true;
 
