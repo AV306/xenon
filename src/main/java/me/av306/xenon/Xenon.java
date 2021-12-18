@@ -2,7 +2,6 @@ package me.av306.xenon;
 
 import me.av306.xenon.features.AutoReplyFeature;
 import me.av306.xenon.features.FullBrightFeature;
-import me.av306.xenon.features.NoFireOverlayFeature;
 import me.av306.xenon.features.XenonOptionsGuiFeature;
 import me.av306.xenon.features.interfaces.IFeature;
 import me.av306.xenon.features.interfaces.IToggleableFeature;
@@ -92,7 +91,7 @@ public enum Xenon
         );
 
 
-        log( "Registering NoFireOverlay key!" );
+        /*log( "Registering NoFireOverlay key!" );
         keybindManager.register(
                 new XenonKeybind<IToggleableFeature>(
                         KeyBindingHelper.registerKeyBinding(
@@ -104,9 +103,9 @@ public enum Xenon
                                 )
                         ),
 
-                        new NoFireOverlayFeature()
+                        new NoOverlayFeature()
                 )
-        );
+        );*/
 
     }
 

@@ -2,7 +2,7 @@ package me.av306.xenon.mixins;
 
 import me.av306.xenon.Xenon;
 
-import me.av306.xenon.features.NoFireOverlayFeature;
+import me.av306.xenon.features.NoOverlayFeature;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.Mouse;
 import net.minecraft.client.gui.hud.InGameOverlayRenderer;
@@ -68,7 +68,7 @@ public class InGameOverlayRendererMixin
     private static void onRenderFireOverlay( MinecraftClient client, MatrixStack matrixStack, CallbackInfo ci )
     {
         Xenon.INSTANCE.LOGGER.info( "u on fire" );
-        if ( NoFireOverlayFeature.isEnabled ) ci.cancel();
+        if ( NoOverlayFeature.isEnabled ) ci.cancel();
     }
     //*/
 
@@ -83,7 +83,7 @@ public class InGameOverlayRendererMixin
     )
     private static void onRenderUnderwaterOverlay( MinecraftClient minecraftClient, MatrixStack matrixStack, CallbackInfo ci )
     {
-        if ( NoFireOverlayFeature.isEnabled ) ci.cancel();
+        if ( NoOverlayFeature.isEnabled ) ci.cancel();
     }
     */
 }
