@@ -5,16 +5,18 @@ import me.av306.xenon.features.interfaces.IToggleableFeature;
 import net.minecraft.text.LiteralText;
 
 
-public class NoFireOverlayFeature implements IToggleableFeature
+public class NoOverlayFeature implements IToggleableFeature
 {
     public static boolean isEnabled = false;
+
+    public static final String NAME = "NoOverlayFeature";
 
 
     @Override
     public void onEnable()
     {
         isEnabled = true;
-        Xenon.INSTANCE.CLIENT.player.sendMessage( new LiteralText( "WARNING: Disables ClickGui!" ), true );
+
     }
 
 
@@ -30,5 +32,12 @@ public class NoFireOverlayFeature implements IToggleableFeature
     {
         if ( isEnabled ) onDisable();
         else onEnable();
+
+        Xenon.INSTANCE.CLIENT.player.sendMessage(
+                new LiteralText(
+                        NAME + (isEnabled ? "ENABLED" : "DISABLED") + "!"
+                ),
+                true
+        );
     }
 }
