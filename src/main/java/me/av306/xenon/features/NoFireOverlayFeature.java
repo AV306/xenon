@@ -14,15 +14,14 @@ public class NoFireOverlayFeature implements IToggleableFeature
     public void onEnable()
     {
         isEnabled = true;
-        Xenon.INSTANCE.CLIENT.player.sendMessage( new LiteralText( "NoFireOverlay ENABLED!" ), true );
+        Xenon.INSTANCE.CLIENT.player.sendMessage( new LiteralText( "WARNING: Disables ClickGui!" ), true );
     }
 
 
     @Override
     public void onDisable()
     {
-        isEnabled = false;
-        Xenon.INSTANCE.CLIENT.player.sendMessage( new LiteralText( "NoFireOverlay DISABLED!" ), true );
+        isEnabled = true;
     }
 
 
