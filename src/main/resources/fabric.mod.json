@@ -33,7 +33,7 @@
     "fabricloader": ">=0.11.3",
     "fabric-key-binding-api-v1": "*",
     "fabric": "*",
-    "minecraft": "1.17.x",
+    "minecraft": "1.18.x",
     "java": ">=16"
   },
   "suggests": {
