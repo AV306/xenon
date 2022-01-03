@@ -10,6 +10,7 @@ import net.minecraft.text.TranslatableText;
 
 public class FullBrightFeature implements IToggleableFeature
 {
+    private static final String NAME = "FullBright";
     public static boolean isEnabled = false;
 
 
@@ -18,7 +19,6 @@ public class FullBrightFeature implements IToggleableFeature
     {
         isEnabled = true;
         Xenon.INSTANCE.CLIENT.options.gamma = 100.0d;
-        Xenon.INSTANCE.CLIENT.player.sendMessage( new LiteralText( "Fullbright ENABLED!" ), true );
     }
 
 
@@ -27,7 +27,6 @@ public class FullBrightFeature implements IToggleableFeature
     {
         isEnabled = false;
         Xenon.INSTANCE.CLIENT.options.gamma = 1.0d;
-        Xenon.INSTANCE.CLIENT.player.sendMessage( new LiteralText( "Fullbright DISABLED!" ), true );
     }
 
 
@@ -36,7 +35,12 @@ public class FullBrightFeature implements IToggleableFeature
     {
         if ( isEnabled ) onDisable();
         else onEnable();
-        Xenon.INSTANCE.log( "Gamma: " + Xenon.INSTANCE.CLIENT.options.gamma );
-        Xenon.INSTANCE.CLIENT.player.sendMessage( new LiteralText( "Gamma: " + Xenon.INSTANCE.CLIENT.options.gamma ), false );
+
+        Xenon.INSTANCE.CLIENT.player.sendMessage(
+                new LiteralText(
+                        NAME + (isEnabled ? "ENABLED" : "DISABLED") + "!"
+                ),
+                true
+        );
     }
 }

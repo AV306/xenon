@@ -5,6 +5,7 @@ import me.av306.xenon.features.FullBrightFeature;
 import me.av306.xenon.features.XenonOptionsGuiFeature;
 import me.av306.xenon.features.interfaces.IFeature;
 import me.av306.xenon.features.interfaces.IToggleableFeature;
+import me.av306.xenon.util.commands.CommandRegistry;
 import me.av306.xenon.util.keybinds.XenonKeybind;
 import me.av306.xenon.util.keybinds.XenonKeybindManager;
 
@@ -26,6 +27,8 @@ public enum Xenon
     public boolean debug = true;
 
     public XenonKeybindManager keybindManager = new XenonKeybindManager();
+
+    public CommandRegistry commandRegistry = new CommandRegistry();
 
     public final Logger LOGGER = LogManager.getLogger( "xenon" );
 
