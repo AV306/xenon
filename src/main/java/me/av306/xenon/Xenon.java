@@ -27,9 +27,7 @@ public enum Xenon
     public boolean debug = true;
 
     public XenonKeybindManager keybindManager = new XenonKeybindManager();
-
-    public CommandRegistry commandRegistry = new CommandRegistry();
-
+	
     public final Logger LOGGER = LogManager.getLogger( "xenon" );
 
     public MinecraftClient CLIENT;

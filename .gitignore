@@ -36,3 +36,6 @@ run/
 # replit
 
 .replit
+.project
+.classpath
+.settings/

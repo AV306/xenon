@@ -38,7 +38,7 @@ public class FullBrightFeature implements IToggleableFeature
 
         Xenon.INSTANCE.CLIENT.player.sendMessage(
                 new LiteralText(
-                        NAME + (isEnabled ? "ENABLED" : "DISABLED") + "!"
+                        NAME + " " + (isEnabled ? "ENABLED" : "DISABLED") + "!"
                 ),
                 true
         );
