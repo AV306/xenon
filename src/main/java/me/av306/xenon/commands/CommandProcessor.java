@@ -22,4 +22,5 @@ public class CommandProcessor
 			default:
 				Xenon.INSTANCE.CLIENT.player.sendMessage( new LiteralText( "[Xenon] ERROR: Not a valid command!" ) );
 		}
+	}
 }
