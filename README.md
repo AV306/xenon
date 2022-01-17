@@ -14,7 +14,8 @@ This is good for people who want the features of clients such as Badlion or Luna
 - FullBright (default key: g)
 - AutoResponse (default key: h, default text: ":")
 - Debug GUI (default key: n, WIP)
-- Command Processor (prefix: "!", broken WIP)
+- Command Processor (prefix: "!", WIP 50%)
+- Proximity Radat (WIP)
 
 Planned features:
 
@@ -24,4 +25,4 @@ Planned features:
 - NoOverlay
 - FreeCam
 
-# Licensed under CC0 \:)
+## Licensed under CC0 \:)
