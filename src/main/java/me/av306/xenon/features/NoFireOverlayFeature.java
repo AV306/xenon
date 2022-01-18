@@ -5,25 +5,24 @@ import me.av306.xenon.features.interfaces.IToggleableFeature;
 import net.minecraft.text.LiteralText;
 
 
-public class NoOverlayFeature implements IToggleableFeature
+public class NoFireOverlayFeature implements IToggleableFeature
 {
     public static boolean isEnabled = false;
 
-    public static final String NAME = "NoOverlayFeature";
+    private static final String NAME = "NoFireOverlayFeature";
 
 
     @Override
     public void onEnable()
     {
         isEnabled = true;
-
     }
 
 
     @Override
     public void onDisable()
     {
-        isEnabled = true;
+        isEnabled = false;
     }
 
 
@@ -35,7 +34,7 @@ public class NoOverlayFeature implements IToggleableFeature
 
         Xenon.INSTANCE.CLIENT.player.sendMessage(
                 new LiteralText(
-                        NAME + (isEnabled ? "ENABLED" : "DISABLED") + "!"
+                        NAME + " " + (isEnabled ? "ENABLED" : "DISABLED") + "!"
                 ),
                 true
         );
