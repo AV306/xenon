@@ -18,7 +18,7 @@ public class XenonKeybind<T extends IFeature>
     public T feature;
 
 
-    public XenonKeybind( String translation, InputUtil.Type type, int key, String category, T feature )
+    public XenonKeybind( String translation, Type type, int key, String category, T feature )
     {
       this.keybind = KeyBindingHelper.registerKeyBinding(
 				new KeyBinding( translation, type, key, category )
