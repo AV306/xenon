@@ -1,15 +1,12 @@
 package me.av306.xenon.util.keybinds;
 
-import me.av306.xenon.features.interfaces.IContinuousFeature;
-import me.av306.xenon.features.interfaces.IToggleableFeature;
-import me.av306.xenon.features.interfaces.IUpdatableFeature;
+import me.av306.xenon.features.interfaces.*;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 
 public class XenonKeybindManager
 {
 
     public XenonKeybindManager() {}
-
 
     public void register( XenonKeybind kb )
     {

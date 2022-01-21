@@ -1,8 +1,11 @@
 package me.av306.xenon.util.keybinds;
 
-
 import me.av306.xenon.features.interfaces.IFeature;
+
+import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+
 import net.minecraft.client.option.KeyBinding;
+import net.minecraft.client.util.InputUtil;
 
 
 /**
@@ -15,9 +18,11 @@ public class XenonKeybind<T extends IFeature>
     public T feature;
 
 
-    public XenonKeybind( KeyBinding keybind, T feature )
+    public XenonKeybind( String translation, InputUtil type, int key, String category, T feature )
     {
-        this.keybind = keybind;
-        this.feature = feature;
+      this.keybind = KeyBindingHelper.registerKeyBinding(
+				new KeyBinding( translation, type, key, category )
+			);
+       this.feature = feature;
     }
 }
