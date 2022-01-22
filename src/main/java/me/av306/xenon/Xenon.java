@@ -35,38 +35,38 @@ public enum Xenon
         // register keybinds
         log( "Registering FullBright key!" );
         keybindManager.register(
-          new XenonKeybind<IToggleableFeature>(
-            "key.xenon.togglefullbright",
+                new XenonKeybind<IToggleableFeature>(
+                        "key.xenon.togglefullbright",
 						InputUtil.Type.KEYSYM,
-            GLFW.GLFW_KEY_G,
-		        "category.xenon.features",
+                        GLFW.GLFW_KEY_G,
+                        "category.xenon.features",
 						new FullBrightFeature()
-					)
+                )
         );
 
 
 
         log( "Registering AutoReply key!" );
         keybindManager.register(
-        	new XenonKeybind<IFeature>(
-						"key.xenon.autoreply",
-            InputUtil.Type.KEYSYM,
-	          GLFW.GLFW_KEY_H,
+                new XenonKeybind<IFeature>(
+                        "key.xenon.autoreply",
+                        InputUtil.Type.KEYSYM,
+                        GLFW.GLFW_KEY_H,
 						"category.xenon.features",
-            new AutoReplyFeature()
-          )
+                        new AutoReplyFeature()
+                )
         );
 
 
         log( "Registering OptionsGui key!" );
         keybindManager.register(
-          new XenonKeybind<IFeature>(
-            "key.xenon.options",
-  					InputUtil.Type.KEYSYM,
-            GLFW.GLFW_KEY_N,
-	          "category.xenon.features",
-          	new XenonOptionsGuiFeature()
-         	)
+                new XenonKeybind<IFeature>(
+                        "key.xenon.options",
+                        InputUtil.Type.KEYSYM,
+                        GLFW.GLFW_KEY_N,
+                        "category.xenon.features",
+                        new XenonOptionsGuiFeature()
+                )
         );
 
 				/*
@@ -80,6 +80,17 @@ public enum Xenon
 						new NoFireOverlayFeature()
         );
 				*/
+
+        log( "Registering TakePanorama key!" );
+        keybindManager.register(
+                new XenonKeybind<IFeature>(
+                        "key.xenon.takepanorama",
+                        InputUtil.Type.KEYSYM,
+                        -1,
+                        "category.xenon.features",
+                        new TakePanoramaFeature()
+                )
+        );
 
     }
 
