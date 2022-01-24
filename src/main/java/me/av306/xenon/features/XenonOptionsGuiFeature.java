@@ -14,5 +14,10 @@ public class XenonOptionsGuiFeature extends IFeature
     }
 
     @Override
-    public void onDisable() {}
+    public void onDisable()
+		{
+			this.applySettings();
+		}
+
+		private void applySettings() {}
 }

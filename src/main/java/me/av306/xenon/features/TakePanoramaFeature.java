@@ -6,7 +6,7 @@ import net.minecraft.text.Text;
 
 import java.io.File;
 
-public class TakePanoramaFeature implements IFeature
+public class TakePanoramaFeature extends IFeature
 {
     @Override
     public void onEnable()

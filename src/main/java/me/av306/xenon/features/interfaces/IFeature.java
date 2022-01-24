@@ -23,6 +23,6 @@ public abstract class IFeature
 			onDisable();
 		}
 	
-    abstract void onEnable();
-    abstract void onDisable();
+    public abstract void onEnable();
+    public abstract void onDisable();
 }

@@ -1,5 +1,7 @@
 package me.av306.xenon.features.interfaces;
 
+import me.av306.xenon.Xenon;
+import net.minecraft.text.LiteralText;
 
 public abstract class IToggleableFeature extends IFeature
 {
