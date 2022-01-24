@@ -1,6 +1,5 @@
 package me.av306.xenon.features;
 
-
 import me.av306.xenon.Xenon;
 import me.av306.xenon.features.interfaces.IUpdatableFeature;
 import net.minecraft.entity.projectile.ProjectileEntity;
@@ -8,26 +7,20 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.util.math.Vec3d;
 
 
-public class ProximityRadarFeature implements IUpdatableFeature
+public class ProximityRadarFeature extends IUpdatableFeature
 {
-	private static final String NAME = "ProximityRadar";
-	public static String getName() { return NAME; }
-	
-	private static boolean isEnabled = false;
 
 
     // gets used when the key is pressed
     @Override
     public void onEnable()
     {
-      isEnabled = true;
     }
 
 
     @Override
     public void onDisable()
     {
-        isEnabled = false;
     }
 
 
@@ -53,20 +46,5 @@ public class ProximityRadarFeature implements IUpdatableFeature
                       }
                   }
             );
-    }
-
-
-    @Override
-    public void toggle()
-    {
-        if ( isEnabled ) onDisable();
-        else onEnable();
-
-				Xenon.INSTANCE.CLIENT.player.sendMessage(
-        	new LiteralText(
-          		NAME + " " + (isEnabled ? "ENABLED" : "DISABLED") + "!"
-        	),
-        	true
-      	);
     }
 }

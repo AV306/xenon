@@ -4,9 +4,9 @@ import me.av306.xenon.Xenon;
 import me.av306.xenon.features.interfaces.*;
 
 
-public class AutoReplyFeature implements IFeature
+public class AutoReplyFeature extends IFeature
 {
-	public static String message = ""; // FIXME: optimize this, stop using so much static shit
+		public static String message = ""; // FIXME: optimize this, stop using so much static shit
 	
     @Override
     public void onEnable()

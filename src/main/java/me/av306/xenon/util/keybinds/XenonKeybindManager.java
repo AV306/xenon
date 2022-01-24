@@ -38,7 +38,7 @@ public class XenonKeybindManager
         }
         else if ( kb.feature instanceof IContinuousFeature)
         {
-            // Holding ("Normal") feature
+            // Holding ("Normal") feature e.g. zoom
             ClientTickEvents.END_CLIENT_TICK.register( (client) ->
                     {
                         if ( kb.keybind.isPressed() )
@@ -50,6 +50,7 @@ public class XenonKeybindManager
         }
         else
         {
+						// one-off
             ClientTickEvents.END_CLIENT_TICK.register( (client) ->
                     {
                         if ( kb.keybind.wasPressed() )

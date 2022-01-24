@@ -5,16 +5,14 @@ import me.av306.xenon.Xenon;
 import me.av306.xenon.features.interfaces.IUpdatableFeature;
 
 
-public class TestUpdatableFeature implements IUpdatableFeature
+public class TestUpdatableFeature extends IUpdatableFeature
 {
-    public static boolean isEnabled = false;
 
 
     // gets used when the key is pressed
     @Override
     public void onEnable()
     {
-        isEnabled = true;
         Xenon.INSTANCE.LOGGER.info( "Started!" );
     }
 
@@ -22,7 +20,6 @@ public class TestUpdatableFeature implements IUpdatableFeature
     @Override
     public void onDisable()
     {
-        isEnabled = false;
         Xenon.INSTANCE.LOGGER.info( "Stopped!" );
     }
 
@@ -32,13 +29,5 @@ public class TestUpdatableFeature implements IUpdatableFeature
     {
         //if ( isEnabled ) Xenon.INSTANCE.LOGGER.info( "Updated!" );
 
-    }
-
-
-    @Override
-    public void toggle()
-    {
-        if ( isEnabled ) onDisable();
-        else onEnable();
     }
 }

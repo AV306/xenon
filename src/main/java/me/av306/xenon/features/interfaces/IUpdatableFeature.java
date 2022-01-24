@@ -1,7 +1,7 @@
 package me.av306.xenon.features.interfaces;
 
 
-public interface IUpdatableFeature extends IToggleableFeature
+public abstract class IUpdatableFeature extends IToggleableFeature
 {
-    void onUpdate();
+    abstract void onUpdate();
 }
