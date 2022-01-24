@@ -1,7 +1,18 @@
 package me.av306.xenon.features.interfaces;
 
 
-public interface IToggleableFeature extends IFeature
+public abstract class IToggleableFeature extends IFeature
 {
-    void toggle();
+    public void toggle()
+		{
+			if ( super.isEnabled ) onDisable();
+        else onEnable();
+
+        Xenon.INSTANCE.CLIENT.player.sendMessage(
+                new LiteralText(
+                        super.name + " " + (isEnabled ? "ENABLED" : "DISABLED") + "!"
+                ),
+                true
+        );
+		}
 }

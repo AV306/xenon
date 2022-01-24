@@ -1,9 +1,28 @@
 package me.av306.xenon.features.interfaces;
 
-public interface IFeature
+public abstract class IFeature
 {
-    //boolean isEnabled = false;
+    public static boolean isEnabled = false;
+		public static String name;
 
-    void onEnable();
-    void onDisable();
+		public void enable()
+		{
+			if ( isEnabled ) return;
+			
+			isEnabled = true;
+
+			onEnable();
+		}
+
+		public void disable()
+		{
+			if ( !isEnabled ) return;
+			
+			isEnabled = false;
+
+			onDisable();
+		}
+	
+    abstract void onEnable();
+    abstract void onDisable();
 }

@@ -1,3 +1,6 @@
 package me.av306.xenon.features.interfaces;
 
-public interface IContinuousFeature extends IFeature {}
+public abstract class IContinuousFeature extends IFeature
+{
+	
+}

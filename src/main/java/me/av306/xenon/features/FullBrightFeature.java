@@ -8,16 +8,13 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.TranslatableText;
 
 
-public class FullBrightFeature implements IToggleableFeature
+public class FullBrightFeature extends IToggleableFeature
 {
-    private static final String NAME = "FullBright";
-    public static boolean isEnabled = false;
-
-
+		public static String name = "FullBright"; // Hiding is intended
+	
     @Override
     public void onEnable()
     {
-        isEnabled = true;
         Xenon.INSTANCE.CLIENT.options.gamma = 100.0d;
     }
 
@@ -25,22 +22,6 @@ public class FullBrightFeature implements IToggleableFeature
     @Override
     public void onDisable()
     {
-        isEnabled = false;
         Xenon.INSTANCE.CLIENT.options.gamma = 1.0d;
-    }
-
-
-    @Override
-    public void toggle()
-    {
-        if ( isEnabled ) onDisable();
-        else onEnable();
-
-        Xenon.INSTANCE.CLIENT.player.sendMessage(
-                new LiteralText(
-                        NAME + " " + (isEnabled ? "ENABLED" : "DISABLED") + "!"
-                ),
-                true
-        );
     }
 }
