@@ -11,10 +11,11 @@ This is good for people who want the features of clients such as Badlion or Luna
 
 ## Features:
 
-- FullBright (default key: g)
-- AutoResponse (default key: h, default text: ":")
-- Debug GUI (default key: n, WIP)
+- FullBright (g)
+- AutoResponse (h, default text: ":")
+- Debug GUI (n, WIP)
 - ClickGUI (WIP)
+- Panorama Generator (v)
 
 Planned features:
 
