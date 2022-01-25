@@ -9,6 +9,10 @@ This is good for people who want the features of clients such as Badlion or Luna
 - Fabric Loader >= 0.11.3
 - Fabric API for that version
 
+## Incompatible mods:
+
+- Wurst Client
+
 ## Features:
 
 - FullBright (g)
