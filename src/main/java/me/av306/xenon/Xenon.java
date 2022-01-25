@@ -26,7 +26,7 @@ public enum Xenon
     public void initialise()
     {
         // set client
-        CLIENT = MinecraftClient.getInstance();
+        this.client = MinecraftClient.getInstance();
 
 
         // register keybinds
