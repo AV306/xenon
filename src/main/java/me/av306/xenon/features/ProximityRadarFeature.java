@@ -34,11 +34,12 @@ public class ProximityRadarFeature extends IUpdatableFeature
                       {
                           ProjectileEntity projectileEntity = (ProjectileEntity) entity;
                           Vec3d entityPos = projectileEntity.getPos();
+													Vec3d clientPos = Xenon.INSTANCE.client.player.getPos();
 
                           if (
-                                  (entityPos.getX() < Xenon.INSTANCE.CLIENT.player.getPos().getX() + 50 || entityPos.getX() > Xenon.INSTANCE.CLIENT.player.getPos().getX() - 50) &&
-                                  (entityPos.getY() < Xenon.INSTANCE.CLIENT.player.getPos().getY() + 50 || entityPos.getY() > Xenon.INSTANCE.CLIENT.player.getPos().getY() - 50) &&
-                                  (entityPos.getZ() < Xenon.INSTANCE.CLIENT.player.getPos().getZ() + 50 || entityPos.getZ() > Xenon.INSTANCE.CLIENT.player.getPos().getZ() - 50)
+                                  (entityPos.getX() < clientPos.getX() + 50 || entityPos.getX() > clientPos.getPos().getX() - 50) &&
+                                  (entityPos.getY() < clientPos.getPos().getY() + 50 || entityPos.getY() > clientPos.getY() - 50) &&
+                                  (entityPos.getZ() < clientPos.getZ() + 50 || entityPos.getZ() > clientPos.getZ() - 50)
                           )
                           {
                               Xenon.INSTANCE.client.player.sendMessage( new LiteralText( "WARNING! PROJECTILE IN RANGE" ), false );

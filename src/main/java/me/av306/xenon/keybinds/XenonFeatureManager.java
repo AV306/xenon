@@ -13,7 +13,7 @@ public class XenonFeatureManager
 
     public void register( XenonKeybind kb )
     {
-				features.add( kb.feature.name, kb.feature );
+				features.put( kb.feature.name, kb.feature );
 			
         if ( kb.feature instanceof IUpdatableFeature )
         {					
