@@ -66,17 +66,18 @@ public enum Xenon
                 )
         );
 
-				/*
+
         log( "Registering NoFireOverlay key!" );
         featureManager.register(
-          new XenonKeybind<IToggleableFeature>(
-						"key.xenon.nofireoverlay",
-            InputUtil.Type.KEYSYM,
-            -1,
-            "category.xenon.features"
-						new NoFireOverlayFeature()
+                new XenonKeybind<IToggleableFeature>(
+                        "key.xenon.nofireoverlay",
+                        InputUtil.Type.KEYSYM,
+                        -1,
+                        "category.xenon.features",
+				        new NoFireOverlayFeature()
+                )
         );
-				*/
+
 
         log( "Registering TakePanorama key!" );
         featureManager.register(

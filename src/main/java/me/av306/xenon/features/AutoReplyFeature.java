@@ -6,7 +6,8 @@ import me.av306.xenon.features.interfaces.*;
 
 public class AutoReplyFeature extends IFeature
 {
-		public String message = ""; // FIXME: optimize this, stop using so much static shit
+    public String name = "";
+	public String message = ":";
 	
     @Override
     public void onEnable()
