@@ -8,12 +8,16 @@ import java.io.File;
 
 public class TakePanoramaFeature extends IFeature
 {
+		private static int resolution = 1024;
+		public static int getResolution() { return resolution; }
+		public static void setResolution( int res ) { resolution = res; }
+	
     @Override
     public void onEnable()
     {
-        Text text = Xenon.INSTANCE.CLIENT.takePanorama( Xenon.INSTANCE.CLIENT.runDirectory, 1024, 1024 );
+        Xenon.INSTANCE.client.takePanorama( Xenon.INSTANCE.CLIENT.runDirectory, 1024, 1024 );
 
-        Xenon.INSTANCE.CLIENT.player.sendMessage( text, false );
+        //Xenon.INSTANCE.client.player.sendMessage( text, false );
     }
 
     @Override

@@ -10,7 +10,7 @@ public abstract class IToggleableFeature extends IFeature
 			if ( super.isEnabled ) onDisable();
         else onEnable();
 
-        Xenon.INSTANCE.CLIENT.player.sendMessage(
+        Xenon.INSTANCE.client.player.sendMessage(
                 new LiteralText(
                         super.name + " " + (isEnabled ? "ENABLED" : "DISABLED") + "!"
                 ),

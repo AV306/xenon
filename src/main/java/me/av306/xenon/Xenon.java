@@ -2,8 +2,7 @@ package me.av306.xenon;
 
 import me.av306.xenon.features.*;
 import me.av306.xenon.features.interfaces.*;
-import me.av306.xenon.util.keybinds.XenonKeybind;
-import me.av306.xenon.util.keybinds.XenonKeybindManager;
+import me.av306.xenon.keybinds.*;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.InputUtil;
@@ -12,19 +11,17 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.glfw.GLFW;
 
-
 public enum Xenon
 {
     INSTANCE;
 
     public boolean debug = true;
 
-    public XenonKeybindManager keybindManager = new XenonKeybindManager();
+    public XenonFeatureManager featureManager = new XenonFeatureManager();
 	
     public final Logger LOGGER = LogManager.getLogger( "xenon" );
 
-    public MinecraftClient CLIENT;
-
+    public MinecraftClient client;
 
     public void initialise()
     {
@@ -34,7 +31,7 @@ public enum Xenon
 
         // register keybinds
         log( "Registering FullBright key!" );
-        keybindManager.register(
+        featureManager.register(
                 new XenonKeybind<IToggleableFeature>(
                         "key.xenon.togglefullbright",
 						InputUtil.Type.KEYSYM,
@@ -47,7 +44,7 @@ public enum Xenon
 
 
         log( "Registering AutoReply key!" );
-        keybindManager.register(
+        featureManager.register(
                 new XenonKeybind<IFeature>(
                         "key.xenon.autoreply",
                         InputUtil.Type.KEYSYM,
@@ -59,7 +56,7 @@ public enum Xenon
 
 
         log( "Registering OptionsGui key!" );
-        keybindManager.register(
+        featureManager.register(
                 new XenonKeybind<IFeature>(
                         "key.xenon.options",
                         InputUtil.Type.KEYSYM,
@@ -71,7 +68,7 @@ public enum Xenon
 
 				/*
         log( "Registering NoFireOverlay key!" );
-        keybindManager.register(
+        featureManager.register(
           new XenonKeybind<IToggleableFeature>(
 						"key.xenon.nofireoverlay",
             InputUtil.Type.KEYSYM,
@@ -82,7 +79,7 @@ public enum Xenon
 				*/
 
         log( "Registering TakePanorama key!" );
-        keybindManager.register(
+        featureManager.register(
                 new XenonKeybind<IFeature>(
                         "key.xenon.takepanorama",
                         InputUtil.Type.KEYSYM,

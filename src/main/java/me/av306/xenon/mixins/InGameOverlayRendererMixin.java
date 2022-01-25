@@ -22,6 +22,6 @@ public class InGameOverlayRendererMixin
     )
     private static void onRenderFireOverlay( MinecraftClient client, MatrixStack matrixStack, CallbackInfo ci )
     {
-        if ( NoFireOverlayFeature.isEnabled ) ci.cancel();
+        if ( featureManager.features.get("NoFireOverlayFeature").isEnabled ) ci.cancel();
     }
 }

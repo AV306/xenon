@@ -15,13 +15,13 @@ public class FullBrightFeature extends IToggleableFeature
     @Override
     public void onEnable()
     {
-        Xenon.INSTANCE.CLIENT.options.gamma = 100.0d;
+        Xenon.INSTANCE.client.options.gamma = 100.0d;
     }
 
 
     @Override
     public void onDisable()
     {
-        Xenon.INSTANCE.CLIENT.options.gamma = 1.0d;
+        Xenon.INSTANCE.client.options.gamma = 1.0d;
     }
 }
