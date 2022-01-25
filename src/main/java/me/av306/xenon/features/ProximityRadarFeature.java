@@ -38,7 +38,7 @@ public class ProximityRadarFeature extends IUpdatableFeature
 
                           if (
                                   (entityPos.getX() < clientPos.getX() + 50 || entityPos.getX() > clientPos.getX() - 50) &&
-                                  (entityPos.getY() < clientPos.getPos().getY() + 50 || entityPos.getY() > clientPos.getY() - 50) &&
+                                  (entityPos.getY() < clientPos.getY() + 50 || entityPos.getY() > clientPos.getY() - 50) &&
                                   (entityPos.getZ() < clientPos.getZ() + 50 || entityPos.getZ() > clientPos.getZ() - 50)
                           )
                           {
