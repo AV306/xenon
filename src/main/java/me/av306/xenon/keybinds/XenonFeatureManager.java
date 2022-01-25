@@ -3,6 +3,8 @@ package me.av306.xenon.keybinds;
 import me.av306.xenon.features.interfaces.*;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 
+import java.util.HashMap;
+
 public class XenonFeatureManager
 {
 		public HashMap<String, ? extends IFeature> features = new HashMap<>();
