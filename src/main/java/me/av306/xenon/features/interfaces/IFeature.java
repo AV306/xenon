@@ -2,8 +2,8 @@ package me.av306.xenon.features.interfaces;
 
 public abstract class IFeature
 {
-    public static boolean isEnabled = false;
-		public static String name;
+    public boolean isEnabled = false;
+		public String name;
 
 		public void enable()
 		{

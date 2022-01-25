@@ -1,17 +1,20 @@
-package me.av306.xenon.util.keybinds;
+package me.av306.xenon.keybinds;
 
 import me.av306.xenon.features.interfaces.*;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 
-public class XenonKeybindManager
+public class XenonFeatureManager
 {
-
-    public XenonKeybindManager() {}
+		public HashMap<String, ? extends IFeature> features = new HashMap<>();
+	
+    public XenonFeatureManager() {}
 
     public void register( XenonKeybind kb )
     {
+				features.add( kb.feature.name, kb.feature );
+			
         if ( kb.feature instanceof IUpdatableFeature )
-        {
+        {					
             // Updating feature
             ClientTickEvents.END_CLIENT_TICK.register( (client) ->
                     {

@@ -1,4 +1,4 @@
-package me.av306.xenon.util.gui;
+package me.av306.xenon.gui;
 
 import io.github.cottonmc.cotton.gui.GuiDescription;
 import io.github.cottonmc.cotton.gui.client.CottonClientScreen;

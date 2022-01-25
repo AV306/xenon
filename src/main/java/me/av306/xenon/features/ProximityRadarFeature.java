@@ -27,7 +27,7 @@ public class ProximityRadarFeature extends IUpdatableFeature
     @Override
     public void onUpdate()
     {
-		Xenon.INSTANCE.CLIENT.world.getEntities()
+		Xenon.INSTANCE.client.world.getEntities()
             .forEach((entity) ->
                   {
                       if ( entity instanceof ProjectileEntity )
@@ -41,7 +41,7 @@ public class ProximityRadarFeature extends IUpdatableFeature
                                   (entityPos.getZ() < Xenon.INSTANCE.CLIENT.player.getPos().getZ() + 50 || entityPos.getZ() > Xenon.INSTANCE.CLIENT.player.getPos().getZ() - 50)
                           )
                           {
-                              Xenon.INSTANCE.CLIENT.player.sendMessage( new LiteralText( "WARNING! PROJECTILE IN RANGE" ), false );
+                              Xenon.INSTANCE.client.player.sendMessage( new LiteralText( "WARNING! PROJECTILE IN RANGE" ), false );
                           }
                       }
                   }
