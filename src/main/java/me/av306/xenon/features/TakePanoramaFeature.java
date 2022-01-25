@@ -15,7 +15,7 @@ public class TakePanoramaFeature extends IFeature
     @Override
     public void onEnable()
     {
-        Xenon.INSTANCE.client.takePanorama( Xenon.INSTANCE.CLIENT.runDirectory, 1024, 1024 );
+        Xenon.INSTANCE.client.takePanorama( Xenon.INSTANCE.client.runDirectory, 1024, 1024 );
 
         //Xenon.INSTANCE.client.player.sendMessage( text, false );
     }

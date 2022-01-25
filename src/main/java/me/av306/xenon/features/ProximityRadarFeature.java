@@ -37,7 +37,7 @@ public class ProximityRadarFeature extends IUpdatableFeature
 													Vec3d clientPos = Xenon.INSTANCE.client.player.getPos();
 
                           if (
-                                  (entityPos.getX() < clientPos.getX() + 50 || entityPos.getX() > clientPos.getPos().getX() - 50) &&
+                                  (entityPos.getX() < clientPos.getX() + 50 || entityPos.getX() > clientPos.getX() - 50) &&
                                   (entityPos.getY() < clientPos.getPos().getY() + 50 || entityPos.getY() > clientPos.getY() - 50) &&
                                   (entityPos.getZ() < clientPos.getZ() + 50 || entityPos.getZ() > clientPos.getZ() - 50)
                           )
