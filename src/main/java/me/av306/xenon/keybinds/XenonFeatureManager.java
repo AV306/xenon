@@ -7,13 +7,13 @@ import java.util.HashMap;
 
 public class XenonFeatureManager
 {
-		public HashMap<String, XenonKeybind> features = new HashMap<>();
+	public HashMap<String, XenonKeybind> keybinds = new HashMap<>();
 	
     public XenonFeatureManager() {}
 
     public void register( XenonKeybind kb )
     {
-				features.put( kb.feature.name, kb );
+		keybinds.put( kb.feature.name, kb );
 			
         if ( kb.feature instanceof IUpdatableFeature )
         {					

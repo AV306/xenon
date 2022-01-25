@@ -8,9 +8,9 @@ import java.io.File;
 
 public class TakePanoramaFeature extends IFeature
 {
-		private static int resolution = 1024;
-		public static int getResolution() { return resolution; }
-		public static void setResolution( int res ) { resolution = res; }
+    private static int resolution = 1024;
+    public static int getResolution() { return resolution; }
+    public static void setResolution( int res ) { resolution = res; }
 	
     @Override
     public void onEnable()

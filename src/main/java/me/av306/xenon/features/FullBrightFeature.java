@@ -10,7 +10,7 @@ import net.minecraft.text.TranslatableText;
 
 public class FullBrightFeature extends IToggleableFeature
 {
-		public static String name = "FullBright"; // Hiding is intended
+	public static String name = "FullBright"; // Hiding is intended
 	
     @Override
     public void onEnable()
