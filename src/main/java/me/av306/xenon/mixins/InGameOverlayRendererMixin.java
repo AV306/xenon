@@ -23,6 +23,6 @@ public class InGameOverlayRendererMixin
     )
     private static void onRenderFireOverlay( MinecraftClient client, MatrixStack matrixStack, CallbackInfo ci )
     {
-        if ( Xenon.INSTANCE.featureManager.keybinds.get("NoFireOverlayFeature").feature.isEnabled ) ci.cancel();
+
     }
 }
