@@ -3,7 +3,7 @@ package me.av306.xenon.mixins;
 import me.av306.xenon.Xenon;
 import me.av306.xenon.keybinds.XenonKeybind;
 
-import net.minecraft.client.gui.screen.TitleScreen;
+import net.minecraft.client.Keyboard;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
