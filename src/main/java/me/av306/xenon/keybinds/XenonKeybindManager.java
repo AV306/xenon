@@ -3,17 +3,14 @@ package me.av306.xenon.keybinds;
 import me.av306.xenon.features.interfaces.*;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 
-public class XenonFeatureManager
-{
-	public HashMap<String, XenonKeybind> keybinds = new HashMap<>();
+public class XenonKeybindManager
+{		
+    public XenonKeybindManager() {}
 	
-    public XenonFeatureManager() {}
-
     public void register( XenonKeybind kb )
     {
-		keybinds.put( kb.feature.name, kb );
 			
         if ( kb.feature instanceof IUpdatableFeature )
         {					

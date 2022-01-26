@@ -17,7 +17,7 @@ public enum Xenon
 
     public boolean debug = true;
 
-    public XenonFeatureManager featureManager = new XenonFeatureManager();
+    public XenonKeybindManager keybindManager = new XenonKeybindManager();
 	
     public final Logger LOGGER = LogManager.getLogger( "xenon" );
 
@@ -31,7 +31,7 @@ public enum Xenon
 
         // register keybinds
         log( "Registering FullBright key!" );
-        featureManager.register(
+        keybindManager.register(
                 new XenonKeybind<IToggleableFeature>(
                         "key.xenon.togglefullbright",
 						InputUtil.Type.KEYSYM,
@@ -44,7 +44,7 @@ public enum Xenon
 
 
         log( "Registering AutoReply key!" );
-        featureManager.register(
+        keybindManager.register(
                 new XenonKeybind<IFeature>(
                         "key.xenon.autoreply",
                         InputUtil.Type.KEYSYM,
@@ -56,7 +56,7 @@ public enum Xenon
 
 
         log( "Registering OptionsGui key!" );
-        featureManager.register(
+        keybindManager.register(
                 new XenonKeybind<IFeature>(
                         "key.xenon.options",
                         InputUtil.Type.KEYSYM,
@@ -68,7 +68,7 @@ public enum Xenon
 
 
         log( "Registering NoFireOverlay key!" );
-        featureManager.register(
+        keybindManager.register(
                 new XenonKeybind<IToggleableFeature>(
                         "key.xenon.nofireoverlay",
                         InputUtil.Type.KEYSYM,
@@ -80,7 +80,7 @@ public enum Xenon
 
 
         log( "Registering TakePanorama key!" );
-        featureManager.register(
+        keybindManager.register(
                 new XenonKeybind<IFeature>(
                         "key.xenon.takepanorama",
                         InputUtil.Type.KEYSYM,
