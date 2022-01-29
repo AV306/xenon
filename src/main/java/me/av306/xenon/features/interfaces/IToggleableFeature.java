@@ -6,15 +6,15 @@ import net.minecraft.text.LiteralText;
 public abstract class IToggleableFeature extends IFeature
 {
     public void toggle()
-		{
-			if ( super.isEnabled ) onDisable();
-        else onEnable();
+	{
+		if ( super.isEnabled ) disable();
+        else enable();
 
         Xenon.INSTANCE.client.player.sendMessage(
                 new LiteralText(
-                        super.name + " " + (isEnabled ? "ENABLED" : "DISABLED") + "!"
+                        name + " " + (super.isEnabled ? "ENABLED" : "DISABLED") + "!"
                 ),
                 true
         );
-		}
+	}
 }
