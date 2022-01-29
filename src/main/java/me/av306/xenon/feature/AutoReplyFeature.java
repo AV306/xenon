@@ -1,7 +1,7 @@
-package me.av306.xenon.features;
+package me.av306.xenon.feature;
 
 import me.av306.xenon.Xenon;
-import me.av306.xenon.features.interfaces.*;
+import me.av306.xenon.feature.template.*;
 
 
 public class AutoReplyFeature extends IFeature

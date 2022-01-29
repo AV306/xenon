@@ -1,11 +1,7 @@
-package me.av306.xenon.features;
+package me.av306.xenon.feature;
 
 import me.av306.xenon.Xenon;
-import me.av306.xenon.features.interfaces.IToggleableFeature;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.text.LiteralText;
-import net.minecraft.text.TranslatableText;
+import me.av306.xenon.feature.template.IToggleableFeature;
 
 
 public class FullBrightFeature extends IToggleableFeature

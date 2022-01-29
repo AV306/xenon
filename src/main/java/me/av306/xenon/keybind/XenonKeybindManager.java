@@ -1,9 +1,7 @@
-package me.av306.xenon.keybinds;
+package me.av306.xenon.keybind;
 
-import me.av306.xenon.features.interfaces.*;
+import me.av306.xenon.feature.template.*;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-
-import java.util.ArrayList;
 
 public class XenonKeybindManager
 {		

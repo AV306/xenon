@@ -1,11 +1,8 @@
-package me.av306.xenon.features;
+package me.av306.xenon.feature;
 
 import me.av306.xenon.Xenon;
-import me.av306.xenon.features.interfaces.IFeature;
-import net.minecraft.text.Text;
+import me.av306.xenon.feature.template.IFeature;
 import net.minecraft.text.TranslatableText;
-
-import java.io.File;
 
 public class TakePanoramaFeature extends IFeature
 {

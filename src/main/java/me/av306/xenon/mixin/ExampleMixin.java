@@ -1,4 +1,4 @@
-package me.av306.xenon.mixins;
+package me.av306.xenon.mixin;
 
 import me.av306.xenon.Xenon;
 
