@@ -19,5 +19,5 @@ public class XenonOptionsGuiFeature extends IFeature
 			this.applySettings();
 		}
 
-		private void applySettings() {}
+	private void applySettings() {}
 }

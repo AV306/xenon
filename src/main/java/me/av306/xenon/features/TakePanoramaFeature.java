@@ -3,6 +3,7 @@ package me.av306.xenon.features;
 import me.av306.xenon.Xenon;
 import me.av306.xenon.features.interfaces.IFeature;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 
 import java.io.File;
 
@@ -17,7 +18,10 @@ public class TakePanoramaFeature extends IFeature
     {
         Xenon.INSTANCE.client.takePanorama( Xenon.INSTANCE.client.runDirectory, 1024, 1024 );
 
-        //Xenon.INSTANCE.client.player.sendMessage( text, false );
+        Xenon.INSTANCE.client.player.sendMessage(
+                new TranslatableText( "message.xenon.panoramasuccess" ),
+                false
+        );
     }
 
     @Override

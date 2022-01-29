@@ -1,0 +1,10 @@
+{
+  "category.xenon.features": "Xenon Features",
+  "key.xenon.autoreply": "AutoReply",
+  "key.xenon.fullbright": "Fullbright",
+  "key.xenon.nofireoverlay": "NoFireOverlay",
+  "key.xenon.proximityradar": "ProximityRadar",
+  "key.xenon.takepanorama": "Take Panorama",
+  "key.xenon.options": "Options GUI",
+  "message.xenon.panoramasuccess": "[Xenon] Panorama saved in screenshots folder!"
+}

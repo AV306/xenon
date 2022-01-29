@@ -7,7 +7,7 @@ import net.minecraft.text.LiteralText;
 
 public class NoFireOverlayFeature extends IToggleableFeature
 {
-    public static String name = "NoFireOverlay";
+    public NoFireOverlayFeature() { super.setName( "NoFireOverlay" ); }
 
 	// handled in InGameHudMixin
 	

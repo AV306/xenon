@@ -33,7 +33,7 @@ public enum Xenon
         log( "Registering FullBright key!" );
         keybindManager.register(
                 new XenonKeybind<IToggleableFeature>(
-                        "key.xenon.togglefullbright",
+                        "key.xenon.fullbright",
 						InputUtil.Type.KEYSYM,
                         GLFW.GLFW_KEY_G,
                         "category.xenon.features",
