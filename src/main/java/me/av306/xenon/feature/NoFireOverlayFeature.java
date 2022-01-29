@@ -1,8 +1,6 @@
-package me.av306.xenon.features;
+package me.av306.xenon.feature;
 
-import me.av306.xenon.Xenon;
-import me.av306.xenon.features.interfaces.IToggleableFeature;
-import net.minecraft.text.LiteralText;
+import me.av306.xenon.feature.template.IToggleableFeature;
 
 
 public class NoFireOverlayFeature extends IToggleableFeature

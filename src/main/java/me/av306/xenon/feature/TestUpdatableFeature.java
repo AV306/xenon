@@ -1,8 +1,8 @@
-package me.av306.xenon.features;
+package me.av306.xenon.feature;
 
 
 import me.av306.xenon.Xenon;
-import me.av306.xenon.features.interfaces.IUpdatableFeature;
+import me.av306.xenon.feature.template.IUpdatableFeature;
 
 
 public class TestUpdatableFeature extends IUpdatableFeature

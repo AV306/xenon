@@ -1,13 +1,7 @@
-package me.av306.xenon.mixins;
-
-import me.av306.xenon.Xenon;
-import me.av306.xenon.keybinds.XenonKeybind;
+package me.av306.xenon.mixin;
 
 import net.minecraft.client.Keyboard;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Keyboard.class)
 public class KeyboardMixin
