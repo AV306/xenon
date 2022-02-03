@@ -5,7 +5,11 @@ import net.minecraft.text.LiteralText;
 
 public abstract class IToggleableFeature extends IFeature
 {
-    public void toggle()
+	public String name = "IToggleableFeature";
+	public IToggleableFeature() { super( name ); }
+
+	
+  public void toggle()
 	{
 		if ( super.isEnabled ) disable();
         else enable();
