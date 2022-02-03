@@ -2,9 +2,11 @@ package me.av306.xenon.feature.template;
 
 public abstract class IFeature
 {
-    public boolean isEnabled = false;
-	public String name;
+  public boolean isEnabled = false;
+	public String name = "IFeature";
 	public void setName( String name ) { this.name = name; }
+
+	public IFeature() { this.setName( name ); }
 
 	public void enable()
 	{
