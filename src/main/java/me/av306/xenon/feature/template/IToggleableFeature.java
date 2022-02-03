@@ -6,7 +6,7 @@ import net.minecraft.text.LiteralText;
 public abstract class IToggleableFeature extends IFeature
 {
 	public String name = "IToggleableFeature";
-	public IToggleableFeature() { super( name ); }
+	public IToggleableFeature() { super.setName( name ); }
 
 	
   public void toggle()
