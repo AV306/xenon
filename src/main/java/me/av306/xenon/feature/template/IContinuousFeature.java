@@ -4,5 +4,5 @@ public abstract class IContinuousFeature extends IFeature
 {
 	public String name = "IContinuousFeature";
 
-	public IContinuousFeature() { super( name ); }
+	public IContinuousFeature() { super.setName( name ); }
 }

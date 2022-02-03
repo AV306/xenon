@@ -1,7 +1,6 @@
 package me.av306.xenon;
 
-import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.api.ModInitialize;
+import net.fabricmc.api.ClientModInitializee;
 
 
 public class ClientInitializer implements ClientModInitializer
