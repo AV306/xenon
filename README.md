@@ -1,6 +1,7 @@
 # Xenon
 
 [![Austin CI with Gradle](https://github.com/AV306/xenon/actions/workflows/gradle.yml/badge.svg)](https://github.com/AV306/xenon/actions/workflows/gradle.yml)
+[![CodeQL](https://github.com/AV306/xenon/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/AV306/xenon/actions/workflows/codeql-analysis.yml)
 
 Hello! This is Xenon, a Minecraft utility mod that adds useful stuff like fullbright and AntiAFK functionality to Minecraft.
 
