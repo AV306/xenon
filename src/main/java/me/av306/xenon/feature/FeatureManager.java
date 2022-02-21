@@ -28,7 +28,7 @@ public class FeatureManager
 	public HashBiMap<String, IFeature> getFeatureMap() { return this.featureMap; }
 
 	private ArrayList<String> enabledFeatures = new ArrayList<>();
-	public ArrayList<String> getEnabledFeatures() { return this.enabledFeatures(); }
+	public ArrayList<String> getEnabledFeatures() { return this.enabledFeatures; }
 	
   public FeatureManager() {}
 
