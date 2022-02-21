@@ -11,7 +11,8 @@ on:
   pull_request:
     branches: [ 1.18 ]
     
-  workflow_dispatch:
+  push:
+    branches: [ 1.18 ]
 
 jobs:
   build:
