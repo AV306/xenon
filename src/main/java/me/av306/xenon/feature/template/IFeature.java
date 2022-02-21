@@ -1,5 +1,7 @@
 package me.av306.xenon.feature.template;
 
+import me.xenon.Xenon;
+
 public abstract class IFeature
 {
   public boolean isEnabled = false;
@@ -9,11 +11,19 @@ public abstract class IFeature
 
 	public IFeature() { this.setName( name ); }
 
+	public void init()
+	{
+		// initialises the keybind by registering its name.
+		Xenon.INSTANCE.featureManager.getFeatureMap().put( name, this );
+	}
+	
 	public void enable()
 	{
 		if ( isEnabled ) return;
 			
 		isEnabled = true;
+
+		Xenon.INSTANCE.featureManager.getEnabledFeatures().add( name );
 
 		onEnable();
 	}
@@ -24,9 +34,11 @@ public abstract class IFeature
 			
 		isEnabled = false;
 
+		Xenon.INSTANCE.featureManager.remove( name );
+		
 		onDisable();
 	}
-	
-    public abstract void onEnable();
-    public abstract void onDisable();
+
+  public abstract void onEnable();
+  public abstract void onDisable();
 }
