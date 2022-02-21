@@ -34,7 +34,7 @@ public abstract class IFeature
 			
 		isEnabled = false;
 
-		Xenon.INSTANCE.featureManager.remove( name );
+		Xenon.INSTANCE.featureManager.getEnabledFeatures().remove( name );
 		
 		onDisable();
 	}
