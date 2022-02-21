@@ -1,6 +1,6 @@
 package me.av306.xenon.feature.template;
 
-import me.xenon.Xenon;
+import me.av306.xenon.Xenon;
 
 public abstract class IFeature
 {

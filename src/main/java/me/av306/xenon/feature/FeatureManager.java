@@ -1,8 +1,12 @@
 package me.av306.xenon.feature;
 
+import me.av306.xenon.feature.template.*;
+
 import com.google.common.collect.HashBiMap;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
 
 /**
  * Xenon Feature Manager.
