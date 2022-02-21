@@ -9,6 +9,7 @@ public class XenonKeybindManager
 	
     public void register( XenonKeybind kb )
     {
+			kb.feature.init(); // initialise the keybind's Feature.
 			
         if ( kb.feature instanceof IUpdatableFeature )
         {					

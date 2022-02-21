@@ -6,7 +6,7 @@ import me.av306.xenon.feature.template.*;
 
 public class AutoReplyFeature extends IFeature
 {
-    public String name = "";
+  public String name = "";
 	public String message = ":";
 	
     @Override
