@@ -1,7 +1,7 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "me.av306.xenon.mixins",
+  "package": "me.av306.xenon.mixin",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
   ],
