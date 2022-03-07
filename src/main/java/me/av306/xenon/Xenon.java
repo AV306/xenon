@@ -23,6 +23,8 @@ public enum Xenon
 
     public MinecraftClient client;
 
+		public FeatureManager featureManager = new FeatureManager();
+
     public void initialise()
     {
         // set client
