@@ -7,10 +7,11 @@
 
 name: Austin CI with Gradle
 
-on:
-  push:
-    branches: [ 1.18 ]
+on:  
   pull_request:
+    branches: [ 1.18 ]
+    
+  push:
     branches: [ 1.18 ]
 
 jobs:
