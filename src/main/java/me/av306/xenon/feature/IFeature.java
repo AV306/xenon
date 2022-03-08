@@ -2,6 +2,8 @@ package me.av306.xenon.feature;
 
 import me.av306.xenon.Xenon;
 
+import java.util.Objects;
+
 /**
  * Base class for all features. You shouldn't need to touch this,
  * just extend it and implement its methods.
