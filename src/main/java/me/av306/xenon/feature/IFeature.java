@@ -10,7 +10,7 @@ import java.util.Objects;
  */
 public abstract class IFeature
 {
-	private String name = "IFeature";
+	protected String name = "IFeature";
 	//public String getName() { return this.name; }
 	
   public boolean isEnabled = false;
