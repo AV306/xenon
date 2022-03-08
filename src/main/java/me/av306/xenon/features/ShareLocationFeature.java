@@ -10,14 +10,14 @@ public class ShareLocationFeature
 {
 	public ShareLocationFeature() { super( "ShareLocation" ); }
 
-	private String formatDimType( DimensionType dim )
+	/*private String formatDimType( DimensionType dim )
 	{
 		// lasagna code to convert dim type to string
 		if ( dim.equals( DimensionType.OVERWORLD ) ) return "Overworld";
 		else if ( dim.equals( DimensionType.OVERWORLD_CAVES ) ) return "Overworld Caves";
 		else if ( dim.equals( DimensionType.THE_END ) ) return "The End";
 		else if ( dim.equals( DimensionType.THE_NETHER ) ) return "Nether";
-	}
+	}*/
 	
 	public void onEnable()
 	{
@@ -27,14 +27,10 @@ public class ShareLocationFeature
 		// get the player's current dimension
 		DimensionType dim = Xenon.INSTANCE.client.world.getDimension();
 
-		String text = String.format(
-					"[%s, %s, %s] (%s)", 
-					currentPos.getX().toString(),
-					currentPos.getY().toString(),
-					currentPos.getZ().toString(),
-					this.formatDimType( dim )
-		);
+		String text = "[" + currentPos.getX() + ", " + 
+			currentPos.getY() + ", " + 
+			currentPos.getZ() + "]";
 
-		Xenon.INSTANCE.client.player.sendMessage( text );
+		Xenon.INSTANCE.client.player.sendChatMessage( text );
 	}
 }
