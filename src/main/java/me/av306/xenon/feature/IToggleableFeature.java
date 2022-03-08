@@ -1,4 +1,4 @@
-package me.av306.xenon.feature
+package me.av306.xenon.feature;
 
 import me.av306.xenon.Xenon;
 import net.minecraft.text.LiteralText;
