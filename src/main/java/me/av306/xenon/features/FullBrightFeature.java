@@ -1,14 +1,14 @@
-package me.av306.xenon.feature;
+package me.av306.xenon.features;
 
 import me.av306.xenon.Xenon;
-import me.av306.xenon.feature.template.IToggleableFeature;
+import me.av306.xenon.feature.IToggleableFeature;
 
 
 public class FullBrightFeature extends IToggleableFeature
 {
 		public String name = "Fullbright";
 	
-    public FullBrightFeature() { super.setName( name ); }
+    public FullBrightFeature() { super( name ); }
 	
     @Override
     public void onEnable()

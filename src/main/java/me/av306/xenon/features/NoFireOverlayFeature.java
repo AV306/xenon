@@ -1,11 +1,11 @@
-package me.av306.xenon.feature;
+package me.av306.xenon.features;
 
-import me.av306.xenon.feature.template.IToggleableFeature;
+import me.av306.xenon.feature.IToggleableFeature;
 
 
 public class NoFireOverlayFeature extends IToggleableFeature
 {
-    public NoFireOverlayFeature() { super.setName( "NoFireOverlay" ); }
+    public NoFireOverlayFeature() { super( "NoFireOverlay" ); }
 
 	// handled in InGameHudMixin
 	

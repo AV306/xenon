@@ -1,13 +1,15 @@
-package me.av306.xenon.feature;
+package me.av306.xenon.features;
 
 import me.av306.xenon.Xenon;
-import me.av306.xenon.feature.template.*;
+import me.av306.xenon.feature.IFeature;
 
 
 public class AutoReplyFeature extends IFeature
 {
-  public String name = "";
+	private String name = "AutoReply";
 	public String message = ":";
+
+	public AutoReplyFeature() { super( "AutoReply" ); }
 	
     @Override
     public void onEnable()
