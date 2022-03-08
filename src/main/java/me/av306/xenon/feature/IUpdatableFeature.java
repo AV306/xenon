@@ -1,4 +1,4 @@
-package me.av306.xenon.feature.template;
+package me.av306.xenon.feature;
 
 
 public abstract class IUpdatableFeature extends IToggleableFeature

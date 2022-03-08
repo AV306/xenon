@@ -1,4 +1,4 @@
-package me.av306.xenon.feature.template;
+package me.av306.xenon.feature;
 
 import me.av306.xenon.Xenon;
 
