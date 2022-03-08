@@ -1,0 +1,40 @@
+package me.av306.xenon.features;
+
+import me.av306.Xenon;
+import me.av306.feature.IFeature;
+
+import net.minecraft.world.dimension.DimensionType;
+import net.minecraft.util.math.Vec3d;
+
+public class ShareLocationFeature
+{
+	public ShareLocationFeature() { super( "ShareLocation" ); }
+
+	private String formatDimType( DimensionType dim )
+	{
+		// lasagna code to convert dim type to string
+		if ( dim.equals( DimensionType.OVERWORLD ) ) return "Overworld";
+		else if ( dim.equals( DimensionType.OVERWORLD_CAVES ) ) return "Overworld Caves";
+		else if ( dim.equals( DimensionType.THE_END ) ) return "The End";
+		else if ( dim.equals( DimensionType.THE_NETHER ) ) return "Nether";
+	}
+	
+	public void onEnable()
+	{
+		// get the player's current position
+		Vec3d currentPos = Xenon.INSTANCE.client.player.getPos();
+
+		// get the player's current dimension
+		DimensionType dim = Xenon.INSTANCE.client.world.getDimension();
+
+		String text = String.format(
+					"[%s, %s, %s] (%s)", 
+					currentPos.getX().toString(),
+					currentPos.getY().toString(),
+					currentPos.getZ().toString(),
+					this.formatDimType( dim )
+		);
+
+		Xenon.INSTANCE.client.player.sendMessage( text );
+	}
+}

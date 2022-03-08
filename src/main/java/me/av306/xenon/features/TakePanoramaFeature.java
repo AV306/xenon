@@ -6,9 +6,12 @@ import net.minecraft.text.TranslatableText;
 
 public class TakePanoramaFeature extends IFeature
 {
+	
     private static int resolution = 1024;
     public static int getResolution() { return resolution; }
     public static void setResolution( int res ) { resolution = res; }
+
+		//public TakePanoramaFeature() { super( "TakePanoramaFeature" ); } // Not strictly needed
 	
     @Override
     public void onEnable()
