@@ -1,6 +1,6 @@
 package me.av306.xenon.features;
 
-import me.av306.xenon.featur.IToggleableFeature;
+import me.av306.xenon.feature.IToggleableFeature;
 import me.av306.xenon.Xenon;
 
 public class FeatureList extends IToggleableFeature
