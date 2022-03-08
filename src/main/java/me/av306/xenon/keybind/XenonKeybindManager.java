@@ -1,6 +1,6 @@
 package me.av306.xenon.keybind;
 
-import me.av306.xenon.feature.template.*;
+import me.av306.xenon.feature.*;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 
 public class XenonKeybindManager

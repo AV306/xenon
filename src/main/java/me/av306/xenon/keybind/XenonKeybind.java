@@ -1,6 +1,6 @@
 package me.av306.xenon.keybind;
 
-import me.av306.xenon.feature.template.IFeature;
+import me.av306.xenon.feature.IFeature;
 
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 

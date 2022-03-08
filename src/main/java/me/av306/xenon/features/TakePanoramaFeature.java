@@ -1,7 +1,7 @@
 package me.av306.xenon.feature;
 
 import me.av306.xenon.Xenon;
-import me.av306.xenon.feature.template.IFeature;
+import me.av306.xenon.feature.IFeature;
 import net.minecraft.text.TranslatableText;
 
 public class TakePanoramaFeature extends IFeature
