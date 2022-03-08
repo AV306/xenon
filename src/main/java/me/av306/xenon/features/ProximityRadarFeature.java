@@ -9,7 +9,7 @@ import net.minecraft.util.math.Vec3d;
 
 public class ProximityRadarFeature extends IUpdatableFeature
 {
-		public ProximityRadar() { super( "ProxminityRadar" ); }
+		public ProximityRadarFeature() { super( "ProxminityRadar" ); }
 
     // gets used when the key is pressed
     @Override
