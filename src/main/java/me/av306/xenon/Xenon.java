@@ -96,7 +96,7 @@ public enum Xenon
 			keybindManager.register(
 								new XenonKeybind<IFeature>(
 												"key.xenon.sharelocation",
-												InputUtil.Type.KEYSM,
+												InputUtil.Type.KEYSYM,
 												-1,
 												"category.xenon.features",
 												new ShareLocationFeature()

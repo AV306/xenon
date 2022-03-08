@@ -6,7 +6,7 @@ import me.av306.xenon.feature.IFeature;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.util.math.Vec3d;
 
-public class ShareLocationFeature
+public class ShareLocationFeature extends IFeature
 {
 	public ShareLocationFeature() { super( "ShareLocation" ); }
 
@@ -18,7 +18,8 @@ public class ShareLocationFeature
 		else if ( dim.equals( DimensionType.THE_END ) ) return "The End";
 		else if ( dim.equals( DimensionType.THE_NETHER ) ) return "Nether";
 	}*/
-	
+
+	@Override
 	public void onEnable()
 	{
 		// get the player's current position
@@ -33,4 +34,7 @@ public class ShareLocationFeature
 
 		Xenon.INSTANCE.client.player.sendChatMessage( text );
 	}
+
+	@Override
+	public void onDisable() {}
 }
