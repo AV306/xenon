@@ -1,7 +1,7 @@
 package me.av306.xenon.features;
 
-import me.av306.Xenon;
-import me.av306.feature.IFeature;
+import me.av306.xenon.Xenon;
+import me.av306.xenon.feature.IFeature;
 
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.util.math.Vec3d;
