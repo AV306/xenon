@@ -7,6 +7,9 @@ import java.util.Objects;
 /**
  * Base class for all features. You shouldn't need to touch this,
  * just extend it and implement its methods.
+ * NOTE: THis *could* work by just using the subclass name
+ * to hide the superclass name,
+ * but let's try this way first.
  */
 public abstract class IFeature
 {
