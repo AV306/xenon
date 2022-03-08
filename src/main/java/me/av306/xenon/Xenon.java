@@ -1,7 +1,7 @@
 package me.av306.xenon;
 
 import me.av306.xenon.feature.*;
-import me.av306.xenon.feature.template.*;
+import me.av306.xenon.features.*;
 import me.av306.xenon.keybind.*;
 
 import net.minecraft.client.MinecraftClient;
