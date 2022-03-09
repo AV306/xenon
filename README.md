@@ -7,6 +7,8 @@ Hello! This is Xenon, a Minecraft utility mod that adds useful stuff like Fullbr
 
 This is good for people who want the features of clients such as Badlion or Lunar, but want it to be compatible with other mods.
 
+NOTE: Once a new Minecraft version is released, support for previous versions tends to be dropped due to my bad version control habits.
+
 ## Requirements:
 
 - Fabric Loader >= 0.11.3
@@ -14,8 +16,7 @@ This is good for people who want the features of clients such as Badlion or Luna
 
 ## Incompatible mods:
 
-- Wurst Client
-- Sodium (Possible false positive)
+- Wurst Client (Keybinds)
 
 ## Features:
 
