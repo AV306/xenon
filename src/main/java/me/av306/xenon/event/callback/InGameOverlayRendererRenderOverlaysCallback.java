@@ -18,8 +18,7 @@ import net.minecraft.util.ActionResult;
  */
 public interface InGameOverlayRendererRenderOverlaysCallback
 {
-	// public static final by default
-	Event<InGameOverlayRendererRenderOverlaysCallback> EVENT = EventFactory.createArrayBacked(
+	public static final Event<InGameOverlayRendererRenderOverlaysCallback> EVENT = EventFactory.createArrayBacked(
 		InGameOverlayRendererRenderOverlaysCallback.class,
 		(listeners) -> (client, matrices) ->
 		{

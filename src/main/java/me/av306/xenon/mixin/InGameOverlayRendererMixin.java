@@ -1,6 +1,7 @@
 package me.av306.xenon.mixin;
 
 import me.av306.xenon.event.callback.InGameOverlayRendererRenderOverlaysCallback;
+
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.InGameOverlayRenderer;
 import net.minecraft.client.util.math.MatrixStack;
@@ -19,7 +20,7 @@ public class InGameOverlayRendererMixin
             method = "renderFireOverlay(Lnet/minecraft/client/MinecraftClient; Lnet/minecraft/client/util/math/MatrixStack;)V",
             cancellable = true
     )
-    private static void onRenderFireOverlay( MinecraftClient client, MatrixStack matrixStack, CallbackInfo ci )
+    private static void onRenderFireOverlay( MinecraftClient client, MatrixStack matrices, CallbackInfo ci )
     {
 			ActionResult result = InGameRendererRenderOverlaysCallback.EVENT.invoker().interact( client, matrices );
 
