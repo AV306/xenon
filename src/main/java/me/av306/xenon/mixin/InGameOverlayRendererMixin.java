@@ -1,5 +1,6 @@
 package me.av306.xenon.mixin;
 
+import me.av306.xenon.event.callback.InGameOverlayRendererRenderOverlaysCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.InGameOverlayRenderer;
 import net.minecraft.client.util.math.MatrixStack;
