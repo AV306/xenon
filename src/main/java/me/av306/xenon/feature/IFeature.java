@@ -25,8 +25,13 @@ public abstract class IFeature
 	public void init()
 	{
 		// initialises the keybind by registering its name.
+		// Called only when the feature is REGISTERED,
+		// NOT on construction. 
+		// If you're confused; don't worry -- I am, too.
 		//Xenon.INSTANCE.featureManager.getFeatureMap().put( this.name, this );
 		// TODO: Implement
+
+		//onInit();
 	}
 	
 	public void enable()
@@ -51,6 +56,7 @@ public abstract class IFeature
 		onDisable();
 	}
 
+	//public abstract void onInit();
   public abstract void onEnable();
   public abstract void onDisable();
 }

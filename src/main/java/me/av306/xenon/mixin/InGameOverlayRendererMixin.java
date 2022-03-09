@@ -13,14 +13,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class InGameOverlayRendererMixin
 {
     @Inject(
-            at = {@At("HEAD")},
-            method = {
-                    "renderFireOverlay(Lnet/minecraft/client/MinecraftClient; Lnet/minecraft/client/util/math/MatrixStack;)V"
-            },
+            at = @At("HEAD"),
+            method = "renderFireOverlay(Lnet/minecraft/client/MinecraftClient; Lnet/minecraft/client/util/math/MatrixStack;)V",
             cancellable = true
     )
     private static void onRenderFireOverlay( MinecraftClient client, MatrixStack matrixStack, CallbackInfo ci )
     {
+			ActionResult result = InGameRendererRenderOverlaysCallback.EVENT.invoker().interact( client, matrices );
 
+			// cancel if fail
+			if ( result == ActionResult.FAIL )
+				ci.cancel();
     }
 }
