@@ -1,7 +1,7 @@
 package me.av306.xenon.features;
 
+import me.av306.xenon.event.callback.InGameOverlayRendererRenderOverlaysCallback;
 import me.av306.xenon.feature.IToggleableFeature;
-
 
 public class NoFireOverlayFeature extends IToggleableFeature
 {

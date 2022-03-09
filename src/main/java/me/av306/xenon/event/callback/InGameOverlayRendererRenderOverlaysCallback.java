@@ -27,7 +27,7 @@ public interface InGameOverlayRendererRenderOverlaysCallback
 			for ( InGameOverlayRendererRenderOverlaysCallback listener : listeners )
 			{
 				// let the listener interact with the event
-				result = listener.interact( client, matrices );
+				ActionResult result = listener.interact( client, matrices );
 
 				// stop and return if the listener chooses not to pass it on
 				if ( result != ActionResult.PASS )
