@@ -3,6 +3,8 @@ package me.av306.xenon.features;
 import me.av306.xenon.event.callback.InGameOverlayRendererRenderOverlaysCallback;
 import me.av306.xenon.feature.IToggleableFeature;
 
+import net.minecraft.util.ActionResult;
+
 public class NoFireOverlayFeature extends IToggleableFeature
 {
     public NoFireOverlayFeature()
