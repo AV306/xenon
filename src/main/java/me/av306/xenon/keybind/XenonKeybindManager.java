@@ -9,7 +9,7 @@ public class XenonKeybindManager
 	
     public void register( XenonKeybind kb )
     {
-			kb.feature.init(); // initialise the keybind's Feature.
+			//kb.feature.init(); // initialise the keybind's Feature. EDIT: now in constructor
 			
         if ( kb.feature instanceof IUpdatableFeature )
         {					
@@ -17,9 +17,7 @@ public class XenonKeybindManager
             ClientTickEvents.END_CLIENT_TICK.register( (client) ->
                     {
                         if ( kb.keybind.wasPressed() )
-                        {
-                            ((IUpdatableFeature) kb.feature).toggle();
-                        }
+													((IUpdatableFeature) kb.feature).toggle();
 
                         ((IUpdatableFeature) kb.feature).onUpdate();
                     }
@@ -31,9 +29,7 @@ public class XenonKeybindManager
             ClientTickEvents.END_CLIENT_TICK.register( (client) ->
                     {
                         if ( kb.keybind.wasPressed() )
-                        {
-                            ((IToggleableFeature) kb.feature).toggle();
-                        }
+													((IToggleableFeature) kb.feature).toggle();
                     }
             );
         }
@@ -43,9 +39,7 @@ public class XenonKeybindManager
             ClientTickEvents.END_CLIENT_TICK.register( (client) ->
                     {
                         if ( kb.keybind.isPressed() )
-                        {
-                            kb.feature.onEnable();
-                        }
+													kb.feature.onEnable();
                     }
             );
         }
@@ -55,9 +49,7 @@ public class XenonKeybindManager
             ClientTickEvents.END_CLIENT_TICK.register( (client) ->
                     {
                         if ( kb.keybind.wasPressed() )
-                        {
-                            kb.feature.onEnable();
-                        }
+													kb.feature.onEnable();
                     }
             );
         }

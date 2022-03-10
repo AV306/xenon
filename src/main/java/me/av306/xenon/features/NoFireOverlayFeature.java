@@ -16,8 +16,8 @@ public class NoFireOverlayFeature extends IToggleableFeature
 			InGameOverlayRendererRenderOverlaysCallback.EVENT.register(
 				(client, matrices) -> 
 				{
-					if ( this.isEnabled )
-						return ActionResult.FAIL; // cancel if enabled >:D
+					if ( this.isEnabled ) return ActionResult.FAIL; // cancel if enabled >:D
+					else reurn ActionmResult.PASS;
 				}
 			);
 		}
