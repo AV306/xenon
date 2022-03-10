@@ -22,7 +22,7 @@ public class InGameOverlayRendererMixin
     )
     private static void onRenderFireOverlay( MinecraftClient client, MatrixStack matrices, CallbackInfo ci )
     {
-			ActionResult result = InGameRendererRenderOverlaysCallback.EVENT.invoker().interact( client, matrices );
+			ActionResult result = InGameOverlayRendererRenderOverlaysCallback.EVENT.invoker().interact( client, matrices );
 
 			// cancel if fail
 			if ( result == ActionResult.FAIL )
