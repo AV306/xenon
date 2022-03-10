@@ -1,6 +1,6 @@
 package me.av306.xenon.features;
 
-import me.av306.xenon.event.callback.InGameOverlayRendererRenderOverlaysCallback;
+import me.av306.xenon.event.callback.InGameOverlayRendererCallbacks;
 import me.av306.xenon.feature.IToggleableFeature;
 
 import net.minecraft.util.ActionResult;
@@ -13,7 +13,7 @@ public class NoFireOverlayFeature extends IToggleableFeature
 			super( "NoFireOverlay" );
 			
 			// register listeners
-			InGameOverlayRendererRenderOverlaysCallback.EVENT.register(
+			InGameOverlayRendererCallbacks.RenderFireOverlayCallback.EVENT.register(
 				(client, matrices) -> 
 				{
 					if ( this.isEnabled ) return ActionResult.FAIL; // cancel if enabled >:D
