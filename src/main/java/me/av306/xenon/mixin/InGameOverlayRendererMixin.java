@@ -1,6 +1,6 @@
 package me.av306.xenon.mixin;
 
-import me.av306.xenon.event.callback.InGameOverlayRendererCallbacks;
+import me.av306.xenon.event.callback.InGameOverlayRendererRenderFireOverlayCallback;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.InGameOverlayRenderer;
@@ -22,7 +22,7 @@ public class InGameOverlayRendererMixin
     )
     private static void onRenderFireOverlay( MinecraftClient client, MatrixStack matrices, CallbackInfo ci )
     {
-			ActionResult result = InGameOverlayRendererCallbacks.RenderFireOverlayCallback.EVENT.invoker().interact( client, matrices );
+			ActionResult result = InGameOverlayRendererRenderFireOverlayCallback.EVENT.invoker().interact( client, matrices );
 
 			// cancel if fail
 			if ( result == ActionResult.FAIL )
