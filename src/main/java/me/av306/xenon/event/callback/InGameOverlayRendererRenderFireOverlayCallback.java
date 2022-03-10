@@ -1,4 +1,4 @@
-package me.av306.xenon.event.callback.ingameoverlayrenderer;
+package me.av306.xenon.event.callback;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
@@ -16,7 +16,7 @@ import net.minecraft.util.ActionResult;
  *	 default to SUCCESS when there are no other listeners.
  * - FAIL: Cancel the event.
  */
-public class RenderFireOverlayCallback
+public class InGameOverlayRendererRenderFireOverlayCallback
 {		
 	public static final Event<RenderFireOverlayCallback> EVENT = EventFactory.createArrayBacked(
 		RenderFireOverlayCallback.class,
