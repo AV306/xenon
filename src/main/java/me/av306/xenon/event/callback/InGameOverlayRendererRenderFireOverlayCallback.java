@@ -19,11 +19,11 @@ import net.minecraft.util.ActionResult;
 public class InGameOverlayRendererRenderFireOverlayCallback
 {		
 	public static final Event<InGameOverlayRendererRenderFireOverlayCallback> EVENT = EventFactory.createArrayBacked(
-		RenderFireOverlayCallback.class,
+		InGameOverlayRendererRenderFireOverlayCallback.class,
 		(listeners) -> (client, matrices) ->
 		{
 			// iterate over each listener
-			for ( RenderFireOverlayCallback listener : listeners )
+			for ( InGameOverlayRendererRenderFireOverlayCallback listener : listeners )
 			{
 				// let the listener interact with the event
 				ActionResult result = listener.interact( client, matrices );
