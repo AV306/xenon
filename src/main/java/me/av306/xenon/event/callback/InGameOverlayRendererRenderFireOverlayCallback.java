@@ -18,7 +18,7 @@ import net.minecraft.util.ActionResult;
  */
 public class InGameOverlayRendererRenderFireOverlayCallback
 {		
-	public static final Event<RenderFireOverlayCallback> EVENT = EventFactory.createArrayBacked(
+	public static final Event<InGameOverlayRendererRenderFireOverlayCallback> EVENT = EventFactory.createArrayBacked(
 		RenderFireOverlayCallback.class,
 		(listeners) -> (client, matrices) ->
 		{
