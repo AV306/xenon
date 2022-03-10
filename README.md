@@ -26,6 +26,7 @@ NOTE: Once a new Minecraft version is released, support for previous versions te
 - ClickGUI (WIP)
 - Panorama Generator (v)
 - ShareLocation (null)
+- NoFireOverlay (null)
 
 Planned features:
 
