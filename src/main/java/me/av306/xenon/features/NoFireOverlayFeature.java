@@ -13,7 +13,7 @@ public class NoFireOverlayFeature extends IToggleableFeature
 			super( "NoFireOverlay" );
 			
 			// register listeners
-			InGameRendererRenderOverlaysCallback.EVENT.register(
+			InGameOverlayRendererRenderOverlaysCallback.EVENT.register(
 				(client, matrices) -> 
 				{
 					if ( this.isEnabled )
