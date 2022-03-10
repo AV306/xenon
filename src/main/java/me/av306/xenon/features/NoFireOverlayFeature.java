@@ -17,7 +17,7 @@ public class NoFireOverlayFeature extends IToggleableFeature
 				(client, matrices) -> 
 				{
 					if ( this.isEnabled ) return ActionResult.FAIL; // cancel if enabled >:D
-					else reurn ActionmResult.PASS;
+					else return ActionResult.PASS;
 				}
 			);
 		}
