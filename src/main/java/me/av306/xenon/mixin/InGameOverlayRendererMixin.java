@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin( InGameOverlayRenderer.class )
 public class InGameOverlayRendererMixin
 {
-    @Inject(
+    /*@Inject(
             at = @At("HEAD"),
             method = "renderFireOverlay(Lnet/minecraft/client/MinecraftClient; Lnet/minecraft/client/util/math/MatrixStack;)V",
             cancellable = true
@@ -27,5 +27,5 @@ public class InGameOverlayRendererMixin
 			// cancel if fail
 			if ( result == ActionResult.FAIL )
 				ci.cancel();
-    }
+    }*/
 }
