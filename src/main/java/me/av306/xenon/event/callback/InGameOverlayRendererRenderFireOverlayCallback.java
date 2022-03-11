@@ -16,7 +16,7 @@ import net.minecraft.util.ActionResult;
  *	 default to SUCCESS when there are no other listeners.
  * - FAIL: Cancel the event.
  */
-public class InGameOverlayRendererRenderFireOverlayCallback
+public interface InGameOverlayRendererRenderFireOverlayCallback
 {		
 	public static final Event<InGameOverlayRendererRenderFireOverlayCallback> EVENT = EventFactory.createArrayBacked(
 		InGameOverlayRendererRenderFireOverlayCallback.class,

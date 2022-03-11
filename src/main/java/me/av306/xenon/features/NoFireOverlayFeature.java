@@ -8,22 +8,23 @@ import net.minecraft.util.ActionResult;
 public class NoFireOverlayFeature extends IToggleableFeature
 {
     public NoFireOverlayFeature()
-		{ 
-			// set name
-			super( "NoFireOverlay" );
-			
-			// register listeners
-			InGameOverlayRendererRenderFireOverlayCallback.EVENT.register(
-				(client, matrices) -> 
-				{
-					if ( this.isEnabled ) return ActionResult.FAIL; // cancel if enabled >:D
-					else return ActionResult.PASS;
-				}
-			);
-		}
+	{
+		// set name
+		super( "NoFireOverlay" );
+
+		/*
+		// register listeners
+		InGameOverlayRendererRenderFireOverlayCallback.EVENT.register(
+			(client, matrices) ->
+			{
+				if ( this.isEnabled ) return ActionResult.FAIL; // cancel if enabled >:D
+				else return ActionResult.PASS;
+			}
+		);*/
+	}
 	
 	
-		// battle-test events
+	// battle-test events
     @Override
     public void onEnable()
     {
