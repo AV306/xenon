@@ -1,25 +1,50 @@
-package me.av306.xenon.feature;
+package me.av306.xenon.features;
 
 import me.av306.xenon.Xenon;
 import me.av306.xenon.feature.IFeature;
+import net.minecraft.text.ClickEvent;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Formatting;
+
+import java.io.File;
 
 public class TakePanoramaFeature extends IFeature
 {
 	
-    private static int resolution = 1024;
+    private static int resolution = 512;
     public static int getResolution() { return resolution; }
     public static void setResolution( int res ) { resolution = res; }
 
-		//public TakePanoramaFeature() { super( "TakePanoramaFeature" ); } // Not strictly needed
+	public TakePanoramaFeature() { super( "TakePanoramaFeature" ); } // Not strictly needed
 	
     @Override
     public void onEnable()
     {
-        Xenon.INSTANCE.client.takePanorama( Xenon.INSTANCE.client.runDirectory, 1024, 1024 );
+        File runDir = Xenon.INSTANCE.client.runDirectory;
+        File panoramaFile = new File( runDir, "screenshots" );
+
+        // A little bit of info:
+        // `runDirectory` refers to the root of the gamedir,
+        // and through a bunch of nested func calls,
+        // it saves in the screenshots subdir.
+        // So we pass the root gamedir.
+        Xenon.INSTANCE.client.takePanorama( runDir, getResolution(), getResolution() );
+
+        Text linkToPanoramas = new LiteralText( panoramaFile.getName() + File.pathSeparator + "panorama0.png" )
+                .formatted( Formatting.UNDERLINE )
+                .styled(
+                        style -> style.withClickEvent(
+                                new ClickEvent( ClickEvent.Action.OPEN_FILE, panoramaFile.getAbsolutePath() )
+                        )
+                );
+
+        Text msg = new TranslatableText( "message.xenon.panoramasuccess", linkToPanoramas )
+                .formatted( Xenon.INSTANCE.SUCCESS_FORMAT );
 
         Xenon.INSTANCE.client.player.sendMessage(
-                new TranslatableText( "message.xenon.panoramasuccess" ),
+                msg,
                 false
         );
     }

@@ -28,9 +28,10 @@ public class ShareLocationFeature extends IFeature
 		// get the player's current dimension
 		DimensionType dim = Xenon.INSTANCE.client.world.getDimension();
 
-		String text = "[" + currentPos.getX() + ", " + 
-			currentPos.getY() + ", " + 
-			currentPos.getZ() + "]";
+		// round and display
+		String text = "[" + Math.round( currentPos.getX() ) + ", " +
+			Math.round( currentPos.getY() ) + ", " +
+			Math.round( currentPos.getZ() ) + "]";
 
 		Xenon.INSTANCE.client.player.sendChatMessage( text );
 	}

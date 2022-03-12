@@ -1,4 +1,4 @@
-package me.av306.xenon.feature;
+package me.av306.xenon.features;
 
 import me.av306.xenon.Xenon;
 import me.av306.xenon.feature.IUpdatableFeature;
@@ -9,7 +9,7 @@ import net.minecraft.util.math.Vec3d;
 
 public class ProximityRadarFeature extends IUpdatableFeature
 {
-		public ProximityRadarFeature() { super( "ProxminityRadar" ); }
+		public ProximityRadarFeature() { super( "ProximityRadar" ); }
 
     // gets used when the key is pressed
     @Override
