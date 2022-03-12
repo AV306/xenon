@@ -6,6 +6,6 @@
   "key.xenon.proximityradar": "ProximityRadar",
   "key.xenon.takepanorama": "Take Panorama",
   "key.xenon.options": "Options GUI",
-	"key.xenon.sharelocation": "Share Location"
-  "message.xenon.panoramasuccess": "Panorama saved in screenshots folder!"
+  "key.xenon.sharelocation": "Share Location",
+  "message.xenon.panoramasuccess": "[Xenon] Panorama saved in: %s!"
 }

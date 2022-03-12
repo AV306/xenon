@@ -7,6 +7,7 @@ import me.av306.xenon.keybind.*;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.InputUtil;
 
+import net.minecraft.util.Formatting;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.glfw.GLFW;
@@ -24,6 +25,10 @@ public enum Xenon
     public MinecraftClient client;
 
 		//public FeatureManager featureManager = new FeatureManager();
+
+    public final Formatting SUCCESS_FORMAT = Formatting.GREEN;
+    public final Formatting WARNING_FORMAT = Formatting.YELLOW;
+    public final Formatting ERROR_FORMAT = Formatting.RED;
 
     public void initialise()
     {
