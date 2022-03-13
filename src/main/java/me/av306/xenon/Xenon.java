@@ -97,16 +97,27 @@ public enum Xenon
                 )
         );
 
-			log( "Registering ShareLocation key!" );
-			keybindManager.register(
-								new XenonKeybind<IFeature>(
-												"key.xenon.sharelocation",
-												InputUtil.Type.KEYSYM,
-												-1,
-												"category.xenon.features",
-												new ShareLocationFeature()
-								)
-			);
+        log( "Registering ShareLocation key!" );
+            keybindManager.register(
+			        new XenonKeybind<IFeature>(
+					        "key.xenon.sharelocation",
+							InputUtil.Type.KEYSYM,
+							-1,
+							"category.xenon.features",
+							new ShareLocationFeature()
+					)
+		);
+
+        log( "Registering DataHUD key!" );
+        keybindManager.register(
+                new XenonKeybind<IFeature>(
+                        "key.xenon.datahud",
+                        InputUtil.Type.KEYSYM,
+                        -1,
+                        "category.xenon.features",
+                        new DataHudFeature()
+                )
+        );
 
     }
 

@@ -12,7 +12,7 @@ public class NoFireOverlayFeature extends IToggleableFeature
 		// set name
 		super( "NoFireOverlay" );
 
-		/*
+
 		// register listeners
 		InGameOverlayRendererRenderFireOverlayCallback.EVENT.register(
 			(client, matrices) ->
@@ -20,7 +20,7 @@ public class NoFireOverlayFeature extends IToggleableFeature
 				if ( this.isEnabled ) return ActionResult.FAIL; // cancel if enabled >:D
 				else return ActionResult.PASS;
 			}
-		);*/
+		);
 	}
 	
 	
