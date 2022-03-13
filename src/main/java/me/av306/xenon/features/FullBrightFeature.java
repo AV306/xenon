@@ -5,7 +5,7 @@ import me.av306.xenon.feature.IToggleableFeature;
 
 
 public class FullBrightFeature extends IToggleableFeature
-{	
+{
     public FullBrightFeature() { super( "Fullbright" ); }
 	
     @Override
