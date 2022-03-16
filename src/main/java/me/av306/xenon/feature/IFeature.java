@@ -14,9 +14,9 @@ import java.util.Objects;
 public abstract class IFeature
 {
 	protected String name = "IFeature";
-	//public String getName() { return this.name; }
+	public String getName() { return this.name; }
 	
-  public boolean isEnabled = false;
+  	public boolean isEnabled = false;
 
 	// generalised constructors (can't be called anyway)
 	protected IFeature( String name ) { this.name = Objects.requireNonNull( name ); }
@@ -45,6 +45,8 @@ public abstract class IFeature
 		onEnable();
 	}
 
+	// this is not even going to be used, but it's here now.
+	// deal with it :shrug:
 	public void disable()
 	{
 		if ( !isEnabled ) return;
@@ -57,6 +59,6 @@ public abstract class IFeature
 	}
 
 	//public abstract void onInit();
-  public abstract void onEnable();
-  public abstract void onDisable();
+  	public abstract void onEnable();
+  	public abstract void onDisable();
 }

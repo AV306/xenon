@@ -17,9 +17,9 @@ public class XenonKeybindManager
             ClientTickEvents.END_CLIENT_TICK.register( (client) ->
                     {
                         if ( kb.keybind.wasPressed() )
-													((IUpdatableFeature) kb.feature).toggle();
+						    ((IUpdatableFeature) kb.feature).toggle();
 
-                        ((IUpdatableFeature) kb.feature).onUpdate();
+                        ((IUpdatableFeature) kb.feature).update();
                     }
             );
         }
@@ -29,7 +29,7 @@ public class XenonKeybindManager
             ClientTickEvents.END_CLIENT_TICK.register( (client) ->
                     {
                         if ( kb.keybind.wasPressed() )
-													((IToggleableFeature) kb.feature).toggle();
+                            ((IToggleableFeature) kb.feature).toggle();
                     }
             );
         }
@@ -39,17 +39,17 @@ public class XenonKeybindManager
             ClientTickEvents.END_CLIENT_TICK.register( (client) ->
                     {
                         if ( kb.keybind.isPressed() )
-													kb.feature.onEnable();
+                            kb.feature.enable();
                     }
             );
         }
         else
         {
-						// one-off
+			// one-off
             ClientTickEvents.END_CLIENT_TICK.register( (client) ->
                     {
                         if ( kb.keybind.wasPressed() )
-													kb.feature.onEnable();
+						    kb.feature.enable();
                     }
             );
         }
