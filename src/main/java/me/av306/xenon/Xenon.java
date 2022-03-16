@@ -4,6 +4,10 @@ import me.av306.xenon.feature.*;
 import me.av306.xenon.features.*;
 import me.av306.xenon.keybind.*;
 
+import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.impl.resource.loader.FabricModResourcePack;
+import net.fabricmc.loader.impl.ModContainerImpl;
+import net.fabricmc.loader.impl.discovery.ModCandidate;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.InputUtil;
 
@@ -11,6 +15,11 @@ import net.minecraft.util.Formatting;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.glfw.GLFW;
+import org.lwjgl.system.CallbackI;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public enum Xenon
 {
@@ -24,14 +33,26 @@ public enum Xenon
 
     public MinecraftClient client;
 
-		//public FeatureManager featureManager = new FeatureManager();
-
     public final Formatting SUCCESS_FORMAT = Formatting.GREEN;
+
     public final Formatting WARNING_FORMAT = Formatting.YELLOW;
+
     public final Formatting ERROR_FORMAT = Formatting.RED;
+
+    public ArrayList<IFeature> enabledFeatures = new ArrayList<>();
+
+    private String version;
+    public String getVersion() { return version; }
+    public void setVersion( String version ) { this.version = version; }
 
     public void initialise()
     {
+        // check folders
+        // TODO: implement
+
+        // set version & TODO: impl check for update
+        version = "3.0.0.alpha.5+1.18.2";
+
         // set client
         this.client = MinecraftClient.getInstance();
 
@@ -122,6 +143,15 @@ public enum Xenon
     }
 
 
-
     public void log( String msg ) { if ( debug ) LOGGER.info( msg ); }
+
+    /*
+    private void checkDataFolder()
+    {
+        File dataFolder = new File( this.client.runDirectory.getAbsolutePath() + File.separator + "xenon" + File.separator );
+
+        if ( !dataFolder.exists() )
+            dataFolder.mkdir();
+    }
+    */
 }
