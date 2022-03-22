@@ -70,22 +70,21 @@ public class WailaFeature extends IToggleableFeature
 				float health = livingEntity.getHealth();
 
 				// now draw text!!! :D
-				Text healthText = new TranslatableText(
-					"text.xenon.waila.healthtext",
-					new LiteralText( ": " + Float.toString( health ) )
-				);
+				String healthText = (new TranslatableText( "text.xenon.waila.entityhealth" )).asString() + 
+					": " + Float.toString( health );
 
 				this.drawDataText( matrices, healthText );
 		}
 	}
 
-	private void drawDataText( MatrixStack matrices, Text text )
+	private void drawDataText( MatrixStack matrices, String text )
 	{
+		TextRenderer tr = Xenon.INSTANCE.client.textRenderer;
 		// calculate x and y
-		int x = (Xenon.INSTANCE.client.window.getScaledWidth() - text.getLength()) / 2;
+		int x = (Xenon.INSTANCE.client.window.getScaledWidth() - tr.getLength( text )) / 2;
 		int y = 5;
 				
-		Xenon.INSTANCE.client.textRenderer.drawWithShadow( matrices, text, x, y, General.rgbToInt( 255, 0, 0 ) );
+		tr.drawWithShadow( matrices, text, x, y, General.rgbToInt( 255, 0, 0 ) );
 	}
 	
 	@Override

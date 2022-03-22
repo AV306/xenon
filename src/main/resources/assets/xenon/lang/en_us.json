@@ -8,5 +8,5 @@
   "key.xenon.options": "Options GUI",
   "key.xenon.sharelocation": "Share Location",
   "text.xenon.takepanorama.success": "[Xenon] Panorama saved in: %s!"
-	"text.xenon.waila.healthtext": "Entity Health"
+	"text.xenon.waila.entityhealth": "Entity Health"
 }
