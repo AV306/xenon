@@ -21,13 +21,15 @@ NOTE: Once a new Minecraft version is released, support for previous versions te
 ## Features:
 
 - FullBright (g)
-- AutoResponse (h, default text: ":")
-- Debug GUI (n, WIP)
+- AutoResponse (null, default text: ":")
+- Debug GUI (null, WIP)
 - ClickGUI (WIP)
 - Panorama Generator (v)
 - ShareLocation (null)
 - NoFireOverlay (null)
-- <Halo Red Reticle like thing> (null, WIP)
+- \<Halo Red Reticle like thing\> (null, WIP)
+- FeatureList (null)
+- DataHUD (null, WIP)
 
 Planned features:
 
