@@ -7,6 +7,9 @@
   "key.xenon.takepanorama": "Take Panorama",
   "key.xenon.options": "Options GUI",
   "key.xenon.sharelocation": "Share Location",
-  "text.xenon.takepanorama.success": "[Xenon] Panorama saved in: %s!"
-	"text.xenon.waila.entityhealth": "Entity Health"
+  "key.xenon.waila": "WAILA",
+  "text.xenon.takepanorama.success": "[Xenon] Panorama saved in: %s!",
+  "text.xenon.waila.entityhealth": "Entity: %s, Health: %s",
+  "text.xenon.waila.blocktype": "Block: %s",
+  "text.xenon.updateavailable": "Update Available!"
 }

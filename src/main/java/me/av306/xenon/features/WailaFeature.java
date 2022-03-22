@@ -5,22 +5,19 @@ import me.av306.xenon.event.callback.InGameHudRenderCallback;
 import me.av306.xenon.feature.IToggleableFeature;
 import me.av306.xenon.util.General;
 
-//import net.minecraft.block.Block;
-//import net.minecraft.block.BlockState;
+import net.minecraft.block.Block;
 import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.util.Window;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.text.Text;
 import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.hit.HitResult;
-import net.minecraft.util.hit.HitResult.Type;
-//import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
-//import net.minecraft.util.math.BlockPos;
 
 public class WailaFeature extends IToggleableFeature
 {
@@ -34,6 +31,7 @@ public class WailaFeature extends IToggleableFeature
 
 	private ActionResult onInGameHudRender( MatrixStack matrices, float tickDelta )
 	{
+		if ( !this.isEnabled ) return ActionResult.PASS;
 		// get centre crosshair target
 		// TODO: May be expensive, test FPS 
 		// TODO: Get Javier to test on a low-end machine
@@ -50,13 +48,14 @@ public class WailaFeature extends IToggleableFeature
 				// TODO: implement
 				//BlockHitResult blockHit = (BlockHitResult) hit;
 				//BlockPos blockPos = blockHit.getBlockPos();
-				//BlockState blockState = Xenon.INSTANCE.client.getBlockState( blockPos );
+				//BlockState blockState = Xenon.INSTANCE.client.world.getBlockState( blockPos );
 				//Block block = blockState.getBlock(); // finally.
-				
-				//Block block = Xenon.INSTANCE.client.getBlockState( ((BlockHitResult) hit).getBlockPos() )
-				//	.getBlock(); // ugh
+				Block block = Xenon.INSTANCE.client.world.getBlockState(((BlockHitResult) hit).getBlockPos()).getBlock();
 
-				// display block data TODO: maybe put in private method?
+				Text blockDataText = new TranslatableText( "text.xenon.waila.blocktype", block.getName() );
+
+				// display block data
+				this.drawDataText( matrices, blockDataText );
 				break;
 
 			case ENTITY:
@@ -71,15 +70,18 @@ public class WailaFeature extends IToggleableFeature
 				// don't need to figure out the exact entity type
 				LivingEntity livingEntity = (LivingEntity) entity;
 
+
+				EntityType<?> type = livingEntity.getType();
+
 				// get health
 				float health = livingEntity.getHealth();
 
 				// now draw text!!! :D
 				// StringBuilder for optimisation
-				StringBuilder healthTextBuilder = new StringBuilder( new TranslatableText("text.xenon.waila.entityhealth").asString() )
-						.append( ": " )
-						.append( Float.toString( health ) );
-				String healthText = healthTextBuilder.toString();
+				Text healthText = new TranslatableText( "text.xenon.waila.entityhealth",
+						type.getName(),
+						Text.of( String.valueOf( health) )
+				);
 
 				this.drawDataText( matrices, healthText );
 		}
@@ -89,7 +91,7 @@ public class WailaFeature extends IToggleableFeature
 
 	}
 
-	private void drawDataText( MatrixStack matrices, String text )
+	private void drawDataText(MatrixStack matrices, Text text )
 	{
 		TextRenderer tr = Xenon.INSTANCE.client.textRenderer;
 		// calculate x and y
