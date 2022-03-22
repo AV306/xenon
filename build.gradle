@@ -31,7 +31,7 @@ dependencies {
 	modImplementation include("io.github.cottonmc:LibGui:5.1.0+1.18")
 	
 	// Guava for BiMap
-	implementation "com.google.guava:guava:31.0.1-jre"
+	//implementation "com.google.guava:guava:31.0.1-jre"
 }
 
 processResources {

@@ -129,14 +129,14 @@ public enum Xenon
 					)
 		);
 
-        log( "Registering DataHUD key!" );
+        log( "Registering FeatureList key!" );
         keybindManager.register(
                 new XenonKeybind<IFeature>(
-                        "key.xenon.datahud",
+                        "key.xenon.featurelist",
                         InputUtil.Type.KEYSYM,
                         -1,
                         "category.xenon.features",
-                        new DataHudFeature()
+                        new FeatureList()
                 )
         );
 

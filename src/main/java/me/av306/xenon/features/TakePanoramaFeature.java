@@ -40,7 +40,7 @@ public class TakePanoramaFeature extends IFeature
                         )
                 );
 
-        Text msg = new TranslatableText( "message.xenon.panoramasuccess", linkToPanoramas )
+        Text msg = new TranslatableText( "text.xenon.takepanorama.success", linkToPanoramas )
                 .formatted( Xenon.INSTANCE.SUCCESS_FORMAT );
 
         Xenon.INSTANCE.client.player.sendMessage(
