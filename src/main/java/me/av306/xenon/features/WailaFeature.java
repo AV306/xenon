@@ -82,7 +82,7 @@ public class WailaFeature extends IToggleableFeature
 		}
 
 		
-		return ActionResult.PAS
+		return ActionResult.PASS;
 
 	}
 
