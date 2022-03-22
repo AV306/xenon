@@ -11,19 +11,7 @@ public class XenonKeybindManager
     {
 			//kb.feature.init(); // initialise the keybind's Feature. EDIT: now in constructor
 			
-        if ( kb.feature instanceof IUpdatableFeature )
-        {					
-            // Updating feature
-            ClientTickEvents.END_CLIENT_TICK.register( (client) ->
-                    {
-                        if ( kb.keybind.wasPressed() )
-						    ((IUpdatableFeature) kb.feature).toggle();
-
-                        ((IUpdatableFeature) kb.feature).update();
-                    }
-            );
-        }
-        else if ( kb.feature instanceof IToggleableFeature )
+        if ( kb.feature instanceof IToggleableFeature )
         {
             // Toggling feature
             ClientTickEvents.END_CLIENT_TICK.register( (client) ->
@@ -33,7 +21,7 @@ public class XenonKeybindManager
                     }
             );
         }
-        else if ( kb.feature instanceof IContinuousFeature)
+        else if ( kb.feature instanceof IContinuousFeature )
         {
             // Holding ("Normal") feature e.g. zoom
             ClientTickEvents.END_CLIENT_TICK.register( (client) ->
@@ -49,7 +37,7 @@ public class XenonKeybindManager
             ClientTickEvents.END_CLIENT_TICK.register( (client) ->
                     {
                         if ( kb.keybind.wasPressed() )
-						    kb.feature.enable();
+						                kb.feature.enable();
                     }
             );
         }

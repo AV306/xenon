@@ -6,12 +6,13 @@ import me.av306.xenon.feature.IFeature;
 import me.av306.xenon.feature.IToggleableFeature;
 import me.av306.xenon.util.General;
 import me.av306.xenon.util.Position;
+
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.util.Window;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.ActionResult;
 
-public class DataHudFeature extends IToggleableFeature
+public class FeatureList extends IToggleableFeature
 {
     public Position position = Position.TOP_RIGHT;
 
