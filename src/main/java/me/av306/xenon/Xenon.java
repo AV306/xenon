@@ -45,13 +45,16 @@ public enum Xenon
     public String getVersion() { return version; }
     public void setVersion( String version ) { this.version = version; }
 
+    private boolean updateAvailable = false;
+    public boolean getUpdateAvailable() { return updateAvailable; }
+
     public void initialise()
     {
         // check folders
         // TODO: implement
 
         // set version & TODO: impl check for update
-        version = "3.0.0.alpha.5+1.18.2";
+        version = "3.0.0.beta.1+1.18.2";
 
         // set client
         this.client = MinecraftClient.getInstance();
@@ -137,6 +140,17 @@ public enum Xenon
                         -1,
                         "category.xenon.features",
                         new FeatureList()
+                )
+        );
+
+        log( "Registering WAILA key!" );
+        keybindManager.register(
+                new XenonKeybind<IFeature>(
+                        "key.xenon.waila",
+                        InputUtil.Type.KEYSYM,
+                        -1,
+                        "category.xenon.features",
+                        new WailaFeature()
                 )
         );
 

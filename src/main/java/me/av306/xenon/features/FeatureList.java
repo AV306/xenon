@@ -10,7 +10,12 @@ import me.av306.xenon.util.Position;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.util.Window;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
+
+import java.util.concurrent.TransferQueue;
 
 public class FeatureList extends IToggleableFeature
 {
@@ -21,8 +26,8 @@ public class FeatureList extends IToggleableFeature
         // set name
         super( "FeatureList" );
 
-				// start enabled by default
-				this.isEnabled = true;
+		// start enabled by default
+		this.isEnabled = true;
 
         // register listener
         InGameHudRenderCallback.EVENT.register( this::onInGameHudRender );
@@ -36,12 +41,15 @@ public class FeatureList extends IToggleableFeature
 
         Window window = Xenon.INSTANCE.client.getWindow();
 
-        StringBuilder versionStringBuilder = new StringBuilder( "Xenon" )
-					.append( Xenon.INSTANCE.getVersion() ); // version
-					//.append(  ); // update available?
-			  String versionString = versionStringBuilder.toString();
+        String versionString = "Xenon " + Xenon.INSTANCE.getVersion();
+
+        Text updateText = new TranslatableText( Xenon.INSTANCE.getUpdateAvailable() ? "text.xenon.updateavailable" : "" );
+        Text versionText = new TranslatableText( "text.xenon.updateavailable", updateText );
+
+
+
  
-        //textRenderer.drawWithShadow( matrices, versionString, 5, 5, General.rgbToInt(0, 255, 0) );
+        //textRenderer.drawWithShadow( matrices, versionText, 5, 5, General.rgbToInt(0, 255, 0) );
 
         // write feature names
 
@@ -49,7 +57,7 @@ public class FeatureList extends IToggleableFeature
         switch ( this.position )
         {
             case TOP_LEFT:
-                textRenderer.drawWithShadow( matrices, versionString, 5, 5, General.rgbToInt(0, 255, 0) );
+                textRenderer.drawWithShadow( matrices, versionText, 5, 5, General.rgbToInt(0, 255, 0) );
 
                 y = 5 + 10 + 2;
                 for ( IFeature feature : Xenon.INSTANCE.enabledFeatures )
@@ -61,7 +69,7 @@ public class FeatureList extends IToggleableFeature
                 break;
 
             case TOP_RIGHT:
-                textRenderer.drawWithShadow( matrices, versionString, window.getScaledWidth() - textRenderer.getWidth( versionString ) - 5, 5, General.rgbToInt(0, 255, 0) );
+                textRenderer.drawWithShadow( matrices, versionText, window.getScaledWidth() - textRenderer.getWidth( versionString ) - 5, 5, General.rgbToInt(0, 255, 0) );
 
                 y = 5 + 10 + 2;
                 for ( IFeature feature : Xenon.INSTANCE.enabledFeatures )
