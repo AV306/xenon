@@ -80,6 +80,10 @@ public class WailaFeature extends IToggleableFeature
 
 				this.drawDataText( matrices, healthText );
 		}
+
+		
+		return ActionResult.PAS
+
 	}
 
 	private void drawDataText( MatrixStack matrices, String text )
