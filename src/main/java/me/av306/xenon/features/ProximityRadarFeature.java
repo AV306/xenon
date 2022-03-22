@@ -1,7 +1,7 @@
 package me.av306.xenon.features;
 
 import me.av306.xenon.Xenon;
-import me.av306.feature.IToggleableFeature;
+import me.av306.xenon.feature.IToggleableFeature;
 
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.text.LiteralText;
