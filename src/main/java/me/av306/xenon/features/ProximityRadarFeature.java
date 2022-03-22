@@ -1,14 +1,14 @@
 package me.av306.xenon.features;
 
 import me.av306.xenon.Xenon;
-import me.av306.xenon.feature.IUpdatableFeature;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.math.Vec3d;
 
 
-public class ProximityRadarFeature extends IUpdatableFeature
+public class ProximityRadarFeature
 {
+		// TODO: Use event bus instead
 		public ProximityRadarFeature() { super( "ProximityRadar" ); }
 
     // gets used when the key is pressed
@@ -23,9 +23,7 @@ public class ProximityRadarFeature extends IUpdatableFeature
     {
     }
 
-
-    @Override
-    public void onUpdate()
+    private void onUpdate()
     {
 		Xenon.INSTANCE.client.world.getEntities()
             .forEach((entity) ->
