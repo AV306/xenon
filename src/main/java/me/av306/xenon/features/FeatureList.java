@@ -39,6 +39,7 @@ public class FeatureList extends IToggleableFeature
         StringBuilder versionStringBuilder = new StringBuilder( "Xenon" )
 					.append( Xenon.INSTANCE.getVersion() ); // version
 					//.append(  ); // update available?
+			  String versionString = versionStringBuilder.toString();
  
         //textRenderer.drawWithShadow( matrices, versionString, 5, 5, General.rgbToInt(0, 255, 0) );
 
