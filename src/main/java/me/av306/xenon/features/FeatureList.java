@@ -36,8 +36,10 @@ public class FeatureList extends IToggleableFeature
 
         Window window = Xenon.INSTANCE.client.getWindow();
 
-        String versionString = "Xenon " + Xenon.INSTANCE.getVersion();
-
+        StringBuilder versionStringBuilder = new StringBuilder( "Xenon" )
+					.append( Xenon.INSTANCE.getVersion() ); // version
+					//.append(  ); // update available?
+ 
         //textRenderer.drawWithShadow( matrices, versionString, 5, 5, General.rgbToInt(0, 255, 0) );
 
         // write feature names
