@@ -27,6 +27,7 @@ NOTE: Once a new Minecraft version is released, support for previous versions te
 - Panorama Generator (v)
 - ShareLocation (null)
 - NoFireOverlay (null)
+- <Halo Red Reticle like thing> (null, WIP)
 
 Planned features:
 
