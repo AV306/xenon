@@ -63,7 +63,7 @@ public enum Xenon
                 new XenonKeybind<IToggleableFeature>(
                         "key.xenon.fullbright",
 						InputUtil.Type.KEYSYM,
-                        GLFW.GLFW_KEY_G,
+                        -1,
                         "category.xenon.features",
 						new FullBrightFeature()
                 )
@@ -76,7 +76,7 @@ public enum Xenon
                 new XenonKeybind<IFeature>(
                         "key.xenon.autoreply",
                         InputUtil.Type.KEYSYM,
-                        GLFW.GLFW_KEY_H,
+                        -1,
 						"category.xenon.features",
                         new AutoReplyFeature()
                 )
@@ -88,7 +88,7 @@ public enum Xenon
                 new XenonKeybind<IFeature>(
                         "key.xenon.options",
                         InputUtil.Type.KEYSYM,
-                        GLFW.GLFW_KEY_N,
+                        -1,
                         "category.xenon.features",
                         new XenonOptionsGuiFeature()
                 )
