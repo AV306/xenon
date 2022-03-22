@@ -1,12 +1,14 @@
 package me.av306.xenon.features;
 
 import me.av306.xenon.Xenon;
+import me.av306.feature.IToggleableFeature;
+
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.math.Vec3d;
 
 
-public class ProximityRadarFeature
+public class ProximityRadarFeature extends IToggleableFeature
 {
 		// TODO: Use event bus instead
 		public ProximityRadarFeature() { super( "ProximityRadar" ); }

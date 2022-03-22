@@ -1,5 +1,6 @@
 package me.av306.xenon.features;
 
+import me.av306.xenon.Xenon;
 import me.av306.xenon.feature.IToggleableFeature;
 
 import net.minecraft.block.Block;
