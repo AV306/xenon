@@ -16,10 +16,12 @@ public class FeatureList extends IToggleableFeature
 {
     public Position position = Position.TOP_RIGHT;
 
-    public DataHudFeature()
+    public FeatureList()
     {
+				// start enabled by default
+				this.isEnabled = true;
         // set name
-        super( "DataHUD" );
+        super( "FeatureList" );
 
         // register listener
         InGameHudRenderCallback.EVENT.register( this::onInGameHudRender );
@@ -27,7 +29,7 @@ public class FeatureList extends IToggleableFeature
 
     private ActionResult onInGameHudRender( MatrixStack matrices, float tickDelta )
     {
-        if ( this.isEnabled ) return ActionResult.PASS; // on by default
+        if ( !this.isEnabled ) return ActionResult.PASS;
 
         TextRenderer textRenderer = Xenon.INSTANCE.client.inGameHud.getTextRenderer();
 
