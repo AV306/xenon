@@ -2,6 +2,7 @@ package me.av306.xenon.features;
 
 import me.av306.xenon.Xenon;
 import me.av306.xenon.feature.IToggleableFeature;
+import me.av306.xenon.util.General;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -10,6 +11,7 @@ import net.minecraft.client.util.Window;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import net.minecraft.text.LiteralText;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.hit.HitResult.Type;
@@ -81,7 +83,7 @@ public class WailaFeature extends IToggleableFeature
 	{
 		TextRenderer tr = Xenon.INSTANCE.client.textRenderer;
 		// calculate x and y
-		int x = (Xenon.INSTANCE.client.window.getScaledWidth() - tr.getLength( text )) / 2;
+		int x = (Xenon.INSTANCE.client.window.getScaledWidth() - tr.getWidth( text )) / 2;
 		int y = 5;
 				
 		tr.drawWithShadow( matrices, text, x, y, General.rgbToInt( 255, 0, 0 ) );

@@ -18,10 +18,11 @@ public class FeatureList extends IToggleableFeature
 
     public FeatureList()
     {
-				// start enabled by default
-				this.isEnabled = true;
         // set name
         super( "FeatureList" );
+
+				// start enabled by default
+				this.isEnabled = true;
 
         // register listener
         InGameHudRenderCallback.EVENT.register( this::onInGameHudRender );
