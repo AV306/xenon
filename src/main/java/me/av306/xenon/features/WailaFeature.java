@@ -19,7 +19,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.hit.HitResult.Type;
 //import net.minecraft.util.hit.BlockHitResult;
-//import net.minecraft.util.hit.EntityHitResult;
+import net.minecraft.util.hit.EntityHitResult;
 //import net.minecraft.util.math.BlockPos;
 
 public class WailaFeature extends IToggleableFeature
