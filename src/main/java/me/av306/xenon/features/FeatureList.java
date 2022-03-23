@@ -42,7 +42,7 @@ public class FeatureList extends IToggleableFeature
 
         Window window = Xenon.INSTANCE.client.getWindow();
 
-				Text versionText = new TranslatableText( "text.xenon.version", Xenon.INSTANCE.getVersion() )
+				Text versionText = new TranslatableText( "text.xenon.version", Xenon.INSTANCE.getVersion() );
 
         //textRenderer.drawWithShadow( matrices, versionText, 5, 5, General.rgbToInt(0, 255, 0) );
 
@@ -58,7 +58,7 @@ public class FeatureList extends IToggleableFeature
 					nameTexts.add( nameText );
 				}
 
-			  TextUtil.drawPositionedMultiLineText( matrices, nameTexts.toArray( Text[] ), position, 12, ColorUtil.WHITE );
+			  TextUtil.drawPositionedMultiLineText( matrices, (Text[]) nameTexts.toArray(), position, 12, ColorUtil.WHITE );
 			
         return ActionResult.PASS;
     }
