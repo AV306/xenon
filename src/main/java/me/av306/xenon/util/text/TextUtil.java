@@ -14,8 +14,8 @@ public class TextUtil
 	public static void drawPositionedText( MatrixStack matrices, Text text, ScreenPosition position, int color )
 	{
 		TextRenderer textRenderer = Xenon.INSTANCE.client.textRenderer;
-		int scaledWidth = Xenon.INSTANCE.client.window.getScaledWidth();
-		int scaledHeight = Xenon.INSTANCE.client.window.getScaledHeight();
+		int scaledWidth = Xenon.INSTANCE.client.getWindow().getScaledWidth();
+		int scaledHeight = Xenon.INSTANCE.client.getWindow().getScaledHeight();
 		switch ( position )
 		{
 			case TOP_LEFT:
@@ -40,11 +40,11 @@ public class TextUtil
 		}
 	}
 
-	public static void drawPositionedMultiLineText( MatrixStack matrices, Text[] text, ScreenPosition position, int yOffset, int color )
+	public static void drawPositionedMultiLineText( MatrixStack matrices, Text[] texts, ScreenPosition position, int yOffset, int color )
 	{
 		TextRenderer textRenderer = Xenon.INSTANCE.client.textRenderer;
-		int scaledWidth = Xenon.INSTANCE.client.window.getScaledWidth();
-		int scaledHeight = Xenon.INSTANCE.client.window.getScaledHeight();
+		int scaledWidth = Xenon.INSTANCE.client.getWindow().getScaledWidth();
+		int scaledHeight = Xenon.INSTANCE.client.getWindow().getScaledHeight();
 		int y = 0;
 		switch ( position )
 		{
