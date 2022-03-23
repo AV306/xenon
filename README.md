@@ -20,16 +20,18 @@ NOTE: Once a new Minecraft version is released, support for previous versions te
 
 ## Features:
 
-- FullBright (g)
-- AutoResponse (null, default text: ":")
-- Debug GUI (null, WIP)
+(All are mapped to -1 by default)
+~~Maybe someday I'll implement multi-key seqnences~~
+- FullBright 
+- AutoResponse ( default text: ":")
+- Debug GUI (WIP)
 - ClickGUI (WIP)
-- Panorama Generator (v)
-- ShareLocation (null)
-- NoFireOverlay (null)
-- \<Halo Red Reticle like thing\> (null, WIP)
+- Panorama Generator
+- ShareLocation
+- NoFireOverlay
+- \<Halo Red Reticle like thing\> ( WIP)
 - FeatureList (null)
-- DataHUD (null, WIP)
+- DataHUD (WIP)
 
 Planned features:
 
