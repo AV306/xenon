@@ -57,25 +57,25 @@ public class FeatureList extends IToggleableFeature
         switch ( this.position )
         {
             case TOP_LEFT:
-                textRenderer.drawWithShadow( matrices, versionText, 5, 5, ColorUtil.rgbToInt(0, 255, 0) );
+                textRenderer.drawWithShadow( matrices, versionText, 5, 5, ColorUtil.GREEN );
 
                 y = 5 + 10 + 2;
                 for ( IFeature feature : Xenon.INSTANCE.enabledFeatures )
                 {
-                    textRenderer.drawWithShadow( matrices, feature.getName(), 5, y, ColorUtil.rgbToInt( 255, 255, 255 ) );
+                    textRenderer.drawWithShadow( matrices, feature.getName(), 5, y, ColorUtil.WHITE );
 
                     y += 12;
                 }
                 break;
 
             case TOP_RIGHT:
-                textRenderer.drawWithShadow( matrices, versionText, window.getScaledWidth() - textRenderer.getWidth( versionString ) - 5, 5, TextUtil.rgbToInt(0, 255, 0) );
+                textRenderer.drawWithShadow( matrices, versionText, window.getScaledWidth() - textRenderer.getWidth( versionString ) - 5, 5, ColorUtil.WHITE );
 
                 y = 5 + 10 + 2;
                 for ( IFeature feature : Xenon.INSTANCE.enabledFeatures )
                 {
                     int x = window.getScaledWidth() - textRenderer.getWidth( feature.getName() ) - 5;
-                    textRenderer.drawWithShadow( matrices, feature.getName(), x, y, ColorUtil.rgbToInt( 255, 255, 255 ) );
+                    textRenderer.drawWithShadow( matrices, feature.getName(), x, y, ColorUtil.WHITE );
 
                     y += 12;
                 }
