@@ -16,6 +16,7 @@ public class TextUtil
 		TextRenderer textRenderer = Xenon.INSTANCE.client.textRenderer;
 		int scaledWidth = Xenon.INSTANCE.client.getWindow().getScaledWidth();
 		int scaledHeight = Xenon.INSTANCE.client.getWindow().getScaledHeight();
+		int x = 0;
 		switch ( position )
 		{
 			case TOP_LEFT:
@@ -24,13 +25,13 @@ public class TextUtil
 				
 			case TOP_CENTER:
 				// calculate x
-				int x = (scaledWidth - textRenderer.getWidth( text )) / 2;
+				x = (scaledWidth - textRenderer.getWidth( text )) / 2;
 				textRenderer.drawWithShadow( matrices, text, 5, x, color );
 				break;
 				
 			case TOP_RIGHT:
 				// calculate x
-				int x = scaledWidth - textRenderer.getWidth( text );
+			  x = scaledWidth - textRenderer.getWidth( text );
 				break;
 				
 			case BOTTOM_LEFT:
