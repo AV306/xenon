@@ -3,7 +3,7 @@ package me.av306.xenon.features;
 import me.av306.xenon.Xenon;
 import me.av306.xenon.event.callback.InGameHudRenderCallback;
 import me.av306.xenon.feature.IToggleableFeature;
-import me.av306.xenon.util.General;
+import me.av306.xenon.util.color.ColorUtil;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.font.TextRenderer;
@@ -98,7 +98,7 @@ public class WailaFeature extends IToggleableFeature
 		int x = (Xenon.INSTANCE.client.getWindow().getScaledWidth() - tr.getWidth( text )) / 2;
 		int y = 5;
 				
-		tr.drawWithShadow( matrices, text, x, y, General.rgbToInt( 255, 0, 0 ) );
+		tr.drawWithShadow( matrices, text, x, y, ColorUtil.rgbToInt( 255, 0, 0 ) );
 	}
 	
 	@Override
