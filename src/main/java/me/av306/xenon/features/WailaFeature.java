@@ -3,7 +3,9 @@ package me.av306.xenon.features;
 import me.av306.xenon.Xenon;
 import me.av306.xenon.event.callback.InGameHudRenderCallback;
 import me.av306.xenon.feature.IToggleableFeature;
+import me.av306.xenon.util.ScreenPosition;
 import me.av306.xenon.util.color.ColorUtil;
+import me.av306.xenon.util.text.TextUtil;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.font.TextRenderer;
@@ -45,7 +47,7 @@ public class WailaFeature extends IToggleableFeature
 
 			case BLOCK:
 				// looking at a block, now what block is it?
-				// TODO: implement
+				// TODO: add more details, multiline it
 				//BlockHitResult blockHit = (BlockHitResult) hit;
 				//BlockPos blockPos = blockHit.getBlockPos();
 				//BlockState blockState = Xenon.INSTANCE.client.world.getBlockState( blockPos );
@@ -80,7 +82,7 @@ public class WailaFeature extends IToggleableFeature
 				// StringBuilder for optimisation
 				Text healthText = new TranslatableText( "text.xenon.waila.entityhealth",
 						type.getName(),
-						Text.of( String.valueOf( health) )
+						Text.of( String.valueOf( health ) )
 				);
 
 				this.drawDataText( matrices, healthText );
@@ -91,14 +93,9 @@ public class WailaFeature extends IToggleableFeature
 
 	}
 
-	private void drawDataText(MatrixStack matrices, Text text )
+	private void drawDataText( MatrixStack matrices, Text text )
 	{
-		TextRenderer tr = Xenon.INSTANCE.client.textRenderer;
-		// calculate x and y
-		int x = (Xenon.INSTANCE.client.getWindow().getScaledWidth() - tr.getWidth( text )) / 2;
-		int y = 5;
-				
-		tr.drawWithShadow( matrices, text, x, y, ColorUtil.rgbToInt( 255, 0, 0 ) );
+		TextUtil.drawPositionedText( matrices, text, ScreenPosition.TOP_CENTER, ColorUtil.RED );
 	}
 	
 	@Override
