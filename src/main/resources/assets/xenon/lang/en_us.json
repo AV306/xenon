@@ -11,5 +11,6 @@
   "text.xenon.takepanorama.success": "[Xenon] Panorama saved in: %s!",
   "text.xenon.waila.entityhealth": "Entity: %s, Health: %s",
   "text.xenon.waila.blocktype": "Block: %s",
-  "text.xenon.updateavailable": "Update Available!"
+  "text.xenon.updateavailable": "(Update Available!)",
+	"text.xenon.version": "Xenon %s "
 }

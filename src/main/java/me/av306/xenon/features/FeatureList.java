@@ -42,10 +42,7 @@ public class FeatureList extends IToggleableFeature
 
         Window window = Xenon.INSTANCE.client.getWindow();
 
-        String versionString = "Xenon " + Xenon.INSTANCE.getVersion();
-
-        Text updateText = new TranslatableText( Xenon.INSTANCE.getUpdateAvailable() ? "text.xenon.updateavailable" : "" );
-        Text versionText = new LiteralText( versionString, updateText );
+				Text versionText = new TranslatableText( "text.xenon.version", Xenon.INSTANCE.getVersion() )
 
         //textRenderer.drawWithShadow( matrices, versionText, 5, 5, General.rgbToInt(0, 255, 0) );
 
@@ -55,13 +52,13 @@ public class FeatureList extends IToggleableFeature
 
         ArrayList<Text> nameTexts = new ArrayList<>();
 			
-			  for ( Ifeature feature : Xenon.INSTANCE.enabledFeatures )
+			  for ( IFeature feature : Xenon.INSTANCE.enabledFeatures )
 				{
 					LiteralText nameText = new LiteralText( feature.getName() );
 					nameTexts.add( nameText );
 				}
 
-			  TextUtil.drawPositionedMultiLineText( matrices, nameTexts.toArray(), position, 12, ColorUtil.WHITE );
+			  TextUtil.drawPositionedMultiLineText( matrices, nameTexts.toArray( Text[] ), position, 12, ColorUtil.WHITE );
 			
         return ActionResult.PASS;
     }
