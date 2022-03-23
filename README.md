@@ -37,4 +37,4 @@ Planned features:
 - QuickCommand
 - FreeCam
 
-# Licensed under CC0 \:)
+# Licensed under GNU GPL v3 \:)
