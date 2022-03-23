@@ -4,8 +4,9 @@ import me.av306.xenon.Xenon;
 import me.av306.xenon.event.callback.InGameHudRenderCallback;
 import me.av306.xenon.feature.IFeature;
 import me.av306.xenon.feature.IToggleableFeature;
-import me.av306.xenon.util.color.ColorUtil;
 import me.av306.xenon.util.ScreenPosition;
+import me.av306.xenon.util.color.ColorUtil;
+import me.av306.xenon.util.text.TextUtil;
 
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.util.Window;
@@ -15,7 +16,7 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
 
-import java.util.concurrent.TransferQueue;
+import java.util.ArrayList;
 
 public class FeatureList extends IToggleableFeature
 {
@@ -44,48 +45,24 @@ public class FeatureList extends IToggleableFeature
         String versionString = "Xenon " + Xenon.INSTANCE.getVersion();
 
         Text updateText = new TranslatableText( Xenon.INSTANCE.getUpdateAvailable() ? "text.xenon.updateavailable" : "" );
-        Text versionText = new TranslatableText( "text.xenon.versionText", updateText );
+        Text versionText = new LiteralText( versionString, updateText );
 
-
-
- 
         //textRenderer.drawWithShadow( matrices, versionText, 5, 5, General.rgbToInt(0, 255, 0) );
 
         // write feature names
 
-        int y;
-        switch ( this.position )
-        {
-            case TOP_LEFT:
-                textRenderer.drawWithShadow( matrices, versionText, 5, 5, ColorUtil.GREEN );
+        TextUtil.drawPositionedText( matrices, versionText, position, ColorUtil.GREEN );
 
-                y = 5 + 10 + 2;
-                for ( IFeature feature : Xenon.INSTANCE.enabledFeatures )
-                {
-                    textRenderer.drawWithShadow( matrices, feature.getName(), 5, y, ColorUtil.WHITE );
+        ArrayList<Text> nameTexts = new ArrayList<>();
+			
+			  for ( Ifeature feature : Xenon.INSTANCE.enabledFeatures )
+				{
+					LiteralText nameText = new LiteralText( feature.getName() );
+					nameTexts.add( nameText );
+				}
 
-                    y += 12;
-                }
-                break;
-
-            case TOP_RIGHT:
-                textRenderer.drawWithShadow( matrices, versionText, window.getScaledWidth() - textRenderer.getWidth( versionString ) - 5, 5, ColorUtil.WHITE );
-
-                y = 5 + 10 + 2;
-                for ( IFeature feature : Xenon.INSTANCE.enabledFeatures )
-                {
-                    int x = window.getScaledWidth() - textRenderer.getWidth( feature.getName() ) - 5;
-                    textRenderer.drawWithShadow( matrices, feature.getName(), x, y, ColorUtil.WHITE );
-
-                    y += 12;
-                }
-                break;
-
-            case BOTTOM_LEFT:
-            case BOTTOM_RIGHT:
-                break;
-        }
-
+			  TextUtil.drawPositionedMultiLineText( matrices, nameTexts.toArray(), position, 12, ColorUtil.WHITE );
+			
         return ActionResult.PASS;
     }
 
