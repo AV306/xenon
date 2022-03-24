@@ -12,5 +12,5 @@
   "text.xenon.waila.entityhealth": "Entity: %s, Health: %s",
   "text.xenon.waila.blocktype": "Block: %s",
   "text.xenon.updateavailable": "(Update Available!)",
-	"text.xenon.version": "Xenon %s "
+  "text.xenon.version": "Xenon %s "
 }
