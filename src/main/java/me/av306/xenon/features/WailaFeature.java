@@ -23,6 +23,7 @@ import net.minecraft.util.hit.EntityHitResult;
 
 public class WailaFeature extends IToggleableFeature
 {
+	// FIXME: Optimise to reduce heavy fps drop
 	public WailaFeature()
 	{
 		super("WAILA"); 
@@ -95,7 +96,7 @@ public class WailaFeature extends IToggleableFeature
 
 	private void drawDataText( MatrixStack matrices, Text text )
 	{
-		TextUtil.drawPositionedText( matrices, text, ScreenPosition.TOP_CENTER, ColorUtil.RED );
+		TextUtil.drawPositionedText( matrices, text, ScreenPosition.TOP_CENTER, 0, 0, ColorUtil.RED );
 	}
 	
 	@Override
