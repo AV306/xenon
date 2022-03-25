@@ -23,6 +23,11 @@ import net.minecraft.util.hit.EntityHitResult;
 
 public class WailaFeature extends IToggleableFeature
 {
+	// Krystal's suggestion :D
+	// There will always only be one translatable text, 
+	// so we can construct it at class level (?)
+	private Text dataText;
+	
 	// FIXME: Optimise to reduce heavy fps drop
 	public WailaFeature()
 	{
@@ -35,27 +40,31 @@ public class WailaFeature extends IToggleableFeature
 	private ActionResult onInGameHudRender( MatrixStack matrices, float tickDelta )
 	{
 		if ( !this.isEnabled ) return ActionResult.PASS;
+		
 		// get centre crosshair target
 		// TODO: May be expensive, test FPS 
 		// TODO: Get Javier to test on a low-end machine
 		HitResult hit = Xenon.INSTANCE.client.crosshairTarget;
 
+		// actual waila logic
 		switch ( hit.getType() )
 		{
 			case MISS:
 				// nothing near enough :)
-				break;
+				//break;
+				return ActionResult.PASS; // does this even help?
 
 			case BLOCK:
 				// looking at a block, now what block is it?
 				// TODO: add more details, multiline it
-				//BlockHitResult blockHit = (BlockHitResult) hit;
-				//BlockPos blockPos = blockHit.getBlockPos();
-				//BlockState blockState = Xenon.INSTANCE.client.world.getBlockState( blockPos );
-				//Block block = blockState.getBlock(); // finally.
-				Block block = Xenon.INSTANCE.client.world.getBlockState(((BlockHitResult) hit).getBlockPos()).getBlock();
+				// Let's try this. Is it faster?
+				BlockHitResult blockHit = (BlockHitResult) hit;
+				BlockPos blockPos = blockHit.getBlockPos();
+				BlockState blockState = Xenon.INSTANCE.client.world.getBlockState( blockPos );
+				Block block = blockState.getBlock(); // finally.
+				//Block block = Xenon.INSTANCE.client.world.getBlockState(((BlockHitResult) hit).getBlockPos()).getBlock();
 
-				Text blockDataText = new TranslatableText( "text.xenon.waila.blocktype", block.getName() );
+				dataText = new TranslatableText( "text.xenon.waila.blocktype", block.getName() );
 
 				// display block data
 				this.drawDataText( matrices, blockDataText );
@@ -80,16 +89,15 @@ public class WailaFeature extends IToggleableFeature
 				float health = livingEntity.getHealth();
 
 				// now draw text!!! :D
-				// StringBuilder for optimisation
-				Text healthText = new TranslatableText( "text.xenon.waila.entityhealth",
+				dataText = new TranslatableText( "text.xenon.waila.entityhealth",
 						type.getName(),
 						Text.of( String.valueOf( health ) )
 				);
 
 				this.drawDataText( matrices, healthText );
+				break; // hmm is this why?
 		}
 
-		
 		return ActionResult.PASS;
 
 	}
