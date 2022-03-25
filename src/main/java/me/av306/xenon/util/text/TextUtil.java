@@ -11,7 +11,7 @@ import net.minecraft.text.Text;
 public class TextUtil
 {
 	// TODO: finish implementing
-	public static void drawPositionedText( MatrixStack matrices, Text text, ScreenPosition position, int xOffset, int yOffset, int color )
+	public static void drawPositionedText( MatrixStack matrices, Text text, ScreenPosition position, int xOffset, int yOffset, boolean shadow, int color )
 	{
 		TextRenderer textRenderer = Xenon.INSTANCE.client.textRenderer;
 		int scaledWidth = Xenon.INSTANCE.client.getWindow().getScaledWidth();
@@ -20,19 +20,16 @@ public class TextUtil
 		switch ( position )
 		{
 			case TOP_LEFT:
-				textRenderer.drawWithShadow( matrices, text, x, y, color );
 				break;
 				
 			case TOP_CENTER:
 				// calculate x
 				x = (scaledWidth - textRenderer.getWidth( text )) / 2;
-				textRenderer.drawWithShadow( matrices, text, x, y, color );
 				break;
 				
 			case TOP_RIGHT:
 				// calculate x
 			  	x = scaledWidth - textRenderer.getWidth( text );
-			  	textRenderer.drawWithShadow( matrices, text, x, y, color );
 				break;
 				
 			case BOTTOM_LEFT:
@@ -40,6 +37,9 @@ public class TextUtil
 			case BOTTOM_RIGHT:
 				break;
 		}
+
+		if ( shadow ) textRenderer.drawWithShadow( matrices, text, x, y, color );
+		else textRenderer.draw( matrices, text, x, y, color );
 	}
 
 	public static void drawPositionedMultiLineText( MatrixStack matrices, Text[] texts, ScreenPosition position, int xOffset, int yOffset, int color )
@@ -57,18 +57,18 @@ public class TextUtil
 		switch ( position )
 		{
 			case TOP_LEFT:
-        		for ( Text text : texts )
-        		{
+				for ( Text text : texts )
+				{
           			textRenderer.drawWithShadow( matrices, text, x, y, color );
 
           			y += 12;
-			  	}
+			  }
 				break;
 				
 			case TOP_CENTER:
 		    for ( Text text : texts )
-        	{
-				x = (scaledWidth - textRenderer.getWidth( text )) / 2;
+        {
+				     x = (scaledWidth - textRenderer.getWidth( text )) / 2;
 					
           		textRenderer.drawWithShadow( matrices, text, x, y, color );
 
