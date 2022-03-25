@@ -48,14 +48,18 @@ public class FeatureList extends IToggleableFeature
 
         // write feature names
 
-        TextUtil.drawPositionedText( matrices, versionText, position, 0, 0, ColorUtil.GREEN );
+        TextUtil.drawPositionedText( matrices, versionText, position, 0, 0, false, ColorUtil.GREEN );
 
         ArrayList<Text> nameTexts = new ArrayList<>();
 			
 			  for ( IFeature feature : Xenon.INSTANCE.enabledFeatures )
 				{
-					LiteralText nameText = new LiteralText( feature.getName() );
-					nameTexts.add( nameText );
+					// hide FeatureList
+					if ( !(feature instanceof FeatureList) )
+					{
+						LiteralText nameText = new LiteralText( feature.getName() );
+					  nameTexts.add( nameText );
+					}
 				}
 
 			  // remember to leave space for the version text!
