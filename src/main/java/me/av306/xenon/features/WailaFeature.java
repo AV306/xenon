@@ -8,6 +8,7 @@ import me.av306.xenon.util.color.ColorUtil;
 import me.av306.xenon.util.text.TextUtil;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
@@ -65,9 +66,6 @@ public class WailaFeature extends IToggleableFeature
 				//Block block = Xenon.INSTANCE.client.world.getBlockState(((BlockHitResult) hit).getBlockPos()).getBlock();
 
 				dataText = new TranslatableText( "text.xenon.waila.blocktype", block.getName() );
-
-				// display block data
-				this.drawDataText( matrices, blockDataText );
 				break;
 
 			case ENTITY:
@@ -93,10 +91,11 @@ public class WailaFeature extends IToggleableFeature
 						type.getName(),
 						Text.of( String.valueOf( health ) )
 				);
-
-				this.drawDataText( matrices, healthText );
 				break; // hmm is this why?
 		}
+
+		// display block data
+		this.drawDataText( matrices, dataText );
 
 		return ActionResult.PASS;
 
@@ -104,7 +103,7 @@ public class WailaFeature extends IToggleableFeature
 
 	private void drawDataText( MatrixStack matrices, Text text )
 	{
-		TextUtil.drawPositionedText( matrices, text, ScreenPosition.TOP_CENTER, 0, 0, ColorUtil.RED );
+		TextUtil.drawPositionedText( matrices, text, ScreenPosition.TOP_CENTER, 0, 0, false, ColorUtil.RED );
 	}
 	
 	@Override
