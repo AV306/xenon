@@ -10,7 +10,7 @@
   "key.xenon.waila": "WAILA",
   "text.xenon.takepanorama.success": "[Xenon] Panorama saved in: %s!",
   "text.xenon.waila.entityhealth": "Entity: %s, Health: %f",
-  "text.xenon.waila.blocktype": "Block: %s\nBreak Time: %f\nBlast resistance: %f",
+  "text.xenon.waila.blocktype": "Block: %s | Break Time: %f | Blast resistance: %f",
   "text.xenon.updateavailable": "(Update Available!)",
   "text.xenon.version": "Xenon %s "
 }
