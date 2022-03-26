@@ -29,7 +29,7 @@ NOTE: Once a new Minecraft version is released, support for previous versions te
 - Panorama Generator
 - ShareLocation
 - NoFireOverlay
-- \<Halo Red Reticle like thing\> ( WIP)
+- \<Halo Red Reticle like thing\> (WIP)
 - FeatureList (null)
 - DataHUD (WIP)
 
