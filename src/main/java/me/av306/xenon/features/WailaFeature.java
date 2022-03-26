@@ -6,10 +6,8 @@ import me.av306.xenon.feature.IToggleableFeature;
 import me.av306.xenon.util.ScreenPosition;
 import me.av306.xenon.util.color.ColorUtil;
 import me.av306.xenon.util.text.TextUtil;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -18,9 +16,9 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
+import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 
 public class WailaFeature extends IToggleableFeature
@@ -28,8 +26,14 @@ public class WailaFeature extends IToggleableFeature
 	// Krystal's suggestion :D
 	// There will always only be one translatable text, 
 	// so we can construct it at class level (?)
-	private Text dataText;
-	
+	private Text dataText = new LiteralText( "Internal Error :(" ); // fallback
+
+	private short ticks = 0;
+
+	private short limit = 3;
+	public short getLimit() { return this.limit; }
+	public void setLimit( short limit ) { this.limit = limit; }
+
 	// FIXME: Optimise to reduce heavy fps drop
 	public WailaFeature()
 	{
@@ -42,19 +46,35 @@ public class WailaFeature extends IToggleableFeature
 	private ActionResult onInGameHudRender( MatrixStack matrices, float tickDelta )
 	{
 		if ( !this.isEnabled ) return ActionResult.PASS;
-		
+
+		ticks++;
+
 		// get centre crosshair target
 		// TODO: May be expensive, test FPS 
 		// TODO: Get Javier to test on a low-end machine
 		HitResult hit = Xenon.INSTANCE.client.crosshairTarget;
 
 		// actual waila logic
+		if ( ticks >= limit ) {
+			Xenon.INSTANCE.log( "calculating" );
+			this.createDataText( hit );
+			ticks = 0;
+		}
+
+		// display block data
+		this.drawDataText( matrices, dataText );
+
+		return ActionResult.PASS;
+	}
+
+	private void createDataText( HitResult hit )
+	{
 		switch ( hit.getType() )
 		{
 			case MISS:
 				// nothing near enough :)
 				//break;
-				return ActionResult.PASS; // does this even help?
+				break;
 
 			case BLOCK:
 				// looking at a block, now what block is it?
@@ -62,11 +82,11 @@ public class WailaFeature extends IToggleableFeature
 				// Let's try this. Is it faster?
 				BlockHitResult blockHit = (BlockHitResult) hit;
 				BlockPos blockPos = blockHit.getBlockPos();
-				BlockState blockState = Xenon.INSTANCE.client.world.getBlockState( blockPos );
+				BlockState blockState = Xenon.INSTANCE.client.world.getBlockState(blockPos);
 				Block block = blockState.getBlock(); // finally.
 				//Block block = Xenon.INSTANCE.client.world.getBlockState(((BlockHitResult) hit).getBlockPos()).getBlock();
 
-				dataText = new TranslatableText( "text.xenon.waila.blocktype", block.getName() );
+				this.dataText = new TranslatableText("text.xenon.waila.blocktype", block.getName(), block.getHardness(), block.getBlastResistance());
 				break;
 
 			case ENTITY:
@@ -76,7 +96,7 @@ public class WailaFeature extends IToggleableFeature
 				Entity entity = ((EntityHitResult) hit).getEntity();
 
 				// if not a mob/player, discard
-				if ( !(entity instanceof LivingEntity) ) break;
+				if (!(entity instanceof LivingEntity)) break;
 
 				// don't need to figure out the exact entity type
 				LivingEntity livingEntity = (LivingEntity) entity;
@@ -88,18 +108,12 @@ public class WailaFeature extends IToggleableFeature
 				float health = livingEntity.getHealth();
 
 				// now draw text!!! :D
-				dataText = new TranslatableText( "text.xenon.waila.entityhealth",
+				this.dataText =  new TranslatableText("text.xenon.waila.entityhealth",
 						type.getName(),
-						Text.of( String.valueOf( health ) )
+						health
 				);
-				break; // hmm is this why?
+				break;
 		}
-
-		// display block data
-		this.drawDataText( matrices, dataText );
-
-		return ActionResult.PASS;
-
 	}
 
 	private void drawDataText( MatrixStack matrices, Text text )
