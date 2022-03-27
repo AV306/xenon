@@ -20,11 +20,11 @@ NOTE: Once a new Minecraft version is released, support for previous versions te
 
 ## Features:
 
-(All are mapped to -1 by default)
+(All are unbound by default)
 ~~Maybe someday I'll implement multi-key seqnences~~
 - FullBright 
-- AutoResponse ( default text: ":")
-- Debug GUI (WIP)
+- AutoResponse
+- Bad WAILA implementation
 - ClickGUI (WIP)
 - Panorama Generator
 - ShareLocation
@@ -35,6 +35,7 @@ NOTE: Once a new Minecraft version is released, support for previous versions te
 
 Planned features:
 
+- Options GUI
 - AntiAFK
 - QuickCommand
 - FreeCam
