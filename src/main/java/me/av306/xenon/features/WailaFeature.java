@@ -30,9 +30,9 @@ public class WailaFeature extends IToggleableFeature
 
 	private short ticks = 0;
 
-	private short limit = 3;
-	public short getLimit() { return this.limit; }
-	public void setLimit( short limit ) { this.limit = limit; }
+	private short limit = 5;
+	//public short getLimit() { return this.limit; }
+	//public void setLimit( short limit ) { this.limit = limit; }
 
 	// FIXME: Optimise to reduce heavy fps drop
 	public WailaFeature()
@@ -55,8 +55,8 @@ public class WailaFeature extends IToggleableFeature
 		HitResult hit = Xenon.INSTANCE.client.crosshairTarget;
 
 		// actual waila logic
-		if ( ticks >= limit ) {
-			Xenon.INSTANCE.log( "calculating" );
+		if ( ticks >= limit )
+		{
 			this.createDataText( hit );
 			ticks = 0;
 		}
@@ -69,56 +69,54 @@ public class WailaFeature extends IToggleableFeature
 
 	private void createDataText( HitResult hit )
 	{
-		switch ( hit.getType() )
+		switch (hit.getType())
 		{
-			case MISS:
-				// nothing near enough :)
-				//break;
-				break;
-
-			case BLOCK:
+			case MISS ->
+					// nothing near enough :)
+					dataText = new LiteralText("");
+			case BLOCK ->
+			{
 				// looking at a block, now what block is it?
 				// TODO: add more details, multiline it
 				// Let's try this. Is it faster?
 				BlockHitResult blockHit = (BlockHitResult) hit;
 				BlockPos blockPos = blockHit.getBlockPos();
-				BlockState blockState = Xenon.INSTANCE.client.world.getBlockState(blockPos);
+				BlockState blockState = Xenon.INSTANCE.client.world.getBlockState( blockPos );
 				Block block = blockState.getBlock(); // finally.
+
 				//Block block = Xenon.INSTANCE.client.world.getBlockState(((BlockHitResult) hit).getBlockPos()).getBlock();
 
 				this.dataText = new TranslatableText("text.xenon.waila.blocktype", block.getName(), block.getHardness(), block.getBlastResistance());
-				break;
+			}
 
-			case ENTITY:
+			case ENTITY ->
+			{
 				// looking at a entity, now who/what is it?
 				//EntityHitResult entityHit = (EntityHitResult) hit;
 				//Entity entity = entityHit.getEntity();
 				Entity entity = ((EntityHitResult) hit).getEntity();
 
 				// if not a mob/player, discard
-				if (!(entity instanceof LivingEntity)) break;
+				if (!(entity instanceof LivingEntity livingEntity)) break;
 
 				// don't need to figure out the exact entity type
-				LivingEntity livingEntity = (LivingEntity) entity;
-
-
 				EntityType<?> type = livingEntity.getType();
 
 				// get health
 				float health = livingEntity.getHealth();
 
 				// now draw text!!! :D
-				this.dataText =  new TranslatableText("text.xenon.waila.entityhealth",
+				this.dataText = new TranslatableText("text.xenon.waila.entityhealth",
 						type.getName(),
 						health
 				);
-				break;
+			}
 		}
 	}
 
 	private void drawDataText( MatrixStack matrices, Text text )
 	{
-		TextUtil.drawPositionedText( matrices, text, ScreenPosition.TOP_CENTER, 0, 0, false, ColorUtil.RED );
+		TextUtil.drawPositionedText( matrices, text, ScreenPosition.TOP_CENTER, 0, 0, true, ColorUtil.RED );
 	}
 	
 	@Override

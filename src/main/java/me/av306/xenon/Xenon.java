@@ -34,9 +34,7 @@ public enum Xenon
     public MinecraftClient client;
 
     public final Formatting SUCCESS_FORMAT = Formatting.GREEN;
-
     public final Formatting WARNING_FORMAT = Formatting.YELLOW;
-
     public final Formatting ERROR_FORMAT = Formatting.RED;
 
     public ArrayList<IFeature> enabledFeatures = new ArrayList<>();
@@ -45,8 +43,8 @@ public enum Xenon
     public String getVersion() { return version; }
     public void setVersion( String version ) { this.version = version; }
 
-    private boolean updateAvailable = false;
-    public boolean getUpdateAvailable() { return updateAvailable; }
+    //private boolean updateAvailable = false;
+    //public boolean getUpdateAvailable() { return updateAvailable; }
 
     public void initialise()
     {
@@ -54,7 +52,7 @@ public enum Xenon
         // TODO: implement
 
         // set version & TODO: impl check for update
-        version = "3.0.0.beta.1+1.18.2";
+        version = "3.0.0.beta.6+1.18.2";
 
         // set client
         this.client = MinecraftClient.getInstance();
