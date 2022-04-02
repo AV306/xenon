@@ -22,6 +22,8 @@ public class FeatureList extends IToggleableFeature
 {
     public ScreenPosition position = ScreenPosition.TOP_RIGHT;
 
+    private ArrayList<Text> nameTexts = new ArrayList<>();
+
     public FeatureList()
     {
         // set name
@@ -49,21 +51,19 @@ public class FeatureList extends IToggleableFeature
         // write feature names
 
         TextUtil.drawPositionedText( matrices, versionText, position, 0, 0, false, ColorUtil.GREEN );
-
-        ArrayList<Text> nameTexts = new ArrayList<>();
 			
-			  for ( IFeature feature : Xenon.INSTANCE.enabledFeatures )
+		    for ( IFeature feature : Xenon.INSTANCE.enabledFeatures )
+		    {
+			    // hide FeatureList itself
+				if ( !(feature instanceof FeatureList) )
 				{
-					// hide FeatureList
-					if ( !(feature instanceof FeatureList) )
-					{
-						LiteralText nameText = new LiteralText( feature.getName() );
-					  nameTexts.add( nameText );
-					}
+				    LiteralText nameText = new LiteralText( feature.getName() );
+				    this.nameTexts.add( nameText );
 				}
+			}
 
-			  // remember to leave space for the version text!
-			  TextUtil.drawPositionedMultiLineText( matrices, nameTexts.toArray( Text[]::new ), position, 0, 12, ColorUtil.WHITE );
+		    // remember to leave space for the version text!
+            TextUtil.drawPositionedMultiLineText( matrices, nameTexts.toArray( Text[]::new ), position, 0, 12, ColorUtil.WHITE );
 			
         return ActionResult.PASS;
     }

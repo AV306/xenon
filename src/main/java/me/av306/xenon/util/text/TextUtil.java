@@ -62,24 +62,24 @@ public class TextUtil
           			textRenderer.drawWithShadow( matrices, text, x, y, color );
 
           			y += 12;
-			  }
+			  	}
 				break;
 				
 			case TOP_CENTER:
-		    for ( Text text : texts )
-        {
-				     x = (scaledWidth - textRenderer.getWidth( text )) / 2;
+		    	for ( Text text : texts )
+        		{
+					x = (scaledWidth - textRenderer.getWidth( text )) / 2;
 					
-          		textRenderer.drawWithShadow( matrices, text, x, y, color );
+          			textRenderer.drawWithShadow( matrices, text, x, y, color );
 
-          		y += 12;
-        	}
-		    break;
+          			y += 12;
+        		}
+		    	break;
 				
 			case TOP_RIGHT:
 				for ( Text text : texts )
         		{
-					x = scaledWidth - textRenderer.getWidth( text );
+					x = scaledWidth - textRenderer.getWidth( text ) - x;
 					
           			textRenderer.drawWithShadow( matrices, text, x, y, color );
 
