@@ -72,8 +72,12 @@ public class WailaFeature extends IToggleableFeature
 		switch (hit.getType())
 		{
 			case MISS ->
-					// nothing near enough :)
-					dataText = new LiteralText("");
+			{
+				// nothing near enough :)
+				dataText = new LiteralText("");
+				break;
+			}
+
 			case BLOCK ->
 			{
 				// looking at a block, now what block is it?
@@ -116,7 +120,7 @@ public class WailaFeature extends IToggleableFeature
 
 	private void drawDataText( MatrixStack matrices, Text text )
 	{
-		TextUtil.drawPositionedText( matrices, text, ScreenPosition.TOP_CENTER, 0, 0, true, ColorUtil.RED );
+		TextUtil.drawPositionedText( matrices, text, ScreenPosition.TOP_CENTER, 0, 0, false, ColorUtil.RED );
 	}
 	
 	@Override

@@ -29,7 +29,7 @@ public class TextUtil
 				
 			case TOP_RIGHT:
 				// calculate x
-			  	x = scaledWidth - textRenderer.getWidth( text );
+			  	x = scaledWidth - textRenderer.getWidth( text ) - 5 - xOffset;
 				break;
 				
 			case BOTTOM_LEFT:
@@ -42,7 +42,8 @@ public class TextUtil
 		else textRenderer.draw( matrices, text, x, y, color );
 	}
 
-	public static void drawPositionedMultiLineText( MatrixStack matrices, Text[] texts, ScreenPosition position, int xOffset, int yOffset, int color )
+	// FIXME: Unsatisfactory :(
+	public static void drawPositionedMultiLineText( MatrixStack matrices, Text[] texts, ScreenPosition position, int xOffset, int yOffset, boolean shadow, int color )
 	{
 		// REMINDER:
 		// Y is UP-DOWN offset
@@ -59,7 +60,8 @@ public class TextUtil
 			case TOP_LEFT:
 				for ( Text text : texts )
 				{
-          			textRenderer.drawWithShadow( matrices, text, x, y, color );
+          			if ( shadow ) textRenderer.drawWithShadow( matrices, text, x, y, color );
+          			else textRenderer.draw( matrices, text, x, y, color );
 
           			y += 12;
 			  	}
@@ -69,8 +71,9 @@ public class TextUtil
 		    	for ( Text text : texts )
         		{
 					x = (scaledWidth - textRenderer.getWidth( text )) / 2;
-					
-          			textRenderer.drawWithShadow( matrices, text, x, y, color );
+
+					if ( shadow ) textRenderer.drawWithShadow( matrices, text, x, y, color );
+					else textRenderer.draw( matrices, text, x, y, color );
 
           			y += 12;
         		}
@@ -79,9 +82,10 @@ public class TextUtil
 			case TOP_RIGHT:
 				for ( Text text : texts )
         		{
-					x = scaledWidth - textRenderer.getWidth( text ) - x;
-					
-          			textRenderer.drawWithShadow( matrices, text, x, y, color );
+					x = scaledWidth - textRenderer.getWidth( text ) - 5 - xOffset;
+
+					if ( shadow ) textRenderer.drawWithShadow( matrices, text, x, y, color );
+					else textRenderer.draw( matrices, text, x, y, color );
 
           			y += 12;
 			  	}

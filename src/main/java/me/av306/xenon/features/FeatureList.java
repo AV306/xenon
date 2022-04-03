@@ -22,8 +22,6 @@ public class FeatureList extends IToggleableFeature
 {
     public ScreenPosition position = ScreenPosition.TOP_RIGHT;
 
-    private ArrayList<Text> nameTexts = new ArrayList<>();
-
     public FeatureList()
     {
         // set name
@@ -46,6 +44,8 @@ public class FeatureList extends IToggleableFeature
 
 		Text versionText = new TranslatableText( "text.xenon.version", Xenon.INSTANCE.getVersion() );
 
+        ArrayList<Text> nameTexts = new ArrayList<>();
+
         //textRenderer.drawWithShadow( matrices, versionText, 5, 5, General.rgbToInt(0, 255, 0) );
 
         // write feature names
@@ -58,12 +58,12 @@ public class FeatureList extends IToggleableFeature
 				if ( !(feature instanceof FeatureList) )
 				{
 				    LiteralText nameText = new LiteralText( feature.getName() );
-				    this.nameTexts.add( nameText );
+				    nameTexts.add( nameText );
 				}
 			}
 
 		    // remember to leave space for the version text!
-            TextUtil.drawPositionedMultiLineText( matrices, nameTexts.toArray( Text[]::new ), position, 0, 12, ColorUtil.WHITE );
+            TextUtil.drawPositionedMultiLineText( matrices, nameTexts.toArray( Text[]::new ), position, 0, 12, false, ColorUtil.WHITE );
 			
         return ActionResult.PASS;
     }
