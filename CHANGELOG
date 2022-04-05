@@ -2,4 +2,6 @@
 2.2.0: Broke everything when updating to 1.18.2
 3.0.0: Fixed most stuff, added ShareLocation
 3.0.0.alpha.1: Added event system, and realised that IFeature#init() and IFeature constructor are identical for most purposes.
-crash-3.0.0.alpha.5: Added FeatureList, optimised a little (removed IUpdatableFeature), added bad WAILA implemention, and segregated Xenon editions
+3.0.0.alpha.5: Added FeatureList, optimised a little (removed IUpdatableFeature), added bad WAILA implemention
+3.0.0.beta.6: Optimised WAILA and FeatureList
+3.0.0.beta.7: Implement better version text system (TODO)
