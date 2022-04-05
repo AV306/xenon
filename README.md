@@ -40,4 +40,6 @@ Planned features:
 - QuickCommand
 - FreeCam
 
-# Licensed under GNU GPL v3 \:)
+# Have Fun!
+
+## Licensed under GNU GPL v3
