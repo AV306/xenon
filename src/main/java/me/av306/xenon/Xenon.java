@@ -6,6 +6,9 @@ import me.av306.xenon.keybind.*;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.impl.resource.loader.FabricModResourcePack;
+import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.loader.api.ModContainer;
+import net.fabricmc.loader.impl.FabricLoaderImpl;
 import net.fabricmc.loader.impl.ModContainerImpl;
 import net.fabricmc.loader.impl.discovery.ModCandidate;
 import net.minecraft.client.MinecraftClient;
@@ -14,6 +17,7 @@ import net.minecraft.client.util.InputUtil;
 import net.minecraft.util.Formatting;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.system.CallbackI;
 
@@ -34,14 +38,17 @@ public enum Xenon
     public MinecraftClient client;
 
     public final Formatting SUCCESS_FORMAT = Formatting.GREEN;
-    public final Formatting WARNING_FORMAT = Formatting.YELLOW;
-    public final Formatting ERROR_FORMAT = Formatting.RED;
+    //public final Formatting WARNING_FORMAT = Formatting.YELLOW;
+    //public final Formatting ERROR_FORMAT = Formatting.RED;
 
     public ArrayList<IFeature> enabledFeatures = new ArrayList<>();
 
     private String version;
     public String getVersion() { return version; }
-    public void setVersion( String version ) { this.version = version; }
+    //public void setVersion( String version ) { this.version = version; }
+
+    @Nullable
+    private ModContainer modContainer;
 
     //private boolean updateAvailable = false;
     //public boolean getUpdateAvailable() { return updateAvailable; }
@@ -52,7 +59,10 @@ public enum Xenon
         // TODO: implement
 
         // set version & TODO: impl check for update
-        version = "3.0.0.beta.6+1.18.2";
+        assert FabricLoader.getInstance().getModContainer( "xenon" ).isPresent();
+        this.modContainer = FabricLoader.getInstance().getModContainer( "xenon" ).get();
+
+        this.version = modContainer.getMetadata().getVersion().getFriendlyString();
 
         // set client
         this.client = MinecraftClient.getInstance();

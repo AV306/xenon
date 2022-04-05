@@ -13,7 +13,7 @@
     "sources": "https://github.com/AV306/xenon"
   },
 
-  "license": "wied-license",
+  "license": "GNU GPL v3",
   "icon": "assets/xenon/icon.png",
 
   "environment": "*",
@@ -30,11 +30,11 @@
   ],
 
   "depends": {
-    "fabricloader": ">=0.11.3",
+    "fabricloader": ">=0.13.3",
     "fabric-key-binding-api-v1": "*",
     "fabric": "*",
     "minecraft": "1.18.x",
-    "java": ">=16"
+    "java": ">=17"
   },
   "suggests": {
     "another-mod": "https://github.com/nianny/minecraft-mod-1"
