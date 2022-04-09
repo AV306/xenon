@@ -8,6 +8,8 @@
   "key.xenon.options": "Options GUI",
   "key.xenon.sharelocation": "Share Location",
   "key.xenon.waila": "WAILA",
+  "key.xenon.datahud": "DataHUD",
+  "key.xenon.featurelist": "FeatureList",
   "text.xenon.takepanorama.success": "[Xenon] Panorama saved in: %s!",
   "text.xenon.waila.entityhealth": "Entity: %s, Health: %f",
   "text.xenon.waila.blocktype": "Block: %s | Break Time: %f | Blast resistance: %f",
