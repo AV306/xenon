@@ -34,7 +34,6 @@ public class WailaFeature extends IToggleableFeature
 	//public short getLimit() { return this.limit; }
 	//public void setLimit( short limit ) { this.limit = limit; }
 
-	// FIXME: Optimise to reduce heavy fps drop
 	public WailaFeature()
 	{
 		super("WAILA"); 
