@@ -20,6 +20,7 @@ public class TextUtil
 		switch ( position )
 		{
 			case TOP_LEFT:
+				// ok, skip
 				break;
 				
 			case TOP_CENTER:
@@ -33,6 +34,10 @@ public class TextUtil
 				break;
 				
 			case BOTTOM_LEFT:
+				// calculate y
+				y = scaledHeight - 10;
+				break;
+
 			case BOTTOM_CENTER:
 			case BOTTOM_RIGHT:
 				break;

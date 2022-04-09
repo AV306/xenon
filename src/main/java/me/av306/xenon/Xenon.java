@@ -21,6 +21,7 @@ import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.system.CallbackI;
 
+import javax.xml.crypto.Data;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -58,17 +59,14 @@ public enum Xenon
         // check folders
         // TODO: implement
 
-        // set version & TODO: impl check for update
-        assert FabricLoader.getInstance().getModContainer( "xenon" ).isPresent();
-        this.modContainer = FabricLoader.getInstance().getModContainer( "xenon" ).get();
-
-        this.version = modContainer.getMetadata().getVersion().getFriendlyString();
+        readVersionData();
 
         // set client
         this.client = MinecraftClient.getInstance();
 
 
         // register keybinds
+        // TODO: read from config file
         log( "Registering FullBright key!" );
         keybindManager.register(
                 new XenonKeybind<IToggleableFeature>(
@@ -162,6 +160,17 @@ public enum Xenon
                 )
         );
 
+        log( "Registering DataHUD key!" );
+        keybindManager.register(
+                new XenonKeybind<IToggleableFeature>(
+                        "key.xenon.datahud",
+                        InputUtil.Type.KEYSYM,
+                        -1,
+                        "category.xenon.features",
+                        new DataHudFeature()
+                )
+        );
+
     }
 
 
@@ -170,10 +179,16 @@ public enum Xenon
     /*
     private void checkDataFolder()
     {
-        File dataFolder = new File( this.client.runDirectory.getAbsolutePath() + File.separator + "xenon" + File.separator );
 
-        if ( !dataFolder.exists() )
-            dataFolder.mkdir();
     }
     */
+
+    private void readVersionData()
+    {
+        // set version & TODO: impl check for update
+        assert FabricLoader.getInstance().getModContainer( "xenon" ).isPresent();
+        this.modContainer = FabricLoader.getInstance().getModContainer( "xenon" ).get();
+
+        this.version = modContainer.getMetadata().getVersion().getFriendlyString();
+    }
 }
