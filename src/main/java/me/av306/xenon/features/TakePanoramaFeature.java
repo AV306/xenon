@@ -30,7 +30,7 @@ public class TakePanoramaFeature extends IFeature
         // and through a bunch of nested func calls,
         // it saves in the screenshots subdir.
         // So we pass the root gamedir.
-        Xenon.INSTANCE.client.takePanorama( runDir, getResolution(), getResolution() );
+        Xenon.INSTANCE.client.takePanorama( runDir, resolution, resolution );
 
         Text linkToPanoramas = new LiteralText( panoramaFile.getName() + File.pathSeparator + "panorama0.png" )
                 .formatted( Formatting.UNDERLINE )
@@ -38,10 +38,10 @@ public class TakePanoramaFeature extends IFeature
                         style -> style.withClickEvent(
                                 new ClickEvent( ClickEvent.Action.OPEN_FILE, panoramaFile.getAbsolutePath() )
                         )
-                );
+                )
+					      .formatted( Xenon.INSTANCE.SUCCESS_FORMAT );
 
-        Text msg = new TranslatableText( "text.xenon.takepanorama.success", linkToPanoramas )
-                .formatted( Xenon.INSTANCE.SUCCESS_FORMAT );
+        Text msg = new TranslatableText( "text.xenon.takepanorama.success", linkToPanoramas );
 
         Xenon.INSTANCE.client.player.sendMessage(
                 msg,
