@@ -34,6 +34,7 @@ public class ShareLocationFeature extends IFeature
 			Math.round( currentPos.getZ() ) + "]";
 
 		Xenon.INSTANCE.client.player.sendChatMessage( text );
+		// FIXME: Broken on Javier's machine, no f^cking idea why
 	}
 
 	@Override

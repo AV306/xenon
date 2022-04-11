@@ -14,10 +14,10 @@ public class TakePanoramaFeature extends IFeature
 {
 	
     private static int resolution = 512;
-    public static int getResolution() { return resolution; }
+    //public static int getResolution() { return resolution; }
     public static void setResolution( int res ) { resolution = res; }
 
-	public TakePanoramaFeature() { super( "TakePanoramaFeature" ); } // Not strictly needed
+		public TakePanoramaFeature() { super( "TakePanoramaFeature" ); } // Not strictly needed
 	
     @Override
     public void onEnable()

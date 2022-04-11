@@ -43,6 +43,8 @@ run/
 .classpath
 .settings/
 .breakpoints
+replit.nix
+jdk-18/
 
 # reference
 reference/

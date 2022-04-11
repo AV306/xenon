@@ -6,7 +6,8 @@ import me.av306.xenon.feature.IFeature;
 
 public class AutoReplyFeature extends IFeature
 {
-	public String message = ":";
+	private static String message = ":";
+	public static void setMessage( String newMessage) { message = newMessage; }
 
 	public AutoReplyFeature() { super( "AutoReply" ); }
 	

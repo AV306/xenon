@@ -4,7 +4,8 @@ import me.av306.xenon.feature.*;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 
 public class XenonKeybindManager
-{		
+{	
+		// TODO: should we configure feature attribs by instance fields or by static fields?
     public XenonKeybindManager() {}
 	
     public void register( XenonKeybind kb )

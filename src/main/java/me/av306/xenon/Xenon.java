@@ -66,7 +66,8 @@ public enum Xenon
 
 
         // register keybinds
-        // TODO: read from config file
+        // TODO: make it less clunky
+				// but how???
         log( "Registering FullBright key!" );
         keybindManager.register(
                 new XenonKeybind<IToggleableFeature>(
