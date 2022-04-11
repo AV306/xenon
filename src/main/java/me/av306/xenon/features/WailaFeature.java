@@ -30,9 +30,9 @@ public class WailaFeature extends IToggleableFeature
 
 	private short ticks = 0;
 
-	private short limit = 5;
-	//public short getLimit() { return this.limit; }
-	//public void setLimit( short limit ) { this.limit = limit; }
+	private static short limit = 5;
+	//public short getLimit() { return limit; }
+	//public static void setLimit( short limit ) { limit = limit; }
 
 	public WailaFeature()
 	{
@@ -49,8 +49,7 @@ public class WailaFeature extends IToggleableFeature
 		ticks++;
 
 		// get centre crosshair target
-		// TODO: May be expensive, test FPS 
-		// TODO: Get Javier to test on a low-end machine
+		// seems to work fine for javier
 		HitResult hit = Xenon.INSTANCE.client.crosshairTarget;
 
 		// actual waila logic

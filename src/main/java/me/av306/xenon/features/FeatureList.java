@@ -20,7 +20,9 @@ import java.util.ArrayList;
 
 public class FeatureList extends IToggleableFeature
 {
-    public ScreenPosition position = ScreenPosition.TOP_RIGHT;
+		private static boolean shouldShowVersion = true;
+
+    private static ScreenPosition position = ScreenPosition.TOP_RIGHT;
 
     public FeatureList()
     {
