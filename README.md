@@ -11,8 +11,8 @@ NOTE: Once a new Minecraft version is released, support for previous versions te
 
 ## Requirements:
 
-- Fabric Loader >= 0.11.3
-- Fabric API for that version
+- Fabric Loader >= 0.11.3 (Recommended: 0.13.3)
+- Fabric API for that version (Recommended: 0.50.0+1.18.2)
 
 ## Incompatible mods:
 
