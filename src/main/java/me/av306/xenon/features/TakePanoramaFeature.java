@@ -7,6 +7,7 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 
@@ -22,6 +23,7 @@ public class TakePanoramaFeature extends IFeature
     @Override
     public void onEnable()
     {
+        Xenon.INSTANCE.LOGGER.info( "pano" );
         File runDir = Xenon.INSTANCE.client.runDirectory;
         File panoramaFile = new File( runDir, "screenshots" );
 
@@ -32,7 +34,7 @@ public class TakePanoramaFeature extends IFeature
         // So we pass the root gamedir.
         Xenon.INSTANCE.client.takePanorama( runDir, resolution, resolution );
 
-        Text linkToPanoramas = new LiteralText( panoramaFile.getName() + File.pathSeparator + "panorama0.png" )
+        Text linkToPanoramas = new LiteralText( panoramaFile.getName() + File.separator + "panorama0.png" )
                 .formatted( Formatting.UNDERLINE )
                 .styled(
                         style -> style.withClickEvent(
