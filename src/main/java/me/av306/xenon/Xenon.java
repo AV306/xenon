@@ -1,30 +1,20 @@
 package me.av306.xenon;
 
-import me.av306.xenon.feature.*;
+import me.av306.xenon.feature.IFeature;
+import me.av306.xenon.feature.IToggleableFeature;
 import me.av306.xenon.features.*;
-import me.av306.xenon.keybind.*;
-
-import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.impl.resource.loader.FabricModResourcePack;
+import me.av306.xenon.keybind.XenonKeybind;
+import me.av306.xenon.keybind.XenonKeybindManager;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
-import net.fabricmc.loader.impl.FabricLoaderImpl;
-import net.fabricmc.loader.impl.ModContainerImpl;
-import net.fabricmc.loader.impl.discovery.ModCandidate;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.InputUtil;
-
 import net.minecraft.util.Formatting;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
-import org.lwjgl.glfw.GLFW;
-import org.lwjgl.system.CallbackI;
 
-import javax.xml.crypto.Data;
-import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public enum Xenon
 {
@@ -43,6 +33,8 @@ public enum Xenon
     //public final Formatting ERROR_FORMAT = Formatting.RED;
 
     public ArrayList<IFeature> enabledFeatures = new ArrayList<>();
+
+    //public File configFile = FabricLoader.getInstance().getConfigDir().resolve( "xenon_config.txt" ).toFile();
 
     private String version;
     public String getVersion() { return version; }
@@ -79,8 +71,6 @@ public enum Xenon
                 )
         );
 
-
-
         log( "Registering AutoReply key!" );
         keybindManager.register(
                 new XenonKeybind<IFeature>(
@@ -91,7 +81,6 @@ public enum Xenon
                         new AutoReplyFeature()
                 )
         );
-
 
         log( "Registering OptionsGui key!" );
         keybindManager.register(
@@ -104,7 +93,6 @@ public enum Xenon
                 )
         );
 
-
         log( "Registering NoFireOverlay key!" );
         keybindManager.register(
                 new XenonKeybind<IToggleableFeature>(
@@ -115,7 +103,6 @@ public enum Xenon
 				        new NoFireOverlayFeature()
                 )
         );
-
 
         log( "Registering TakePanorama key!" );
         keybindManager.register(
@@ -178,9 +165,23 @@ public enum Xenon
     public void log( String msg ) { if ( debug ) LOGGER.info( msg ); }
 
     /*
-    private void checkDataFolder()
+    private void checkDataFolder() // should never throw
     {
+        Scanner configFileScanner;
 
+        try
+        {
+            configFile.createNewFile();
+
+            configFileScanner = new Scanner( configFile );
+
+            while ( configFileScanner.hasNextLine() )
+            {
+                String configuration = configFileScanner.nextLine().strip();
+                IFeature targeted = configuration.split( "\\." )[0].;
+            }
+        }
+        catch ( IOException e ) { e.printStackTrace(); }
     }
     */
 
@@ -188,8 +189,8 @@ public enum Xenon
     {
         // set version & TODO: impl check for update
         assert FabricLoader.getInstance().getModContainer( "xenon" ).isPresent();
-        this.modContainer = FabricLoader.getInstance().getModContainer( "xenon" ).get();
+        modContainer = FabricLoader.getInstance().getModContainer( "xenon" ).get();
 
-        this.version = modContainer.getMetadata().getVersion().getFriendlyString();
+        version = modContainer.getMetadata().getVersion().getFriendlyString();
     }
 }

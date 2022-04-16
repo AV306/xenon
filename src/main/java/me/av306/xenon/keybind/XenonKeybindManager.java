@@ -1,5 +1,6 @@
 package me.av306.xenon.keybind;
 
+import me.av306.xenon.Xenon;
 import me.av306.xenon.feature.*;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 
@@ -22,7 +23,7 @@ public class XenonKeybindManager
                     }
             );
         }
-        else if ( kb.feature instanceof IContinuousFeature )
+        /*else if ( kb.feature instanceof IContinuousFeature )
         {
             // Holding ("Normal") feature e.g. zoom
             ClientTickEvents.END_CLIENT_TICK.register( (client) ->
@@ -31,14 +32,17 @@ public class XenonKeybindManager
                             kb.feature.enable();
                     }
             );
-        }
+        }*/
         else
         {
-			// one-off
+			// IFeature, fire-and-forget
             ClientTickEvents.END_CLIENT_TICK.register( (client) ->
                     {
                         if ( kb.keybind.wasPressed() )
-						                kb.feature.enable();
+                        {
+                            kb.feature.enable();
+                            Xenon.INSTANCE.LOGGER.info( "IFeature triggered" );
+                        }
                     }
             );
         }

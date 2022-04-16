@@ -11,7 +11,7 @@ public abstract class IToggleableFeature extends IFeature
     @Override
     public void enable()
     {
-        if ( isEnabled ) return;
+        if ( isEnabled ) return; // safety
 
         isEnabled = true;
 
