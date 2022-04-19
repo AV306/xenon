@@ -1,5 +1,11 @@
 # Xenon Client 
 
+## Xenon 1.17.x is DEPRECATED.
+
+You shouldn't be playing Minecraft 1.17, 1.18 is way better.
+
+This branch is also *very* behind 1.18 (main).
+
 ## Setup
 
 For setup instructions please see the [fabric wiki page](https://fabricmc.net/wiki/tutorial:setup) that relates to the IDE that you are using.
