@@ -10,6 +10,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.MutableText;
 import net.minecraft.util.ActionResult;
+import org.lwjgl.opengl.GL15;
 
 public class DataHudFeature extends IToggleableFeature
 {
@@ -24,6 +25,8 @@ public class DataHudFeature extends IToggleableFeature
     {
         if ( this.isEnabled )
         {
+            GL15.glDisable( GL15.GL_BLEND );
+
             TextUtil.drawPositionedText(
                 matrixStack,
                 new LiteralText( Xenon.INSTANCE.client.fpsDebugString ),
@@ -32,6 +35,8 @@ public class DataHudFeature extends IToggleableFeature
                 false,
                 ColorUtil.WHITE
             );
+
+            GL15.glEnable( GL15.GL_BLEND );
         }
 
         return ActionResult.PASS;
