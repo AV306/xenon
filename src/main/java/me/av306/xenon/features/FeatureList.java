@@ -15,12 +15,13 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
+import org.lwjgl.opengl.GL15;
 
 import java.util.ArrayList;
 
 public class FeatureList extends IToggleableFeature
 {
-		private static boolean shouldShowVersion = true;
+	//private static boolean shouldShowVersion = true;
 
     private static ScreenPosition position = ScreenPosition.TOP_RIGHT;
 
@@ -38,6 +39,8 @@ public class FeatureList extends IToggleableFeature
 
     private ActionResult onInGameHudRender( MatrixStack matrices, float tickDelta )
     {
+        GL15.glDisable( GL15.GL_BLEND ); // don't blend with teh vignette
+
         if ( !this.isEnabled ) return ActionResult.PASS;
 
         TextRenderer textRenderer = Xenon.INSTANCE.client.inGameHud.getTextRenderer();
@@ -54,19 +57,21 @@ public class FeatureList extends IToggleableFeature
 
         TextUtil.drawPositionedText( matrices, versionText, position, 0, 0, false, ColorUtil.GREEN );
 			
-		    for ( IFeature feature : Xenon.INSTANCE.enabledFeatures )
-		    {
-			    // hide FeatureList itself
-				if ( !(feature instanceof FeatureList) )
-				{
-				    LiteralText nameText = new LiteralText( feature.getName() );
-				    nameTexts.add( nameText );
-				}
+        for ( IFeature feature : Xenon.INSTANCE.enabledFeatures )
+        {
+            // hide FeatureList itself
+			if ( !(feature instanceof FeatureList) )
+			{
+			    LiteralText nameText = new LiteralText( feature.getName() );
+			    nameTexts.add( nameText );
 			}
+        }
 
-		    // remember to leave space for the version text!
-            TextUtil.drawPositionedMultiLineText( matrices, nameTexts.toArray( Text[]::new ), position, 0, 12, false, ColorUtil.WHITE );
-			
+        // remember to leave space for the version text!
+        TextUtil.drawPositionedMultiLineText( matrices, nameTexts.toArray( Text[]::new ), position, 0, 12, false, ColorUtil.WHITE );
+
+        GL15.glEnable( GL15.GL_BLEND ); // turn it back on
+
         return ActionResult.PASS;
     }
 
