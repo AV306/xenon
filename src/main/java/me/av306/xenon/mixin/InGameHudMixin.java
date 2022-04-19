@@ -18,7 +18,7 @@ public class InGameHudMixin
     @Inject(
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/client/gui/hud/InGameHud;renderVignetteOverlay(Lnet/minecraft/entity/Entity;)V",
+                    target = "Lnet/minecraft/client/gui/hud/InGameHud;renderStatusEffectOverlay(Lnet/minecraft/client/util/math/MatrixStack;)V", // render AFTER vignette without doing shit to the portal overlay
                     shift = At.Shift.AFTER
             ),
             method = "render(Lnet/minecraft/client/util/math/MatrixStack;F)V",
