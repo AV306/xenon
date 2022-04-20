@@ -34,7 +34,9 @@ public class ConfigurationManager
         {
             // should not happen,
             // if it does, just die
-            throw e;
+            throw new IllegalStateException(
+                "Looks like the config file checks failed, and this is very very bad!!! Please make a bug report!"
+            );
         }
     }
     
