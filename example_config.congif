@@ -1,0 +1,35 @@
+# .CONGIF v0.0.1
+# Example Xenon configuration file
+# Locations:
+# - Windows: %APPDATA%/[gamedir]/config/
+# - MacOS:
+# - Linux/Unix:
+
+# General
+
+# +---------------------------+
+# | Feature-specific settings |
+# +---------------------------+
+
+# AutoReply
+# anything and everything past the '='
+# is parsed as a string
+autoreply.text=:
+
+# FeatureList
+# - 0: Top left
+# - 1: Top right
+# - 2: Bottom left
+# - 3: Bottom right
+featurelist.position=1
+# parsed as boolean
+# [value != 0]
+featurelist.showversion=1
+
+# TakePanorama
+takepanorama.resolution=512
+
+# WAILA
+# this is parsed as an int,
+# will throw if it can't
+waila.updatefreq=3
