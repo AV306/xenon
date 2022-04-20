@@ -3,37 +3,51 @@ package me.av306.xenon.util.config;
 import me.av306.xenon.Xenon;
 
 import java.io.File;
-import java.io.IOError;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Scanner;
 
 public class ConfigurationManager
 {
-    private HashMap<String, ConfigEntry> settings = new HashMap<>();
+    // it's the feature's job to parse the setting string
+    private HashMap<String, String> settings = new HashMap<>();
 
     public ConfigurationManager() {}
 
     public void initialiseConfigFile() {}
 
-    public HashMap<String, ConfigEntry> readConfigs( File configFile )
+    public void readConfigs( File configFile )
     {
         try
         {
-            Scanner configFileScanner = new Scanner( configFile );
-            while ( configFileScanner.hasNextLine() )
-            {
-                String line = configFileScanner.next();
-                if ( line.startsWith( "#" ) ) continue;
-                //else
-            }
+            // read into the field
+            readConfigsInternal( configFile );
         }
         catch ( IOException e )
         {
-            Xenon.INSTANCE.LOGGER.warn( "IOException thrown while reading configs!" );
+            initialiseConfigFile();
+            
+            // try again
+            try { readConfigsInternal( configFile ); }
+            catch ( IOException e ) { throw e; } // f^ck you
         }
-
-        return this.settings;
+    }
+    
+    private void readConfigsInternal( File configFile ) throws IOException
+    {
+        Scanner configFileScanner = new Scanner( configFile ); // IOException here
+        while ( configFileScanner.hasNextLine() )
+        {
+            String line = configFileScanner.next();
+            if ( line.startsWith( "#" ) ) continue; // skip comments
+            else
+            {
+                String[] config = line.strip().split( "=" );
+                // e.g. {"waila.updatefreq", "3"}
+                // then WAILA parses "3" to 3 (short)
+                settings.put( config[0], config[1] );
+            }
+        }
     }
 
     public ConfigEntry getConfig( String name )
