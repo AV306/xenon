@@ -34,7 +34,7 @@ public class ConfigurationManager
             
             // try again
             try { readConfigsInternal( configFile ); }
-            catch ( IOException e ) { throw e; } // f^ck you
+            catch ( IOException ee ) { throw ee; } // f^ck you, and can i throw `e` too?
         }
     }
     
