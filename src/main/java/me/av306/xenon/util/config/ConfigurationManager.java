@@ -17,9 +17,11 @@ public class ConfigurationManager
     public ConfigurationManager( String pathToConfigFile )
     {
         this.configFile = new File( pathToConfigFile );
+        
+        checkConfigFile();
     }
 
-    public void initialiseConfigFile() {}
+    public void checkConfigFile() {}
 
     public void readConfigs( File configFile )
     {
@@ -30,11 +32,9 @@ public class ConfigurationManager
         }
         catch ( IOException e )
         {
-            initialiseConfigFile();
-            
-            // try again
-            try { readConfigsInternal( configFile ); }
-            catch ( IOException ee ) { throw ee; } // f^ck you, and can i throw `e` too?
+            // should not happen,
+            // if it does, just die
+            throw e;
         }
     }
     
