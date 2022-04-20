@@ -10,9 +10,14 @@ import java.util.Scanner;
 public class ConfigurationManager
 {
     // it's the feature's job to parse the setting string
-    private HashMap<String, String> settings = new HashMap<>();
+    public HashMap<String, String> settings = new HashMap<>();
+    
+    private final File configFile;
 
-    public ConfigurationManager() {}
+    public ConfigurationManager( String pathToConfigFile )
+    {
+        this.configFile = new File( pathToConfigFile );
+    }
 
     public void initialiseConfigFile() {}
 
@@ -48,10 +53,5 @@ public class ConfigurationManager
                 settings.put( config[0], config[1] );
             }
         }
-    }
-
-    public ConfigEntry getConfig( String name )
-    {
-        return this.settings.get( name );
     }
 }
