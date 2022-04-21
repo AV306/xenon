@@ -23,15 +23,15 @@ NOTE: Once a new Minecraft version is released, support for previous versions te
 (All are unbound by default)
 ~~Maybe someday I'll implement multi-key seqnences~~
 - FullBright 
-- AutoResponse
+- QuickResponse (TODO: Rename in codebase)
 - Bad WAILA implementation
-- ClickGUI (WIP)
 - Panorama Generator
 - ShareLocation
 - NoFireOverlay
 - \<Halo Red Reticle like thing\> (WIP)
-- FeatureList (null)
-- DataHUD (WIP)
+- FeatureList
+- DataHUD
+- Configuration system (WIP)
 
 Planned features:
 
