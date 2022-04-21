@@ -14,9 +14,10 @@
 # AutoReply
 # anything and everything past the '='
 # is parsed as a string
-autoreply.text=:
+autoreply.message=:
 
 # FeatureList
+# parser as Position
 # - 0: Top left
 # - 1: Top right
 # - 2: Bottom left
