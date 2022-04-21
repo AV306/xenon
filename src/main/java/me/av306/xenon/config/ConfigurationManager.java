@@ -24,24 +24,16 @@ public class ConfigurationManager
 
     public void loadConfigs()
     {
-        try
-				{
-			    readConfigsInternal();
-				}
-			  catch ( FileNotFoundException e ) { e.printStackTrace(); }
     }
     
-    private void readConfigsInternal( File configFile ) throws FileNotFoundException
+    private void readConfigsInternal( File configFile )
     {
-        // if the file is blank, it will just not put anything in the HM
-			
-        try
+
+			  // doesn't matter if this throws,
+				// it will just leave the HashMap empty,
+				// and the Features will just set their default configs.
+        try ( Scanner configFileScanner = new Scanner( configFile ); )
 				{
-					// doesn't matter if this throws,
-					// it will just leave the HashMap empty,
-					// and the Features will just set their default configs.
-					Scanner configFileScanner = new Scanner( configFile );
-					
           while ( configFileScanner.hasNextLine() )
           {
               String line = configFileScanner.next();
@@ -55,15 +47,11 @@ public class ConfigurationManager
               }
           }
 			
-	  	    Xenon.INSTANCE.client.LOGGER.info( "Done reading configurations!" );
+	  	    Xenon.INSTANCE.LOGGER.info( "Done reading configurations!" );
 				}
 			  catch ( FileNotFoundException e )
 				{
-					Xenon.INSTANCE.LOGGER.warn( "Config file Scanner threw while initialising! Features will use default configs!" );
-				}
-			  finally
-				{
-					configFileScanner.close();
+					Xenon.INSTANCE.LOGGER.warn( "Config Scanner threw in initialisation! Features will use default settings." );
 				}
     }
 

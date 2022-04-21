@@ -19,7 +19,11 @@ public abstract class IFeature
   	public boolean isEnabled = false;
 
 	// generalised constructors (can't be called anyway)
-	protected IFeature( String name ) { this.name = Objects.requireNonNull( name ); }
+	protected IFeature( String name )
+	{ 
+		this.name = Objects.requireNonNull( name );
+	}
+	
 	protected IFeature() { this( "IFeature" ); }
 	
 	public void enable()
