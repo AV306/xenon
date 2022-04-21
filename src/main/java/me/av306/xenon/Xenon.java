@@ -202,15 +202,11 @@ public enum Xenon
 
 		private void initialiseConfigManager()
 		{
-			try
-			{
-				this.configFile = FabricLoader.getInstance()
+			this.configFile = FabricLoader.getInstance()
 					.getConfigDir()
 					.resolve( "xenon_config.congif" )
 					.toFile();
-				this.configManager = new ConfigurationManager( configFile );
-			} catch ( IOException e ) {}
+			this.configManager = new ConfigurationManager( configFile );
 
-			this.configManager.loadConfigs();
-		}
+	  	this.configManager.loadConfigs();
 }
