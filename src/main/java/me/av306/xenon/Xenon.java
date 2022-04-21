@@ -27,7 +27,7 @@ public enum Xenon
 
     public XenonKeybindManager keybindManager = new XenonKeybindManager();
 
-		public ConfigurationManager configManager;
+	public ConfigurationManager configManager;
 	
     public final Logger LOGGER = LogManager.getLogger( "xenon" );
 
@@ -45,7 +45,7 @@ public enum Xenon
     public String getVersion() { return version; }
     //public void setVersion( String version ) { this.version = version; }
 
-		public File configFile;
+	public File configFile;
 
     @Nullable
     private ModContainer modContainer;
@@ -58,14 +58,14 @@ public enum Xenon
 			
         readVersionData();
 
-				initialiseConfigManager();
+		initialiseConfigManager();
 			
         // set client
         this.client = MinecraftClient.getInstance();
 			
         // register keybinds
         // TODO: make it less clunky
-				// but how???
+		// but how???
         log( "Registering FullBright key!" );
         keybindManager.register(
                 new XenonKeybind<IToggleableFeature>(
@@ -200,14 +200,15 @@ public enum Xenon
         version = modContainer.getMetadata().getVersion().getFriendlyString();
     }
 
-		private void initialiseConfigManager()
-		{
-			this.configFile = FabricLoader.getInstance()
-					.getConfigDir()
-					.resolve( "xenon_config.congif" )
-					.toFile();
-			this.configManager = new ConfigurationManager( configFile );
+    private void initialiseConfigManager()
+    {
+        this.configFile = FabricLoader.getInstance()
+                .getConfigDir()
+                .resolve( "xenon_config.congif" )
+                .toFile();
+		this.configManager = new ConfigurationManager( configFile );
+        this.LOGGER.info( "Initialising ConfigManager!" );
 
-	  	this.configManager.loadConfigs();
-		}
+	  	//this.configManager.loadConfigs();
+	}
 }
