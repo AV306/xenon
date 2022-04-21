@@ -17,22 +17,27 @@ public class ConfigurationManager
     public ConfigurationManager( File configFile )
     {
         this.configFile = configFile;
-			  this.configFile.createNewFile(); // ensure that the file exists
-
+			  
+			  try
+				{
+					this.configFile.createNewFile(); // ensure that the file exists
+				}
+			  catch ( IOException e )
+				{
+					Xenon.INSTANCE.LOGGER.warn( "Could not ensure the config file exists!" );
+					e.printStackTrace();
+				}
+			
 			  loadConfigs();
 		}
 
-    public void loadConfigs()
-    {
-    }
-    
-    private void readConfigsInternal( File configFile )
+    private void loadConfigs()
     {
 
 			  // doesn't matter if this throws,
 				// it will just leave the HashMap empty,
 				// and the Features will just set their default configs.
-        try ( Scanner configFileScanner = new Scanner( configFile ); )
+        try ( Scanner configFileScanner = new Scanner( this.configFile ); )
 				{
           while ( configFileScanner.hasNextLine() )
           {
@@ -51,7 +56,7 @@ public class ConfigurationManager
 				}
 			  catch ( FileNotFoundException e )
 				{
-					Xenon.INSTANCE.LOGGER.warn( "Config Scanner threw in initialisation! Features will use default settings." );
+					Xenon.INSTANCE.LOGGER.warn( "Config file absent! Features will use default settings." );
 				}
     }
 
