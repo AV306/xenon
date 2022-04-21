@@ -9,7 +9,13 @@ public class AutoReplyFeature extends IFeature
 	private static String message = ":";
 	public static void setMessage( String newMessage) { message = newMessage; }
 
-	public AutoReplyFeature() { super( "AutoReply" ); }
+	public AutoReplyFeature()
+	{
+		super( "AutoReply" );
+
+		// read configs
+		this.message = Xenon.INSTANCE.configManager.settings.get( "autoreply.message" );
+  }
 	
     @Override
     public void onEnable()

@@ -16,6 +16,7 @@ import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public enum Xenon
@@ -205,9 +206,9 @@ public enum Xenon
 			{
 				this.configFile = FabricLoader.getInstance()
 					.getConfigDir()
-					.toFile()
-					.createNewFile( "xenon_config.congif" );
-				this.configManager = new File( configFile );
+					.resolve( "xenon_config.congif" )
+					.toFile();
+				this.configManager = new ConfigurationManager( configFile );
 			} catch ( IOException e ) {}
 
 			this.configManager.loadConfigs();
