@@ -5,6 +5,7 @@ import me.av306.xenon.feature.IToggleableFeature;
 import me.av306.xenon.features.*;
 import me.av306.xenon.keybind.XenonKeybind;
 import me.av306.xenon.keybind.XenonKeybindManager;
+import me.av306.xenon.config.ConfigurationManager;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.minecraft.client.MinecraftClient;
@@ -23,6 +24,8 @@ public enum Xenon
     public boolean debug = true;
 
     public XenonKeybindManager keybindManager = new XenonKeybindManager();
+
+		public ConfigurationManager configManager;
 	
     public final Logger LOGGER = LogManager.getLogger( "xenon" );
 
@@ -40,6 +43,8 @@ public enum Xenon
     public String getVersion() { return version; }
     //public void setVersion( String version ) { this.version = version; }
 
+		public File configFile;
+
     @Nullable
     private ModContainer modContainer;
 
@@ -48,15 +53,14 @@ public enum Xenon
 
     public void initialise()
     {
-        // check folders
-        // TODO: implement
-
+			
         readVersionData();
 
+				initialiseConfigManager();
+			
         // set client
         this.client = MinecraftClient.getInstance();
-
-
+			
         // register keybinds
         // TODO: make it less clunky
 				// but how???
@@ -193,4 +197,18 @@ public enum Xenon
 
         version = modContainer.getMetadata().getVersion().getFriendlyString();
     }
+
+		private void initialiseConfigManager()
+		{
+			try
+			{
+				this.configFile = FabricLoader.getInstance()
+					.getConfigDir()
+					.toFile()
+					.createNewFile( "xenon_config.congif" );
+				this.configManager = new File( configFile );
+			} catch ( IOException e ) {}
+
+			this.configManager.loadConfigs();
+		}
 }
