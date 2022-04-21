@@ -6,6 +6,10 @@
 # - Linux/Unix:
 
 # General
+# Debug
+# Parsed as boolean
+# [value != 0]
+xenon.debug=0
 
 # +---------------------------+
 # | Feature-specific settings |
@@ -23,8 +27,7 @@ autoreply.message=:
 # - 2: Bottom left
 # - 3: Bottom right
 featurelist.position=1
-# parsed as boolean
-# [value != 0]
+# parsed like `xenon.debug`
 featurelist.showversion=1
 
 # TakePanorama
