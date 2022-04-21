@@ -13,14 +13,11 @@ public class ConfigurationManager
     public HashMap<String, String> settings = new HashMap<>();
     
     private final File configFile;
-   	private final FileWriter configFileWriter;
 
     public ConfigurationManager( File configFile )
     {
         this.configFile = configFile;
 			  this.configFile.createNewFile(); // ensure that the file exists
-
-			  this.configFileWriter = new FileWriter( configFile );
 
 			  loadConfigs();
 		}
