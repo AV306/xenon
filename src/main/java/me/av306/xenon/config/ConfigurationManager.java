@@ -4,6 +4,7 @@ import me.av306.xenon.Xenon;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -31,7 +32,7 @@ public class ConfigurationManager
 			  loadConfigs();
 		}
 
-    private void loadConfigs()
+    public void loadConfigs()
     {
 
 			  // doesn't matter if this throws,
