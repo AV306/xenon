@@ -209,4 +209,5 @@ public enum Xenon
 			this.configManager = new ConfigurationManager( configFile );
 
 	  	this.configManager.loadConfigs();
+		}
 }
