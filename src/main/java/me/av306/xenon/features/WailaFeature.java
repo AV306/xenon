@@ -43,6 +43,7 @@ public class WailaFeature extends IToggleableFeature
 		try
 		{
 			this.interval = Short.parseShort( Xenon.INSTANCE.configManager.settings.get( "waila.interval" ) );
+			Xenon.INSTANCE.LOGGER.info( this.interval );
 		}
 		catch ( NumberFormatException e )
 		{
