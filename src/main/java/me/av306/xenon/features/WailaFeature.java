@@ -39,6 +39,7 @@ public class WailaFeature extends IToggleableFeature
 		super("WAILA"); 
 
     // register configs
+		// TODO: consider try/catch
 		this.limit = Integer.parseInt( Xenon.INSTANCE.configManager.settings.get( "autoreply.message" ) );
 		if ( this.limit == null) this.limit = 5;
 		// register event

@@ -67,5 +67,5 @@ public class ConfigurationManager {
         // Iterate over the file till we find the correct line
         //while ( this.configFileS)
         // TODO: actually implement
-    }
+		}
 }
