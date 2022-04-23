@@ -30,7 +30,7 @@ public class WailaFeature extends IToggleableFeature
 
 	private short ticks = 0;
 
-	private static short limit = 5;
+	private final short limit = 5;
 	//public short getLimit() { return limit; }
 	//public static void setLimit( short limit ) { limit = limit; }
 
@@ -38,6 +38,9 @@ public class WailaFeature extends IToggleableFeature
 	{
 		super("WAILA"); 
 
+    // register configs
+		this.limits = Xenon.INSTANCE.configManager.settings.get( "autoreply.message" );
+		if ( this.limits == null) this.limit = 5;
 		// register event
 		InGameHudRenderCallback.EVENT.register( this::onInGameHudRender );
 	}	
@@ -59,7 +62,7 @@ public class WailaFeature extends IToggleableFeature
 			ticks = 0;
 		}
 
-		// display block data
+		// display block data (should go e ery frame otherwise it will flash)
 		this.drawDataText( matrices, dataText );
 
 		return ActionResult.PASS;

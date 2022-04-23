@@ -23,29 +23,38 @@ public class FeatureList extends IToggleableFeature
 {
 	//private static boolean shouldShowVersion = true;
 
-    private static ScreenPosition position = ScreenPosition.TOP_RIGHT;
+    private ScreenPosition position = null;
 
     public FeatureList()
     {
         // set name
         super( "FeatureList" );
 
-		// start enabled by default
-		this.isEnabled = true;
+		    // start enabled by default
+		    this.isEnabled = true;
 
+        // set configs
+			  try
+				{
+					this.position = ScreenPosition.fromInt( Xenon.INSTANCE.configManager.settings.get( "featurelist.position" ) );
+				}
+		 	  catch ( ArrayIndexOutOfBoundsException e )
+				{
+          // could not be parsed, set default
+					this.position = ScreenPosition.TOP_LEFT;
+			  }
+			
         // register listener
         InGameHudRenderCallback.EVENT.register( this::onInGameHudRender );
     }
 
     private ActionResult onInGameHudRender( MatrixStack matrices, float tickDelta )
     {
-        //GL15.glDisable( GL15.GL_BLEND ); // don't blend with teh vignette
-
         if ( !this.isEnabled ) return ActionResult.PASS;
 
         TextRenderer textRenderer = Xenon.INSTANCE.client.inGameHud.getTextRenderer();
         Window window = Xenon.INSTANCE.client.getWindow();
-		Text versionText = new TranslatableText( "text.xenon.version", Xenon.INSTANCE.getVersion() );
+	     	Text versionText = new TranslatableText( "text.xenon.version", Xenon.INSTANCE.getVersion() );
 
         ArrayList<Text> nameTexts = new ArrayList<>();
 
@@ -58,11 +67,12 @@ public class FeatureList extends IToggleableFeature
         for ( IFeature feature : Xenon.INSTANCE.enabledFeatures )
         {
             // hide FeatureList itself
-			if ( !(feature instanceof FeatureList) )
-			{
-			    LiteralText nameText = new LiteralText( feature.getName() );
-			    nameTexts.add( nameText );
-			}
+					// TODO: fix indentation
+		      	if ( !(feature instanceof FeatureList) )
+		  	{
+            LiteralText nameText = new LiteralText( feature.getName() );
+			      nameTexts.add( nameText );
+			    }
         }
 
         // remember to leave space for the version text!
