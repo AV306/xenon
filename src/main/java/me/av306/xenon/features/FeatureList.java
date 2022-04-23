@@ -21,7 +21,7 @@ import java.util.ArrayList;
 
 public class FeatureList extends IToggleableFeature
 {
-	//private static boolean shouldShowVersion = true;
+	private boolean shouldShowVersion = true;
 
     private ScreenPosition position = null;
 
@@ -34,16 +34,17 @@ public class FeatureList extends IToggleableFeature
 		    this.isEnabled = true;
 
         // set configs
-			  try
-				{
-					int p = Integer.parseInt( Xenon.INSTANCE.configManager.settings.get( "featurelist.position" ) );
-					this.position = ScreenPosition.fromInt( p );
-				}
-		 	  catch ( NumberFormatException | ArrayIndexOutOfBoundsException e )
-				{
-          // could not be parsed, set default
-					this.position = ScreenPosition.TOP_RIGHT;
-			  }
+		try
+		{
+			int p = Integer.parseInt( Xenon.INSTANCE.configManager.settings.get( "featurelist.position" ) );
+			this.position = ScreenPosition.fromInt( p );
+			this.shouldShowVersion = Short.parseShort( Xenon.INSTANCE.configManager.settings.get( "featurelist.showversion" ) ) > 0;
+		}
+		catch ( NumberFormatException | ArrayIndexOutOfBoundsException e )
+		{
+            // could not be parsed, set default
+			this.position = ScreenPosition.TOP_RIGHT;
+		}
 			
         // register listener
         InGameHudRenderCallback.EVENT.register( this::onInGameHudRender );
@@ -55,7 +56,7 @@ public class FeatureList extends IToggleableFeature
 
         TextRenderer textRenderer = Xenon.INSTANCE.client.inGameHud.getTextRenderer();
         Window window = Xenon.INSTANCE.client.getWindow();
-	     	Text versionText = new TranslatableText( "text.xenon.version", Xenon.INSTANCE.getVersion() );
+	    Text versionText = new TranslatableText( "text.xenon.version", Xenon.INSTANCE.getVersion() );
 
         ArrayList<Text> nameTexts = new ArrayList<>();
 
@@ -63,23 +64,22 @@ public class FeatureList extends IToggleableFeature
 
         // write feature names
 
-        TextUtil.drawPositionedText( matrices, versionText, position, 0, 0, false, ColorUtil.GREEN );
+        if ( this.shouldShowVersion )
+            TextUtil.drawPositionedText( matrices, versionText, position, 0, 0, false, ColorUtil.GREEN );
 			
         for ( IFeature feature : Xenon.INSTANCE.enabledFeatures )
         {
             // hide FeatureList itself
-					// TODO: fix indentation
-		      	if ( !(feature instanceof FeatureList) )
+			// TODO: fix indentation
+		    if ( !(feature instanceof FeatureList) )
 		  	{
-            LiteralText nameText = new LiteralText( feature.getName() );
-			      nameTexts.add( nameText );
-			    }
+                LiteralText nameText = new LiteralText( feature.getName() );
+                nameTexts.add( nameText );
+			}
         }
 
         // remember to leave space for the version text!
         TextUtil.drawPositionedMultiLineText( matrices, nameTexts.toArray( Text[]::new ), position, 0, 12, false, ColorUtil.WHITE );
-
-        //GL15.glEnable( GL15.GL_BLEND ); // turn it back on
 
         return ActionResult.PASS;
     }
