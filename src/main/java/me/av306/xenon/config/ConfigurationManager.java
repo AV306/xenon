@@ -24,7 +24,7 @@ public class ConfigurationManager {
         }
         catch ( IOException e )
         {
-            Xenon.INSTANCE.LOGGER.warn("Could not ensure the config file exists!");
+            Xenon.INSTANCE.LOGGER.warn( "Could not ensure the config file exists!" );
             e.printStackTrace();
         }
 
@@ -46,8 +46,12 @@ public class ConfigurationManager {
                     String[] config = line.strip().split( "=" );
                     // e.g. {"waila.updatefreq", "3"}
                     // then WAILA parses "3" to 3 (short)
-                    Xenon.INSTANCE.LOGGER.info( "Read configuration: " + line );
-                    settings.put( config[0], config[1] );
+										if ( config.length == 2 )
+										{
+                    	Xenon.INSTANCE.LOGGER.info( "Read configuration: " + line );
+                    	settings.put( config[0], config[1] );
+										}
+										else Xenon.INSTANCE.LOGGER.warn( "Invalid configuration: \"" + line + "\" - associated Feature will use default." );
                 }
             }
 
