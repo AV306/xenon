@@ -15,7 +15,7 @@ public class AutoReplyFeature extends IFeature
 
 		// read configs
 		this.message = Xenon.INSTANCE.configManager.settings.get( "autoreply.message" );
-		if ( this.message == null ) this.message = "";
+		if ( this.message == null ) this.message = ""; // if it couldn't be read e.g. "autoreply.message="
   }
 	
     @Override

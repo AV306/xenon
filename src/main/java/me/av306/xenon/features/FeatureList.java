@@ -42,7 +42,7 @@ public class FeatureList extends IToggleableFeature
 		 	  catch ( NumberFormatException | ArrayIndexOutOfBoundsException e )
 				{
           // could not be parsed, set default
-					this.position = ScreenPosition.TOP_LEFT;
+					this.position = ScreenPosition.TOP_RIGHT;
 			  }
 			
         // register listener

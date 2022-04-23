@@ -30,7 +30,7 @@ public class WailaFeature extends IToggleableFeature
 
 	private short ticks = 0;
 
-	private short limit;
+	private short interval;
 	//public short getLimit() { return limit; }
 	//public static void setLimit( short limit ) { limit = limit; }
 
@@ -42,11 +42,11 @@ public class WailaFeature extends IToggleableFeature
 		// TODO: indentation
 		try
 		{
-			this.limit = Short.parseShort( Xenon.INSTANCE.configManager.settings.get( "autoreply.message" ) );
+			this.interval = Short.parseShort( Xenon.INSTANCE.configManager.settings.get( "waila.interval" ) );
 		}
 		catch ( NumberFormatException e )
 		{
-			this.limit = 5;
+			this.interval = 5;
 		}
 		// register event
 		InGameHudRenderCallback.EVENT.register( this::onInGameHudRender );
@@ -63,7 +63,7 @@ public class WailaFeature extends IToggleableFeature
 		HitResult hit = Xenon.INSTANCE.client.crosshairTarget;
 
 		// actual waila logic
-		if ( ticks >= limit )
+		if ( ticks >= interval )
 		{
 			this.createDataText( hit );
 			ticks = 0;
