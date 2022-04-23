@@ -30,7 +30,7 @@ public class WailaFeature extends IToggleableFeature
 
 	private short ticks = 0;
 
-	private final short limit;
+	private short limit;
 	//public short getLimit() { return limit; }
 	//public static void setLimit( short limit ) { limit = limit; }
 
