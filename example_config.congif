@@ -26,7 +26,7 @@ xenon.debug=0
 autoreply.message=hello
 
 # FeatureList
-# parsed as int
+# parsed as Position (too late to change ._.)
 # - 0: Top left
 # - 1: Top right
 # - 2: Bottom left
