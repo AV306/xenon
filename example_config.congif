@@ -1,11 +1,16 @@
-# .CONGIF v0.0.1
-# Example Xenon configuration file
-# Locations:
-# - Windows: %APPDATA%/[gamedir]/config/
-# - MacOS:
-# - Linux/Unix:
+# +----------------------------------------+
+# | .CONGIF v0.0.1                         |
+# | Example Xenon configuration file       |
+# | Locations:                             |
+# | - Windows: %APPDATA%/[gamedir]/config/ |
+# | - MacOS:                               |
+# | - Linux/Unix:                          |
+# +----------------------------------------+
 
-# General
+# +------------------+
+# | General settings |
+# +------------------+
+
 # Debug
 # Parsed as boolean
 # [value != 0]
@@ -18,10 +23,10 @@ xenon.debug=0
 # AutoReply
 # anything and everything past the '='
 # is parsed as a string
-autoreply.message=:
+autoreply.message=hello
 
 # FeatureList
-# parser as Position
+# parsed as int
 # - 0: Top left
 # - 1: Top right
 # - 2: Bottom left
@@ -29,6 +34,9 @@ autoreply.message=:
 featurelist.position=1
 # parsed like `xenon.debug`
 featurelist.showversion=1
+
+# ProximityRadar
+proximityradar.radius=20
 
 # TakePanorama
 takepanorama.resolution=512
