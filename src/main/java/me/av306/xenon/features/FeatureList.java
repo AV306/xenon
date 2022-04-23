@@ -39,7 +39,7 @@ public class FeatureList extends IToggleableFeature
 					int p = Integer.parseInt( Xenon.INSTANCE.configManager.settings.get( "featurelist.position" ) );
 					this.position = ScreenPosition.fromInt( p );
 				}
-		 	  catch ( NumberFormatEsception | ArrayIndexOutOfBoundsException e )
+		 	  catch ( NumberFormatException | ArrayIndexOutOfBoundsException e )
 				{
           // could not be parsed, set default
 					this.position = ScreenPosition.TOP_LEFT;
