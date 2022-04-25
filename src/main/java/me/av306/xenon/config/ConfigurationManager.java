@@ -128,7 +128,8 @@ public class ConfigurationManager {
                 if ( !line.startsWith( "#" ) && !line.isBlank() ) // skip newlines and comments
                 {
 									  // reconstruct the config statement and set line
-										line = line.split( "=" )[0] + "=" + this.settings.get( config );
+								  	String config = line.split( "=" )[0];
+										line = config + "=" + this.settings.get( config );
 										// e.g. "autoreply.message" + "=" + "asdf" => "autoreply.message=asdf"
                 }
 
