@@ -1,3 +1,4 @@
+/*
 package me.av306.xenon.config;
 
 import me.av306.xenon.Xenon;
@@ -9,6 +10,7 @@ import java.util.Scanner;
 
 public class ConfigurationManager {
     // it's the feature's job to parse the setting string
+	  // and also to put something in the setting string if it's invalid.
     public HashMap<String, String> settings = new HashMap<>();
 
     private final File configFile;
@@ -23,7 +25,7 @@ public class ConfigurationManager {
         }
         catch ( IOException e )
         {
-            Xenon.INSTANCE.LOGGER.warn( "Could not ensure the config file exists!" );
+            Xenon.INSTANCE.LOGGER.warn( "Could not ensure the config file exists! This may cause errors while reading configs." );
             e.printStackTrace();
         }
 
@@ -51,54 +53,24 @@ public class ConfigurationManager {
                     else Xenon.INSTANCE.LOGGER.warn(
                             "Invalid configuration: \"" + line + "\" - associated Feature will use default."
                     ); // invalid thing like "foo.bar=" or "f====o======o.bar-lol+get'rekt"
+									  // if the config line is invalid, it eill not be loaded into the HashMap.
+									  // It's the feature's job to handle the null value returned
+									  // if the config it wants to read is invalid,
+									  // and to put a valid default config into the HashMap.
                 }
             });
         }
         catch ( IOException e )
         {
-            // doesn't matter if this throws,
+				  	// May be thrown if createNewFile() above throws.
+            // It doesn't matter if this throws,
             // it will just leave the HashMap empty,
             // and the Features will just set their default configs.
             Xenon.INSTANCE.LOGGER.warn( "An error occurred while loading configs! Features will use default settings." );
         }
     }
 
-    /*private void loadConfigsAlt()
-    {
-        // alternative implementation of loadConfigs() but with Scanner.
-        // don't use
-        try ( Scanner configFileScanner = new Scanner( this.configFile ); )
-        {
-            while ( configFileScanner.hasNextLine() )
-            {
-                String line = configFileScanner.nextLine().strip();
-                if ( !line.startsWith( "#" ) && !line.isBlank() ) // skip comments
-                {
-                    String[] config = line.strip().split( "=" );
-                    // e.g. {"waila.updatefreq", "3"}
-                    // then WAILA parses "3" to 3 (short)
-					if ( config.length == 2 )
-					{
-                    	Xenon.INSTANCE.LOGGER.info( "Read configuration: " + line );
-                    	settings.put( config[0], config[1] );
-					}
-					else Xenon.INSTANCE.LOGGER.warn(
-					        "Invalid configuration: \"" + line + "\" - associated Feature will use default."
-                    );
-                }
-            }
-
-            Xenon.INSTANCE.LOGGER.info( "Done reading configurations!" );
-        }
-        catch ( FileNotFoundException e )
-        {
-            Xenon.INSTANCE.LOGGER.warn( "Config file absent! Features will use default settings." );
-        }
-    }*/
-
-
-
-    public void updateConfig( String key, String newValue )
+    public void saveConfigs()
     {
         // When we're about to exit,
         // we'll iterate over the file in the same way as we read it
@@ -143,9 +115,8 @@ public class ConfigurationManager {
         }
         catch ( IOException e )
         {
-            Xenon.INSTANCE.LOGGER.warn( "An error occurred while saving configs! Restoring previous settings." );
-					  FileUtils.copyFile( backupConfigFile, this.configFile );
-					  backupConfigFile.delete();
-        }
+            Xenon.INSTANCE.LOGGER.warn( "An error occurred while saving configs!" );
+						Xenon.INSTANCE.LOGGER.warn( "Please navigate to the Xenon config")
 	}
 }
+*/
