@@ -6,7 +6,6 @@ import org.apache.commons.io.FileUtils;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Scanner;
-import java.util.function.Consumer;
 
 public class ConfigurationManager {
     // it's the feature's job to parse the setting string
@@ -99,44 +98,53 @@ public class ConfigurationManager {
 
 
 
-    /*public void updateConfig( String key, String newValue )
+    public void updateConfig( String key, String newValue )
     {
         // When we're about to exit,
         // we'll iterate over the file in the same way as we read it
         // so as not to just trample all the comments.
         // Then, we'll edit each config definition line.
-        // load all the configs in the config file into a HashMap.
+				// NOTE: this one is *doubly* expensive as we have to parse it AND write to it.
+				// It's stupid, but that's how it goes.
 
         // first, backup the config file
         File backupConfigFile = new File( this.configFile.getParent() + File.separator + "xenon_config_backup.congif" );
 
-        try ( BufferedReader reader = new BufferedReader( new FileReader( this.configFile ) ) )
+        try ( BufferedReader reader = new BufferedReader( new FileReader( this.configFile ) );
+						 PrintWriter writer  = new PrintWriter( new BufferedWriter( new FileWriter( this.configFile, false ) ) ) )
         {
             // backup our config
             FileUtils.copyFile( this.configFile, backupConfigFile );
 
+            // create a StringBuilder to store out new config file text
+					  StringBuilder configTextBuilder = new StringBuilder();
+					
             // iterate over each line in the file
             reader.lines().forEach( line ->
             {
-                line = line.strip(); // strip whitespace
-                if ( !line.startsWith( "#") && !line.isBlank() ) // skip newlines and comments
+                // strip so we know there will be no newlines
+							  line = line.strip();
+							
+                if ( !line.startsWith( "#" ) && !line.isBlank() ) // skip newlines and comments
                 {
-                    String[] config = line.split( "=" ); // split config declaration
-
-                    if ( config.length == 2 )
-                    {
-                        Xenon.INSTANCE.log( "Read configuration: " + line );
-                        settings.put( config[0], config[1] );
-                    }
-                    else Xenon.INSTANCE.LOGGER.warn(
-                            "Invalid configuration: \"" + line + "\" - associated Feature will use default."
-                    ); // invalid thing like "foo.bar=" or "f====o======o.bar-lol+get'rekt"
+									  // reconstruct the config statement and set line
+										line = line.split( "=" )[0] + "=" + this.settings.get( config );
+										// e.g. "autoreply.message" + "=" + "asdf" => "autoreply.message=asdf"
                 }
+
+							  configTextBuilder.append( line ).append( "\n" );
+					
             });
+					
+					  // now we bulldoze everything in the config file.
+					  // FIXME: this is bound to break
+					  writer.print( configTextBuilder.toString() );
         }
         catch ( IOException e )
         {
-            Xenon.INSTANCE.LOGGER.warn( "An error occurred while saving configs! Features will use previous settings." );
+            Xenon.INSTANCE.LOGGER.warn( "An error occurred while saving configs! Restoring previous settings." );
+					  FileUtils.copyFile( backupConfigFile, this.configFile );
+					  backupConfigFile.delete();
         }
-	}*/
+	}
 }
