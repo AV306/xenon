@@ -206,7 +206,7 @@ public enum Xenon
                 .getConfigDir()
                 .resolve( "xenon_config.congif" )
                 .toFile();
-		this.configManager = new ConfigurationManager( configFile );
+		//this.configManager = new ConfigurationManager( configFile ); // TODO: use CompleteConfig
         this.LOGGER.info( "Initialising ConfigManager!" );
 
 	  	//this.configManager.loadConfigs();
