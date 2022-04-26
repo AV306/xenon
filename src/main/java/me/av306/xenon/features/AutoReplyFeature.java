@@ -1,7 +1,7 @@
 package me.av306.xenon.features;
 
 import me.av306.xenon.Xenon;
-import me.xenon.config.feature.AutoReplyGroup;
+import me.av306.xenon.config.feature.AutoReplyGroup;
 import me.av306.xenon.feature.IFeature;
 
 
