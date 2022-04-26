@@ -2,11 +2,32 @@ package me.av306.xenon.feature;
 
 import me.av306.xenon.Xenon;
 import net.minecraft.text.LiteralText;
+import net.minecraft.util.ActionResult;
+import org.lwjgl.glfw.GLFW;
 
 public abstract class IToggleableFeature extends IFeature
 {
-	protected IToggleableFeature( String name ) { super( name ); }
-	protected IToggleableFeature() { this( "IToggleableFeature" ); }
+    //protected int key = GLFW.GLFW_KEY_UNKNOWN;
+
+	protected IToggleableFeature( String name )
+    {
+        super( name );
+    }
+
+    /*@Override
+    protected ActionResult onKeyboardKey( long window, int key, int scanCode, int action, int modifiers )
+    {
+        if ( action == GLFW.GLFW_PRESS && key == this.key )
+            toggle();
+
+        return ActionResult.PASS;
+    }*/
+
+    @Override
+    protected void registerKeyEvent() {
+        if ( this.keyBinding.wasPressed() )
+            this.toggle();
+    }
 
     @Override
     public void enable()
