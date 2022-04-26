@@ -11,6 +11,6 @@ public class FeatureListGroup implements ConfigGroup
 	public static boolean showVersion = true;
 
 	@ConfigEntry
-	@ConfigEntry.DropDown
+	@ConfigEntry.Dropdown
 	public static ScreenPosition position = ScreenPosition.TOP_RIGHT; // hope this works
 }
