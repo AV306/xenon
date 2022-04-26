@@ -1,12 +1,13 @@
 package me.av306.xenon.config.feature;
 
-import me.lortseam.completeconfig.api.*; 
+import me.av306.xenon.Xenon;
+import me.lortseam.completeconfig.api.*;
 import me.lortseam.completeconfig.api.ConfigEntry.*;
 import me.av306.xenon.util.ScreenPosition;
 import org.lwjgl.glfw.GLFW;
 
 @ConfigEntries
-public class FeatureListGroup implements ConfigGroup
+public class FeatureListGroup implements XenonConfigGroup
 {
 	public static boolean showVersion = true;
 

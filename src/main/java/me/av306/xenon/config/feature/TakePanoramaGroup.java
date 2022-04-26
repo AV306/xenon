@@ -4,7 +4,7 @@ import me.lortseam.completeconfig.api.*;
 import me.lortseam.completeconfig.api.ConfigEntry.*;
 
 @ConfigEntries
-public class TakePanoramaGroup implements ConfigGroup
+public class TakePanoramaGroup implements XenonConfigGroup
 {
 	@ConfigEntry.BoundedInteger(min = 4, max = 1024)
 	@ConfigEntry.Slider

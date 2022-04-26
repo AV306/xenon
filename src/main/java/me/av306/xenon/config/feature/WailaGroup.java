@@ -4,7 +4,7 @@ import me.lortseam.completeconfig.api.*;
 import me.lortseam.completeconfig.api.ConfigEntry.*;
 
 @ConfigEntries
-public class WailaGroup implements ConfigGroup
+public class WailaGroup implements XenonConfigGroup
 {
 	@ConfigEntry.BoundedInteger(min = 1, max = 1024)
 	@ConfigEntry.Slider
