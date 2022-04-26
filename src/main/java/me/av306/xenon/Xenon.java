@@ -113,16 +113,16 @@ public enum Xenon
                         "category.xenon.core",
                         new XenonOptionsMenuFeature()
                 )
-        )
+        );
 
         log( "Registering ShareLocation key!" );
-            keybindManager.register(
-			        new XenonKeybind<IFeature>(
-					        "key.xenon.sharelocation",
-							InputUtil.Type.KEYSYM,
-							-1,
-							"category.xenon.features",
-							new ShareLocationFeature()
+                keybindManager.register(
+		        new XenonKeybind<IFeature>(
+		        "key.xenon.sharelocation",
+			InputUtil.Type.KEYSYM,
+			-1,
+			"category.xenon.features",
+			new ShareLocationFeature()
 					)
 		);
 
