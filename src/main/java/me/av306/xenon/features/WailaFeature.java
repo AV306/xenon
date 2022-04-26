@@ -31,7 +31,7 @@ public class WailaFeature extends IToggleableFeature
 
 	private short ticks = 0;
 
-	private short interval = WailaGroup.interval;
+	private int interval = WailaGroup.interval;
 	//public short getLimit() { return limit; }
 	//public static void setLimit( short limit ) { limit = limit; }
 
