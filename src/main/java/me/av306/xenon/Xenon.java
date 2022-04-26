@@ -25,13 +25,13 @@ public enum Xenon
 {
     INSTANCE;
 
-		public final String MODID = "xenon";
+    public final String MODID = "xenon";
 	
     public boolean debug = true;
 
     public XenonKeybindManager keybindManager = new XenonKeybindManager();
 
-		public Config config = new Config( this.MODID, new CoreConfigGroup(), new FeatureConfigGroup() );
+    public Config config = new Config( this.MODID, new CoreConfigGroup(), new FeatureConfigGroup() );
 	
     public final Logger LOGGER = LogManager.getLogger( this.MODID );
 
@@ -88,28 +88,6 @@ public enum Xenon
                         -1,
 						"category.xenon.features",
                         new AutoReplyFeature()
-                )
-        );
-
-        log( "Registering OptionsGui key!" );
-        keybindManager.register(
-                new XenonKeybind<IFeature>(
-                        "key.xenon.options",
-                        InputUtil.Type.KEYSYM,
-                        -1,
-                        "category.xenon.features",
-                        new XenonOptionsGuiFeature()
-                )
-        );
-
-        log( "Registering NoFireOverlay key!" );
-        keybindManager.register(
-                new XenonKeybind<IToggleableFeature>(
-                        "key.xenon.nofireoverlay",
-                        InputUtil.Type.KEYSYM,
-                        -1,
-                        "category.xenon.features",
-				        new NoFireOverlayFeature()
                 )
         );
 

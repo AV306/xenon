@@ -8,5 +8,5 @@ public class WailaGroup implements ConfigGroup
 {
 	@ConfigEntry.BoundedInteger(min = 1, max = 1024)
 	@ConfigEntry.Slider
-	public static int interval = 3;
+	public static short interval = 3;
 }
