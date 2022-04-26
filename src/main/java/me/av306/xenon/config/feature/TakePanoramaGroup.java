@@ -1,6 +1,7 @@
 package me.av306.xenon.config.feature;
 
 import me.lortseam.completeconfig.api.*;
+import me.lortseam.completeconfig.api.ConfigEntry.*;
 
 @ConfigEntries
 public class TakePanoramaGroup implements ConfigGroup

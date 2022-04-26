@@ -1,7 +1,7 @@
 package me.av306.xenon.features;
 
 import me.av306.xenon.Xenon;
-import m.av306.xenon.config.feature.WailaGroup;
+import me.av306.xenon.config.feature.WailaGroup;
 import me.av306.xenon.event.callback.InGameHudRenderCallback;
 import me.av306.xenon.feature.IToggleableFeature;
 import me.av306.xenon.util.ScreenPosition;
