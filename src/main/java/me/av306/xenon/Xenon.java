@@ -58,132 +58,27 @@ public enum Xenon
 
     public void initialise()
     {
-            // TODO: Fix the fucking indentation
-			
         readVersionData();
 
-	// load configs
-	config.load();
+	    // load configs
+	    this.config.load();
 			
         // set client
         this.client = MinecraftClient.getInstance();
 			
         // register keybinds
-        // TODO: make it less clunky
+        // TODO: wtf is this
+        // featureRegistry.
 		// but how???
-        log( "Registering FullBright key!" );
-        keybindManager.register(
-                new XenonKeybind<IToggleableFeature>(
-                        "key.xenon.fullbright",
-			InputUtil.Type.KEYSYM,
-                        -1,
-                        "category.xenon.features",
-			new FullBrightFeature()
-                )
-        );
-
-        log( "Registering AutoReply key!" );
-        keybindManager.register(
-                new XenonKeybind<IFeature>(
-                        "key.xenon.autoreply",
-                        InputUtil.Type.KEYSYM,
-                        -1,
-			"category.xenon.features",
-                        new AutoReplyFeature()
-                )
-        );
-
-        log( "Registering TakePanorama key!" );
-        keybindManager.register(
-                new XenonKeybind<IFeature>(
-                        "key.xenon.takepanorama",
-                        InputUtil.Type.KEYSYM,
-                        -1,
-                        "category.xenon.features",
-                        new TakePanoramaFeature()
-                )
-        );
-
-        log( "Registering OptionsMenu key!" );
-        keybindManager.register(
-                new XenonKeybind<IFeature>(
-                        "key.xenon.optionsmenu",
-                        InputUtil.Type.KEYSM,
-                        GLFW.GLFW_KEY_N, // force binding
-                        "category.xenon.core",
-                        new XenonOptionsMenuFeature()
-                )
-        );
-
-        log( "Registering ShareLocation key!" );
-                keybindManager.register(
-		        new XenonKeybind<IFeature>(
-		        "key.xenon.sharelocation",
-			InputUtil.Type.KEYSYM,
-			-1,
-			"category.xenon.features",
-			new ShareLocationFeature()
-					)
-		);
-
-        log( "Registering FeatureList key!" );
-        keybindManager.register(
-                new XenonKeybind<IFeature>(
-                        "key.xenon.featurelist",
-                        InputUtil.Type.KEYSYM,
-                        -1,
-                        "category.xenon.features",
-                        new FeatureList()
-                )
-        );
-
-        log( "Registering WAILA key!" );
-        keybindManager.register(
-                new XenonKeybind<IFeature>(
-                        "key.xenon.waila",
-                        InputUtil.Type.KEYSYM,
-                        -1,
-                        "category.xenon.features",
-                        new WailaFeature()
-                )
-        );
-
-        log( "Registering DataHUD key!" );
-        keybindManager.register(
-                new XenonKeybind<IToggleableFeature>(
-                        "key.xenon.datahud",
-                        InputUtil.Type.KEYSYM,
-                        -1,
-                        "category.xenon.features",
-                        new DataHudFeature()
-                )
-        );
-
+        new FullBrightFeature();
+        new FeatureList();
+        new AutoReplyFeature();
+        new WailaFeature();
+        new ConfigMenuFeature();
     }
 
 
     public void log( String msg ) { if ( debug ) LOGGER.info( msg ); }
-
-    /*
-    private void checkDataFolder() // should never throw
-    {
-        Scanner configFileScanner;
-
-        try
-        {
-            configFile.createNewFile();
-
-            configFileScanner = new Scanner( configFile );
-
-            while ( configFileScanner.hasNextLine() )
-            {
-                String configuration = configFileScanner.nextLine().strip();
-                IFeature targeted = configuration.split( "\\." )[0].;
-            }
-        }
-        catch ( IOException e ) { e.printStackTrace(); }
-    }
-    */
 
     private void readVersionData()
     {

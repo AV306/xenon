@@ -7,7 +7,7 @@ import me.av306.xenon.feature.IFeature;
 
 public class AutoReplyFeature extends IFeature
 {
-	private String message = AutoReplyGroup.message; // eva
+	private String message = AutoReplyGroup.message; //
 
 	public AutoReplyFeature()
 	{
