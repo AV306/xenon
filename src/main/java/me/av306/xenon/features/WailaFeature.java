@@ -1,6 +1,7 @@
 package me.av306.xenon.features;
 
 import me.av306.xenon.Xenon;
+import m.av306.xenon.config.feature.WailaGroup;
 import me.av306.xenon.event.callback.InGameHudRenderCallback;
 import me.av306.xenon.feature.IToggleableFeature;
 import me.av306.xenon.util.ScreenPosition;
@@ -30,7 +31,7 @@ public class WailaFeature extends IToggleableFeature
 
 	private short ticks = 0;
 
-	private short interval;
+	private short interval = WailaGroup.interval;
 	//public short getLimit() { return limit; }
 	//public static void setLimit( short limit ) { limit = limit; }
 
@@ -38,17 +39,6 @@ public class WailaFeature extends IToggleableFeature
 	{
 		super("WAILA"); 
 
-    // register configs
-		// TODO: indentation
-		try
-		{
-			this.interval = Short.parseShort( Xenon.INSTANCE.configManager.settings.get( "waila.interval" ) );
-			Xenon.INSTANCE.LOGGER.info( this.interval );
-		}
-		catch ( NumberFormatException e )
-		{
-			this.interval = 5;
-		}
 		// register event
 		InGameHudRenderCallback.EVENT.register( this::onInGameHudRender );
 	}	

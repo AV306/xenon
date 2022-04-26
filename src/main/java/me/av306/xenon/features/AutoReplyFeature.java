@@ -1,21 +1,17 @@
 package me.av306.xenon.features;
 
 import me.av306.xenon.Xenon;
+import me.xenon.config.feature.AutoReplyGroup;
 import me.av306.xenon.feature.IFeature;
 
 
 public class AutoReplyFeature extends IFeature
 {
-	private String message = "";
-	//public static void setMessage( String newMessage) { message = newMessage; }
+	private String message = AutoReplyGroup.message; // eva
 
 	public AutoReplyFeature()
 	{
 		super( "AutoReply" );
-
-		// read configs
-		this.message = Xenon.INSTANCE.configManager.settings.get( "autoreply.message" );
-		if ( this.message == null ) this.message = ""; // if it couldn't be read e.g. "autoreply.message="
   }
 	
     @Override

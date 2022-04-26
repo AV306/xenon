@@ -5,7 +5,9 @@ import me.av306.xenon.feature.IToggleableFeature;
 import me.av306.xenon.features.*;
 import me.av306.xenon.keybind.XenonKeybind;
 import me.av306.xenon.keybind.XenonKeybindManager;
-import me.av306.xenon.config.ConfigurationManager;
+import me.av306.xenon.config.CoreConfigGroup;
+import me.av306.xenon.config.FeatureConfigGroup;
+import me.lortseam.completeconfig.data.Config;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.minecraft.client.MinecraftClient;
@@ -23,13 +25,15 @@ public enum Xenon
 {
     INSTANCE;
 
+		public final String MODID = "xenon";
+	
     public boolean debug = true;
 
     public XenonKeybindManager keybindManager = new XenonKeybindManager();
 
-	public ConfigurationManager configManager;
+		public Config config = new Config( this.MODID, new CoreConfigGroup(), new FeatureConfigGroup() );
 	
-    public final Logger LOGGER = LogManager.getLogger( "xenon" );
+    public final Logger LOGGER = LogManager.getLogger( this.MODID );
 
     public MinecraftClient client;
 
@@ -45,8 +49,6 @@ public enum Xenon
     public String getVersion() { return version; }
     //public void setVersion( String version ) { this.version = version; }
 
-	public File configFile;
-
     @Nullable
     private ModContainer modContainer;
 
@@ -58,7 +60,8 @@ public enum Xenon
 			
         readVersionData();
 
-		initialiseConfigManager();
+				// load configs
+				config.load();
 			
         // set client
         this.client = MinecraftClient.getInstance();
@@ -199,16 +202,4 @@ public enum Xenon
 
         version = modContainer.getMetadata().getVersion().getFriendlyString();
     }
-
-    private void initialiseConfigManager()
-    {
-        this.configFile = FabricLoader.getInstance()
-                .getConfigDir()
-                .resolve( "xenon_config.congif" )
-                .toFile();
-		//this.configManager = new ConfigurationManager( configFile ); // TODO: use CompleteConfig
-        this.LOGGER.info( "Initialising ConfigManager!" );
-
-	  	//this.configManager.loadConfigs();
-	}
 }
