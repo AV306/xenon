@@ -16,6 +16,18 @@ repositories {
 		name = "CottonMC"
 		url = "https://server.bbkr.space/artifactory/libs-release"
 	}
+
+	maven {
+    url 'https://jitpack.io'
+  }
+	
+  maven {
+    url "https://maven.terraformersmc.com/"
+  }
+	
+  maven {
+    url "https://maven.shedaniel.me/"
+  }
 }
 
 dependencies {
@@ -32,6 +44,9 @@ dependencies {
 	
 	// Guava for BiMap
 	//implementation "com.google.guava:guava:31.0.1-jre"
+
+	// CompleteConfig
+	modImplementation include("com.gitlab.Lortseam:completeconfig:1.4.0")
 
 	// apache commons-io :D
 	compileOnly 'commons-io:commons-io:2.11.0'

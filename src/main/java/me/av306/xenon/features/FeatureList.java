@@ -1,6 +1,7 @@
 package me.av306.xenon.features;
 
 import me.av306.xenon.Xenon;
+import me.av306.xenon.config.feature.FeatureListGroup;
 import me.av306.xenon.event.callback.InGameHudRenderCallback;
 import me.av306.xenon.feature.IFeature;
 import me.av306.xenon.feature.IToggleableFeature;
@@ -21,9 +22,9 @@ import java.util.ArrayList;
 
 public class FeatureList extends IToggleableFeature
 {
-	private boolean shouldShowVersion = true;
+	private boolean shouldShowVersion = FeatureListGroup.showVersion;
 
-    private ScreenPosition position = null;
+    private ScreenPosition position = FeatureListGroup.position;
 
     public FeatureList()
     {
@@ -32,19 +33,6 @@ public class FeatureList extends IToggleableFeature
 
 		    // start enabled by default
 		    this.isEnabled = true;
-
-        // set configs
-		try
-		{
-			int p = Integer.parseInt( Xenon.INSTANCE.configManager.settings.get( "featurelist.position" ) );
-			this.position = ScreenPosition.fromInt( p );
-			this.shouldShowVersion = Short.parseShort( Xenon.INSTANCE.configManager.settings.get( "featurelist.showversion" ) ) > 0;
-		}
-		catch ( NumberFormatException | ArrayIndexOutOfBoundsException e )
-		{
-            // could not be parsed, set default
-			this.position = ScreenPosition.TOP_RIGHT;
-		}
 			
         // register listener
         InGameHudRenderCallback.EVENT.register( this::onInGameHudRender );
