@@ -15,6 +15,7 @@ import net.minecraft.client.util.InputUtil;
 import net.minecraft.util.Formatting;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.lwjgl.glfw.GLFW;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
@@ -57,11 +58,12 @@ public enum Xenon
 
     public void initialise()
     {
+            // TODO: Fix the fucking indentation
 			
         readVersionData();
 
-				// load configs
-				config.load();
+	// load configs
+	config.load();
 			
         // set client
         this.client = MinecraftClient.getInstance();
@@ -73,10 +75,10 @@ public enum Xenon
         keybindManager.register(
                 new XenonKeybind<IToggleableFeature>(
                         "key.xenon.fullbright",
-						InputUtil.Type.KEYSYM,
+			InputUtil.Type.KEYSYM,
                         -1,
                         "category.xenon.features",
-						new FullBrightFeature()
+			new FullBrightFeature()
                 )
         );
 
@@ -86,7 +88,7 @@ public enum Xenon
                         "key.xenon.autoreply",
                         InputUtil.Type.KEYSYM,
                         -1,
-						"category.xenon.features",
+			"category.xenon.features",
                         new AutoReplyFeature()
                 )
         );
@@ -101,6 +103,17 @@ public enum Xenon
                         new TakePanoramaFeature()
                 )
         );
+
+        log( "Registering OptionsMenu key!" );
+        keybindManager.register(
+                new XenonKeybind<IFeature>(
+                        "key.xenon.optionsmenu",
+                        InputUtil.Type.KEYSM,
+                        GLFW.GLFW_KEY_N, // force binding
+                        "category.xenon.core",
+                        new XenonOptionsMenuFeature()
+                )
+        )
 
         log( "Registering ShareLocation key!" );
             keybindManager.register(
