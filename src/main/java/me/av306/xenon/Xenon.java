@@ -3,7 +3,6 @@ package me.av306.xenon;
 import me.av306.xenon.feature.IFeature;
 import me.av306.xenon.features.*;
 import me.av306.xenon.keybind.XenonKeybindManager;
-import me.av306.xenon.config.CoreConfigGroup;
 import me.av306.xenon.config.FeatureConfigGroup;
 import me.lortseam.completeconfig.data.Config;
 import net.fabricmc.loader.api.FabricLoader;
