@@ -1,6 +1,7 @@
 package me.av306.xenon.config.feature;
 
 import me.av306.xenon.Xenon;
+import me.av306.xenon.config.XenonConfigGroup;
 import me.lortseam.completeconfig.api.*;
 import me.lortseam.completeconfig.api.ConfigEntry.*;
 import me.av306.xenon.util.ScreenPosition;

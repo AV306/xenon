@@ -2,12 +2,13 @@
   "required": true,
   "minVersion": "0.8",
   "package": "me.av306.xenon.mixin",
-  "compatibilityLevel": "JAVA_16",
+  "compatibilityLevel": "JAVA_17",
   "mixins": [
   ],
   "client": [
     "InGameHudMixin",
-    "InGameOverlayRendererMixin"
+    "InGameOverlayRendererMixin",
+    "KeyboardMixin"
   ],
   "injectors": {
     "defaultRequire": 1
