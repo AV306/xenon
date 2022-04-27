@@ -5,3 +5,6 @@
 3.0.0.alpha.5: Added FeatureList, optimised a little (removed IUpdatableFeature), added bad WAILA implemention
 3.0.0.beta.6: Optimised WAILA and FeatureList
 3.0.0.beta.7: Implement better version text system, major refactor of Feature system with default methods
+
+4.0.0.alpha.0: Keybinds are now initialised in the Feature constructor; CompleteConfig is now used for configuration
+*4.0.0.alpha.1: Feature registration system is streamlined and optimised
