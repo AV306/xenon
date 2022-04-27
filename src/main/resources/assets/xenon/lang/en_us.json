@@ -1,5 +1,6 @@
 {
   "category.xenon.features": "Xenon Features",
+  "config.xenon.featureconfiggroup": "Feature Settings",
   "key.xenon.autoreply": "AutoReply",
   "key.xenon.fullbright": "Fullbright",
   "key.xenon.nofireoverlay": "NoFireOverlay",

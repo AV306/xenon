@@ -26,7 +26,7 @@ public enum Xenon
 
     public XenonKeybindManager keybindManager = new XenonKeybindManager();
 
-    public Config config = new Config( this.MODID, new CoreConfigGroup(), new FeatureConfigGroup() );
+    public Config config = new Config( this.MODID, new FeatureConfigGroup() );
 	
     public final Logger LOGGER = LogManager.getLogger( this.MODID );
 

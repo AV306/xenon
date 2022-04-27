@@ -5,7 +5,7 @@ import me.lortseam.completeconfig.api.*;
 import me.lortseam.completeconfig.api.ConfigContainer.Transitive;
 
 @ConfigEntries
-public class FeatureConfigGroup implements ConfigGroup
+public class FeatureConfigGroup implements XenonConfigGroup
 {
 	@Transitive
 	private final AutoReplyGroup autoreply = new AutoReplyGroup();

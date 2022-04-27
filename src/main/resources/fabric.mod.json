@@ -4,7 +4,7 @@
   "version": "${version}",
 
   "name": "Xenon",
-  "description": "utility",
+  "description": "Minecraft utility mod",
   "authors": [
     "AV3_08"
   ],
@@ -16,13 +16,10 @@
   "license": "GNU GPL v3",
   "icon": "assets/xenon/icon.png",
 
-  "environment": "*",
+  "environment": "client",
   "entrypoints": {
     "client": [
       "me.av306.xenon.ClientInitializer"
-    ],
-    "modmenu": [
-      "me.av306.xenon.ModMenuConfig"
     ]
   },
   "mixins": [
