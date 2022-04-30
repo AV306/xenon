@@ -11,10 +11,11 @@
   "key.xenon.waila": "WAILA",
   "key.xenon.datahud": "DataHUD",
   "key.xenon.featurelist": "FeatureList",
-  "text.xenon.takepanorama.success": "[Xenon] Panorama saved in: %s!",
+  "text.xenon.takepanorama.success": "Panorama saved in: %s!",
   "text.xenon.waila.entityhealth": "Entity: %s, Health: %f",
   "text.xenon.waila.blocktype": "Block: %s | Break Time: %f | Blast resistance: %f",
   "text.xenon.updateavailable": "(Update Available!)",
   "text.xenon.version": "Xenon %s",
+  "text.xenon.debug.configreload": "Configurations Reloaded!",
   "config.xenon.featureconfiggroup.wailagroup": "WAILA Settings"
 }

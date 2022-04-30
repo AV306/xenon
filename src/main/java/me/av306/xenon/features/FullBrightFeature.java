@@ -9,14 +9,14 @@ public class FullBrightFeature extends IToggleableFeature
     public FullBrightFeature() { super( "Fullbright" ); }
 	
     @Override
-    public void onEnable()
+    protected void onEnable()
     {
         Xenon.INSTANCE.client.options.gamma = 100.0d;
     }
 
 
     @Override
-    public void onDisable()
+    protected void onDisable()
     {
         Xenon.INSTANCE.client.options.gamma = 1.0d;
     }

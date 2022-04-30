@@ -20,8 +20,4 @@ public class AutoReplyFeature extends IFeature
         assert Xenon.INSTANCE.client.player != null;
         Xenon.INSTANCE.client.player.sendChatMessage( message );
     }
-
-
-    @Override
-    public void onDisable() {}
 }

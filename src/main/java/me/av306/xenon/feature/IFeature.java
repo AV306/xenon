@@ -30,9 +30,11 @@ public abstract class IFeature
 	protected KeyBinding keyBinding;
 
 	// generalised constructors (can't be called anyway)
-	protected IFeature( String name )
+	protected IFeature( String name, int key )
 	{ 
 		this.name = Objects.requireNonNull( name );
+
+		this.key = key;
 
 		this.keyBinding = new KeyBinding(
 				"key.xenon." + this.name.toLowerCase(),
@@ -52,6 +54,11 @@ public abstract class IFeature
 		);
 	}
 
+	protected IFeature( String name )
+	{
+		this( name, GLFW.GLFW_KEY_UNKNOWN );
+	}
+
 	/*protected ActionResult onKeyboardKey( long window, int key, int scanCode, int action, int modifiers )
 	{
 		if ( action == GLFW.GLFW_PRESS && key == this.key )
@@ -68,7 +75,7 @@ public abstract class IFeature
 
 	protected IFeature() { this( "IFeature" ); }
 	
-	public void enable()
+	protected void enable()
 	{
 		//if ( isEnabled ) return;
 			
@@ -81,7 +88,7 @@ public abstract class IFeature
 
 	// this is not even going to be used, but it's here now.
 	// deal with it :shrug:
-	public void disable()
+	/*public void disable()
 	{
 		//if ( !isEnabled ) return;
 			
@@ -90,9 +97,9 @@ public abstract class IFeature
 		//Xenon.INSTANCE.featureManager.getEnabledFeatures().remove( name );
 		
 		onDisable();
-	}
+	}*/
 
 	//public abstract void onInit();
-  	public abstract void onEnable();
-  	public abstract void onDisable();
+  	protected abstract void onEnable();
+  	//public abstract void onDisable();
 }

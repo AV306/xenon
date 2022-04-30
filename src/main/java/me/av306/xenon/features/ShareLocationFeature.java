@@ -20,7 +20,7 @@ public class ShareLocationFeature extends IFeature
 	}*/
 
 	@Override
-	public void onEnable()
+	protected void onEnable()
 	{
 		// get the player's current position
 		Vec3d currentPos = Xenon.INSTANCE.client.player.getPos();
@@ -34,9 +34,5 @@ public class ShareLocationFeature extends IFeature
 			Math.round( currentPos.getZ() ) + "]";
 
 		Xenon.INSTANCE.client.player.sendChatMessage( text );
-		// FIXME: Broken on Javier's machine, no f^cking idea why
 	}
-
-	@Override
-	public void onDisable() {}
 }

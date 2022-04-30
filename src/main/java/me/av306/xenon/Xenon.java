@@ -1,13 +1,14 @@
 package me.av306.xenon;
 
+import me.av306.xenon.config.FeatureConfigGroup;
 import me.av306.xenon.feature.IFeature;
 import me.av306.xenon.features.*;
-import me.av306.xenon.keybind.XenonKeybindManager;
-import me.av306.xenon.config.FeatureConfigGroup;
 import me.lortseam.completeconfig.data.Config;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,8 +24,6 @@ public enum Xenon
 	
     public boolean debug = true;
 
-    public XenonKeybindManager keybindManager = new XenonKeybindManager();
-
     public Config config = new Config( this.MODID, new FeatureConfigGroup() );
 	
     public final Logger LOGGER = LogManager.getLogger( this.MODID );
@@ -36,8 +35,6 @@ public enum Xenon
     //public final Formatting ERROR_FORMAT = Formatting.RED;
 
     public ArrayList<IFeature> enabledFeatures = new ArrayList<>();
-
-    //public File configFile = FabricLoader.getInstance().getConfigDir().resolve( "xenon_config.txt" ).toFile();
 
     private String version;
     public String getVersion() { return version; }
@@ -68,6 +65,7 @@ public enum Xenon
         new AutoReplyFeature();
         new WailaFeature();
         new ConfigMenu();
+        new Debugger();
     }
 
 
@@ -80,5 +78,13 @@ public enum Xenon
         modContainer = FabricLoader.getInstance().getModContainer( "xenon" ).get();
 
         version = modContainer.getMetadata().getVersion().getFriendlyString();
+    }
+
+    public void sendInfoMessage( String key )
+    {
+        this.client.player.sendMessage(
+                new LiteralText( "[Xenon]" ).append( new TranslatableText( key ) ),
+                false
+        );
     }
 }

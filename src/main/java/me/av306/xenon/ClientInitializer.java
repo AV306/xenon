@@ -15,7 +15,7 @@ public class ClientInitializer implements ClientModInitializer
         Xenon.INSTANCE.debug = true;
 
         if (initialized)
-            throw new RuntimeException("Oh no! Xenon tried to initialise twice and this is very bad!!!");
+            throw new RuntimeException( "Oh no! Xenon tried to initialise twice and this is very bad!!!" );
         else Xenon.INSTANCE.initialise();
 
         initialized = true;
