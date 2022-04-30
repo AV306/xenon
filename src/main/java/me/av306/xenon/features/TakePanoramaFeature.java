@@ -50,7 +50,4 @@ public class TakePanoramaFeature extends IFeature
                 false
         );
     }
-
-    @Override
-    public void onDisable() {}
 }

@@ -30,7 +30,7 @@ public abstract class IToggleableFeature extends IFeature
     }
 
     @Override
-    public void enable()
+    protected void enable()
     {
         if ( isEnabled ) return; // safety
 
@@ -41,8 +41,7 @@ public abstract class IToggleableFeature extends IFeature
         onEnable();
     }
 
-    @Override
-    public void disable()
+    protected void disable()
     {
         if ( !isEnabled ) return;
 
@@ -53,7 +52,7 @@ public abstract class IToggleableFeature extends IFeature
         onDisable();
     }
 
-    public void toggle()
+    private void toggle()
     {
       if ( isEnabled ) disable();
         else enable();
@@ -65,4 +64,6 @@ public abstract class IToggleableFeature extends IFeature
                 true
       );
     }
+
+    protected abstract void onDisable();
 }

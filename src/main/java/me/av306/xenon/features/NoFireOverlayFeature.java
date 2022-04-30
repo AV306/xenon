@@ -26,14 +26,14 @@ public class NoFireOverlayFeature extends IToggleableFeature
 	
 	// battle-test events
     @Override
-    public void onEnable()
+    protected void onEnable()
     {
 			
     }
 
 	
     @Override
-    public void onDisable()
+    protected void onDisable()
     {
 			
     }
