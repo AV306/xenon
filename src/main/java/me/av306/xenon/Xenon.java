@@ -8,6 +8,7 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import org.apache.logging.log4j.LogManager;
@@ -83,8 +84,14 @@ public enum Xenon
     public void sendInfoMessage( String key )
     {
         this.client.player.sendMessage(
-                new LiteralText( "[Xenon]" ).append( new TranslatableText( key ) ),
+                new LiteralText( "[Xenon] " ).append( new TranslatableText( key ) ),
                 false
         );
+    }
+
+    public void sendInfoMessage( Text text )
+    {
+        Text finalText = new LiteralText( "[Xenon] " ).append( text );
+        this.client.player.sendMessage( finalText, false );
     }
 }

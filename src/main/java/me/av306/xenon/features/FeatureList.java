@@ -18,13 +18,11 @@ import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
 import org.lwjgl.opengl.GL15;
 
+import javax.xml.catalog.CatalogFeatures;
 import java.util.ArrayList;
 
 public class FeatureList extends IToggleableFeature
 {
-	private boolean shouldShowVersion = FeatureListGroup.showVersion;
-
-    private ScreenPosition position = FeatureListGroup.position;
 
     public FeatureList()
     {
@@ -42,6 +40,9 @@ public class FeatureList extends IToggleableFeature
     {
         if ( !this.isEnabled ) return ActionResult.PASS;
 
+        final boolean shouldShowVersion = FeatureListGroup.showVersion;
+        final ScreenPosition position = FeatureListGroup.position;
+
         TextRenderer textRenderer = Xenon.INSTANCE.client.inGameHud.getTextRenderer();
         Window window = Xenon.INSTANCE.client.getWindow();
 	    Text versionText = new TranslatableText( "text.xenon.version", Xenon.INSTANCE.getVersion() );
@@ -52,13 +53,12 @@ public class FeatureList extends IToggleableFeature
 
         // write feature names
 
-        if ( this.shouldShowVersion )
+        if ( shouldShowVersion )
             TextUtil.drawPositionedText( matrices, versionText, position, 0, 0, false, ColorUtil.GREEN );
 			
         for ( IFeature feature : Xenon.INSTANCE.enabledFeatures )
         {
             // hide FeatureList itself
-			// TODO: fix indentation
 		    if ( !(feature instanceof FeatureList) )
 		  	{
                 LiteralText nameText = new LiteralText( feature.getName() );

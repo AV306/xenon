@@ -1,6 +1,7 @@
 package me.av306.xenon.features;
 
 import me.av306.xenon.Xenon;
+import me.av306.xenon.config.feature.TakePanoramaGroup;
 import me.av306.xenon.feature.IFeature;
 import net.minecraft.text.ClickEvent;
 import net.minecraft.text.LiteralText;
@@ -14,11 +15,11 @@ import java.io.File;
 public class TakePanoramaFeature extends IFeature
 {
 	
-    private static int resolution = 512;
+    //private static int resolution = 512;
     //public static int getResolution() { return resolution; }
-    public static void setResolution( int res ) { resolution = res; }
+    //public static void setResolution( int res ) { resolution = res; }
 
-		public TakePanoramaFeature() { super( "TakePanoramaFeature" ); } // Not strictly needed
+    public TakePanoramaFeature() { super( "TakePanoramaFeature" ); } // Not strictly needed
 	
     @Override
     public void onEnable()
@@ -26,6 +27,8 @@ public class TakePanoramaFeature extends IFeature
         Xenon.INSTANCE.LOGGER.info( "pano" );
         File runDir = Xenon.INSTANCE.client.runDirectory;
         File panoramaFile = new File( runDir, "screenshots" );
+
+        final int resolution = TakePanoramaGroup.resolution;
 
         // A little bit of info:
         // `runDirectory` refers to the root of the gamedir,
@@ -45,9 +48,6 @@ public class TakePanoramaFeature extends IFeature
 
         Text msg = new TranslatableText( "text.xenon.takepanorama.success", linkToPanoramas );
 
-        Xenon.INSTANCE.client.player.sendMessage(
-                msg,
-                false
-        );
+        Xenon.INSTANCE.sendInfoMessage( msg );
     }
 }
