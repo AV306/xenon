@@ -7,8 +7,6 @@ import me.av306.xenon.feature.IFeature;
 
 public class AutoReplyFeature extends IFeature
 {
-	private String message = AutoReplyGroup.message; // TODO: make it access every time, not just once statically
-
 	public AutoReplyFeature()
 	{
 		super( "AutoReply" );
@@ -18,6 +16,6 @@ public class AutoReplyFeature extends IFeature
     public void onEnable()
     {
         assert Xenon.INSTANCE.client.player != null;
-        Xenon.INSTANCE.client.player.sendChatMessage( message );
+        Xenon.INSTANCE.client.player.sendChatMessage( AutoReplyGroup.message ); // field will be updated every time configs are changed
     }
 }

@@ -31,7 +31,7 @@ public class WailaFeature extends IToggleableFeature
 
 	private short ticks = 0;
 
-	private int interval = WailaGroup.interval;
+	//private int interval = WailaGroup.interval;
 	//public short getLimit() { return limit; }
 	//public static void setLimit( short limit ) { limit = limit; }
 
@@ -46,6 +46,8 @@ public class WailaFeature extends IToggleableFeature
 	private ActionResult onInGameHudRender( MatrixStack matrices, float tickDelta )
 	{
 		if ( !this.isEnabled ) return ActionResult.PASS;
+
+		final int interval = WailaGroup.interval;
 
 		ticks++;
 
@@ -74,7 +76,6 @@ public class WailaFeature extends IToggleableFeature
 			{
 				// nothing near enough :)
 				dataText = new LiteralText("");
-				break;
 			}
 
 			case BLOCK ->
