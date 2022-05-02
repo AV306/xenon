@@ -7,7 +7,7 @@ import me.av306.xenon.feature.IFeature;
 
 public class AutoReplyFeature extends IFeature
 {
-	private String message = AutoReplyGroup.message; //
+	private String message = AutoReplyGroup.message; // TODO: make it access every time, not just once statically
 
 	public AutoReplyFeature()
 	{
