@@ -21,20 +21,11 @@ public class ColorUtil
 
 	public static int[] intToRgb( int rgb )
 	{
-		return {
-				rgb >> 16 & 0xFF,
-				rgb >> 8 & 0xFF,
-				rgb & 0xFF
-		};
+		return { rgb >> 16 & 0xFF, rgb >> 8 & 0xFF, rgb & 0xFF };
 	}
 
 	public static int[] intToArgb( int argb )
 	{
-		return {
-				argb >> 24 & 0xFF,
-				argb >> 16 & 0xFF,
-				argb >> 8 & 0xFF,
-				argb & 0xFF
-		};
+		return { argb >> 24 & 0xFF, argb >> 16 & 0xFF, argb >> 8 & 0xFF, argb & 0xFF };
 	}
 }
