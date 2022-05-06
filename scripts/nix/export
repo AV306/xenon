@@ -1,0 +1,3 @@
+#! usr/bin/sh
+
+./gradlew build && ./gradlew jar
