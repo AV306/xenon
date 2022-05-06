@@ -99,7 +99,6 @@ public abstract class IFeature
 		onDisable();
 	}*/
 
-	//public abstract void onInit();
-  	protected abstract void onEnable();
-  	//public abstract void onDisable();
+  protected abstract void onEnable();
+  //public abstract void onDisable();
 }
