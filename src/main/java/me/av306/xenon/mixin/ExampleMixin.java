@@ -8,6 +8,13 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+
+/**
+ * This is just here for documentation purposes.
+ * It's not even registered in the mixins file.
+ * It serves ABSOLUTELY no purpose besides to remind me how I'm supposed to write mixins.
+ * :D
+ */
 @Mixin(TitleScreen.class)
 public class ExampleMixin
 {
