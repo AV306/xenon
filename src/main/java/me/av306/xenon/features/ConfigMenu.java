@@ -3,7 +3,6 @@ package me.av306.xenon.features;
 import me.av306.xenon.Xenon;
 import me.av306.xenon.event.callback.KeyboardKeyCallback;
 import me.av306.xenon.feature.IFeature;
-import me.av306.xenon.gui.XenonScreen;
 import me.lortseam.completeconfig.data.Config;
 import me.lortseam.completeconfig.gui.ConfigScreenBuilder;
 import me.lortseam.completeconfig.gui.cloth.ClothConfigScreenBuilder;

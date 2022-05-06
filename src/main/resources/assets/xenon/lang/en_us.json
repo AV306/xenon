@@ -1,6 +1,5 @@
 {
   "category.xenon.features": "Xenon Features",
-  "config.xenon.featureconfiggroup": "Feature Settings",
   "key.xenon.autoreply": "AutoReply",
   "key.xenon.fullbright": "Fullbright",
   "key.xenon.nofireoverlay": "NoFireOverlay",
@@ -17,5 +16,9 @@
   "text.xenon.updateavailable": "(Update Available!)",
   "text.xenon.version": "Xenon %s",
   "text.xenon.debug.configreload": "Configurations Reloaded!",
-  "config.xenon.featureconfiggroup.wailagroup": "WAILA Settings"
+  "config.xenon.featureconfiggroup": "Feature Configurations",
+  "config.xenon.featureconfiggroup.autoreplygroup": "AutoReply Settings",
+  "config.xenon.featureconfiggroup.wailagroup": "WAILA Settings",
+  "config.xenon.featureconfiggroup.takepanoramagroup": "Panorama Generator Settings",
+  "config.xenon.featureconfiggroup.featurelistgroup": "FeatureList Settings"
 }

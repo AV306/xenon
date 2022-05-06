@@ -3,17 +3,20 @@ package me.av306.xenon.features;
 import me.av306.xenon.Xenon;
 import me.av306.xenon.feature.IToggleableFeature;
 
+import net.minecraft.client.util.ClientPlayerTickable;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.math.Vec3d;
 
 
-public class ProximityRadarFeature extends IToggleableFeature
+public class ProximityRadarFeature extends IToggleableFeature implements ClientPlayerTickable
 {
-		// TODO: Use event bus instead
-		public ProximityRadarFeature() { super( "ProximityRadar" ); }
+    public ProximityRadarFeature()
+    {
+        super( "ProximityRadar" );
+        // tick callback in ClientPlayerTickable
+    }
 
-    // gets used when the key is pressed
     @Override
     public void onEnable()
     {
@@ -25,23 +28,25 @@ public class ProximityRadarFeature extends IToggleableFeature
     {
     }
 
-    private void onUpdate()
+    @Override
+    private void tick()
     {
 		Xenon.INSTANCE.client.world.getEntities()
             .forEach((entity) ->
-                  {
-                      if ( entity instanceof ProjectileEntity )
-                      {
-                          ProjectileEntity projectileEntity = (ProjectileEntity) entity;
-                          Vec3d entityPos = projectileEntity.getPos();
-													Vec3d clientPos = Xenon.INSTANCE.client.player.getPos();
+                    { // TODO: detect creepers!
+                        if ( entity instanceof ProjectileEntity )
+                        {
+                            ProjectileEntity projectileEntity = (ProjectileEntity) entity;
+                            Vec3d entityPos = projectileEntity.getPos();
+                            Vec3d clientPos = Xenon.INSTANCE.client.player.getPos();
 
-                          if (
-                                  (entityPos.getX() < clientPos.getX() + 50 || entityPos.getX() > clientPos.getX() - 50) &&
-                                  (entityPos.getY() < clientPos.getY() + 50 || entityPos.getY() > clientPos.getY() - 50) &&
-                                  (entityPos.getZ() < clientPos.getZ() + 50 || entityPos.getZ() > clientPos.getZ() - 50)
+                            if (
+                                    (entityPos.getX() < clientPos.getX() + 50 || entityPos.getX() > clientPos.getX() - 50) &&
+                                    (entityPos.getY() < clientPos.getY() + 50 || entityPos.getY() > clientPos.getY() - 50) &&
+                                    (entityPos.getZ() < clientPos.getZ() + 50 || entityPos.getZ() > clientPos.getZ() - 50)
                           )
                           {
+                              // TODO: flash red vignette
                               Xenon.INSTANCE.client.player.sendMessage( new LiteralText( "WARNING! PROJECTILE IN RANGE" ), false );
                           }
                       }
