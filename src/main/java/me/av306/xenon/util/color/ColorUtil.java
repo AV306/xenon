@@ -1,5 +1,8 @@
 package me.av306.xenon.util.color;
 
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+
 /**
  * Helper class for converting rgb arrays to int values, and vice versa.
  */
@@ -19,13 +22,15 @@ public class ColorUtil
       return a << 24 | r << 16 | g << 8 | b;
     }
 
-	public static int[] intToRgb( int rgb )
+	@Contract(value = "_ -> new", pure = true)
+	public static int @NotNull [] intToRgb(int rgb )
 	{
 		return new int[]{ rgb >> 16 & 0xFF, rgb >> 8 & 0xFF, rgb & 0xFF };
 	}
 
-	public static int[] intToArgb( int argb )
+	@Contract(value = "_ -> new", pure = true)
+	public static int @NotNull [] intToArgb(int argb )
 	{
-		return new int{ argb >> 24 & 0xFF, argb >> 16 & 0xFF, argb >> 8 & 0xFF, argb & 0xFF };
+		return new int[]{ argb >> 24 & 0xFF, argb >> 16 & 0xFF, argb >> 8 & 0xFF, argb & 0xFF };
 	}
 }

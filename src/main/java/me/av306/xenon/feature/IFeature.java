@@ -22,10 +22,11 @@ public abstract class IFeature
 {
 	protected String name = "IFeature";
 	public String getName() { return this.name; }
+	public void setName( String name ) { this.name = name; }
 	
   	public boolean isEnabled = false;
 
-	protected int key = GLFW.GLFW_KEY_UNKNOWN;
+	protected int key;
 
 	protected KeyBinding keyBinding;
 
