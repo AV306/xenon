@@ -29,7 +29,7 @@ public class ProximityRadarFeature extends IToggleableFeature implements ClientP
     }
 
     @Override
-    private void tick()
+    public void tick()
     {
 		Xenon.INSTANCE.client.world.getEntities()
             .forEach((entity) ->

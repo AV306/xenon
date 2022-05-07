@@ -1,6 +1,7 @@
 package me.av306.xenon;
 
 import me.av306.xenon.config.FeatureConfigGroup;
+import me.av306.xenon.config.feature.TimerGroup;
 import me.av306.xenon.feature.IFeature;
 import me.av306.xenon.features.*;
 import me.lortseam.completeconfig.data.Config;
@@ -63,10 +64,11 @@ public enum Xenon
 		// but how???
         new FullBrightFeature();
         new FeatureList();
-        new AutoReplyFeature();
+        new QuickChatFeature();
         new WailaFeature();
         new ConfigMenu();
-        new Debugger();
+        //new Debugger();
+        new TimerFeature();
     }
 
 
