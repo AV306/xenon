@@ -7,7 +7,7 @@ import net.minecraft.util.ActionResult;
 
 public interface InGameHudRenderCallback
 {
-    Event<InGameHudRenderCallback> EVENT = EventFactory.createArrayBacked(
+    Event<InGameHudRenderCallback> AFTER_VIGNETTE = EventFactory.createArrayBacked(
             InGameHudRenderCallback.class,
             (listeners) -> (matrices, tickDelta) ->
             {

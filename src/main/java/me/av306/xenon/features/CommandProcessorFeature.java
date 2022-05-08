@@ -10,7 +10,7 @@ public class CommandProcessorFeature extends IToggleableFeature
     public CommandProcessorFeature()
     {
         super( "CommandProcessor" );
-        ChatHudAddMessageCallback.EVENT.register( this::onChatHudAddMessage );
+        ChatHudAddMessageCallback.AFTER_VIGNETTE.register( this::onChatHudAddMessage );
     }
 
     private ActionResult onChatHudAddMessage( Text message )

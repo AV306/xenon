@@ -40,7 +40,7 @@ public class WailaFeature extends IToggleableFeature
 		super("WAILA"); 
 
 		// register event
-		InGameHudRenderCallback.EVENT.register( this::onInGameHudRender );
+		InGameHudRenderCallback.AFTER_VIGNETTE.register( this::onInGameHudRender );
 	}	
 
 	private ActionResult onInGameHudRender( MatrixStack matrices, float tickDelta )
