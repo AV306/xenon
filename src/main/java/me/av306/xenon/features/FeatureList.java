@@ -16,9 +16,7 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
-import org.lwjgl.opengl.GL15;
 
-import javax.xml.catalog.CatalogFeatures;
 import java.util.ArrayList;
 
 public class FeatureList extends IToggleableFeature
@@ -33,7 +31,7 @@ public class FeatureList extends IToggleableFeature
 		    this.isEnabled = true;
 			
         // register listener
-        InGameHudRenderCallback.EVENT.register( this::onInGameHudRender );
+        InGameHudRenderCallback.AFTER_VIGNETTE.register( this::onInGameHudRender );
     }
 
     private ActionResult onInGameHudRender( MatrixStack matrices, float tickDelta )

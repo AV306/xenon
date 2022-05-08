@@ -14,7 +14,7 @@ public class Debugger extends IFeature
     {
 
         super( "Debugger", GLFW.GLFW_KEY_BACKSLASH );
-        //KeyboardKeyCallback.EVENT.register( this::onKeyboardKey );
+        //KeyboardKeyCallback.AFTER_VIGNETTE.register( this::onKeyboardKey );
     }
 
     @Override

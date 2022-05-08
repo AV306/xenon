@@ -44,7 +44,7 @@ public abstract class IFeature
 				"category.xenon.features"
 		); // don't construct statically because name might not have been set
 
-		//KeyboardKeyCallback.EVENT.register( this::onKeyboardKey );
+		//KeyboardKeyCallback.AFTER_VIGNETTE.register( this::onKeyboardKey );
 
 		// register our keybind
 		KeyBindingHelper.registerKeyBinding( this.keyBinding );

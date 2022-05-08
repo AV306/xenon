@@ -20,7 +20,7 @@ public class ConfigMenu extends IFeature
     {
         super( "ConfigMenu" );
 
-        //KeyboardKeyCallback.EVENT.register( this::onKey );
+        //KeyboardKeyCallback.AFTER_VIGNETTE.register( this::onKey );
     }
 
     protected ActionResult onKey( long window, int key, int scanCode, int action, int modifiers )
