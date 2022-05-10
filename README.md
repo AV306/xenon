@@ -3,7 +3,7 @@
 [![Austin CI with Gradle](https://github.com/AV306/xenon/actions/workflows/austin_gradle.yml/badge.svg)](https://github.com/AV306/xenon/actions/workflows/austin_gradle.yml)
 [![CodeQL](https://github.com/AV306/xenon/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/AV306/xenon/actions/workflows/codeql-analysis.yml)
 
-Hello! This is Xenon, a Minecraft utility mod that adds useful stuff like Fullbright and AntiAFK functionality to Minecraft.
+Hello! This is Xenon, a Minecraft utility mod that adds stuff like Fullbright and WAILA functionality to Minecraft.
 
 This is good for people who want the features of clients such as Badlion or Lunar, but want it to be compatible with other mods.
 
@@ -23,23 +23,23 @@ NOTE: Once a new Minecraft version is released, support for previous versions te
 (All are unbound by default)
 ~~Maybe someday I'll implement multi-key seqnences~~
 - FullBright 
-- QuickResponse (TODO: Rename in codebase)
-- Bad WAILA implementation
-- Panorama Generator
+- QuickReply
+- Bad WAILA implementation (use WTHIT instead)
+- Panorama Generator (I'm proud of this one)
 - ShareLocation
-- NoFireOverlay
-- \<Halo Red Reticle like thing\> (WIP)
-- FeatureList
-- DataHUD
-- Configuration system (WIP)
+- NoFireOverlay (useless, present in code but not accessible)
+- FeatureList (not really a feature)
+- DataHUD (useless)
+- Configuration system
+- ProximityRadar (WIP)
+- Timer
+- FastBreak (WIP)
+- modular and user-friendly feature creation/registration system I spent way too much time on
 
 Planned features:
 
-- Options GUI
 - AntiAFK
 - QuickCommand
 - FreeCam
-
-# Have Fun!
 
 ## Licensed under GNU GPL v3
