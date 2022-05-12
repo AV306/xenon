@@ -1,6 +1,6 @@
 package me.av306.xenon.mixin;
 
-import me.av306.xenon.event.callback.RenderTickCounterBeginRenderTickCallback;
+import me.av306.xenon.event.BeginRenderTickEvent;
 import net.minecraft.client.render.RenderTickCounter;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
@@ -28,7 +28,7 @@ public abstract class RenderTickCounterMixin //implements RenderTickCounterAcces
     public void onBeginRenderTick( long timeMillis, CallbackInfoReturnable<Integer> cir )
     {
         //lastFrameDuration *= TimerGroup.timerSpeed; // this works, no fucking idea why
-        RenderTickCounterBeginRenderTickCallback.EVENT.invoker().interact( timeMillis );
+        BeginRenderTickEvent.EVENT.invoker().interact( timeMillis );
     }
 
     /*@Override

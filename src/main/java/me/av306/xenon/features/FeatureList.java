@@ -2,7 +2,7 @@ package me.av306.xenon.features;
 
 import me.av306.xenon.Xenon;
 import me.av306.xenon.config.feature.FeatureListGroup;
-import me.av306.xenon.event.callback.InGameHudRenderCallback;
+import me.av306.xenon.event.RenderInGameHudEvent;
 import me.av306.xenon.feature.IFeature;
 import me.av306.xenon.feature.IToggleableFeature;
 import me.av306.xenon.util.ScreenPosition;
@@ -31,7 +31,7 @@ public class FeatureList extends IToggleableFeature
 		    this.isEnabled = true;
 			
         // register listener
-        InGameHudRenderCallback.AFTER_VIGNETTE.register( this::onInGameHudRender );
+        RenderInGameHudEvent.AFTER_VIGNETTE.register( this::onInGameHudRender );
     }
 
     private ActionResult onInGameHudRender( MatrixStack matrices, float tickDelta )

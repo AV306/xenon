@@ -1,11 +1,6 @@
 package me.av306.xenon.features;
 
-import me.av306.xenon.Xenon;
-import me.av306.xenon.event.callback.KeyboardKeyCallback;
 import me.av306.xenon.feature.IFeature;
-import net.minecraft.text.LiteralText;
-import net.minecraft.text.TranslatableText;
-import net.minecraft.util.ActionResult;
 import org.lwjgl.glfw.GLFW;
 
 public class Debugger extends IFeature
@@ -14,7 +9,7 @@ public class Debugger extends IFeature
     {
 
         super( "Debugger", GLFW.GLFW_KEY_BACKSLASH );
-        //KeyboardKeyCallback.AFTER_VIGNETTE.register( this::onKeyboardKey );
+        //KeyEvent.AFTER_VIGNETTE.register( this::onKeyboardKey );
     }
 
     @Override
