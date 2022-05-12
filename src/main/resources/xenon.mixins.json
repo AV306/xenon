@@ -6,12 +6,13 @@
   "mixins": [
   ],
   "client": [
+    "ClientPlayerInteractionManagerAccessor",
     "InGameHudMixin",
     "InGameOverlayRendererMixin",
     "KeyboardMixin",
-    "RenderTickCounterMixin",
     "MinecraftClientAccessor",
-    "RenderTickCounterAccessor"
+    "RenderTickCounterAccessor",
+    "RenderTickCounterMixin"
   ],
   "injectors": {
     "defaultRequire": 1

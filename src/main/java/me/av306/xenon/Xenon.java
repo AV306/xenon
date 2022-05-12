@@ -69,6 +69,7 @@ public enum Xenon
         new ConfigMenu();
         //new Debugger();
         new TimerFeature();
+        new ProximityRadarFeature();
     }
 
 

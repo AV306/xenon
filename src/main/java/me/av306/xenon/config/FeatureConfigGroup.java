@@ -2,7 +2,6 @@ package me.av306.xenon.config;
 
 import me.av306.xenon.config.feature.*;
 import me.lortseam.completeconfig.api.*;
-import net.minecraft.client.render.entity.feature.TridentRiptideFeatureRenderer;
 
 @ConfigEntries
 public class FeatureConfigGroup implements XenonConfigGroup
@@ -21,4 +20,7 @@ public class FeatureConfigGroup implements XenonConfigGroup
 
 	@Transitive
 	private final TimerGroup timer = new TimerGroup();
+
+	@Transitive
+	private final ProximityRadarGroup proximityRadarGroup = new ProximityRadarGroup();
 }

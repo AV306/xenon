@@ -1,12 +1,9 @@
 package me.av306.xenon.feature;
 
-import me.av306.xenon.Xenon;
-import me.av306.xenon.event.callback.KeyboardKeyCallback;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
-import net.minecraft.util.ActionResult;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.Objects;
@@ -44,7 +41,7 @@ public abstract class IFeature
 				"category.xenon.features"
 		); // don't construct statically because name might not have been set
 
-		//KeyboardKeyCallback.EVENT.register( this::onKeyboardKey );
+		//KeyEvent.AFTER_VIGNETTE.register( this::onKeyboardKey );
 
 		// register our keybind
 		KeyBindingHelper.registerKeyBinding( this.keyBinding );

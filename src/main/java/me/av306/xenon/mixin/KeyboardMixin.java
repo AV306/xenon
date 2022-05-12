@@ -1,6 +1,6 @@
 package me.av306.xenon.mixin;
 
-import me.av306.xenon.event.callback.KeyboardKeyCallback;
+import me.av306.xenon.event.KeyEvent;
 import net.minecraft.client.Keyboard;
 import net.minecraft.util.ActionResult;
 import org.spongepowered.asm.mixin.Mixin;
@@ -14,7 +14,7 @@ public class KeyboardMixin
 	@Inject(at = @At("HEAD"), method = "onKey(JIIII)V")
 	private void onKey( long window, int key, int scanCode, int action, int modifiers, CallbackInfo ci )
 	{
-        ActionResult result = KeyboardKeyCallback.EVENT.invoker().interact( window, key, scanCode, action, modifiers );
+        ActionResult result = KeyEvent.EVENT.invoker().interact( window, key, scanCode, action, modifiers );
 
         if ( result == ActionResult.FAIL )
             ci.cancel();

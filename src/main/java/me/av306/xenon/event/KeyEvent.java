@@ -1,17 +1,16 @@
-package me.av306.xenon.event.callback;
+package me.av306.xenon.event;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.ActionResult;
 
-public interface KeyboardKeyCallback
+public interface KeyEvent
 {
-    Event<KeyboardKeyCallback> EVENT = EventFactory.createArrayBacked(
-            KeyboardKeyCallback.class,
+    Event<KeyEvent> EVENT = EventFactory.createArrayBacked(
+            KeyEvent.class,
             (listeners) -> (window, key, scancode, action, modifiers) ->
             {
-                for ( KeyboardKeyCallback listener : listeners )
+                for ( KeyEvent listener : listeners )
                 {
                     ActionResult result = listener.interact( window, key, scancode, action, modifiers );
 

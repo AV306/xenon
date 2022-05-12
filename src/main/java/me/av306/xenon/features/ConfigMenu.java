@@ -1,18 +1,12 @@
 package me.av306.xenon.features;
 
 import me.av306.xenon.Xenon;
-import me.av306.xenon.event.callback.KeyboardKeyCallback;
 import me.av306.xenon.feature.IFeature;
-import me.lortseam.completeconfig.data.Config;
 import me.lortseam.completeconfig.gui.ConfigScreenBuilder;
 import me.lortseam.completeconfig.gui.cloth.ClothConfigScreenBuilder;
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
-import net.fabricmc.fabric.mixin.screen.ScreenAccessor;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.util.ActionResult;
-import org.lwjgl.glfw.GLFW;
-
-import java.util.function.Consumer;
 
 public class ConfigMenu extends IFeature
 {
@@ -20,7 +14,7 @@ public class ConfigMenu extends IFeature
     {
         super( "ConfigMenu" );
 
-        //KeyboardKeyCallback.EVENT.register( this::onKey );
+        //KeyEvent.AFTER_VIGNETTE.register( this::onKey );
     }
 
     protected ActionResult onKey( long window, int key, int scanCode, int action, int modifiers )
