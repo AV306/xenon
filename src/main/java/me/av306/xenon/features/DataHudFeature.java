@@ -1,7 +1,7 @@
 package me.av306.xenon.features;
 
 import me.av306.xenon.Xenon;
-import me.av306.xenon.event.callback.InGameHudRenderCallback;
+import me.av306.xenon.event.RenderInGameHudEvent;
 import me.av306.xenon.feature.IToggleableFeature;
 import me.av306.xenon.util.ScreenPosition;
 import me.av306.xenon.util.color.ColorUtil;
@@ -9,7 +9,6 @@ import me.av306.xenon.util.text.TextUtil;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.ActionResult;
-import org.lwjgl.opengl.GL11;
 
 public class DataHudFeature extends IToggleableFeature
 {
@@ -17,7 +16,7 @@ public class DataHudFeature extends IToggleableFeature
     {
         super( "DataHUD" );
 
-        InGameHudRenderCallback.EVENT.register( this::onInGameHudRender );
+        RenderInGameHudEvent.AFTER_VIGNETTE.register( this::onInGameHudRender );
     }
 
     private ActionResult onInGameHudRender( MatrixStack matrixStack, float tickDelta )

@@ -1,17 +1,17 @@
-package me.av306.xenon.event.callback;
+package me.av306.xenon.event;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 
-public interface ChatHudAddMessageCallback
+public interface ChatHudAddMessageEvent
 {
-    Event<ChatHudAddMessageCallback> EVENT = EventFactory.createArrayBacked(
-            ChatHudAddMessageCallback.class,
+    Event<ChatHudAddMessageEvent> EVENT = EventFactory.createArrayBacked(
+            ChatHudAddMessageEvent.class,
             (listeners) -> (message) ->
             {
-                for ( ChatHudAddMessageCallback listener : listeners )
+                for ( ChatHudAddMessageEvent listener : listeners )
                 {
                     ActionResult result = listener.interact( message );
 

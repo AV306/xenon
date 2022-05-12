@@ -1,6 +1,6 @@
 /*package me.av306.xenon.features;
 
-import me.av306.xenon.event.callback.ChatHudAddMessageCallback;
+import me.av306.xenon.event.ChatHudAddMessageEvent;
 import me.av306.xenon.feature.IToggleableFeature;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
@@ -10,7 +10,7 @@ public class CommandProcessorFeature extends IToggleableFeature
     public CommandProcessorFeature()
     {
         super( "CommandProcessor" );
-        ChatHudAddMessageCallback.EVENT.register( this::onChatHudAddMessage );
+        ChatHudAddMessageEvent.AFTER_VIGNETTE.register( this::onChatHudAddMessage );
     }
 
     private ActionResult onChatHudAddMessage( Text message )

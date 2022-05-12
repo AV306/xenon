@@ -2,7 +2,7 @@ package me.av306.xenon.features;
 
 import me.av306.xenon.Xenon;
 import me.av306.xenon.config.feature.TimerGroup;
-import me.av306.xenon.event.callback.RenderTickCounterBeginRenderTickCallback;
+import me.av306.xenon.event.BeginRenderTickEvent;
 import me.av306.xenon.feature.IToggleableFeature;
 import me.av306.xenon.mixin.MinecraftClientAccessor;
 import me.av306.xenon.mixin.RenderTickCounterAccessor;
@@ -20,7 +20,7 @@ public class TimerFeature extends IToggleableFeature
     {
         super( "Timer" );
 
-        RenderTickCounterBeginRenderTickCallback.EVENT.register( this::onBeginRenderTick );
+        BeginRenderTickEvent.EVENT.register( this::onBeginRenderTick );
     }
 
     private ActionResult onBeginRenderTick( long timeMillis )
