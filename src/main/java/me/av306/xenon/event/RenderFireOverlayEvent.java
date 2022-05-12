@@ -1,4 +1,4 @@
-package me.av306.xenon.event.callback;
+package me.av306.xenon.event;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
@@ -16,14 +16,14 @@ import net.minecraft.util.ActionResult;
  *	 default to SUCCESS when there are no other listeners.
  * - FAIL: Cancel the event.
  */
-public interface InGameOverlayRendererRenderFireOverlayCallback
+public interface RenderFireOverlayEvent
 {		
-	Event<InGameOverlayRendererRenderFireOverlayCallback> EVENT = EventFactory.createArrayBacked(
-		InGameOverlayRendererRenderFireOverlayCallback.class,
+	Event<RenderFireOverlayEvent> EVENT = EventFactory.createArrayBacked(
+		RenderFireOverlayEvent.class,
 		(listeners) -> (client, matrices) ->
 		{
 			// iterate over each listener
-			for ( InGameOverlayRendererRenderFireOverlayCallback listener : listeners )
+			for ( RenderFireOverlayEvent listener : listeners )
 			{
 				// let the listener interact with the event
 				ActionResult result = listener.interact( client, matrices );

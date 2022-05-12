@@ -1,17 +1,16 @@
-package me.av306.xenon.event.callback;
+package me.av306.xenon.event;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.ActionResult;
 
-public interface RenderTickCounterBeginRenderTickCallback
+public interface BeginRenderTickEvent
 {
-    Event<RenderTickCounterBeginRenderTickCallback> EVENT = EventFactory.createArrayBacked(
-            RenderTickCounterBeginRenderTickCallback.class,
+    Event<BeginRenderTickEvent> EVENT = EventFactory.createArrayBacked(
+            BeginRenderTickEvent.class,
             (listeners) -> (timeMillis) ->
             {
-                for ( RenderTickCounterBeginRenderTickCallback listener : listeners )
+                for ( BeginRenderTickEvent listener : listeners )
                 {
                     ActionResult result = listener.interact( timeMillis );
 

@@ -1,7 +1,7 @@
 package me.av306.xenon.features;
 
 import me.av306.xenon.Xenon;
-import me.av306.xenon.event.callback.InGameHudRenderCallback;
+import me.av306.xenon.event.RenderInGameHudEvent;
 import me.av306.xenon.feature.IToggleableFeature;
 import me.av306.xenon.util.ScreenPosition;
 import me.av306.xenon.util.color.ColorUtil;
@@ -16,7 +16,7 @@ public class DataHudFeature extends IToggleableFeature
     {
         super( "DataHUD" );
 
-        InGameHudRenderCallback.AFTER_VIGNETTE.register( this::onInGameHudRender );
+        RenderInGameHudEvent.AFTER_VIGNETTE.register( this::onInGameHudRender );
     }
 
     private ActionResult onInGameHudRender( MatrixStack matrixStack, float tickDelta )
