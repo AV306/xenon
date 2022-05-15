@@ -70,6 +70,7 @@ public enum Xenon
         //new Debugger();
         new TimerFeature();
         new ProximityRadarFeature();
+        new FastBreakFeature();
     }
 
 
