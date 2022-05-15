@@ -1,5 +1,6 @@
 package me.av306.xenon.mixin;
 
+import me.av306.xenon.Xenon;
 import me.av306.xenon.event.PlayerDamageBlockEvent;
 import net.minecraft.client.network.ClientPlayerInteractionManager;
 import net.minecraft.util.math.BlockPos;
@@ -22,6 +23,7 @@ public class ClientPlayerInteractionManagerMixin
     )
     private void onPlayerDamageBlock( BlockPos pos, Direction direction, CallbackInfoReturnable<Boolean> cir )
     {
+        Xenon.INSTANCE.LOGGER.info( "triggered" );
         PlayerDamageBlockEvent.EVENT.invoker().interact( pos, direction );
     }
 }

@@ -1,7 +1,9 @@
 {
   "category.xenon.features": "Xenon Features",
   "config.xenon.featureconfiggroup": "Feature Configurations",
+  "config.xenon.featureconfiggroup.fastbreakgroup": "FastBreak Settings",
   "config.xenon.featureconfiggroup.featurelistgroup": "FeatureList Settings",
+  "config.xenon.featureconfiggroup.featurelistgroup.showVersion": "FeatureList Settings",
   "config.xenon.featureconfiggroup.proximityradargroup": "ProximityRadar Settings",
   "config.xenon.featureconfiggroup.quickchatgroup": "QuickChat Settings",
   "config.xenon.featureconfiggroup.takepanoramagroup": "Panorama Generator Settings",
