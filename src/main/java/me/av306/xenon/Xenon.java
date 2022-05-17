@@ -62,15 +62,15 @@ public enum Xenon
         // TODO: wtf is this
         // featureRegistry.
 		// but how???
-        new FullBrightFeature();
-        new FeatureList();
-        new QuickChatFeature();
-        new WailaFeature();
         new ConfigMenu();
-        //new Debugger();
-        new TimerFeature();
-        new ProximityRadarFeature();
         new FastBreakFeature();
+        new FeatureList();
+        new FullBrightFeature();
+        new ProximityRadarFeature();
+        new QuickChatFeature();
+        new ShareLocationFeature();
+        new TimerFeature();
+        new WailaFeature();
     }
 
 
