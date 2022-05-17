@@ -14,6 +14,6 @@ public class ProximityRadarGroup implements XenonConfigGroup
     @ConfigEntry.Slider
     public static int interval = 5;
 
-    @ConfigEntry.Boolean
-    public static boolean showPos = false;
+    //@ConfigEntry.Boolean
+    //public static boolean showPos = false;
 }
