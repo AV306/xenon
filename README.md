@@ -23,17 +23,21 @@ NOTE: Once a new Minecraft version is released, support for previous versions te
 (All are unbound by default)
 ~~Maybe someday I'll implement multi-key seqnences~~
 - FullBright 
-- QuickReply
+- QuickChat
 - Bad WAILA implementation (use WTHIT instead)
 - Panorama Generator (I'm proud of this one)
 - ShareLocation
-- NoFireOverlay (useless, present in code but not accessible)
+- NoFireOverlay (useless, present in code but not accessible, exists for initial testing purposes)
 - FeatureList (not really a feature)
 - DataHUD (useless)
 - Configuration system
-- ProximityRadar (WIP)
-- Timer
-- FastBreak (WIP)
+- ProximityRadar
+- Timer (*wheee*)
+- FastBreak (Does not work *exactly* as intended, but close enough)
+- Fundy Ice Physics (WIP)
+- SpeedBoost (WIP)
+- HighJump (WIP)
+- AntiKnockback (WIP)
 - modular and user-friendly feature creation/registration system I spent way too much time on
 
 Planned features:
