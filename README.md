@@ -47,3 +47,21 @@ Planned features:
 - FreeCam
 
 ## Licensed under GNU GPL v3
+
+## Instructions for developers
+
+### Setup
+
+(If you just want to build the latest version, run ./scripts/\[os\]/export; e.g. ./scripts/nix/export for Linux/MacOS)
+
+1. Install JDK 17 or above (I compiled 4.1 with JDK 18, 17 might not work)
+2. Run ./gradlew eclipse if using Eclipse, IntelliJ *should* automatically set everything up.
+3. Open the root folder as a project.
+4. Done!
+
+### Adding new features
+
+1. Extend IFeature or IToggleableFeature depending on the type of feature.
+2. Define a constructor and call `super( <name> );`, replacing `<name>` with the name of your feature.
+3. Register method callbacks in the constructor, see `Timer` for an example.
+4. (**IMPORTANT**) Register your feature by calling its constructor in `Xenon` (main class).
