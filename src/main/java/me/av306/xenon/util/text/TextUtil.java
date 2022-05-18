@@ -8,9 +8,16 @@ import net.minecraft.client.util.Window;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 
+/**
+ * Helper class for text-related operations.
+ *
+ * Contains methods for drawing text at a predefined position,
+ * as well as appending lines to text.
+ *
+ * TODO: implement BOTTOM_* text drawing
+ */
 public class TextUtil
 {
-	// TODO: finish implementing
 	public static void drawPositionedText( MatrixStack matrices, Text text, ScreenPosition position, int xOffset, int yOffset, boolean shadow, int color )
 	{
 		TextRenderer textRenderer = Xenon.INSTANCE.client.textRenderer;
