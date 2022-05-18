@@ -1,8 +1,7 @@
 package me.av306.xenon;
 
 import me.av306.xenon.config.FeatureConfigGroup;
-import me.av306.xenon.config.feature.TimerGroup;
-import me.av306.xenon.feature.IFeature;
+import me.av306.xenon.feature.IToggleableFeature;
 import me.av306.xenon.features.*;
 import me.lortseam.completeconfig.data.Config;
 import net.fabricmc.loader.api.FabricLoader;
@@ -14,7 +13,6 @@ import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 
@@ -42,7 +40,6 @@ public enum Xenon
     public String getVersion() { return version; }
     //public void setVersion( String version ) { this.version = version; }
 
-    @Nullable
     private ModContainer modContainer;
 
     //private boolean updateAvailable = false;
@@ -58,10 +55,7 @@ public enum Xenon
         // set client
         this.client = MinecraftClient.getInstance();
 			
-        // register keybinds
-        // TODO: wtf is this
-        // featureRegistry.
-		// but how???
+        // register features
         new ConfigMenu();
         new FastBreakFeature();
         new FeatureList();
