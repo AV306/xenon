@@ -19,7 +19,7 @@ import net.minecraft.util.ActionResult;
 
 import java.util.ArrayList;
 
-public class FeatureList extends IToggleableFeature
+public final class FeatureList extends IToggleableFeature
 {
 
     public FeatureList()
@@ -27,8 +27,8 @@ public class FeatureList extends IToggleableFeature
         // set name
         super( "FeatureList" );
 
-		    // start enabled by default
-		    this.isEnabled = true;
+		// start enabled by default
+        this.enable();
 			
         // register listener
         RenderInGameHudEvent.AFTER_VIGNETTE.register( this::onInGameHudRender );
