@@ -89,8 +89,13 @@ public class WailaFeature extends IToggleableFeature
 				Block block = blockState.getBlock(); // finally.
 
 				//Block block = Xenon.INSTANCE.client.world.getBlockState(((BlockHitResult) hit).getBlockPos()).getBlock();
-
-				this.dataText = new TranslatableText("text.xenon.waila.blocktype", block.getName(), block.getHardness(), block.getBlastResistance());
+        // The sharp-eyed may notice that we're just sending over the block hardness, 
+				// not the avtual break time (which depends on the tool).
+				// This is intentional; I didn't implement the break time calculations
+				// because the chances that someone will even *use* Xenon are so astronomically small,
+				// and there are so many other *good* WAILA mods,
+		    // so there was no point.
+				this.dataText = new TranslatableText( "text.xenon.waila.blocktype", block.getName(), block.getHardness(), block.getBlastResistance());
 			}
 
 			case ENTITY ->

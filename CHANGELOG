@@ -7,4 +7,7 @@
 3.0.0.beta.7: Implement better version text system, major refactor of Feature system with default methods
 
 4.0.0.alpha.0: Keybinds are now initialised in the Feature constructor; CompleteConfig is now used for configuration
-*4.0.0.alpha.1: Feature registration system is streamlined and optimised
+4.0.0.alpha.1: Feature registration system is streamlined and optimised
+4.0.0: ProximityRadar implemented, along with a whole slew of features.
+4.1.0: i forgot :/
+*4.2.0: 

@@ -41,7 +41,7 @@ public abstract class IToggleableFeature extends IFeature
         onEnable();
     }
 
-    protected void disable()
+    public void disable()
     {
         if ( !isEnabled ) return;
 
