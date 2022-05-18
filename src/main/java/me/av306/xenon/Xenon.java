@@ -36,7 +36,7 @@ public enum Xenon
     //public final Formatting WARNING_FORMAT = Formatting.YELLOW;
     //public final Formatting ERROR_FORMAT = Formatting.RED;
 
-    public ArrayList<IFeature> enabledFeatures = new ArrayList<>();
+    public ArrayList<IToggleableFeature> enabledFeatures = new ArrayList<>();
 
     private String version;
     public String getVersion() { return version; }
