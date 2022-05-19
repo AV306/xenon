@@ -53,6 +53,6 @@ jobs:
       uses: Hs1r1us/Release-AIO@v1.0
       with:
         # The name of the tag
-        tag_name: Xenon Test Release
+        tag_name: test
       env:
         GITHUB_TOKEN: ${{ github.token }}
