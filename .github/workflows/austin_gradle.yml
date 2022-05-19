@@ -54,3 +54,5 @@ jobs:
       with:
         # The name of the tag
         tag_name: Xenon Test Release
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
