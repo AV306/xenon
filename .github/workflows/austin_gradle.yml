@@ -39,10 +39,8 @@ jobs:
       with:
         arguments: jar
         
-    - name: Upload a Build Artifact
+    - name: Upload Build Artifact
       uses: actions/upload-artifact@v3.0.0
       with:
-        # Artifact name
-        name: ${{ github.event.commits[0].message }}
         # A file, directory or wildcard pattern that describes what to upload
         path: ./build/libs/*.jar
