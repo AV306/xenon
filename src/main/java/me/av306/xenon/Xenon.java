@@ -81,15 +81,15 @@ public enum Xenon
 
     public void sendInfoMessage( String key )
     {
-        this.client.player.sendMessage(
-                new LiteralText( "[Xenon] " ).append( new TranslatableText( key ) ),
-                false
-        );
+        Text finalText = new MutableText( "[Xenon] " ).formatted( Formatting.AQUA )
+            .append( new TranslatableText( key ) );
+        this.client.player.sendMessage( finalText, false );
     }
 
     public void sendInfoMessage( Text text )
     {
-        Text finalText = new LiteralText( "[Xenon] " ).append( text );
+        Text finalText = new MutableText( "[Xenon] " ).formatted( Formatting.AQUA )
+            .append( text );
         this.client.player.sendMessage( finalText, false );
     }
 }
