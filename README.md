@@ -55,7 +55,7 @@ Planned features:
 (If you just want to build the latest version, run ./scripts/\[os\]/export; e.g. ./scripts/nix/export for Linux/MacOS)
 
 1. Install JDK 17 or above (I compiled 4.1 with JDK 18, 17 might not work)
-2. Run ./gradlew eclipse if using Eclipse, IntelliJ *should* automatically set everything up.
+2. Run ./gradlew eclipse if using Eclipse, otherwise IntelliJ *should* automatically set everything up.
 3. Open the root folder as a project.
 4. Done!
 
