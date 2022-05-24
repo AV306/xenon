@@ -34,7 +34,7 @@ NOTE: Once a new Minecraft version is released, support for previous versions te
 - ProximityRadar
 - Timer (*wheee*)
 - FastBreak (Does not work *exactly* as intended, but close enough)
-- Fundy Ice Physics (WIP)
+- Fundy Ice Physics™ (WIP)
 - SpeedBoost (WIP)
 - HighJump (WIP)
 - AntiKnockback (WIP)
