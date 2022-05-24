@@ -63,5 +63,5 @@ Planned features:
 
 1. Extend IFeature or IToggleableFeature depending on the type of feature.
 2. Define a constructor and call `super( <name> );`, replacing `<name>` with the name of your feature.
-3. Register method callbacks in the constructor, see `Timer` for an example.
+3. Register event callbacks in the constructor, see `Timer` for an example. (Note: some features, like JumpBoost, that require  modifying the values of fields right before they are accessed, are more complex. I'm working on that.)
 4. (**IMPORTANT**) Register your feature by calling its constructor in `Xenon` (main class).
