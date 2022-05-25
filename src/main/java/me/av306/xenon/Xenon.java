@@ -66,6 +66,7 @@ public enum Xenon
         new ShareLocationFeature();
         new TimerFeature();
         new WailaFeature();
+        new HighJumpFeature();
     }
 
 
