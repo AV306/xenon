@@ -5,8 +5,8 @@ import net.fabricmc.fabric.api.event.EventFactory;
 
 public class GetJumpVelocityEvent
 {
-    Event<GetJumpVelocityEvent> EVENT = EventFactory.createArrayBacked(
+    /*Event<GetJumpVelocityEvent> EVENT = EventFactory.createArrayBacked(
            GetJumpVelocityEvent.class,
 
-    );
+    );*/
 }
