@@ -12,6 +12,7 @@
   "config.xenon.featureconfiggroup.featurelistgroup.position.bottomCenter": "Bottom Center",
   "config.xenon.featureconfiggroup.featurelistgroup.position.bottomRight": "Bottom Right",
   "config.xenon.featureconfiggroup.featurelistgroup.showVersion": "Show Version",
+  "config.xenon.featureconfiggroup.highjumpgroup.height": "Velocity",
   "config.xenon.featureconfiggroup.proximityradargroup": "ProximityRadar Settings",
   "config.xenon.featureconfiggroup.proximityradargroup.range": "Range",
   "config.xenon.featureconfiggroup.proximityradargroup.interval": "Update Interval",

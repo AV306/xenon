@@ -32,5 +32,6 @@ public class HighJumpFeature extends IToggleableFeature
     @Override
     protected void onDisable()
     {
+        EventFields.JUMP_VELOCITY_MODIFIER -= HighJumpGroup.height;
     }
 }
