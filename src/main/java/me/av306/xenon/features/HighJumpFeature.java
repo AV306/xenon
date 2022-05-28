@@ -29,10 +29,12 @@ public class HighJumpFeature extends IToggleableFeature
 
     private ActionResult onRenderInGameHud( MatrixStack matrixStack, float tickDelta )
     {
+        if ( !this.isEnabled ) return ActionResult.PASS;
+
         if ( ticks >= GeneralConfigGroup.interval )
         {
             ticks = 0;
-            this.setName( "HighJump " + HighJumpGroup.height );
+            this.setName( "HighJump (" + HighJumpGroup.height + ")" );
         }
         else ticks++;
 

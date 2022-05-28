@@ -1,6 +1,8 @@
 package me.av306.xenon.mixin;
 
 import me.av306.xenon.Xenon;
+import me.av306.xenon.event.EventFields;
+import me.av306.xenon.event.GetReachDistanceEvent;
 import me.av306.xenon.event.PlayerDamageBlockEvent;
 import net.minecraft.client.network.ClientPlayerInteractionManager;
 import net.minecraft.util.math.BlockPos;
@@ -25,5 +27,22 @@ public class ClientPlayerInteractionManagerMixin
     {
         Xenon.INSTANCE.LOGGER.info( "triggered" );
         PlayerDamageBlockEvent.EVENT.invoker().interact( pos, direction );
+    }
+
+    @Inject(
+            at = @At( "HEAD" ),
+            method = "getReachDistance()F",
+            cancellable = true
+    )
+    private void onGetReachDistance( CallbackInfoReturnable<Float> cir )
+    {
+        GetReachDistanceEvent.EVENT.invoker().interact();
+
+        ClientPlayerInteractionManagerAccessor cpima = (ClientPlayerInteractionManagerAccessor) Xenon.INSTANCE.client.interactionManager;
+        float reach = cpima.getGameMode().isCreative() ? 5.0f : 4.5f;
+
+        reach += EventFields.REACH_MODIFIER;
+
+        cir.setReturnValue( reach );
     }
 }
