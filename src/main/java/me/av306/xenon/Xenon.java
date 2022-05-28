@@ -67,6 +67,7 @@ public enum Xenon
         new TimerFeature();
         new WailaFeature();
         new HighJumpFeature();
+        new PanicFeature();
     }
 
 
