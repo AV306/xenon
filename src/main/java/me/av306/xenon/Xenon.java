@@ -58,16 +58,17 @@ public enum Xenon
 			
         // register features
         new ConfigMenu();
+        new ExtraReachFeature();
         new FastBreakFeature();
         new FeatureList();
         new FullBrightFeature();
+        new HighJumpFeature();
+        new PanicFeature();
         new ProximityRadarFeature();
         new QuickChatFeature();
         new ShareLocationFeature();
         new TimerFeature();
         new WailaFeature();
-        new HighJumpFeature();
-        new PanicFeature();
     }
 
 

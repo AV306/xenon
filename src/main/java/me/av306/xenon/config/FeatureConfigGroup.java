@@ -10,19 +10,19 @@ public class FeatureConfigGroup implements XenonConfigGroup
 	private final GeneralConfigGroup generalConfigGroup = new GeneralConfigGroup();
 
 	@Transitive
-	private final QuickChatGroup autoreply = new QuickChatGroup();
+	private final QuickChatGroup quickChatGroup = new QuickChatGroup();
 
 	@Transitive
-	private final FeatureListGroup featurelist = new FeatureListGroup();
+	private final FeatureListGroup featureListGroup = new FeatureListGroup();
 
 	@Transitive
-	private final TakePanoramaGroup panorama = new TakePanoramaGroup();
+	private final TakePanoramaGroup takePanoramaGroup = new TakePanoramaGroup();
 
 	@Transitive
-	private final WailaGroup waila = new WailaGroup();
+	private final WailaGroup wailaGroup = new WailaGroup();
 
 	@Transitive
-	private final TimerGroup timer = new TimerGroup();
+	private final TimerGroup timerGroup = new TimerGroup();
 
 	@Transitive
 	private final ProximityRadarGroup proximityRadarGroup = new ProximityRadarGroup();
@@ -32,4 +32,7 @@ public class FeatureConfigGroup implements XenonConfigGroup
 
 	@Transitive
 	private final HighJumpGroup highJumpGroup = new HighJumpGroup();
+
+	@Transitive
+	private final ExtraReachGroup extraReachGroup = new ExtraReachGroup();
 }
