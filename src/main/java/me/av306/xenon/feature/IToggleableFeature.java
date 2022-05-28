@@ -9,10 +9,19 @@ public abstract class IToggleableFeature extends IFeature
 {
     //protected int key = GLFW.GLFW_KEY_UNKNOWN;
 
+    //protected static IToggleableFeature instance;
+
 	protected IToggleableFeature( String name )
     {
         super( name );
+
+        //instance = this;
     }
+
+    /*public static IToggleableFeature getInstance()
+    {
+        return instance;
+    }*/
 
     /*@Override
     protected ActionResult onKeyboardKey( long window, int key, int scanCode, int action, int modifiers )
@@ -24,7 +33,8 @@ public abstract class IToggleableFeature extends IFeature
     }*/
 
     @Override
-    protected void registerKeyEvent() {
+    protected void registerKeyEvent()
+    {
         if ( this.keyBinding.wasPressed() )
             this.toggle();
     }

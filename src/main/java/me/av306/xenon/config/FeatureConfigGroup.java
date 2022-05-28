@@ -7,6 +7,9 @@ import me.lortseam.completeconfig.api.*;
 public class FeatureConfigGroup implements XenonConfigGroup
 {
 	@Transitive
+	private final GeneralConfigGroup generalConfigGroup = new GeneralConfigGroup();
+
+	@Transitive
 	private final QuickChatGroup autoreply = new QuickChatGroup();
 
 	@Transitive
@@ -26,4 +29,7 @@ public class FeatureConfigGroup implements XenonConfigGroup
 
 	@Transitive
 	private final FastBreakGroup fastBreakGroup = new FastBreakGroup();
+
+	@Transitive
+	private final HighJumpGroup highJumpGroup = new HighJumpGroup();
 }
