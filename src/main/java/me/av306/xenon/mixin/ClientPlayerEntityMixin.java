@@ -3,6 +3,7 @@ package me.av306.xenon.mixin;
 import com.mojang.authlib.GameProfile;
 import me.av306.xenon.config.feature.HighJumpGroup;
 import me.av306.xenon.event.EventFields;
+import me.av306.xenon.event.GetJumpVelocityEvent;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.world.ClientWorld;
@@ -19,6 +20,7 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
     @Override
     public float getJumpVelocity()
     {
+        GetJumpVelocityEvent.EVENT.invoker().interact();
         return super.getJumpVelocity() + EventFields.JUMP_VELOCITY_MODIFIER;
     }
 
