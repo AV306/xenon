@@ -133,4 +133,7 @@ public class WailaFeature extends IToggleableFeature
 
 	@Override
 	public void onDisable() {}
+
+	@Override
+	public void parseConfigChange( String config, String value ) {}
 }

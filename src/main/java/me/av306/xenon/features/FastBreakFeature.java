@@ -1,13 +1,10 @@
 package me.av306.xenon.features;
 
-import ca.weblite.objc.Client;
 import me.av306.xenon.Xenon;
 import me.av306.xenon.config.feature.FastBreakGroup;
 import me.av306.xenon.event.PlayerDamageBlockEvent;
 import me.av306.xenon.feature.IToggleableFeature;
 import me.av306.xenon.mixin.ClientPlayerInteractionManagerAccessor;
-import me.av306.xenon.mixin.ClientPlayerInteractionManagerMixin;
-import me.av306.xenon.mixin.MinecraftClientAccessor;
 import net.minecraft.client.network.ClientPlayerInteractionManager;
 import net.minecraft.network.packet.c2s.play.PlayerActionC2SPacket;
 import net.minecraft.util.ActionResult;
@@ -57,4 +54,7 @@ public class FastBreakFeature extends IToggleableFeature
     {
 
     }
+
+    @Override
+    public void parseConfigChange( String config, String value ) {}
 }

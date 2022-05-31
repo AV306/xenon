@@ -28,4 +28,7 @@ public final class PanicFeature extends IFeature
 
         // destroy the list
     }
+
+    @Override
+    public void parseConfigChange( String config, String value ) {}
 }

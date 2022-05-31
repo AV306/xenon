@@ -1,5 +1,6 @@
 package me.av306.xenon.feature;
 
+import me.av306.xenon.Xenon;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.option.KeyBinding;
@@ -50,6 +51,9 @@ public abstract class IFeature
 		ClientTickEvents.END_CLIENT_TICK.register(
 				client -> this.registerKeyEvent()
 		);
+
+		// register our name in the registry
+		Xenon.INSTANCE.featureRegistry.put( this.getName().toLowerCase(), this );
 	}
 
 	protected IFeature( String name )
@@ -73,7 +77,7 @@ public abstract class IFeature
 
 	protected IFeature() { this( "IFeature" ); }
 	
-	protected void enable()
+	public void enable()
 	{
 		//if ( isEnabled ) return;
 			
@@ -98,5 +102,7 @@ public abstract class IFeature
 	}*/
 
   protected abstract void onEnable();
-  //public abstract void onDisable();
+
+  public abstract void parseConfigChange(String config, String value);
+	//public abstract void onDisable();
 }

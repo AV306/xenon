@@ -19,4 +19,7 @@ public class QuickChatFeature extends IFeature
         // field will be updated every time configs are changed
         Xenon.INSTANCE.client.player.sendChatMessage( QuickChatGroup.message );
     }
+
+    @Override
+    public void parseConfigChange( String config, String value ) {}
 }

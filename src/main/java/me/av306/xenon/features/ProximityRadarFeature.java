@@ -1,6 +1,5 @@
 package me.av306.xenon.features;
 
-import com.mojang.datafixers.kinds.IdF;
 import me.av306.xenon.Xenon;
 import me.av306.xenon.config.feature.ProximityRadarGroup;
 import me.av306.xenon.feature.IToggleableFeature;
@@ -8,13 +7,10 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
-import net.minecraft.sound.SoundEvent;
-import net.minecraft.text.*;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
-
-import java.text.Normalizer;
 
 
 public class ProximityRadarFeature extends IToggleableFeature
@@ -81,4 +77,7 @@ public class ProximityRadarFeature extends IToggleableFeature
             }
         }
     }
+
+    @Override
+    public void parseConfigChange( String config, String value ) {}
 }

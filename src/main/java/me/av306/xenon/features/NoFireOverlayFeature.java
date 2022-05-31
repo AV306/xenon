@@ -22,6 +22,9 @@ public class NoFireOverlayFeature extends IToggleableFeature
 			}
 		);
 	}
+
+	@Override
+	public void parseConfigChange( String config, String value ) {}
 	
 	
 	// battle-test events

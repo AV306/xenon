@@ -46,4 +46,7 @@ public class DataHudFeature extends IToggleableFeature
     {
 
     }
+
+    @Override
+    public void parseConfigChange( String config, String value ) {}
 }

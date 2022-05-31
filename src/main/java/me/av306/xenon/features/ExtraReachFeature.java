@@ -2,7 +2,6 @@ package me.av306.xenon.features;
 
 import me.av306.xenon.config.GeneralConfigGroup;
 import me.av306.xenon.config.feature.ExtraReachGroup;
-import me.av306.xenon.config.feature.HighJumpGroup;
 import me.av306.xenon.event.EventFields;
 import me.av306.xenon.event.GetReachDistanceEvent;
 import me.av306.xenon.event.RenderInGameHudEvent;
@@ -56,4 +55,7 @@ public class ExtraReachFeature extends IToggleableFeature
     {
         EventFields.REACH_MODIFIER = 0f;
     }
+
+    @Override
+    public void parseConfigChange( String config, String value ) {}
 }
