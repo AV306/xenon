@@ -8,7 +8,6 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
-import org.slf4j.LoggerFactory;
 
 import java.io.File;
 
@@ -50,4 +49,7 @@ public class TakePanoramaFeature extends IFeature
 
         Xenon.INSTANCE.sendInfoMessage( msg );
     }
+
+    @Override
+    public void parseConfigChange( String config, String value ) {}
 }

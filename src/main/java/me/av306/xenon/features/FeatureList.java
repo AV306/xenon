@@ -82,4 +82,7 @@ public final class FeatureList extends IToggleableFeature
     {
 
     }
+
+    @Override
+    public void parseConfigChange( String config, String value ) {}
 }

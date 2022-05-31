@@ -1,13 +1,11 @@
 package me.av306.xenon.features;
 
-import me.av306.xenon.Xenon;
 import me.av306.xenon.config.GeneralConfigGroup;
 import me.av306.xenon.config.feature.HighJumpGroup;
 import me.av306.xenon.event.EventFields;
 import me.av306.xenon.event.GetJumpVelocityEvent;
 import me.av306.xenon.event.RenderInGameHudEvent;
 import me.av306.xenon.feature.IToggleableFeature;
-import me.av306.xenon.mixin.ClientPlayerEntityMixin;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.ActionResult;
 
@@ -70,4 +68,7 @@ public class HighJumpFeature extends IToggleableFeature
     {
         EventFields.JUMP_VELOCITY_MODIFIER = 0f; // TODO: make way for other features that might want to modify this
     }
+
+    @Override
+    public void parseConfigChange( String config, String value ) {}
 }

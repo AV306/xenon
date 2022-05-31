@@ -14,7 +14,7 @@
   "config.xenon.featureconfiggroup.featurelistgroup.showVersion": "Show Version",
   "config.xenon.featureconfiggroup.generalconfiggroup": "General Settings",
   "config.xenon.featureconfiggroup.generalconfiggroup.interval": "Global Update Interval",
-  "config.xenon.featureconfiggroup.highjumpgroup.": "HighJump Settings",
+  "config.xenon.featureconfiggroup.highjumpgroup": "HighJump Settings",
   "config.xenon.featureconfiggroup.highjumpgroup.height": "Velocity",
   "config.xenon.featureconfiggroup.highjumpgroup.multiplier": "Multiplier",
   "config.xenon.featureconfiggroup.proximityradargroup": "ProximityRadar Settings",
@@ -46,6 +46,9 @@
   "text.xenon.proximityradar.hostile": "WARNING: HOSTILE IN RANGE (%s)",
   "text.xenon.proximityradar.projectile": "WARNING: PROJECTILE IN RANGE (%s)",
   "text.xenon.takepanorama.success": "Panorama saved in: %s!",
+  "text.xenon.commandprocessor.classcastexception": "Failed to toggle feature! Feature is not toggleable.",
+  "text.xenon.timer.configchange.fail": "[Timer] Failed to change config %s to value %s: %s",
+  "text.xenon.timer.configchange.success": "[Timer] Successfully changed config %s to value %s!",
   "text.xenon.version": "Xenon %s",
   "text.xenon.waila.blocktype": "Block: %s | Break Time: %f | Blast resistance: %f",
   "text.xenon.waila.entityhealth": "Entity: %s, Health: %f"

@@ -20,4 +20,7 @@ public class FullBrightFeature extends IToggleableFeature
     {
         Xenon.INSTANCE.client.options.gamma = 1.0d;
     }
+
+    @Override
+    public void parseConfigChange( String config, String value ) {}
 }

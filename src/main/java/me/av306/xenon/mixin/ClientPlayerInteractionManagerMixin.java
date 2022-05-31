@@ -15,7 +15,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin( ClientPlayerInteractionManager.class )
 public class ClientPlayerInteractionManagerMixin
 {
-    @Inject( at =
+    @Inject(
+            at =
             @At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/client/network/ClientPlayerEntity;getId()I",
@@ -25,7 +26,7 @@ public class ClientPlayerInteractionManagerMixin
     )
     private void onPlayerDamageBlock( BlockPos pos, Direction direction, CallbackInfoReturnable<Boolean> cir )
     {
-        Xenon.INSTANCE.LOGGER.info( "triggered" );
+        //Xenon.INSTANCE.LOGGER.info( "triggered" );
         PlayerDamageBlockEvent.EVENT.invoker().interact( pos, direction );
     }
 
@@ -39,10 +40,21 @@ public class ClientPlayerInteractionManagerMixin
         GetReachDistanceEvent.EVENT.invoker().interact();
 
         ClientPlayerInteractionManagerAccessor cpima = (ClientPlayerInteractionManagerAccessor) Xenon.INSTANCE.client.interactionManager;
-        float reach = cpima.getGameMode().isCreative() ? 5.0f : 4.5f;
+        float reach = cpima.getGameMode().isCreative() ? 5.0f : 4.5f; // default reach
 
         reach += EventFields.REACH_MODIFIER;
 
         cir.setReturnValue( reach );
+    }
+
+    @Inject(
+            at = @At("HEAD"),
+            method = "hasExtendedReach()Z",
+            cancellable = true
+    )
+    private void hasExtendedReach( CallbackInfoReturnable<Boolean> cir )
+    {
+        if ( EventFields.REACH_MODIFIER != 0f )
+            cir.setReturnValue( true );
     }
 }
