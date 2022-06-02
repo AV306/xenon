@@ -57,10 +57,17 @@ public class TimerFeature extends IToggleableFeature
     @Override
     public void parseConfigChange( String config, String value )
     {
-        if ( !config.contains( "speed" )|| !config.contains( "timerspeed" ) )
+        //Xenon.INSTANCE.LOGGER.info( config + " " + value );
+
+        if ( !config.contains( "speed" ) )
         {
             Xenon.INSTANCE.sendErrorMessage(
-                    new TranslatableText( "text.xenon.timer.configchange.fail",  config, value, "Invalid config name!" )
+                    new TranslatableText(
+                            "text.xenon.commandprocessor.configchange.invalidconfig",
+                            this.name,
+                            config,
+                            value
+                    )
             );
 
             return;
@@ -69,7 +76,12 @@ public class TimerFeature extends IToggleableFeature
         TimerGroup.timerSpeed = Float.parseFloat( value );
 
         Xenon.INSTANCE.sendInfoMessage(
-                new TranslatableText( "text.xenon.timer.configchange.success", config, value )
+                new TranslatableText(
+                        "text.xenon.commandprocessor.configchange.success",
+                        this.name,
+                        config,
+                        value
+                )
         );
     }
 }

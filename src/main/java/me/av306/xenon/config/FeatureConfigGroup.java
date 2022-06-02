@@ -10,6 +10,9 @@ public class FeatureConfigGroup implements XenonConfigGroup
 	private final GeneralConfigGroup generalConfigGroup = new GeneralConfigGroup();
 
 	@Transitive
+	private final CommandProcessorGroup commandProcessorGroup = new CommandProcessorGroup();
+
+	@Transitive
 	private final QuickChatGroup quickChatGroup = new QuickChatGroup();
 
 	@Transitive
@@ -33,6 +36,6 @@ public class FeatureConfigGroup implements XenonConfigGroup
 	@Transitive
 	private final HighJumpGroup highJumpGroup = new HighJumpGroup();
 
-	@Transitive
-	private final ExtraReachGroup extraReachGroup = new ExtraReachGroup();
+	//@Transitive
+	//private final ExtraReachGroup extraReachGroup = new ExtraReachGroup();
 }
