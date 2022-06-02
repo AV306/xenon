@@ -101,8 +101,8 @@ public abstract class IFeature
 		onDisable();
 	}*/
 
-  protected abstract void onEnable();
+  	protected abstract void onEnable();
 
-  public abstract void parseConfigChange(String config, String value);
+  	public abstract void parseConfigChange( String config, String value );
 	//public abstract void onDisable();
 }

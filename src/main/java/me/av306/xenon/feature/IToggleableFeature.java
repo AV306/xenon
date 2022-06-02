@@ -2,11 +2,13 @@ package me.av306.xenon.feature;
 
 import me.av306.xenon.Xenon;
 import net.minecraft.text.LiteralText;
-import net.minecraft.util.ActionResult;
-import org.lwjgl.glfw.GLFW;
+import net.minecraft.text.Text;
 
 public abstract class IToggleableFeature extends IFeature
 {
+    protected Text enabledText;
+    protected Text disabledText;
+
     //protected int key = GLFW.GLFW_KEY_UNKNOWN;
 
     //protected static IToggleableFeature instance;
@@ -15,7 +17,10 @@ public abstract class IToggleableFeature extends IFeature
     {
         super( name );
 
-        //instance = this;
+        this.enabledText = new LiteralText( this.name + " ENABLED!" )
+                .formatted( Xenon.INSTANCE.SUCCESS_FORMAT );
+        this.disabledText = new LiteralText( this.name + " DISABLED!" )
+                .formatted( Xenon.INSTANCE.SUCCESS_FORMAT );
     }
 
     /*public static IToggleableFeature getInstance()
@@ -48,6 +53,12 @@ public abstract class IToggleableFeature extends IFeature
 
         Xenon.INSTANCE.enabledFeatures.add( this );
 
+        try
+        {
+            Xenon.INSTANCE.client.player.sendMessage( this.enabledText, true );
+        }
+        catch ( NullPointerException ignored ) {}
+
         onEnable();
     }
 
@@ -59,20 +70,15 @@ public abstract class IToggleableFeature extends IFeature
 
         Xenon.INSTANCE.enabledFeatures.remove( this );
 
+        Xenon.INSTANCE.client.player.sendMessage( this.disabledText, true );
+
         onDisable();
     }
 
     private void toggle()
     {
-      if ( isEnabled ) disable();
+        if ( isEnabled ) disable();
         else enable();
-
-      Xenon.INSTANCE.client.player.sendMessage(
-                new LiteralText(
-                        name + " " + (isEnabled ? "ENABLED" : "DISABLED") + "!"
-                ).formatted( Xenon.INSTANCE.SUCCESS_FORMAT ),
-                true
-      );
     }
 
     protected abstract void onDisable();

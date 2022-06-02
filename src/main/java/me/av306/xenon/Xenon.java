@@ -62,7 +62,7 @@ public enum Xenon
         this.client = MinecraftClient.getInstance();
 			
         // register features
-        new CommandProcessorFeature();
+        new CommandProcessor();
         new ConfigMenu();
         //new ExtraReachFeature(); // FIXME: desyncs
         new FastBreakFeature();

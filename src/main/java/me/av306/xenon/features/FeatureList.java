@@ -70,18 +70,11 @@ public final class FeatureList extends IToggleableFeature
         return ActionResult.PASS;
     }
 
+    @Override
+    protected void onEnable() {}
 
     @Override
-    protected void onEnable()
-    {
-
-    }
-
-    @Override
-    protected void onDisable()
-    {
-
-    }
+    protected void onDisable() {}
 
     @Override
     public void parseConfigChange( String config, String value ) {}

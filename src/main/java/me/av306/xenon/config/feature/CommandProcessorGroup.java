@@ -6,5 +6,5 @@ import me.lortseam.completeconfig.api.ConfigEntries;
 @ConfigEntries
 public class CommandProcessorGroup implements XenonConfigGroup
 {
-    public static char prefix = '!';
+    public static String prefix = "!";
 }
