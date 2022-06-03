@@ -68,7 +68,4 @@ public class HighJumpFeature extends IToggleableFeature
     {
         EventFields.JUMP_VELOCITY_MODIFIER = 0f; // TODO: make way for other features that might want to modify this
     }
-
-    @Override
-    public void parseConfigChange( String config, String value ) {}
 }

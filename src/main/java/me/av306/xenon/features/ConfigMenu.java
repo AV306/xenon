@@ -35,7 +35,4 @@ public class ConfigMenu extends IFeature
         Screen configScreen = screenBuilder.build( Xenon.INSTANCE.client.currentScreen, Xenon.INSTANCE.config );
         Xenon.INSTANCE.client.setScreen( configScreen ); // TODO: make it save on exit screen
     }
-
-    @Override
-    public void parseConfigChange( String config, String value ) {}
 }

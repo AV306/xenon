@@ -75,7 +75,4 @@ public final class FeatureList extends IToggleableFeature
 
     @Override
     protected void onDisable() {}
-
-    @Override
-    public void parseConfigChange( String config, String value ) {}
 }

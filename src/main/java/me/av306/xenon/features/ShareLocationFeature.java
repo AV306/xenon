@@ -35,7 +35,4 @@ public class ShareLocationFeature extends IFeature
 
 		Xenon.INSTANCE.client.player.sendChatMessage( text );
 	}
-
-	@Override
-	public void parseConfigChange( String config, String value ) {}
 }
