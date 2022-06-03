@@ -56,6 +56,7 @@
   "text.xenon.proximityradar.hostile": "WARNING: HOSTILE IN RANGE (%s)",
   "text.xenon.proximityradar.projectile": "WARNING: PROJECTILE IN RANGE (%s)",
   "text.xenon.takepanorama.success": "Panorama saved in: %s!",
+  "text.xenon.commandprocessor.disabled": "CommandProcessor is disabled! Please enable it to use commands.",
   "text.xenon.commandprocessor.invalidprefix": "[CommandProcessor] Invalid prefix! Setting prefix to '!'.",
   "text.xenon.commandprocessor.invalidcommand.notenoughargs": "[CommandProcessor] Invalid command: Not enough arguments!",
   "text.xenon.commandprocessor.invalidcommand.invalidfeature": "[CommandProcessor] Invalid command: Not a valid Feature!",
