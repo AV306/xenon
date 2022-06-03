@@ -24,9 +24,12 @@ public class CommandProcessor extends IToggleableFeature
         if ( !this.isEnabled )
         {
             if ( CommandProcessorGroup.warn )
+            {
                 Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocessor.disabled" );
 
-            return ActionResult.PASS;
+                return ActionResult.FAIL;
+            }
+            else return ActionResult.PASS;
         }
 
         char prefixChar;
