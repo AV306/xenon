@@ -48,8 +48,12 @@ dependencies {
 	// CompleteConfig
 	modImplementation include("com.gitlab.Lortseam:completeconfig:1.4.0")
 
+	modApi include( "me.shedaniel.cloth:cloth-config-fabric:6.2.62" ) {
+		exclude( group: "net.fabricmc.fabric-api" )
+	}
+
 	// apache commons-io :D
-	compileOnly 'commons-io:commons-io:2.11.0'
+	//compileOnly 'commons-io:commons-io:2.11.0'
 }
 
 processResources {

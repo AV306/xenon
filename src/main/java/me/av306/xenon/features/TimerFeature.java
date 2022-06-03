@@ -7,6 +7,7 @@ import me.av306.xenon.feature.IToggleableFeature;
 import me.av306.xenon.mixin.MinecraftClientAccessor;
 import me.av306.xenon.mixin.RenderTickCounterAccessor;
 import net.minecraft.client.render.RenderTickCounter;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.ActionResult;
 
 /**
@@ -53,8 +54,34 @@ public class TimerFeature extends IToggleableFeature
 
     }
 
-    /*public float getSpeed()
+    @Override
+    public void parseConfigChange( String config, String value )
     {
-        return TimerGroup.timerSpeed;
-    }*/
+        //Xenon.INSTANCE.LOGGER.info( config + " " + value );
+
+        if ( !config.contains( "speed" ) )
+        {
+            Xenon.INSTANCE.sendErrorMessage(
+                    new TranslatableText(
+                            "text.xenon.commandprocessor.configchange.invalidconfig",
+                            this.name,
+                            config,
+                            value
+                    )
+            );
+
+            return;
+        }
+
+        TimerGroup.timerSpeed = Float.parseFloat( value );
+
+        Xenon.INSTANCE.sendInfoMessage(
+                new TranslatableText(
+                        "text.xenon.commandprocessor.configchange.success",
+                        this.name,
+                        config,
+                        value
+                )
+        );
+    }
 }

@@ -4,7 +4,6 @@ import me.av306.xenon.Xenon;
 import me.av306.xenon.config.feature.WailaGroup;
 import me.av306.xenon.event.RenderInGameHudEvent;
 import me.av306.xenon.feature.IToggleableFeature;
-import me.av306.xenon.util.ScreenPosition;
 import me.av306.xenon.util.color.ColorUtil;
 import me.av306.xenon.util.text.TextUtil;
 import net.minecraft.block.Block;
@@ -125,7 +124,7 @@ public class WailaFeature extends IToggleableFeature
 
 	private void drawDataText( MatrixStack matrices, Text text )
 	{
-		TextUtil.drawPositionedText( matrices, text, ScreenPosition.TOP_CENTER, 0, 0, false, ColorUtil.RED );
+		TextUtil.drawPositionedText( matrices, text, WailaGroup.position, 0, 0, false, ColorUtil.RED );
 	}
 	
 	@Override

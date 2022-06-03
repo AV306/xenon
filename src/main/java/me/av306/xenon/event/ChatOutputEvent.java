@@ -2,16 +2,15 @@ package me.av306.xenon.event;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
-import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 
-public interface ChatHudAddMessageEvent
+public interface ChatOutputEvent
 {
-    Event<ChatHudAddMessageEvent> EVENT = EventFactory.createArrayBacked(
-            ChatHudAddMessageEvent.class,
+    Event<ChatOutputEvent> EVENT = EventFactory.createArrayBacked(
+            ChatOutputEvent.class,
             (listeners) -> (message) ->
             {
-                for ( ChatHudAddMessageEvent listener : listeners )
+                for ( ChatOutputEvent listener : listeners )
                 {
                     ActionResult result = listener.interact( message );
 
@@ -22,5 +21,5 @@ public interface ChatHudAddMessageEvent
             }
     );
 
-    ActionResult interact( Text message );
+    ActionResult interact( String message );
 }
