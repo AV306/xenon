@@ -55,7 +55,4 @@ public class ExtraReachFeature extends IToggleableFeature
     {
         EventFields.REACH_MODIFIER = 0f;
     }
-
-    @Override
-    public void parseConfigChange( String config, String value ) {}
 }

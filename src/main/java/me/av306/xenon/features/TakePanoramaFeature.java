@@ -49,7 +49,4 @@ public class TakePanoramaFeature extends IFeature
 
         Xenon.INSTANCE.sendInfoMessage( msg );
     }
-
-    @Override
-    public void parseConfigChange( String config, String value ) {}
 }

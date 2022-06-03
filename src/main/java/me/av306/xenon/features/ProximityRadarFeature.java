@@ -77,7 +77,4 @@ public class ProximityRadarFeature extends IToggleableFeature
             }
         }
     }
-
-    @Override
-    public void parseConfigChange( String config, String value ) {}
 }

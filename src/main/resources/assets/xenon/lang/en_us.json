@@ -1,6 +1,9 @@
 {
   "category.xenon.features": "Xenon Features",
   "config.xenon.featureconfiggroup": "Feature Configurations",
+  "config.xenon.featureconfiggroup.commandprocessorgroup": "CommandProcessor Settings",
+  "config.xenon.featureconfiggroup.commandprocessorgroup.prefix": "Prefix",
+  "config.xenon.featureconfiggroup.commandprocessorgroup.warn": "Warn if disabled",
   "config.xenon.featureconfiggroup.fastbreakgroup": "FastBreak Settings",
   "config.xenon.featureconfiggroup.fastbreakgroup.onlyRemoveCooldown": "Only remove block-break cooldown",
   "config.xenon.featureconfiggroup.featurelistgroup": "FeatureList Settings",
@@ -58,6 +61,7 @@
   "text.xenon.commandprocessor.invalidcommand.invalidfeature": "[CommandProcessor] Invalid command: Not a valid Feature!",
   "text.xenon.commandprocessor.invalidcommand.featurenottoggleable": "[CommandProcessor] Invalid command: Feature not toggleable!",
   "text.xenon.commandprocessor.configchange.invalidconfig": "[%s] Failed to change config \"%s\" to value %s: Invalid config name!",
+  "text.xenon.commandprocessor.configchange.notsupported": "[%s] This feature does not yet support configuration through commands.",
   "text.xenon.commandprocessor.configchange.success": "[%s] Successfully changed config \"%s\" to value %s!",
   "text.xenon.version": "Xenon %s",
   "text.xenon.waila.blocktype": "Block: %s | Break Time: %f | Blast resistance: %f",

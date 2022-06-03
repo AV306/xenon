@@ -54,7 +54,4 @@ public class FastBreakFeature extends IToggleableFeature
     {
 
     }
-
-    @Override
-    public void parseConfigChange( String config, String value ) {}
 }

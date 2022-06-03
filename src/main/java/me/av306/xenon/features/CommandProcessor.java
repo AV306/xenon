@@ -2,7 +2,6 @@ package me.av306.xenon.features;
 
 import me.av306.xenon.Xenon;
 import me.av306.xenon.config.feature.CommandProcessorGroup;
-import me.av306.xenon.config.feature.TimerGroup;
 import me.av306.xenon.event.ChatOutputEvent;
 import me.av306.xenon.feature.IFeature;
 import me.av306.xenon.feature.IToggleableFeature;
@@ -16,10 +15,20 @@ public class CommandProcessor extends IToggleableFeature
         super( "CommandProcessor" );
 
         ChatOutputEvent.EVENT.register( this::onChatHudAddMessage );
+
+        this.enable();
     }
 
     private ActionResult onChatHudAddMessage( String text )
     {
+        if ( !this.isEnabled )
+        {
+            if ( CommandProcessorGroup.warn )
+                Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocessor.disabled" );
+
+            return ActionResult.PASS;
+        }
+
         char prefixChar;
         try
         {
@@ -76,11 +85,11 @@ public class CommandProcessor extends IToggleableFeature
         }
         catch ( ClassCastException cce )
         {
-            Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocessor.invalidcommand.invalidfeature" );
+            Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocessor.invalidcommand.featurenottoggleable" );
         }
         catch ( NullPointerException npe )
         {
-            Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocessor.invalidcommand.featurenottoggleable" );
+            Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocessor.invalidcommand.invalidfeature" );
         }
 
         return ActionResult.FAIL;
@@ -109,7 +118,7 @@ public class CommandProcessor extends IToggleableFeature
             return;
         }
 
-        TimerGroup.timerSpeed = Float.parseFloat( value );
+        CommandProcessorGroup.prefix = value;
 
         Xenon.INSTANCE.sendInfoMessage(
                 new TranslatableText(
