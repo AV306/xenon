@@ -1,9 +1,11 @@
 package me.av306.xenon.feature;
 
+import me.av306.xenon.Xenon;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
+import net.minecraft.text.TranslatableText;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.Objects;
@@ -50,6 +52,9 @@ public abstract class IFeature
 		ClientTickEvents.END_CLIENT_TICK.register(
 				client -> this.registerKeyEvent()
 		);
+
+		// register our name in the registry
+		Xenon.INSTANCE.featureRegistry.put( this.getName().toLowerCase(), this );
 	}
 
 	protected IFeature( String name )
@@ -73,7 +78,7 @@ public abstract class IFeature
 
 	protected IFeature() { this( "IFeature" ); }
 	
-	protected void enable()
+	public void enable()
 	{
 		//if ( isEnabled ) return;
 			
@@ -97,6 +102,16 @@ public abstract class IFeature
 		onDisable();
 	}*/
 
-  protected abstract void onEnable();
-  //public abstract void onDisable();
+  	protected abstract void onEnable();
+
+  	public void parseConfigChange( String config, String value )
+	{
+		Xenon.INSTANCE.sendErrorMessage(
+				new TranslatableText(
+						"text.xenon.commandprocessor.configchange.notsupported",
+						this.name
+				)
+		);
+	}
+	//public abstract void onDisable();
 }
