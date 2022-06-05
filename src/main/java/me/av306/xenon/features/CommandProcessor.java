@@ -21,8 +21,10 @@ public class CommandProcessor extends IToggleableFeature
 
     private ActionResult onChatHudAddMessage( String text )
     {
+        // Check if CP is enabled
         if ( !this.isEnabled )
         {
+            // Should we warn the user that CP is disabled?
             if ( CommandProcessorGroup.warn )
             {
                 Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocessor.disabled" );
@@ -32,6 +34,8 @@ public class CommandProcessor extends IToggleableFeature
             else return ActionResult.PASS;
         }
 
+        // Some bookkeeping for the prefix
+        // because CompleteConfig doesn't like chars
         char prefixChar;
         try
         {
@@ -43,14 +47,14 @@ public class CommandProcessor extends IToggleableFeature
             prefixChar = '!';
         }
 
-        // check if it's a possible command
+        // First, check if it's a possible command
         if ( !text.startsWith( CommandProcessorGroup.prefix ) )
             return ActionResult.PASS;
 
         // example command: !timer speed 2.0f
         // [prefix][featurename] [config] [value]
 
-        // should be a command,
+        // Ok, should be a command,
         // now remove the prefix and split
         String[] possibleCommand = text
                 .toLowerCase()
@@ -59,10 +63,14 @@ public class CommandProcessor extends IToggleableFeature
                 .split( " " );
 
         //Xenon.INSTANCE.LOGGER.info( Arrays.toString( possibleCommand ) );
+        // Tell the player what they sent
+        Xenon.INSTANCE.sendInfoMessage(
+            new LiteralText( "> " + text );
+        );
 
         try
         {
-            // parse command
+            // Now we try to parse the command
             // should have length > 2
             String featureTargeted = possibleCommand[0];
             String attribute = possibleCommand[1]; // oobe
@@ -71,12 +79,14 @@ public class CommandProcessor extends IToggleableFeature
 
             switch ( attribute )
             {
-                case "enable" -> feature.enable();
+                case "enable" -> feature.enable(); // User wants to enable a feature
 
-                case "disable" -> ((IToggleableFeature) feature).disable(); // cce
+                case "disable" -> ((IToggleableFeature) feature).disable(); // cce; user wants to disable a feature
 
                 default ->
                 {
+                    // User probably wants to change a config, 
+                    // this is delegated to the feature.
                     String value = possibleCommand[2]; // oobe
                     feature.parseConfigChange( attribute, value );
                 }
