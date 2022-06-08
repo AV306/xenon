@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "id": "xenon",
+  "version": "${version}",
+
+  "name": "Xenon",
+  "description": "Minecraft utility mod",
+  "authors": [
+    "AV3_08"
+  ],
+  "contact": {
+    "homepage": "https://github.com/AV306",
+    "sources": "https://github.com/AV306/xenon"
+  },
+
+  "license": "GNU GPL v3",
+  "icon": "assets/xenon/icon.png",
+
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "me.av306.xenon.ClientInitializer"
+    ]
+  },
+  "mixins": [
+    "xenon.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.13.3",
+    "fabric-key-binding-api-v1": "*",
+    "fabric": "*",
+    "minecraft": "1.18.x",
+    "java": ">=17"
+  },
+  "suggests": {
+    "another-mod": "https://github.com/nianny/minecraft-mod-1"
+  }
+}
