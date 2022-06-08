@@ -8,9 +8,9 @@ import me.lortseam.completeconfig.data.Config;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.LiteralTextContent;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.TranslatableTextContent;
 import net.minecraft.util.Formatting;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -91,28 +91,28 @@ public enum Xenon
 
     public void sendInfoMessage( String key )
     {
-        Text finalText = new LiteralText( "[Xenon] " ).formatted( Formatting.AQUA )
-            .append( new TranslatableText( key ) );
+        Text finalText = new LiteralTextContent( "[Xenon] " ).formatted( Formatting.AQUA )
+            .append( new TranslatableTextContent( key ) );
         this.client.player.sendMessage( finalText, false );
     }
 
     public void sendInfoMessage( Text text )
     {
-        Text finalText = new LiteralText( "[Xenon] " ).formatted( Formatting.AQUA )
+        Text finalText = new LiteralTextContent( "[Xenon] " ).formatted( Formatting.AQUA )
             .append( text );
         this.client.player.sendMessage( finalText, false );
     }
 
     public void sendErrorMessage( String key )
     {
-        Text finalText = new LiteralText( "[Xenon] " ).formatted( Formatting.RED )
-                .append( new TranslatableText( key ) );
+        Text finalText = new LiteralTextContent( "[Xenon] " ).formatted( Formatting.RED )
+                .append( new TranslatableTextContent( key ) );
         this.client.player.sendMessage( finalText, false );
     }
 
     public void sendErrorMessage( Text text )
     {
-        Text finalText = new LiteralText( "[Xenon] " ).formatted( Formatting.RED )
+        Text finalText = new LiteralTextContent( "[Xenon] " ).formatted( Formatting.RED )
                 .append( text );
         this.client.player.sendMessage( finalText, false );
     }

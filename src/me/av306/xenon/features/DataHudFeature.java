@@ -7,7 +7,7 @@ import me.av306.xenon.util.ScreenPosition;
 import me.av306.xenon.util.color.ColorUtil;
 import me.av306.xenon.util.text.TextUtil;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.LiteralTextContent;
 import net.minecraft.util.ActionResult;
 
 public class DataHudFeature extends IToggleableFeature
@@ -25,7 +25,7 @@ public class DataHudFeature extends IToggleableFeature
         {
             TextUtil.drawPositionedText(
                 matrixStack,
-                new LiteralText( Xenon.INSTANCE.client.fpsDebugString ),
+                new LiteralTextContent( Xenon.INSTANCE.client.fpsDebugString ),
                 ScreenPosition.TOP_LEFT,
                 0, 0,
                 false,

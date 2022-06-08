@@ -12,9 +12,9 @@ import me.av306.xenon.util.text.TextUtil;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.util.Window;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.LiteralTextContent;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.TranslatableTextContent;
 import net.minecraft.util.ActionResult;
 
 import java.util.ArrayList;
@@ -43,7 +43,7 @@ public final class FeatureList extends IToggleableFeature
 
         TextRenderer textRenderer = Xenon.INSTANCE.client.inGameHud.getTextRenderer();
         Window window = Xenon.INSTANCE.client.getWindow();
-	    Text versionText = new TranslatableText( "text.xenon.version", Xenon.INSTANCE.getVersion() );
+	    Text versionText = new TranslatableTextContent( "text.xenon.version", Xenon.INSTANCE.getVersion() );
 
         ArrayList<Text> nameTexts = new ArrayList<>();
 
@@ -59,7 +59,7 @@ public final class FeatureList extends IToggleableFeature
             // hide FeatureList itself
 		    if ( !(feature instanceof FeatureList) )
 		  	{
-                LiteralText nameText = new LiteralText( feature.getName() );
+                LiteralTextContent nameText = new LiteralTextContent( feature.getName() );
                 nameTexts.add( nameText );
 			}
         }

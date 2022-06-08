@@ -1,7 +1,7 @@
 package me.av306.xenon.feature;
 
 import me.av306.xenon.Xenon;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.LiteralTextContent;
 import net.minecraft.text.Text;
 
 public abstract class IToggleableFeature extends IFeature
@@ -17,9 +17,9 @@ public abstract class IToggleableFeature extends IFeature
     {
         super( name );
 
-        this.enabledText = new LiteralText( this.name + " ENABLED!" )
+        this.enabledText = new LiteralTextContent( this.name + " ENABLED!" )
                 .formatted( Xenon.INSTANCE.SUCCESS_FORMAT );
-        this.disabledText = new LiteralText( this.name + " DISABLED!" )
+        this.disabledText = new LiteralTextContent( this.name + " DISABLED!" )
                 .formatted( Xenon.INSTANCE.SUCCESS_FORMAT );
     }
 
