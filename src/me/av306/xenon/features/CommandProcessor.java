@@ -5,8 +5,9 @@ import me.av306.xenon.config.feature.CommandProcessorGroup;
 import me.av306.xenon.event.ChatOutputEvent;
 import me.av306.xenon.feature.IFeature;
 import me.av306.xenon.feature.IToggleableFeature;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.LiteralTextContent;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.Formatting;
 
 public class CommandProcessor extends IToggleableFeature
 {
@@ -65,7 +66,8 @@ public class CommandProcessor extends IToggleableFeature
         //Xenon.INSTANCE.LOGGER.info( Arrays.toString( possibleCommand ) );
         // Tell the player what they sent
         Xenon.INSTANCE.sendInfoMessage(
-            new LiteralText( "> " + text );
+                new LiteralTextContent( "> " + text )
+                        .formatted( Formatting.WHITE )
         );
 
         try
@@ -115,32 +117,12 @@ public class CommandProcessor extends IToggleableFeature
     protected void onDisable() {}
 
     @Override
-    public void parseConfigChange( String config, String value )
+    public boolean onConfigChange( String config, String value )
     {
-        if ( !config.contains( "prefix" ) )
-        {
-            Xenon.INSTANCE.sendErrorMessage(
-                    new TranslatableText(
-                            "text.xenon.commandprocessor.configchange.invalidconfig",
-                            this.name,
-                            config,
-                            value
-                    )
-            );
+        boolean result = config.contains( "prefix" );
+        if ( result ) CommandProcessorGroup.prefix = value;
 
-            return;
-        }
-
-        CommandProcessorGroup.prefix = value;
-
-        Xenon.INSTANCE.sendInfoMessage(
-                new TranslatableText(
-                        "text.xenon.commandprocessor.configchange.success",
-                        this.name,
-                        config,
-                        value
-                )
-        );
+        return result;
     }
 }
 

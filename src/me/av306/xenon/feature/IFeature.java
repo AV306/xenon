@@ -5,7 +5,7 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.TranslatableTextContent;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.Objects;
@@ -13,7 +13,7 @@ import java.util.Objects;
 /**
  * Base class for all features. You shouldn't need to touch this,
  * just extend it and implement its methods.
- * NOTE: THis *could* work by just using the subclass name field
+ * NOTE: This *could* work by just using the subclass name field
  * to hide the superclass name field,
  * but let's try this way first.
  */
@@ -106,12 +106,31 @@ public abstract class IFeature
 
   	public void parseConfigChange( String config, String value )
 	{
-		Xenon.INSTANCE.sendErrorMessage(
-				new TranslatableText(
-						"text.xenon.commandprocessor.configchange.notsupported",
-						this.name
-				)
-		);
+		if ( this.onConfigChange( config, value ) )
+		{
+			Xenon.INSTANCE.sendInfoMessage(
+					new TranslatableTextContent(
+							"text.xenon.ifeature.configchange.success",
+							this.name,
+							config,
+							value
+					)
+			);
+		}
+		else
+		{
+			Xenon.INSTANCE.sendInfoMessage(
+					new TranslatableTextContent(
+							"text.xenon.ifeature.configchange.invalidconfig",
+							this.name,
+							config,
+							value
+					)
+			);
+		}
 	}
+
+	protected boolean onConfigChange( String config, String value ) { return false; }
+
 	//public abstract void onDisable();
 }

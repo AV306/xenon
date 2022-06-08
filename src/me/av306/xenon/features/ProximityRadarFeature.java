@@ -8,7 +8,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.TranslatableTextContent;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.Vec3d;
 
@@ -61,7 +61,7 @@ public class ProximityRadarFeature extends IToggleableFeature
 
             if ( distance < range )
             {
-                Text text = new TranslatableText(
+                Text text = new TranslatableTextContent(
                         entity instanceof HostileEntity ?
                                 "text.xenon.proximityradar.hostile" :
                                 "text.xenon.proximityradar.projectile",
