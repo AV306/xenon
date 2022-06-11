@@ -16,7 +16,8 @@
     "KeyboardMixin",
     "MinecraftClientAccessor",
     "RenderTickCounterAccessor",
-    "RenderTickCounterMixin"
+    "RenderTickCounterMixin",
+    "SimpleOptionMixin"
   ],
   "injectors": {
     "defaultRequire": 1
