@@ -19,15 +19,20 @@ repositories {
 
 	maven {
     url 'https://jitpack.io'
-  }
+  	}
 	
-  maven {
-    url "https://maven.terraformersmc.com/"
-  }
+  	maven {
+    	url "https://maven.terraformersmc.com/"
+  	}
 	
-  maven {
-    url "https://maven.shedaniel.me/"
-  }
+  	maven {
+    	url "https://maven.shedaniel.me/"
+  	}
+
+	maven {
+		url "https://maven.siphalor.de/"
+	}
+
 }
 
 dependencies {
@@ -39,18 +44,18 @@ dependencies {
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-	// Cotton
-	modImplementation include("io.github.cottonmc:LibGui:5.1.0+1.18")
+	// LibGui
+	//modImplementation include("io.github.cottonmc:LibGui:5.1.0+1.18")
 	
 	// Guava for BiMap
 	//implementation "com.google.guava:guava:31.0.1-jre"
 
 	// CompleteConfig
-	modImplementation include("com.gitlab.Lortseam:completeconfig:1.4.0")
+	modImplementation include("com.gitlab.Lortseam:completeconfig:2.0.0")
 
-	modApi include( "me.shedaniel.cloth:cloth-config-fabric:6.2.62" ) {
+	/*modApi include( "me.shedaniel.cloth:cloth-config-fabric:6.2.62" ) {
 		exclude( group: "net.fabricmc.fabric-api" )
-	}
+	}*/
 
 	// apache commons-io :D
 	//compileOnly 'commons-io:commons-io:2.11.0'

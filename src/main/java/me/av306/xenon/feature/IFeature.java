@@ -1,11 +1,11 @@
 package me.av306.xenon.feature;
 
 import me.av306.xenon.Xenon;
+import me.av306.xenon.util.text.TextFactory;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
-import net.minecraft.text.TranslatableTextContent;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.Objects;
@@ -109,18 +109,19 @@ public abstract class IFeature
 		if ( this.onConfigChange( config, value ) )
 		{
 			Xenon.INSTANCE.sendInfoMessage(
-					new TranslatableTextContent(
+					TextFactory.createTranslatable(
 							"text.xenon.ifeature.configchange.success",
 							this.name,
 							config,
 							value
 					)
 			);
+			Xenon.INSTANCE.config.save();
 		}
 		else
 		{
 			Xenon.INSTANCE.sendInfoMessage(
-					new TranslatableTextContent(
+					TextFactory.createTranslatable(
 							"text.xenon.ifeature.configchange.invalidconfig",
 							this.name,
 							config,

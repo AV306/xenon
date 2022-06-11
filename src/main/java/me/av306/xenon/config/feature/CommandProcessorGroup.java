@@ -4,7 +4,7 @@ import me.av306.xenon.config.XenonConfigGroup;
 import me.lortseam.completeconfig.api.ConfigEntries;
 import me.lortseam.completeconfig.api.ConfigEntry;
 
-@ConfigEntries
+@ConfigEntries( includeAll = true )
 public class CommandProcessorGroup implements XenonConfigGroup
 {
     public static String prefix = "!";

@@ -4,7 +4,7 @@ import me.av306.xenon.config.XenonConfigGroup;
 import me.lortseam.completeconfig.api.ConfigEntries;
 import me.lortseam.completeconfig.api.ConfigEntry;
 
-@ConfigEntries
+@ConfigEntries( includeAll = true )
 public class ProximityRadarGroup implements XenonConfigGroup
 {
     @ConfigEntry.BoundedInteger( min = 1, max = 100 )

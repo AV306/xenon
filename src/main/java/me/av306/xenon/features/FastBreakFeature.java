@@ -35,7 +35,10 @@ public class FastBreakFeature extends IToggleableFeature
                 PlayerActionC2SPacket.Action action = PlayerActionC2SPacket.Action.STOP_DESTROY_BLOCK;
                 BlockPos blockPos = pos;
                 Direction direction = dir;
-                ima.sendPlayerActionC2SPacket( action, blockPos, direction );
+                ima.sendPlayerActionC2SPacket(
+                        Xenon.INSTANCE.client.world,
+                        sequence -> new PlayerActionC2SPacket( action, pos, dir )
+                );
             }
 
             ima.setBlockBreakingCooldown( 0 );

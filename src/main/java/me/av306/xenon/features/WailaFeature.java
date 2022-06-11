@@ -5,6 +5,7 @@ import me.av306.xenon.config.feature.WailaGroup;
 import me.av306.xenon.event.RenderInGameHudEvent;
 import me.av306.xenon.feature.IToggleableFeature;
 import me.av306.xenon.util.color.ColorUtil;
+import me.av306.xenon.util.text.TextFactory;
 import me.av306.xenon.util.text.TextUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -12,9 +13,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.text.LiteralTextContent;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableTextContent;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
@@ -26,7 +25,7 @@ public class WailaFeature extends IToggleableFeature
 	// Krystal's suggestion :D
 	// There will always only be one translatable text, 
 	// so we can construct it at class level (?)
-	private Text dataText = new LiteralTextContent( "Internal Error :(" ); // fallback
+	private Text dataText =  TextFactory.createLiteral( "Internal Error :(" ); // fallback
 
 	private short ticks = 0;
 
@@ -74,7 +73,7 @@ public class WailaFeature extends IToggleableFeature
 			case MISS ->
 			{
 				// nothing near enough :)
-				dataText = new LiteralTextContent("");
+				dataText = TextFactory.createEmpty();
 			}
 
 			case BLOCK ->
@@ -94,7 +93,12 @@ public class WailaFeature extends IToggleableFeature
 				// because the chances that someone will even *use* Xenon are so astronomically small,
 				// and there are so many other *good* WAILA mods,
 		    // so there was no point.
-				this.dataText = new TranslatableTextContent( "text.xenon.waila.blocktype", block.getName(), block.getHardness(), block.getBlastResistance());
+				this.dataText = TextFactory.createTranslatable(
+						"text.xenon.waila.blocktype",
+						block.getName(),
+						block.getHardness(),
+						block.getBlastResistance()
+				);
 			}
 
 			case ENTITY ->
@@ -114,7 +118,8 @@ public class WailaFeature extends IToggleableFeature
 				float health = livingEntity.getHealth();
 
 				// now draw text!!! :D
-				this.dataText = new TranslatableTextContent("text.xenon.waila.entityhealth",
+				this.dataText = TextFactory.createTranslatable(
+						"text.xenon.waila.entityhealth",
 						type.getName(),
 						health
 				);

@@ -3,7 +3,7 @@ package me.av306.xenon.config;
 import me.av306.xenon.config.feature.*;
 import me.lortseam.completeconfig.api.*;
 
-@ConfigEntries
+@ConfigEntries( includeAll = true )
 public class FeatureConfigGroup implements XenonConfigGroup
 {
 	@Transitive

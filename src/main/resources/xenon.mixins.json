@@ -10,6 +10,7 @@
     "ClientPlayerEntityMixin",
     "ClientPlayerInteractionManagerAccessor",
     "ClientPlayerInteractionManagerMixin",
+    "GameOptionsAccessor",
     "InGameHudMixin",
     "InGameOverlayRendererMixin",
     "KeyboardMixin",

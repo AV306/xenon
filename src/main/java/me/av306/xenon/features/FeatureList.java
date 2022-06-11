@@ -7,6 +7,7 @@ import me.av306.xenon.feature.IFeature;
 import me.av306.xenon.feature.IToggleableFeature;
 import me.av306.xenon.util.ScreenPosition;
 import me.av306.xenon.util.color.ColorUtil;
+import me.av306.xenon.util.text.TextFactory;
 import me.av306.xenon.util.text.TextUtil;
 
 import net.minecraft.client.font.TextRenderer;
@@ -43,29 +44,34 @@ public final class FeatureList extends IToggleableFeature
 
         TextRenderer textRenderer = Xenon.INSTANCE.client.inGameHud.getTextRenderer();
         Window window = Xenon.INSTANCE.client.getWindow();
-	    Text versionText = new TranslatableTextContent( "text.xenon.version", Xenon.INSTANCE.getVersion() );
+	    Text versionText = TextFactory.createTranslatable( "text.xenon.version", Xenon.INSTANCE.getVersion() );
 
         ArrayList<Text> nameTexts = new ArrayList<>();
-
-        //textRenderer.drawWithShadow( matrices, versionText, 5, 5, General.rgbToInt(0, 255, 0) );
 
         // write feature names
 
         if ( shouldShowVersion )
-            TextUtil.drawPositionedText( matrices, versionText, position, 0, 0, false, ColorUtil.GREEN );
+            TextUtil.drawPositionedText( matrices, versionText, position, 0, 0, FeatureListGroup.shadow, ColorUtil.GREEN );
 			
         for ( IFeature feature : Xenon.INSTANCE.enabledFeatures )
         {
             // hide FeatureList itself
 		    if ( !(feature instanceof FeatureList) )
 		  	{
-                LiteralTextContent nameText = new LiteralTextContent( feature.getName() );
+                Text nameText = TextFactory.createLiteral( feature.getName() );
                 nameTexts.add( nameText );
 			}
         }
 
         // remember to leave space for the version text!
-        TextUtil.drawPositionedMultiLineText( matrices, nameTexts.toArray( Text[]::new ), position, 0, 12, false, ColorUtil.WHITE );
+        TextUtil.drawPositionedMultiLineText(
+                matrices,
+                nameTexts.toArray( Text[]::new ),
+                position,
+                0, 12,
+                FeatureListGroup.shadow,
+                ColorUtil.WHITE
+        );
 
         return ActionResult.PASS;
     }

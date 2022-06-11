@@ -3,10 +3,9 @@ package me.av306.xenon.features;
 import me.av306.xenon.Xenon;
 import me.av306.xenon.config.feature.TakePanoramaGroup;
 import me.av306.xenon.feature.IFeature;
+import me.av306.xenon.util.text.TextFactory;
 import net.minecraft.text.ClickEvent;
-import net.minecraft.text.LiteralTextContent;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableTextContent;
 import net.minecraft.util.Formatting;
 
 import java.io.File;
@@ -36,7 +35,7 @@ public class TakePanoramaFeature extends IFeature
         // So we pass the root gamedir.
         Xenon.INSTANCE.client.takePanorama( runDir, resolution, resolution );
 
-        Text linkToPanoramas = new LiteralTextContent( panoramaFile.getName() + File.separator + "panorama0.png" )
+        Text linkToPanoramas = TextFactory.createLiteral(panoramaFile.getName() + File.separator + "panorama0.png")
                 .formatted( Formatting.UNDERLINE )
                 .styled(
                         style -> style.withClickEvent(
@@ -45,7 +44,7 @@ public class TakePanoramaFeature extends IFeature
                 )
 					      .formatted( Xenon.INSTANCE.SUCCESS_FORMAT );
 
-        Text msg = new TranslatableTextContent( "text.xenon.takepanorama.success", linkToPanoramas );
+        Text msg = TextFactory.createTranslatable( "text.xenon.takepanorama.success", linkToPanoramas );
 
         Xenon.INSTANCE.sendInfoMessage( msg );
     }

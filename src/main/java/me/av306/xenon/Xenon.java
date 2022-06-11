@@ -4,13 +4,13 @@ import me.av306.xenon.config.FeatureConfigGroup;
 import me.av306.xenon.feature.IFeature;
 import me.av306.xenon.feature.IToggleableFeature;
 import me.av306.xenon.features.*;
+import me.av306.xenon.mixin.MinecraftClientAccessor;
+import me.av306.xenon.util.text.TextFactory;
 import me.lortseam.completeconfig.data.Config;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.text.LiteralTextContent;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableTextContent;
 import net.minecraft.util.Formatting;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,17 +24,19 @@ public enum Xenon
 
     public final String MODID = "xenon";
 	
-    public boolean debug = true;
+    public final boolean debug = true;
 
     public Config config = new Config( this.MODID, new FeatureConfigGroup() );
 	
     public final Logger LOGGER = LogManager.getLogger( this.MODID );
 
     public MinecraftClient client;
+    public MinecraftClientAccessor clientAccessor;
 
     public final Formatting SUCCESS_FORMAT = Formatting.GREEN;
-    //public final Formatting WARNING_FORMAT = Formatting.YELLOW;
-    //public final Formatting ERROR_FORMAT = Formatting.RED;
+    public final Formatting MESSAGE_FORMAT = Formatting.AQUA;
+    public final Formatting WARNING_FORMAT = Formatting.YELLOW;
+    public final Formatting ERROR_FORMAT = Formatting.RED;
 
     // this is most likely going to be used to
     // resolve a feature by its name (e.g. CommandProcessor),
@@ -48,11 +50,16 @@ public enum Xenon
 
     public ModContainer modContainer;
 
+    private final Text namePrefix = TextFactory.createLiteral( "[Xenon] " )
+            .formatted( this.MESSAGE_FORMAT );
+
     //private boolean updateAvailable = false;
     //public boolean getUpdateAvailable() { return updateAvailable; }
 
     public void initialise()
     {
+        assert this.client == null;
+
         readVersionData();
 
 	    // load configs
@@ -60,6 +67,7 @@ public enum Xenon
 			
         // set client
         this.client = MinecraftClient.getInstance();
+        this.clientAccessor = (MinecraftClientAccessor) this.client;
 			
         // register features
         new CommandProcessor();
@@ -91,28 +99,28 @@ public enum Xenon
 
     public void sendInfoMessage( String key )
     {
-        Text finalText = new LiteralTextContent( "[Xenon] " ).formatted( Formatting.AQUA )
-            .append( new TranslatableTextContent( key ) );
+        Text finalText = namePrefix.copy()
+                .append( TextFactory.createTranslatable( key ) );
         this.client.player.sendMessage( finalText, false );
     }
 
     public void sendInfoMessage( Text text )
     {
-        Text finalText = new LiteralTextContent( "[Xenon] " ).formatted( Formatting.AQUA )
-            .append( text );
+        Text finalText = namePrefix.copy()
+                .append( text );
         this.client.player.sendMessage( finalText, false );
     }
 
     public void sendErrorMessage( String key )
     {
-        Text finalText = new LiteralTextContent( "[Xenon] " ).formatted( Formatting.RED )
-                .append( new TranslatableTextContent( key ) );
-        this.client.player.sendMessage( finalText, false );
+        Text finalText = namePrefix.copy()
+                .append( TextFactory.createTranslatable( key ) );
+        this.client.player.sendMessage(finalText, false);
     }
 
     public void sendErrorMessage( Text text )
     {
-        Text finalText = new LiteralTextContent( "[Xenon] " ).formatted( Formatting.RED )
+        Text finalText = namePrefix.copy()
                 .append( text );
         this.client.player.sendMessage( finalText, false );
     }
