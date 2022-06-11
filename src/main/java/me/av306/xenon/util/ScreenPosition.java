@@ -11,14 +11,14 @@ package me.av306.xenon.util;
  */
 public enum ScreenPosition
 {
-  TOP_LEFT,
+	TOP_LEFT,
 	TOP_CENTER,
-  TOP_RIGHT,
-  BOTTOM_LEFT,
+  	TOP_RIGHT,
+  	BOTTOM_LEFT,
 	BOTTOM_CENTER,
-  BOTTOM_RIGHT;
+  	BOTTOM_RIGHT;
 
-	  public static ScreenPosition fromInt( int i )
+	public static ScreenPosition fromInt( int i )
   	{
 			return values()[i];
 		}

@@ -3,12 +3,12 @@ package me.av306.xenon.features;
 import me.av306.xenon.Xenon;
 import me.av306.xenon.config.feature.ProximityRadarGroup;
 import me.av306.xenon.feature.IToggleableFeature;
+import me.av306.xenon.util.text.TextFactory;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableTextContent;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.Vec3d;
 
@@ -61,7 +61,7 @@ public class ProximityRadarFeature extends IToggleableFeature
 
             if ( distance < range )
             {
-                Text text = new TranslatableTextContent(
+                Text text = TextFactory.createTranslatable(
                         entity instanceof HostileEntity ?
                                 "text.xenon.proximityradar.hostile" :
                                 "text.xenon.proximityradar.projectile",

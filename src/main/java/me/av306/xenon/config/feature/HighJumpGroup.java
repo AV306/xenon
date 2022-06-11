@@ -4,7 +4,7 @@ import me.av306.xenon.config.XenonConfigGroup;
 import me.lortseam.completeconfig.api.ConfigEntries;
 import me.lortseam.completeconfig.api.ConfigEntry;
 
-@ConfigEntries
+@ConfigEntries( includeAll = true )
 public class HighJumpGroup implements XenonConfigGroup
 {
     @ConfigEntry.BoundedFloat( min = -1f, max = 200f )

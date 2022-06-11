@@ -2,22 +2,25 @@ package me.av306.xenon.features;
 
 import me.av306.xenon.Xenon;
 import me.av306.xenon.feature.IToggleableFeature;
-
+import me.av306.xenon.mixin.GameOptionsAccessor;
 
 public class FullBrightFeature extends IToggleableFeature
 {
-    public FullBrightFeature() { super( "Fullbright" ); }
+    public FullBrightFeature()
+    {
+        super( "Fullbright" );
+    }
 	
     @Override
     protected void onEnable()
     {
-        Xenon.INSTANCE.client.options.gamma = 100.0d;
+        ((GameOptionsAccessor) Xenon.INSTANCE.client.options).getGamma().setValue( 100.0D );
     }
 
 
     @Override
     protected void onDisable()
     {
-        Xenon.INSTANCE.client.options.gamma = 1.0d;
+        ((GameOptionsAccessor) Xenon.INSTANCE.client.options).getGamma().setValue( 1.0D );
     }
 }

@@ -5,10 +5,10 @@ import me.av306.xenon.util.ScreenPosition;
 import me.lortseam.completeconfig.api.ConfigEntries;
 import me.lortseam.completeconfig.api.ConfigEntry;
 
-@ConfigEntries
+@ConfigEntries( includeAll = true )
 public class WailaGroup implements XenonConfigGroup
 {
-	@ConfigEntry.BoundedInteger(min = 1, max = 1024)
+	@ConfigEntry.BoundedInteger( min = 1, max = 60 )
 	@ConfigEntry.Slider
 	public static int interval = 3;
 

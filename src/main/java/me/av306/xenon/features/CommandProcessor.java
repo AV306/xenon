@@ -5,9 +5,8 @@ import me.av306.xenon.config.feature.CommandProcessorGroup;
 import me.av306.xenon.event.ChatOutputEvent;
 import me.av306.xenon.feature.IFeature;
 import me.av306.xenon.feature.IToggleableFeature;
-import net.minecraft.text.LiteralTextContent;
+import me.av306.xenon.util.text.TextFactory;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.Formatting;
 
 public class CommandProcessor extends IToggleableFeature
 {
@@ -66,8 +65,8 @@ public class CommandProcessor extends IToggleableFeature
         //Xenon.INSTANCE.LOGGER.info( Arrays.toString( possibleCommand ) );
         // Tell the player what they sent
         Xenon.INSTANCE.sendInfoMessage(
-                new LiteralTextContent( "> " + text )
-                        .formatted( Formatting.WHITE )
+                TextFactory.createLiteral( "> " )
+                        .append( text )
         );
 
         try

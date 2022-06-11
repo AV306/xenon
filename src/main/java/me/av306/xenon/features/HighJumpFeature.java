@@ -43,8 +43,7 @@ public class HighJumpFeature extends IToggleableFeature
     {
         if ( !this.isEnabled ) return ActionResult.PASS;
 
-        float height = HighJumpGroup.height * HighJumpGroup.multiplier;
-        EventFields.JUMP_VELOCITY_MODIFIER = height;
+        EventFields.JUMP_VELOCITY_MODIFIER = HighJumpGroup.height * HighJumpGroup.multiplier;
 
         return ActionResult.PASS;
     }
