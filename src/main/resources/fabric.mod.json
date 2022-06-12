@@ -31,7 +31,8 @@
     "fabric-key-binding-api-v1": "*",
     "fabric": "*",
     "minecraft": "1.19.x",
-    "java": ">=17"
+    "java": ">=17",
+    "completeconfig": ">=2.0.0"
   },
   "suggests": {
     "another-mod": "https://github.com/nianny/minecraft-mod-1"
