@@ -16,7 +16,7 @@ NOTE: Once a new Minecraft version is released, support for previous versions te
 
 ## Incompatible mods:
 
-- TODO
+- Nexus
 
 ## Features:
 
