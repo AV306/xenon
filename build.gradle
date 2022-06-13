@@ -53,6 +53,7 @@ dependencies {
 	// CompleteConfig
 	// why is there nothing in here
 	modImplementation include("com.gitlab.Lortseam:completeconfig:${project.complete_config_version}")
+	modImplementation include("com.gitlab.Lortseam.completeconfig:base:${project.complete_config_version}")
 	modImplementation include("com.gitlab.Lortseam.completeconfig:gui-cloth:${project.complete_config_version}")
 
 	// apache commons-io :D
