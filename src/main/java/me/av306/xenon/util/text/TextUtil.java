@@ -3,10 +3,13 @@ package me.av306.xenon.util.text;
 import me.av306.xenon.util.ScreenPosition;
 import me.av306.xenon.Xenon;
 
+import me.av306.xenon.util.color.ColorUtil;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.util.Window;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
+import org.apache.logging.log4j.core.util.datetime.Format;
 
 /**
  * Helper class for text-related operations.
@@ -67,7 +70,45 @@ public class TextUtil
 		else textRenderer.draw( matrices, text, x, y, color );
 	}
 
-	public static void drawPositionedMultiLineText( MatrixStack matrices, Text[] texts, ScreenPosition position, int xOffset, int yOffset, boolean shadow, int color )
+	public static void drawPositionedText(
+			MatrixStack matrices,
+			Text text,
+			ScreenPosition position,
+			int xOffset,
+			int yOffset,
+			boolean shadow,
+			Formatting formatting
+	)
+	{
+		int color = 0;
+
+		try
+		{
+			color = formatting.getColorValue();
+		}
+		catch( NullPointerException npe )
+		{
+			color = ColorUtil.WHITE;
+		}
+
+		TextUtil.drawPositionedText(
+				matrices,
+				text,
+				position,
+				xOffset, yOffset,
+				shadow,
+				color
+		);
+	}
+
+	public static void drawPositionedMultiLineText(
+			MatrixStack matrices,
+			Text[] texts,
+			ScreenPosition position,
+			int xOffset, int yOffset,
+			boolean shadow,
+			int color
+	)
 	{
 		// REMINDER:
 		// Y is UP-DOWN offset
@@ -151,4 +192,36 @@ public class TextUtil
 				break;
 		}
 	}
+
+	public static void drawPositionedMultiLineText(
+			MatrixStack matrices,
+			Text[] texts,
+			ScreenPosition position,
+			int xOffset, int yOffset,
+			boolean shadow,
+			Formatting formatting
+	)
+	{
+		int color = 0;
+
+		try
+		{
+			color = formatting.getColorValue();
+		}
+		catch( NullPointerException npe )
+		{
+			color = ColorUtil.WHITE;
+		}
+
+		TextUtil.drawPositionedMultiLineText(
+				matrices,
+				texts,
+				position,
+				xOffset, yOffset,
+				shadow,
+				color
+		);
+	}
+
+
 }
