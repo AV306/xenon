@@ -67,4 +67,26 @@ public class HighJumpFeature extends IToggleableFeature
     {
         EventFields.JUMP_VELOCITY_MODIFIER = 0f; // TODO: make way for other features that might want to modify this
     }
+
+    @Override
+    protected boolean onConfigChange( String config, String value ) //throws NumberFormatException
+    {
+        float v = Float.parseFloat( value );
+        if (
+            config.contains( "velocity" ) || config.contains( "v" ) ||
+            config.contains( "height" ) || config.contains( "h" )
+        )
+        {
+            HighJumpGroup.height = v;
+
+            return true;
+        }
+        else if ( config.contains( "multiplier" ) || config.contains( "m" ) )
+        {
+            HighJumpGroup.multiplier = v;
+            return true;
+        }
+        
+        return false;
+    }
 }
