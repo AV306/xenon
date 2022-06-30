@@ -10,6 +10,7 @@ import me.lortseam.completeconfig.data.Config;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.text.ClickEvent;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import org.apache.logging.log4j.LogManager;
@@ -37,6 +38,11 @@ public enum Xenon
     public final Formatting MESSAGE_FORMAT = Formatting.AQUA;
     public final Formatting WARNING_FORMAT = Formatting.YELLOW;
     public final Formatting ERROR_FORMAT = Formatting.RED;
+
+    public final ClickEvent OPEN_XENON_GITHUB = new ClickEvent(
+            ClickEvent.Action.OPEN_URL,
+            "https://github.com/AV306/xenon/"
+    );
 
     // this is most likely going to be used to
     // resolve a feature by its name (e.g. CommandProcessor),

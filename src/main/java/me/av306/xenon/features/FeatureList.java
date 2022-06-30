@@ -13,10 +13,12 @@ import me.av306.xenon.util.text.TextUtil;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.util.Window;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.text.ClickEvent;
 import net.minecraft.text.LiteralTextContent;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableTextContent;
 import net.minecraft.util.ActionResult;
+import org.checkerframework.checker.units.qual.C;
 
 import java.util.ArrayList;
 
@@ -51,7 +53,14 @@ public final class FeatureList extends IToggleableFeature
         // write feature names
 
         if ( shouldShowVersion )
-            TextUtil.drawPositionedText( matrices, versionText, position, 0, 0, FeatureListGroup.shadow, ColorUtil.GREEN );
+            TextUtil.drawPositionedText(
+                    matrices,
+                    versionText,
+                    position,
+                    0, 0,
+                    FeatureListGroup.shadow,
+                    Xenon.INSTANCE.SUCCESS_FORMAT
+            );
 			
         for ( IFeature feature : Xenon.INSTANCE.enabledFeatures )
         {
