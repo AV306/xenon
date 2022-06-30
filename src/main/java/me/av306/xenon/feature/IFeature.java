@@ -106,7 +106,18 @@ public abstract class IFeature
 
   	public void parseConfigChange( String config, String value )
 	{
-		if ( this.onConfigChange( config, value ) )
+        boolean result;
+		
+		try
+		{
+            result = this.onConfigChange( config, value );
+		}
+		catch ( NumberFormatException nfe )
+		{
+			result = false;
+		}
+
+		if ( result )
 		{
 			Xenon.INSTANCE.sendInfoMessage(
 					TextFactory.createTranslatable(
