@@ -8,6 +8,8 @@ import me.av306.xenon.feature.IToggleableFeature;
 import me.av306.xenon.util.text.TextFactory;
 import net.minecraft.util.ActionResult;
 
+import java.util.Arrays;
+
 public class CommandProcessor extends IToggleableFeature
 {
     public CommandProcessor()
