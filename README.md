@@ -12,7 +12,7 @@ NOTE: Once a new Minecraft version is released, support for previous versions te
 ## Requirements:
 
 - Fabric Loader >= 0.13.3 (Recommended: 0.13.3 Just use the latest version, it's better that way)
-- Fabric API for that version (Recommended: 0.51.0+1.18.2)
+- Fabric API for that version (Recommended: 0.57.0+1.19)
 
 ## Incompatible mods:
 
@@ -54,7 +54,7 @@ Planned features:
 
 (If you just want to build the latest version, run ./scripts/\[os\]/export; e.g. ./scripts/nix/export for Linux/MacOS)
 
-1. Install JDK 17 or above (I compiled 4.1 with JDK 18, 17 might not work)
+1. Install JDK 17 or above (Xenon uses patterns in switches, which is in preview in 17 but implemented in 18, but the build.gradle file has the "--enable-preview" flag set)
 2. Run ./gradlew eclipse if using Eclipse, otherwise IntelliJ *should* automatically set everything up.
 3. Open the root folder as a project.
 4. Done!
@@ -63,5 +63,5 @@ Planned features:
 
 1. Extend IFeature or IToggleableFeature depending on the type of feature.
 2. Define a constructor and call `super( <name> );`, replacing `<name>` with the name of your feature.
-3. Register event callbacks in the constructor, see `Timer` for an example. (Note: some features, like JumpBoost, that require  modifying the values of fields right before they are accessed, are more complex. I'm working on that.)
-4. (**IMPORTANT**) Register your feature by calling its constructor in `Xenon` (main class).
+3. Register event callbacks in the constructor, see `Timer` for an example. (Note: some features, like JumpBoost, that require  modifying the values of fields right before they are accessed, are more complex. Use `EventFields`, see `JumpBoost`.)
+4. Register your feature by calling its constructor in `Xenon` (main class).
