@@ -54,11 +54,12 @@ public class CommandProcessor extends IToggleableFeature
             return ActionResult.PASS;
 
         // example command: !timer speed 2.0f
+        // advanced: !commandprocessor execute timer set speed 3f
         // [prefix][featurename] [config] [value]
 
         // Ok, should be a command,
         // now remove the prefix and split
-        String[] possibleCommand = this.deserialiseCommand( possibleCommand );
+        String[] possibleCommand = this.deserialiseCommand( prefixChar, possibleCommand );
 
         //Xenon.INSTANCE.LOGGER.info( Arrays.toString( possibleCommand ) );
         // Tell the player what they sent
@@ -91,6 +92,7 @@ public class CommandProcessor extends IToggleableFeature
                     this.executeAction( action );
                 }
 
+                // preview feature
                 case "set", default ->
                 {
                     // User probably wants to change a config, 
@@ -121,7 +123,7 @@ public class CommandProcessor extends IToggleableFeature
         return ActionResult.FAIL;
     }
 
-    private String[] deserialiseCommand( String command )
+    private String[] deserialiseCommand( char prefixChar, String command )
     {
         return command
                 .toLowerCase()
@@ -130,9 +132,21 @@ public class CommandProcessor extends IToggleableFeature
                 .split( " " ); // split
     }
 
-    public String serialiseCommand( String[] command )
+    public String serialiseCommand( char prefixChar, String[] command )
     {
-        StringBuilder builder = new StringBuilder( "!" );
+        String prefixString = String.valueOf( prefixChar );
+        StringBuilder builder = new StringBuilder( prefixString );
+        for ( String component : command )
+        {
+            builder.append( component ).append( " " );
+        }
+        // the builder wll return a string with an extra space at the end
+        return builder.toString().trim();
+    }
+
+    public String serialiseCommand( String prefixStr, String[] command )
+    {
+        StringBuilder builder = new StringBuilder( prefixStr );
         for ( String component : command )
         {
             builder.append( component ).append( " " );
@@ -160,7 +174,12 @@ public class CommandProcessor extends IToggleableFeature
     protected boolean onRequestExecuteAction( String[] action )
     {
         // test command: !commandprocessor exec timer set speed 2f
-        this.onChatHudAddMessage( this.serialiseCommand( action ) );
+        this.onChatHudAddMessage(
+            this.serialiseCommand(
+                CommandProcessorGroup.prefix,
+                action
+            )
+        );
     }
 }
 
