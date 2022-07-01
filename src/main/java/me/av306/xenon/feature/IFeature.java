@@ -156,7 +156,7 @@ public abstract class IFeature
                 TextFactory.createTranslatable(
                     "text.xenon.ifeature.executeaction.success",
 					this.name,
-					Arrays.toString( action );
+					Arrays.toString( action )
 				)
 			);
 		}
@@ -166,7 +166,7 @@ public abstract class IFeature
 				TextFactory.createTranslatable(
 					"text.xenon.ifeature.executeaction.fail",
 					this.name,
-					Arrays.toString( action );
+					Arrays.toString( action )
 				)
 			);
 		}
