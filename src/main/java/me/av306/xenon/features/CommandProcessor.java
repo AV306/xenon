@@ -98,7 +98,7 @@ public class CommandProcessor extends IToggleableFeature
                 case "exec", "execute", "run" ->
                 {
                     // pattern matching fun!
-                    String action = Arrays.copyOfRange( possibleCommand, 1, possibleCommand.length );
+                    String[] action = Arrays.copyOfRange( possibleCommand, 1, possibleCommand.length );
                     this.executeAction( action );
                 }
             }
