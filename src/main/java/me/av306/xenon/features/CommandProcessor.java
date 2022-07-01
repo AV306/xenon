@@ -180,6 +180,8 @@ public class CommandProcessor extends IToggleableFeature
                 action
             )
         );
+
+        return true;
     }
 }
 
