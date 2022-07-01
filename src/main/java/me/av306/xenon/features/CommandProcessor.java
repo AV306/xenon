@@ -74,22 +74,30 @@ public class CommandProcessor extends IToggleableFeature
             // Now we try to parse the command
             // should have length > 2
             String featureTargeted = possibleCommand[0];
-            String attribute = possibleCommand[1]; // oobe
+            String command = possibleCommand[1]; // oobe
 
             IFeature feature = Xenon.INSTANCE.featureRegistry.get( featureTargeted ); // npe
 
-            switch ( attribute )
+            switch ( command )
             {
-                case "enable" -> feature.enable(); // User wants to enable a feature
+                case "enable", "on" -> feature.enable(); // User wants to enable a feature
 
-                case "disable" -> ((IToggleableFeature) feature).disable(); // cce; user wants to disable a feature
+                case "disable", "off" -> ((IToggleableFeature) feature).disable(); // cce; user wants to disable a feature
 
-                default ->
+                case "set" ->
                 {
                     // User probably wants to change a config, 
                     // this is delegated to the feature.
-                    String value = possibleCommand[2]; // oobe
-                    feature.parseConfigChange( attribute, value );
+                    String attrib = possibleCommand[2];
+                    String value = possibleCommand[3]; // oobe
+                    feature.parseConfigChange( attrib, value );
+                }
+
+                case "exec", "execute", "run" ->
+                {
+                    // pattern matching fun!
+                    String action = Arrays.copyOfRange( possibleCommand, 1, possibleCommand.length );
+                    this.executeAction( action );
                 }
             }
         }

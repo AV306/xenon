@@ -142,7 +142,31 @@ public abstract class IFeature
 		}
 	}
 
+    // TODO: rename to "onRequestConfigChange"
 	protected boolean onConfigChange( String config, String value ) { return false; }
 
+    public void executeAction( String[] action )
+	{
+        boolean result = this.onRequestExecuteAction( action );
+
+		if ( result )
+		{
+			Xenon.INSTANCE.sendInfoMessage(
+                TextFactory.createTranslatable(
+                    "text.xenon.ifeature.executeaction.success"
+				)
+			);
+		}
+		else
+		{
+			Xenon.INSTANCE.sendInfoMessage(
+				TextFactory.createTranslatable(
+					"text.xenon.ifeature.executeaction.error"
+				)
+			);
+		}
+	}
+
+    protected boolean onRequestExecuteAction( String[] action ) { return true; }
 	//public abstract void onDisable();
 }
