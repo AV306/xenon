@@ -92,13 +92,20 @@ public class CommandProcessor extends IToggleableFeature
                     this.executeAction( action );
                 }
 
-                // preview feature
-                case "set", default ->
+                case "set" ->
                 {
-                    // User probably wants to change a config, 
+                    // User wants to change a config,
                     // this is delegated to the feature.
                     String attrib = possibleCommand[2];
                     String value = possibleCommand[3]; // oobe
+                    feature.parseConfigChange( attrib, value );
+                }
+
+                default ->
+                {
+                    // User probably wants to change a config
+                    String attrib = possibleCommand[1];
+                    String value = possibleCommand[2]; // oobe
                     feature.parseConfigChange( attrib, value );
                 }
             }
