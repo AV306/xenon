@@ -9,6 +9,7 @@ import net.minecraft.client.util.InputUtil;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.Objects;
+import java.util.Arrays;
 
 /**
  * Base class for all features. You shouldn't need to touch this,
@@ -153,7 +154,9 @@ public abstract class IFeature
 		{
 			Xenon.INSTANCE.sendInfoMessage(
                 TextFactory.createTranslatable(
-                    "text.xenon.ifeature.executeaction.success"
+                    "text.xenon.ifeature.executeaction.success",
+					this.name,
+					Arrays.toString( action );
 				)
 			);
 		}
@@ -161,7 +164,9 @@ public abstract class IFeature
 		{
 			Xenon.INSTANCE.sendInfoMessage(
 				TextFactory.createTranslatable(
-					"text.xenon.ifeature.executeaction.error"
+					"text.xenon.ifeature.executeaction.fail",
+					this.name,
+					Arrays.toString( action );
 				)
 			);
 		}
