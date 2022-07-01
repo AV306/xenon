@@ -58,11 +58,7 @@ public class CommandProcessor extends IToggleableFeature
 
         // Ok, should be a command,
         // now remove the prefix and split
-        String[] possibleCommand = text
-                .toLowerCase()
-                .replace( prefixChar, ' ' )
-                .trim()
-                .split( " " );
+        String[] possibleCommand = this.deserialiseCommand( possibleCommand );
 
         //Xenon.INSTANCE.LOGGER.info( Arrays.toString( possibleCommand ) );
         // Tell the player what they sent
@@ -82,24 +78,26 @@ public class CommandProcessor extends IToggleableFeature
 
             switch ( command )
             {
-                case "enable", "on" -> feature.enable(); // User wants to enable a feature
+                case "enable", "on", "e" -> feature.enable(); // User wants to enable a feature
 
-                case "disable", "off" -> ((IToggleableFeature) feature).disable(); // cce; user wants to disable a feature
+                case "disable", "off", "d" -> ((IToggleableFeature) feature).disable(); // cce; user wants to disable a feature
 
-                case "set" ->
+                case "exec", "execute", "ex", "run" ->
+                {
+                    // pattern matching fun!
+                    // copy over the components after the "exec"
+                    // e.g. [commandprocessor, exec, timer, enable] -> [timer, enable]
+                    String[] action = Arrays.copyOfRange( possibleCommand, 2, possibleCommand.length );
+                    this.executeAction( action );
+                }
+
+                case "set", default ->
                 {
                     // User probably wants to change a config, 
                     // this is delegated to the feature.
                     String attrib = possibleCommand[2];
                     String value = possibleCommand[3]; // oobe
                     feature.parseConfigChange( attrib, value );
-                }
-
-                case "exec", "execute", "run" ->
-                {
-                    // pattern matching fun!
-                    String[] action = Arrays.copyOfRange( possibleCommand, 1, possibleCommand.length );
-                    this.executeAction( action );
                 }
             }
         }
@@ -115,8 +113,32 @@ public class CommandProcessor extends IToggleableFeature
         {
             Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocessor.invalidcommand.invalidfeature" );
         }
+        catch ( Exception e )
+        {
+            Xenon.INSTANCE.sendErrorMessge( "text.xenon.commandprocessor.exception" );
+        }
 
         return ActionResult.FAIL;
+    }
+
+    private String[] deserialiseCommand( String command )
+    {
+        return command
+                .toLowerCase()
+                .replace( prefixChar, ' ' ) // remove prefix
+                .trim() // remove space from removing prefix
+                .split( " " ); // split
+    }
+
+    public String serialiseCommand( String[] command )
+    {
+        StringBuilder builder = new StringBuilder( "!" );
+        for ( String component : command )
+        {
+            builder.append( component ).append( " " );
+        }
+        // the builder wll return a string with an extra space at the end
+        return builder.toString().trim();
     }
 
     @Override
@@ -132,6 +154,13 @@ public class CommandProcessor extends IToggleableFeature
         if ( result ) CommandProcessorGroup.prefix = value;
 
         return result;
+    }
+
+    @Override
+    protected boolean onRequestExecuteAction( String[] action )
+    {
+        // test command: !commandprocessor exec timer set speed 2f
+        this.onChatHudAddMessage( this.serialiseCommand( action ) );
     }
 }
 
