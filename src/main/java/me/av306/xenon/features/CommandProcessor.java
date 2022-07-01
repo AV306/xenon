@@ -59,7 +59,7 @@ public class CommandProcessor extends IToggleableFeature
 
         // Ok, should be a command,
         // now remove the prefix and split
-        String[] possibleCommand = this.deserialiseCommand( prefixChar, possibleCommand );
+        String[] possibleCommand = this.deserialiseCommand( prefixChar, text );
 
         //Xenon.INSTANCE.LOGGER.info( Arrays.toString( possibleCommand ) );
         // Tell the player what they sent
@@ -117,7 +117,7 @@ public class CommandProcessor extends IToggleableFeature
         }
         catch ( Exception e )
         {
-            Xenon.INSTANCE.sendErrorMessge( "text.xenon.commandprocessor.exception" );
+            Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocessor.exception" );
         }
 
         return ActionResult.FAIL;
