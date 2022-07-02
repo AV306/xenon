@@ -21,6 +21,7 @@ NOTE: Once a new Minecraft version is released, support for previous versions te
 ## Features:
 
 (All are unbound by default)
+
 ~~Maybe someday I'll implement multi-key seqnences~~
 - FullBright 
 - QuickChat
@@ -36,9 +37,10 @@ NOTE: Once a new Minecraft version is released, support for previous versions te
 - FastBreak (Does not work *exactly* as intended, but close enough)
 - Fundy Ice Physics™ (WIP)
 - SpeedBoost (WIP)
-- HighJump (WIP)
+- HighJump
 - AntiKnockback (WIP)
 - modular and user-friendly feature creation/registration system I spent way too much time on
+- Command processor and the beginnings of a macro system
 
 Planned features:
 
@@ -54,7 +56,7 @@ Planned features:
 
 (If you just want to build the latest version, run ./scripts/\[os\]/export; e.g. ./scripts/nix/export for Linux/MacOS)
 
-1. Install JDK 17 or above (Xenon uses patterns in switches, which is in preview in 17 but implemented in 18, but the build.gradle file has the "--enable-preview" flag set)
+1. Install JDK 17 ~~or above~~ (Minecraft's bundled JRE is version 17, and it won't work if you compile it with JDK 18)
 2. Run ./gradlew eclipse if using Eclipse, otherwise IntelliJ *should* automatically set everything up.
 3. Open the root folder as a project.
 4. Done!
