@@ -65,3 +65,26 @@ Planned features:
 2. Define a constructor and call `super( <name> );`, replacing `<name>` with the name of your feature.
 3. Register event callbacks in the constructor, see `Timer` for an example. (Note: some features, like JumpBoost, that require  modifying the values of fields right before they are accessed, are more complex. Use `EventFields`, see `JumpBoost`.)
 4. Register your feature by calling its constructor in `Xenon` (main class).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+why did i even spend a year of my life making this no one even cares about or notices, much less uses this stupid thing
