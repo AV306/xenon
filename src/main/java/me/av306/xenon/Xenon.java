@@ -16,6 +16,7 @@ import net.minecraft.util.Formatting;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -48,6 +49,10 @@ public enum Xenon
     private String version;
     public String getVersion() { return version; }
     //public void setVersion( String version ) { this.version = version; }
+    private boolean updateAvailable = false;
+    public boolean getUpdateAvailable() { return this.updateAvailable; }
+
+    private final String tagApiUrl = "https://api.github.com/repos/AV306/xenon/tags";
 
     public ModContainer modContainer;
 
@@ -62,6 +67,7 @@ public enum Xenon
         assert this.client == null;
 
         readVersionData();
+        checkForUpdate();
 
 	    // load configs
 	    this.config.load();
@@ -94,11 +100,24 @@ public enum Xenon
     {
         // set version & TODO: impl check for update
         assert FabricLoader.getInstance().getModContainer( "xenon" ).isPresent();
-        modContainer = FabricLoader.getInstance().getModContainer( "xenon" ).get();
+        this.modContainer = FabricLoader.getInstance().getModContainer( "xenon" ).get();
 
-        version = modContainer.getMetadata().getVersion().getFriendlyString();
+        this.version = modContainer.getMetadata().getVersion().getFriendlyString();
     }
 
+    private void checkForUpdate()
+    {
+        this.updateAvailable = UpdateChecker.checkForUpdate( this.tagApiUrl );
+    }
+
+
+
+
+    /**
+     * +-----------------+
+     * | Utility methods |
+     * +-----------------+
+     */
     public void sendInfoMessage( String key )
     {
         Text finalText = namePrefix.copy()
