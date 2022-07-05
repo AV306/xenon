@@ -55,6 +55,7 @@ public abstract class IFeature
 		);
 
 		// register our name in the registry
+		// (the DISPLAY name, not our actual class name)
 		Xenon.INSTANCE.featureRegistry.put( this.getName().toLowerCase(), this );
 	}
 
