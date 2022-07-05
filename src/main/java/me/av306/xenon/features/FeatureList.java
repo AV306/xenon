@@ -24,7 +24,7 @@ import java.util.ArrayList;
 
 public final class FeatureList extends IToggleableFeature
 {
-
+    private final Text versionText;
     public FeatureList()
     {
         // set name
@@ -32,7 +32,10 @@ public final class FeatureList extends IToggleableFeature
 
 		// start enabled by default
         this.enable();
-			
+		
+        // version data should alr be initialised at this time
+        this.versionText = TextFactory.createTranslatable( "text.xenon.version", Xenon.INSTANCE.getVersion() );
+
         // register listener
         RenderInGameHudEvent.AFTER_VIGNETTE.register( this::onInGameHudRender );
     }
@@ -46,7 +49,6 @@ public final class FeatureList extends IToggleableFeature
 
         TextRenderer textRenderer = Xenon.INSTANCE.client.inGameHud.getTextRenderer();
         Window window = Xenon.INSTANCE.client.getWindow();
-	    Text versionText = TextFactory.createTranslatable( "text.xenon.version", Xenon.INSTANCE.getVersion() );
 
         ArrayList<Text> nameTexts = new ArrayList<>();
 
@@ -55,7 +57,7 @@ public final class FeatureList extends IToggleableFeature
         if ( shouldShowVersion )
             TextUtil.drawPositionedText(
                     matrices,
-                    versionText,
+                    this.versionText,
                     position,
                     0, 0,
                     FeatureListGroup.shadow,

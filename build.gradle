@@ -56,8 +56,11 @@ dependencies {
 	modImplementation include("com.gitlab.Lortseam.completeconfig:base:${project.complete_config_version}")
 	modImplementation include("com.gitlab.Lortseam.completeconfig:gui-cloth:${project.complete_config_version}")
 
-	// apache commons-io :D
+	// apache commons-io
 	//compileOnly 'commons-io:commons-io:2.11.0'
+
+	// UniRest
+	implementation 'com.konghq:unirest-java:4.0.0-RC2:standalone'
 }
 
 processResources {
