@@ -64,7 +64,7 @@ public abstract class IToggleableFeature extends IFeature
 
     public void disable()
     {
-        if ( !isEnabled ) return;
+        if ( !isEnabled ) return; // safety catch
 
         isEnabled = false;
 

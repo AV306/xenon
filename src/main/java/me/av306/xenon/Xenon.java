@@ -39,13 +39,8 @@ public enum Xenon
     public final Formatting WARNING_FORMAT = Formatting.YELLOW;
     public final Formatting ERROR_FORMAT = Formatting.RED;
 
-    public final ClickEvent OPEN_XENON_GITHUB = new ClickEvent(
-            ClickEvent.Action.OPEN_URL,
-            "https://github.com/AV306/xenon/"
-    );
-
-    // this is most likely going to be used to
-    // resolve a feature by its name (e.g. CommandProcessor),
+    // this is most likely going to be used
+    // to resolve a feature by its name (e.g. CommandProcessor),
     // so I put it in this order.
     public HashMap<String, IFeature> featureRegistry = new HashMap<>();
     public ArrayList<IToggleableFeature> enabledFeatures = new ArrayList<>();
@@ -83,6 +78,7 @@ public enum Xenon
         new FeatureList();
         new FullBrightFeature();
         new HighJumpFeature();
+        new JetpackFeature();
         new PanicFeature();
         new ProximityRadarFeature();
         new QuickChatFeature();
