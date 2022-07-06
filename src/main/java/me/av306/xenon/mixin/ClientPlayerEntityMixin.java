@@ -69,7 +69,7 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
     )
 	private void onStartPlayerTick( CallbackInfo ci )
 	{
-        ActionResult r = ClientPlayerTickEvent.START_PLAYER_TICK.invoker().onStartPlayerTick();
+        ActionResult result = ClientPlayerTickEvent.START_PLAYER_TICK.invoker().onStartPlayerTick();
 
         if ( result == ActionResult.FAIL )
             ci.cancel();
@@ -86,7 +86,7 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
     )
 	private void onEndPlayerTick( CallbackInfo ci )
 	{
-        ActionResult r = ClientPlayerTickEvent.END_PLAYER_TICK.invoker().onEndPlayerTick();
+        ActionResult result = ClientPlayerTickEvent.END_PLAYER_TICK.invoker().onEndPlayerTick();
 
         if ( result == ActionResult.FAIL )
             ci.cancel();

@@ -38,6 +38,6 @@ public class CreativeFlightFeature extends IToggleableFeature
 
         // stop flying unless player is actually creative AND already flying
         abilities.flying = creative && !player.isOnGround();
-        abilities.allowFlight = creative;
+        abilities.allowFlying = creative;
     }
 }
