@@ -87,7 +87,7 @@ public class UpdateChecker
         try
         {
             // "4.3.1" -> "431" -> 431
-            temp = Integer.parseInt( Xenon.INSTANCE.version.replaceAll( "." ).trim() );
+            temp = Integer.parseInt( Xenon.INSTANCE.getVersion().replaceAll( ".", "" ).trim() );
         }
         catch ( NumberFormatException nfe )
         {
