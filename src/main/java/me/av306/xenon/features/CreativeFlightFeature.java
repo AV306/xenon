@@ -12,10 +12,10 @@ public class CreativeFlightFeature extends IToggleableFeature
     {
         super( "CreativeFlight" );
 
-        ClientTickEvents.END_CLIENT_TICK.register( client -> this.onEndClientTick() );
+        ClientPlayerTickEvent.END_PLAYER_TICK.register( client -> this.onEndPlayerTick() );
     }
 
-    private void onEndClientTick()
+    private void onEndPlayerTick()
     {
         // force flying
         Xenon.INSTANCE.client.player.getAbilities().allowFlying = true;
@@ -25,8 +25,8 @@ public class CreativeFlightFeature extends IToggleableFeature
     protected void onEnable()
     {
         // disable jetpack and normal flyhack
-        (IToggleableFeature) Xenon.INSTANCE.featureRegistry.get( "Jetpack" ).disable();
-        (IToggleableFeature) Xenon.INSTANCE.featureRegistry.get( "Flight" ).disable();
+        ((IToggleableFeature) Xenon.INSTANCE.featureRegistry.get( "Jetpack" )).disable();
+        ((IToggleableFeature) Xenon.INSTANCE.featureRegistry.get( "Flight" )).disable();
     }
 
     @Override
