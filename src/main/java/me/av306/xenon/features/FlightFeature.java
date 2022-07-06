@@ -16,8 +16,8 @@ public class FlightFeature extends IToggleableFeature
     @Override
     protected void onEnable()
     {
-        (IToggleableFeature)Xenon.INSTANCE.featureRegistry.get( "Jetpack" ).disable();
-        (IToggleableFeature)Xenon.INSTANCE.featureRegistry.get( "CreativeFlight" ).disable();
+        ((IToggleableFeature) Xenon.INSTANCE.featureRegistry.get( "Jetpack" )).disable();
+        ((IToggleableFeature) Xenon.INSTANCE.featureRegistry.get( "CreativeFlight" )).disable();
     }
 
     @Override
