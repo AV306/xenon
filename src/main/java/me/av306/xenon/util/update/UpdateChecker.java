@@ -1,6 +1,5 @@
 package me.av306.xenon.util.update;
 
-import kong.unirest.Unirest;
 import me.av306.xenon.Xenon;
 
 public class UpdateChecker
