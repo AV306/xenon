@@ -11,7 +11,7 @@ public class UpdateChecker
         return getLatestVersion( urlString ) > getCurrentVersion();
     }
 
-    private int getLatestVersion( String urlString )
+    private static int getLatestVersion( String urlString )
     {
         int latestVer = 0;
         try
@@ -80,7 +80,7 @@ public class UpdateChecker
         return latestVersion > currentVersion;*/
     }
 
-    private int getCurrentVersion()
+    private static int getCurrentVersion()
     {
         int temp = 0;
 

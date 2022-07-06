@@ -53,7 +53,7 @@ public enum Xenon
     private boolean updateAvailable = false;
     public boolean getUpdateAvailable() { return this.updateAvailable; }
 
-    private final String tagApiUrl = "https://api.github.com/repos/AV306/xenon/tags";
+    private final String backend = "pocostudios.ddns.net/versions?project=xenon";
 
     public ModContainer modContainer;
 
