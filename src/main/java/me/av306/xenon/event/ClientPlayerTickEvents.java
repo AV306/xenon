@@ -2,10 +2,9 @@ package me.av306.xenon.event;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
-import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 
-public interface ClientPlayerTickEvent
+public interface ClientPlayerTickEvents
 {
     Event<StartPlayerTick> START_PLAYER_TICK = EventFactory.createArrayBacked(
             StartPlayerTick.class,
@@ -38,14 +37,14 @@ public interface ClientPlayerTickEvent
     );
 
     @FunctionalInterface
-    public interface StartPlayerTick
+    interface StartPlayerTick
     {
         ActionResult onStartPlayerTick();
     }
 
     @FunctionalInterface
 
-    public interface EndPlayerTick
+    interface EndPlayerTick
     {
         ActionResult onEndPlayerTick();
     }

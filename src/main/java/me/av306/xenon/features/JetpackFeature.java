@@ -1,7 +1,7 @@
 package me.av306.xenon.features;
 
 import me.av306.xenon.Xenon;
-import me.av306.xenon.event.ClientPlayerTickEvent;
+import me.av306.xenon.event.ClientPlayerTickEvents;
 import me.av306.xenon.feature.IToggleableFeature;
 import net.minecraft.util.ActionResult;
 
@@ -11,7 +11,7 @@ public class JetpackFeature extends IToggleableFeature
     {
         super( "Jetpack" );
 
-        ClientPlayerTickEvent.END_PLAYER_TICK.register( this::onEndPlayerTick );
+        ClientPlayerTickEvents.END_PLAYER_TICK.register( this::onEndPlayerTick );
     }
 
     private ActionResult onEndPlayerTick()
@@ -26,9 +26,15 @@ public class JetpackFeature extends IToggleableFeature
     @Override
     protected void onEnable()
     {
-        // disable creative and normal flyhacks
-        ((IToggleableFeature) Xenon.INSTANCE.featureRegistry.get( "CreativeFlight" )).disable();
-        ((IToggleableFeature) Xenon.INSTANCE.featureRegistry.get( "Flight" )).disable();
+        try {
+            // disable creative and normal flyhacks
+            ((IToggleableFeature) Xenon.INSTANCE.featureRegistry.get( "CreativeFlight" )).disable();
+            ((IToggleableFeature) Xenon.INSTANCE.featureRegistry.get( "Flight" )).disable();
+        }
+        catch ( NullPointerException npe )
+        {
+            Xenon.INSTANCE.LOGGER.warn( "{} failed to disable other flight features!", this.name );
+        }
     }
 
     @Override
