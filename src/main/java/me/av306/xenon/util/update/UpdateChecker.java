@@ -7,16 +7,7 @@ public class UpdateChecker
 {
     public static boolean checkForUpdate( String url )
     {
-         /*ient = HttpClient.newBuilder()
-                .version( Version.HTTP_2 ) // HTTP ver 2
-                .followRedirects( Redirect.NORMAL ) // follow redirects normally
-                .connectTimeout( Duration.ofSecond( 30 ) ) // wait 30s then timeout
-                .build();
-
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri( uri )*/
-
-        // retrieve the latest tag (should be at the top)
+        /*
         String latestTag;
         try
         {
@@ -48,6 +39,7 @@ public class UpdateChecker
             currentVersion = 0;
         }
 
-        return latestVersion > currentVersion;
+        return latestVersion > currentVersion;*/
+        return false;
     }
 }
