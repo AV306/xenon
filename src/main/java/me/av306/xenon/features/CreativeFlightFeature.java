@@ -15,10 +15,12 @@ public class CreativeFlightFeature extends IToggleableFeature
         ClientPlayerTickEvent.END_PLAYER_TICK.register( this::onEndPlayerTick );
     }
 
-    private void onEndPlayerTick()
+    private ActionResult onEndPlayerTick()
     {
         // force flying
         Xenon.INSTANCE.client.player.getAbilities().allowFlying = true;
+
+        return ActionResult.PASS;
     }
 
     @Override
