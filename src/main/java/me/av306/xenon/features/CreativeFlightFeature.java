@@ -1,7 +1,7 @@
 package me.av306.xenon.features;
 
 import me.av306.xenon.Xenon;
-import me.av306.xenon.event.ClientPlayerTickEvent;
+import me.av306.xenon.event.ClientPlayerTickEvents;
 import me.av306.xenon.feature.IToggleableFeature;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.player.PlayerAbilities;
@@ -13,7 +13,7 @@ public class CreativeFlightFeature extends IToggleableFeature
     {
         super( "CreativeFlight" );
 
-        ClientPlayerTickEvent.END_PLAYER_TICK.register( this::onEndPlayerTick );
+        ClientPlayerTickEvents.END_PLAYER_TICK.register( this::onEndPlayerTick );
     }
 
     private ActionResult onEndPlayerTick()

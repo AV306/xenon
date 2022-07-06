@@ -1,9 +1,8 @@
 package me.av306.xenon.mixin;
 
 import com.mojang.authlib.GameProfile;
-import me.av306.xenon.Xenon;
 import me.av306.xenon.event.ChatOutputEvent;
-import me.av306.xenon.event.ClientPlayerTickEvent;
+import me.av306.xenon.event.ClientPlayerTickEvents;
 import me.av306.xenon.event.EventFields;
 import me.av306.xenon.event.GetJumpVelocityEvent;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
@@ -70,7 +69,7 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
     )
 	private void onStartPlayerTick( CallbackInfo ci )
 	{
-        ActionResult result = ClientPlayerTickEvent.START_PLAYER_TICK.invoker().onStartPlayerTick();
+        ActionResult result = ClientPlayerTickEvents.START_PLAYER_TICK.invoker().onStartPlayerTick();
 
         if ( result == ActionResult.FAIL )
             ci.cancel();
@@ -87,7 +86,7 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
     )
 	private void onEndPlayerTick( CallbackInfo ci )
 	{
-        ActionResult result = ClientPlayerTickEvent.END_PLAYER_TICK.invoker().onEndPlayerTick();
+        ActionResult result = ClientPlayerTickEvents.END_PLAYER_TICK.invoker().onEndPlayerTick();
 
         if ( result == ActionResult.FAIL )
             ci.cancel();

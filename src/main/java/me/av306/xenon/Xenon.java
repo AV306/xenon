@@ -53,7 +53,7 @@ public enum Xenon
     private boolean updateAvailable = false;
     public boolean getUpdateAvailable() { return this.updateAvailable; }
 
-    private final String backend = "pocostudios.ddns.net/versions?project=xenon";
+    private final String backend = "https://pocostudios.ddns.net/versions?project=xenon";
 
     public ModContainer modContainer;
 
@@ -80,9 +80,11 @@ public enum Xenon
         // register features
         new CommandProcessor();
         new ConfigMenu();
+        new CreativeFlightFeature();
         //new ExtraReachFeature(); // FIXME: desyncs
         new FastBreakFeature();
         new FeatureList();
+        new FlightFeature();
         new FullBrightFeature();
         new HighJumpFeature();
         new JetpackFeature();
