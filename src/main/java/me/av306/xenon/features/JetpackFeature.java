@@ -10,7 +10,7 @@ public class JetpackFeature extends IToggleableFeature
     {
         super( "Jetpack" );
 
-        ClientPlayerTickEvent.END_PLAYER_TICK.register( client -> this.onEndPlayerTick() );
+        ClientPlayerTickEvent.END_PLAYER_TICK.register( this::onEndPlayerTick );
     }
 
     private void onEndPlayerTick()

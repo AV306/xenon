@@ -12,7 +12,7 @@ public class CreativeFlightFeature extends IToggleableFeature
     {
         super( "CreativeFlight" );
 
-        ClientPlayerTickEvent.END_PLAYER_TICK.register( client -> this.onEndPlayerTick() );
+        ClientPlayerTickEvent.END_PLAYER_TICK.register( this::onEndPlayerTick );
     }
 
     private void onEndPlayerTick()

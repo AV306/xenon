@@ -3,6 +3,7 @@ package me.av306.xenon.mixin;
 import com.mojang.authlib.GameProfile;
 import me.av306.xenon.Xenon;
 import me.av306.xenon.event.ChatOutputEvent;
+import me.av306.xenon.event.ClientPlayerTickEvent;
 import me.av306.xenon.event.EventFields;
 import me.av306.xenon.event.GetJumpVelocityEvent;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
