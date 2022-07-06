@@ -108,7 +108,7 @@ public enum Xenon
 
     private void checkForUpdate()
     {
-        this.updateAvailable = UpdateChecker.checkForUpdate( this.tagApiUrl );
+        this.updateAvailable = UpdateChecker.checkForUpdate( this.backend );
     }
 
 

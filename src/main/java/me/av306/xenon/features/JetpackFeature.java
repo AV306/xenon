@@ -14,7 +14,7 @@ public class JetpackFeature extends IToggleableFeature
         ClientPlayerTickEvent.END_PLAYER_TICK.register( this::onEndPlayerTick );
     }
 
-    private void onEndPlayerTick()
+    private ActionResult onEndPlayerTick()
     {
         // basically jump, and jump again while you;re still in midair, and repeat
         if ( Xenon.INSTANCE.client.options.jumpKey.isPressed() )
