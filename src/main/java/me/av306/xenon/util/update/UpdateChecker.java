@@ -18,7 +18,7 @@ public class UpdateChecker
         {
             URL api = new URL( urlString );
 
-            HttpUrlConnection connection = (HttpUrlConnection) api.openConnection(); // IOException
+            HttpURLConnection connection = (HttpURLConnection) api.openConnection(); // IOException
             connection.setRequestMethod( "GET" );
             connection.connect(); // SocketTimeoutException or IOException
 
@@ -91,7 +91,7 @@ public class UpdateChecker
         }
         catch ( NumberFormatException nfe )
         {
-            Xenon.INSTANCE.warn( nfe );
+            Xenon.INSTANCE.LOGGER.warn( nfe );
             temp = 0;
         }
 
