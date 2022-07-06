@@ -7,7 +7,7 @@ import net.minecraft.util.ActionResult;
 
 public interface ClientPlayerTickEvent
 {
-    Event<ClientPlayerTicStartPlayerTickkEvent> START_PLAYER_TICK = EventFactory.createArrayBacked(
+    Event<StartPlayerTick> START_PLAYER_TICK = EventFactory.createArrayBacked(
             StartPlayerTick.class,
             (listeners) -> () ->
             {
