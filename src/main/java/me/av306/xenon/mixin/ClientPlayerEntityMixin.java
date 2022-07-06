@@ -33,6 +33,7 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
         return super.getJumpVelocity() + EventFields.JUMP_VELOCITY_MODIFIER;
     }
 
+    // Old (pre-1.19) event
     /*@Inject(
             at = @At( "HEAD" ),
             method = "sendChatMessage(Ljava/lang/String;)V",
@@ -54,10 +55,40 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
     )
     private void onSendChatMessagePacket( ChatMessageSigner signer, String message, @Nullable Text previewCallbackInfo, CallbackInfo ci )
     {
-        Xenon.INSTANCE.LOGGER.info( "msg" );
+        //Xenon.INSTANCE.LOGGER.info( "msg" );
         ActionResult result = ChatOutputEvent.EVENT.invoker().interact( message );
 
         if ( result == ActionResult.FAIL )
             ci.cancel();
     }
+
+    @Inject(
+            at = @At( "HEAD" ),
+            method = "tick()V",
+            cancellable = true
+    )
+	private void onStartPlayerTick( CallbackInfo ci )
+	{
+        ActionResult r = ClientPlayerTickEvent.START_PLAYER_TICK.invoker().onStartPlayerTick();
+
+        if ( result == ActionResult.FAIL )
+            ci.cancel();
+	}
+
+    @Inject(
+            at = @At(
+                    value = "INVOKE",
+		            target = "Lnet/minecraft/client/network/AbstractClientPlayerEntity;tick()V",
+		            ordinal = 0
+            ),
+            method = "tick()V",
+            cancellable = true
+    )
+	private void onEndPlayerTick( CallbackInfo ci )
+	{
+        ActionResult r = ClientPlayerTickEvent.END_PLAYER_TICK.invoker().onEndPlayerTick();
+
+        if ( result == ActionResult.FAIL )
+            ci.cancel();
+	}
 }

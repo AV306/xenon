@@ -24,7 +24,13 @@ public class JetpackFeature extends IToggleableFeature
     protected void onEnable()
     {
         // disable creative and normal flyhacks
-        Xenon.INSTANCE.featureRegistry.get( "CreativeFlight" ).disable();
-        Xenon.INSTANCE.featureRegistry.get( "Flight" ).disable();
+        (IToggleableFeature) Xenon.INSTANCE.featureRegistry.get( "CreativeFlight" ).disable();
+        (IToggleableFeature) Xenon.INSTANCE.featureRegistry.get( "Flight" ).disable();
+    }
+
+    @Override
+    protected void onDisable()
+    {
+
     }
 }

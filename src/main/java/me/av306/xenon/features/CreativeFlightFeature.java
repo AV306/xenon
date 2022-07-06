@@ -25,15 +25,15 @@ public class CreativeFlightFeature extends IToggleableFeature
     protected void onEnable()
     {
         // disable jetpack and normal flyhack
-        Xenon.INSTANCE.featureRegistry.get( "Jetpack" ).disable();
-        Xenon.INSTANCE.featureRegistry.get( "Flight" ).disable();
+        (IToggleableFeature) Xenon.INSTANCE.featureRegistry.get( "Jetpack" ).disable();
+        (IToggleableFeature) Xenon.INSTANCE.featureRegistry.get( "Flight" ).disable();
     }
 
     @Override
     protected void onDisable()
     {
-        ClientPlayerEntity playerEntity = Xenon.INSTANCE.client.player;
-        PlayerAbilities = playerEntity.getAbilities();
+        ClientPlayerEntity player = Xenon.INSTANCE.client.player;
+        PlayerAbilities abilities = player.getAbilities();
         boolean creative = player.isCreative();
 
         // stop flying unless player is actually creative AND already flying

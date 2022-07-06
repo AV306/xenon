@@ -26,7 +26,7 @@ public class InGameHudMixin
     )
     private void onRenderAfterVignette( MatrixStack matrices, float tickDelta, CallbackInfo ci )
     {
-        ActionResult result = RenderInGameHudEvent.AFTER_VIGNETTE.invoker().interact( matrices, tickDelta );
+        ActionResult result = RenderInGameHudEvent.AFTER_VIGNETTE.invoker().onAfterVignette( matrices, tickDelta );
 
         // cancel if fail
         if ( result == ActionResult.FAIL )
@@ -45,7 +45,7 @@ public class InGameHudMixin
     )
     private void onStartRender( MatrixStack matrices, float tickDelta, CallbackInfo ci )
     {
-        ActionResult result = RenderInGameHudEvent.HEAD.invoker().interact( matrices, tickDelta );
+        ActionResult result = RenderInGameHudEvent.START.invoker().onStartRender( matrices, tickDelta );
 
         // cancel if fail
         if ( result == ActionResult.FAIL )
