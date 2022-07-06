@@ -6,6 +6,7 @@ import me.av306.xenon.feature.IToggleableFeature;
 import me.av306.xenon.features.*;
 import me.av306.xenon.mixin.MinecraftClientAccessor;
 import me.av306.xenon.util.text.TextFactory;
+import me.av306.xenon.util.update.UpdateChecker;
 import me.lortseam.completeconfig.data.Config;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;

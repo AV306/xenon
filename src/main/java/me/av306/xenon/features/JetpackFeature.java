@@ -18,6 +18,8 @@ public class JetpackFeature extends IToggleableFeature
         // basically jump, and jump again while you;re still in midair, and repeat
         if ( Xenon.INSTANCE.client.options.jumpKey.isPressed() )
             Xenon.INSTANCE.client.player.jump();
+
+        return ActionResult.PASS;
     }
 
     @Override
