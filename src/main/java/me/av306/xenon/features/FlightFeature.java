@@ -1,8 +1,8 @@
 package me.av306.xenon.features;
 
 import me.av306.xenon.Xenon;
+import me.av306.xenon.event.ClientPlayerTickEvent;
 import me.av306.xenon.feature.IToggleableFeature;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 
 public class FlightFeature extends IToggleableFeature
 {

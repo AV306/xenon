@@ -1,8 +1,8 @@
 package me.av306.xenon.features;
 
 import me.av306.xenon.Xenon;
+import me.av306.xenon.event.ClientPlayerTickEvent;
 import me.av306.xenon.feature.IToggleableFeature;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 
 public class JetpackFeature extends IToggleableFeature
 {
@@ -10,7 +10,7 @@ public class JetpackFeature extends IToggleableFeature
     {
         super( "Jetpack" );
 
-        ClientPlayerTickEvents.END_PLAYER_TICK.register( client -> this.onEndPlayerTick() );
+        ClientPlayerTickEvent.END_PLAYER_TICK.register( client -> this.onEndPlayerTick() );
     }
 
     private void onEndPlayerTick()
