@@ -5,15 +5,15 @@ import net.fabricmc.fabric.api.event.EventFactory;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.ActionResult;
 
-public interface RenderInGameHudEvent
+public class RenderInGameHudEvent
 {
-    Event<RenderInGameHudEvent> HEAD = EventFactory.createArrayBacked(
-            RenderInGameHudEvent.class,
+    public static final Event<StartRender> START = EventFactory.createArrayBacked(
+            StartRender.class,
             (listeners) -> (matrices, tickDelta) ->
             {
-                for ( RenderInGameHudEvent listener : listeners )
+                for ( StartRender listener : listeners )
                 {
-                    ActionResult result = listener.interact( matrices, tickDelta );
+                    ActionResult result = listener.onStartRender( matrices, tickDelta );
 
                     if ( result != ActionResult.PASS ) return result;
                 }
@@ -22,13 +22,13 @@ public interface RenderInGameHudEvent
             }
     );
 
-    Event<RenderInGameHudEvent> AFTER_VIGNETTE = EventFactory.createArrayBacked(
-            RenderInGameHudEvent.class,
+    public static final Event<AfterVignette> AFTER_VIGNETTE = EventFactory.createArrayBacked(
+            AfterVignette.class,
             (listeners) -> (matrices, tickDelta) ->
             {
-                for ( RenderInGameHudEvent listener : listeners )
+                for ( AfterVignette listener : listeners )
                 {
-                    ActionResult result = listener.interact( matrices, tickDelta );
+                    ActionResult result = listener.onAfterVignette( matrices, tickDelta );
 
                     if ( result != ActionResult.PASS ) return result;
                 }
@@ -37,5 +37,15 @@ public interface RenderInGameHudEvent
             }
     );
 
-    ActionResult interact( MatrixStack matrices, float tickDelta );
+    @FunctionalInterface
+    public interface StartRender
+    {
+        ActionResult onStartRender( MatrixStack matrices, float tickDelta );
+    }
+
+    @FunctionalInterface
+    public interface AfterVignette
+    {
+        ActionResult onAfterVignette( MatrixStack matrixes, float tickDelta );
+    }
 }
