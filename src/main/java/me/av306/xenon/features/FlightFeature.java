@@ -3,6 +3,7 @@ package me.av306.xenon.features;
 import me.av306.xenon.Xenon;
 import me.av306.xenon.event.ClientPlayerTickEvent;
 import me.av306.xenon.feature.IToggleableFeature;
+import net.minecraft.util.ActionResult;
 
 public class FlightFeature extends IToggleableFeature
 {

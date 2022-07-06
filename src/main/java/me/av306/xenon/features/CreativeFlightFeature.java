@@ -5,6 +5,7 @@ import me.av306.xenon.event.ClientPlayerTickEvent;
 import me.av306.xenon.feature.IToggleableFeature;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.player.PlayerAbilities;
+import net.minecraft.util.ActionResult;
 
 public class CreativeFlightFeature extends IToggleableFeature
 {
