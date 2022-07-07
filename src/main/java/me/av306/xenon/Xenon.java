@@ -53,7 +53,7 @@ public enum Xenon
     private boolean updateAvailable = false;
     public boolean getUpdateAvailable() { return this.updateAvailable; }
 
-    private final String backend = "https://pocostudios.ddns.net/versions?project=xenon";
+    private final String backend = "https://pocostudios.ddns.net:5050/versions?project=xenon";
 
     public ModContainer modContainer;
 
@@ -70,8 +70,8 @@ public enum Xenon
         readVersionData();
         checkForUpdate();
 
-	    // load configs
-	    this.config.load();
+	// load configs
+	this.config.load();
 			
         // set client
         this.client = MinecraftClient.getInstance();
