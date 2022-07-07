@@ -35,7 +35,7 @@ public class UpdateChecker
                 // E.g. "4.3.1+1.19.x" -> 431
                 // "4.4.0+1.19.x" -> 440
                 // These can then be compared to the current version easily.
-                latestVer = Integer.parseInt( connection.getContent() ); // NFE
+                latestVer = Integer.parseInt( (String) connection.getContent() ); // NFE, CCE
             }
         }
         catch ( Exception e )
