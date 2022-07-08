@@ -134,7 +134,7 @@ public class CommandProcessor extends IToggleableFeature
     {
         return command
                 .toLowerCase()
-                .replace( prefixChar, '' ) // remove prefix
+                .replace( prefixChar, ' ' ) // remove prefix
                 .trim() // remove leading and trailing spaces
                 .split( " " ); // split
     }
