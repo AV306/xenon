@@ -142,22 +142,17 @@ public class CommandProcessor extends IToggleableFeature
     public String serialiseCommand( char prefixChar, String[] command )
     {
         String prefixString = String.valueOf( prefixChar );
-        StringBuilder builder = new StringBuilder( prefixString );
-        for ( String component : command )
-        {
-            builder.append( component ).append( " " );
-        }
-        // the builder wll return a string with an extra space at the end
-        return builder.toString().trim();
+        
+        return serialiseCommand( prefixString, command );
     }
 
     public String serialiseCommand( String prefixStr, String[] command )
     {
         StringBuilder builder = new StringBuilder( prefixStr );
+
         for ( String component : command )
-        {
             builder.append( component ).append( " " );
-        }
+
         // the builder wll return a string with an extra space at the end
         return builder.toString().trim();
     }
