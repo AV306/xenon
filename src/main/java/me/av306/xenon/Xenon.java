@@ -148,7 +148,7 @@ public enum Xenon
     public void sendErrorMessage( Text text )
     {
         Text finalText = namePrefix.copy()
-                .append( text.formatted( this.ERROR_FORMAT ) );
+                .append( text/*.formatted( this.ERROR_FORMAT )*/ );
         this.client.player.sendMessage( finalText, false );
     }
 }
