@@ -17,7 +17,6 @@ import net.minecraft.util.Formatting;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -100,8 +99,8 @@ public enum Xenon
     public void log( String msg ) { if ( debug ) LOGGER.info( msg ); }
 
     private void readVersionData()
-    {
-        // set version & TODO: impl check for update
+    {}
+        // set version & check for update
         assert FabricLoader.getInstance().getModContainer( "xenon" ).isPresent();
         this.modContainer = FabricLoader.getInstance().getModContainer( "xenon" ).get();
 
@@ -137,15 +136,19 @@ public enum Xenon
 
     public void sendErrorMessage( String key )
     {
+        // TODO: impl parameter packs?
         Text finalText = namePrefix.copy()
-                .append( TextFactory.createTranslatable( key ) );
+                .append(
+                        TextFactory.createTranslatable( key )
+                        .formatted( this.ERROR_FORMAT )
+                );
         this.client.player.sendMessage(finalText, false);
     }
 
     public void sendErrorMessage( Text text )
     {
         Text finalText = namePrefix.copy()
-                .append( text );
+                .append( text.formatted( this.ERROR_FORMAT ) );
         this.client.player.sendMessage( finalText, false );
     }
 }
