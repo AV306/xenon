@@ -99,7 +99,7 @@ public enum Xenon
     public void log( String msg ) { if ( debug ) LOGGER.info( msg ); }
 
     private void readVersionData()
-    {}
+    {
         // set version & check for update
         assert FabricLoader.getInstance().getModContainer( "xenon" ).isPresent();
         this.modContainer = FabricLoader.getInstance().getModContainer( "xenon" ).get();
