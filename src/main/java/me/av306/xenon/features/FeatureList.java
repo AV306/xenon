@@ -9,22 +9,18 @@ import me.av306.xenon.util.ScreenPosition;
 import me.av306.xenon.util.color.ColorUtil;
 import me.av306.xenon.util.text.TextFactory;
 import me.av306.xenon.util.text.TextUtil;
-
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.util.Window;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.text.ClickEvent;
-import net.minecraft.text.LiteralTextContent;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableTextContent;
 import net.minecraft.util.ActionResult;
-import org.checkerframework.checker.units.qual.C;
 
 import java.util.ArrayList;
 
 public final class FeatureList extends IToggleableFeature
 {
     private final Text versionText;
+
     public FeatureList()
     {
         // set name
@@ -34,7 +30,9 @@ public final class FeatureList extends IToggleableFeature
         this.enable();
 		
         // version data should alr be initialised at this time
-        this.versionText = TextFactory.createTranslatable( "text.xenon.version", Xenon.INSTANCE.getVersion() );
+        this.versionText = Xenon.INSTANCE.getUpdateAvailable() ?
+                TextFactory.createTranslatable( "text.xenon.version.updateavailable", Xenon.INSTANCE.getVersion(), Xenon.INSTANCE.getLatestVersion() ) :
+                TextFactory.createTranslatable( "text.xenon.version", Xenon.INSTANCE.getVersion() );
 
         // register listener
         RenderInGameHudEvent.AFTER_VIGNETTE.register( this::onInGameHudRender );

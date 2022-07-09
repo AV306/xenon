@@ -70,6 +70,7 @@
   "text.xenon.ifeature.executeaction.success": "[%s] Successfully executed action: %s",
   "text.xenon.ifeature.executeaction.fail": "[%s] Failed to execute action: %s",
   "text.xenon.version": "Xenon %s",
+  "text.xenon.version.updateavailable": "Xenon %s (%s available)",
   "text.xenon.waila.blocktype": "Block: %s | Break Time: %f | Blast resistance: %f",
   "text.xenon.waila.entityhealth": "Entity: %s, Health: %f"
 }

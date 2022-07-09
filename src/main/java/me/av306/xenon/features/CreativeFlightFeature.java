@@ -18,6 +18,8 @@ public class CreativeFlightFeature extends IToggleableFeature
 
     private ActionResult onEndPlayerTick()
     {
+        if ( !this.isEnabled ) return ActionResult.PASS;
+
         // force flying
         Xenon.INSTANCE.client.player.getAbilities().allowFlying = true;
 

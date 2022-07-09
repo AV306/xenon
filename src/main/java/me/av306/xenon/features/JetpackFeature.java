@@ -16,6 +16,8 @@ public class JetpackFeature extends IToggleableFeature
 
     private ActionResult onEndPlayerTick()
     {
+        if ( !this.isEnabled ) return ActionResult.PASS;
+
         // basically jump, and jump again while you;re still in midair, and repeat
         if ( Xenon.INSTANCE.client.options.jumpKey.isPressed() )
             Xenon.INSTANCE.client.player.jump();
@@ -26,7 +28,8 @@ public class JetpackFeature extends IToggleableFeature
     @Override
     protected void onEnable()
     {
-        try {
+        try
+        {
             // disable creative and normal flyhacks
             ((IToggleableFeature) Xenon.INSTANCE.featureRegistry.get( "CreativeFlight" )).disable();
             ((IToggleableFeature) Xenon.INSTANCE.featureRegistry.get( "Flight" )).disable();
