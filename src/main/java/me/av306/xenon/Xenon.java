@@ -6,12 +6,10 @@ import me.av306.xenon.feature.IToggleableFeature;
 import me.av306.xenon.features.*;
 import me.av306.xenon.mixin.MinecraftClientAccessor;
 import me.av306.xenon.util.text.TextFactory;
-import me.av306.xenon.util.update.UpdateChecker;
 import me.lortseam.completeconfig.data.Config;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.text.ClickEvent;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import org.apache.logging.log4j.LogManager;
@@ -51,8 +49,11 @@ public enum Xenon
     //public void setVersion( String version ) { this.version = version; }
     private boolean updateAvailable = false;
     public boolean getUpdateAvailable() { return this.updateAvailable; }
+    private int latestVersion = 0;
+    public int getLatestVersion() { return this.latestVersion; }
 
-    private final String backend = "https://pocostudios.ddns.net:5050/versions?project=xenon";
+
+    private final String backend = "http://pocostudios.ddns.net:5050/versions?project=xenon";
 
     public ModContainer modContainer;
 
@@ -64,13 +65,13 @@ public enum Xenon
 
     public void initialise()
     {
-        assert this.client == null;
+        //assert this.client == null;
 
         readVersionData();
         checkForUpdate();
 
-	// load configs
-	this.config.load();
+	    // load configs
+	    this.config.load();
 			
         // set client
         this.client = MinecraftClient.getInstance();
@@ -109,7 +110,10 @@ public enum Xenon
 
     private void checkForUpdate()
     {
-        this.updateAvailable = UpdateChecker.checkForUpdate( this.backend );
+        // FIXME
+        //this.latestVersion = UpdateChecker.getLatestVersion( this.backend );
+
+        //this.updateAvailable = this.latestVersion > UpdateChecker.getCurrentVersion();
     }
 
 

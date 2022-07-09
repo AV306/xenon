@@ -6,12 +6,8 @@ import java.net.*;
 
 public class UpdateChecker
 {
-    public static boolean checkForUpdate( String urlString )
-    {
-        return getLatestVersion( urlString ) > getCurrentVersion();
-    }
 
-    private static int getLatestVersion( String urlString )
+    public static int getLatestVersion( String urlString )
     {
         int latestVer = 0;
         try
@@ -35,13 +31,15 @@ public class UpdateChecker
                 // E.g. "4.3.1+1.19.x" -> 431
                 // "4.4.0+1.19.x" -> 440
                 // These can then be compared to the current version easily.
-                latestVer = Integer.parseInt( (String) connection.getContent() ); // NFE, CCE
+                latestVer = Integer.parseInt( (String) connection.getContent()); // NFE, CCE
             }
         }
         catch ( Exception e )
         {
             Xenon.INSTANCE.LOGGER.warn( e );
         }
+
+        Xenon.INSTANCE.LOGGER.info( "Latest version: {}", latestVer );
 
         return latestVer;
 
@@ -80,7 +78,7 @@ public class UpdateChecker
         return latestVersion > currentVersion;*/
     }
 
-    private static int getCurrentVersion()
+    public static int getCurrentVersion()
     {
         int temp = 0;
 
