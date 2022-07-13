@@ -49,8 +49,8 @@ public enum Xenon
     //public void setVersion( String version ) { this.version = version; }
     private boolean updateAvailable = false;
     public boolean getUpdateAvailable() { return this.updateAvailable; }
-    private int latestVersion = 0;
-    public int getLatestVersion() { return this.latestVersion; }
+    private String latestVersion = 0;
+    public String getLatestVersion() { return this.latestVersion; }
 
 
     private final String backend = "http://pocostudios.ddns.net:5050/versions?project=xenon";
@@ -111,8 +111,12 @@ public enum Xenon
     private void checkForUpdate()
     {
         // FIXME
-        //this.latestVersion = UpdateChecker.getLatestVersion( this.backend );
+        this.latestVersion = UpdateChecker.getLatestVersion( this.backend );
+        
+        int latestV = UpdateChecker.getVersionInt( latestVersion );
+        int currentV = UpdateChecker.getVersionInt( this.version );
 
+        this.updateAvailable = latestV > currentV;
         //this.updateAvailable = this.latestVersion > UpdateChecker.getCurrentVersion();
     }
 
