@@ -2,14 +2,16 @@ package me.av306.xenon.util.update;
 
 import me.av306.xenon.Xenon;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.net.*;
 
 public class UpdateChecker
 {
 
-    public static int getLatestVersion( String urlString )
+    public static String getLatestVersion( String urlString )
     {
-        int latestVer = 0;
+        String latestVerString = "0.0.0";
         try
         {
             URL api = new URL( urlString );
@@ -26,22 +28,23 @@ public class UpdateChecker
             else
             {
                 // we are connecting to my intermediary server,
-                // which will perform the backend bookkeeping on the tags.
-                // It will return the latest version as a integer.
+                // which will extract the latest tag.
+                // It will return the latest version as a string,
+                // which we then convert to an int later.
                 // E.g. "4.3.1+1.19.x" -> 431
                 // "4.4.0+1.19.x" -> 440
-                // These can then be compared to the current version easily.
-                latestVer = Integer.parseInt( (String) connection.getContent()); // NFE, CCE
+                latestVerString = new BufferedReader( new InputStreamReader( connection.getInputStream() ) ); // I lost count alr
             }
         }
         catch ( Exception e )
         {
             Xenon.INSTANCE.LOGGER.warn( e );
+            latestVerString = "0.0.0"; // safety
         }
 
-        Xenon.INSTANCE.LOGGER.info( "Latest version: {}", latestVer );
+        Xenon.INSTANCE.LOGGER.info( "Latest version string: {}", latestVerString );
 
-        return latestVer;
+        return latestVerString;
 
         /*
         String latestTag;
@@ -78,7 +81,25 @@ public class UpdateChecker
         return latestVersion > currentVersion;*/
     }
 
-    public static int getCurrentVersion()
+    public static int getVersionInt( String verString )
+    {
+        int verInt = 0;
+
+        try
+        {
+            // "4.4.0" -> "440" -> 440
+            verInt = Integer.parseInt( verString.replaceAll( "\\.", "" ).trim() );
+        }
+        catch( NumberFormatException nfe )
+        {
+            Xenon.INSTANCE.LOGGER.warn( "Invalid version string {}!", verString );
+            verInt = 0;
+        }
+
+        return verInt;
+    }
+
+    /*public static int getCurrentVersionInt()
     {
         int temp = 0;
 
@@ -94,5 +115,5 @@ public class UpdateChecker
         }
 
         return temp;
-    }
+    }*/
 }

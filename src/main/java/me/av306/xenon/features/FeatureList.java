@@ -38,6 +38,7 @@ public final class FeatureList extends IToggleableFeature
         RenderInGameHudEvent.AFTER_VIGNETTE.register( this::onInGameHudRender );
     }
 
+    // TODO: profile
     private ActionResult onInGameHudRender( MatrixStack matrices, float tickDelta )
     {
         if ( !this.isEnabled ) return ActionResult.PASS;
