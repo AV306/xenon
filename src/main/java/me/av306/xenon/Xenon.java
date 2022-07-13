@@ -15,6 +15,7 @@ import net.minecraft.util.Formatting;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -53,7 +54,7 @@ public enum Xenon
     public String getLatestVersion() { return this.latestVersion; }
 
 
-    private final String backend = "http://pocostudios.ddns.net:5050/versions?project=xenon";
+    private final URL backend = new URL( "http://pocostudios.ddns.net:5050/versions?project=xenon" );
 
     public ModContainer modContainer;
 

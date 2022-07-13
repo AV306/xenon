@@ -8,33 +8,20 @@ import java.net.*;
 
 public class UpdateChecker
 {
-
-    public static String getLatestVersion( String urlString )
+    public static String getLatestVersion( URL url )
     {
         String latestVerString = "0.0.0";
-        try
+
+        // openStream() implicitly performs the connection
+        try ( BufferedReader reader = new BufferedReader( new InputStreamReader( url.openStream() ) ) )
         {
-            URL api = new URL( urlString );
-
-            HttpURLConnection connection = (HttpURLConnection) api.openConnection(); // IOException
-            connection.setRequestMethod( "GET" );
-            connection.connect(); // SocketTimeoutException or IOException
-
-            // response code!
-            int responseCode = connection.getResponseCode();
-
-            if ( responseCode != 200 )
-                Xenon.INSTANCE.LOGGER.warn( "Oh no! Update check returned code {} and this is very bad!!!", responseCode );
-            else
-            {
-                // we are connecting to my intermediary server,
-                // which will extract the latest tag.
-                // It will return the latest version as a string,
-                // which we then convert to an int later.
-                // E.g. "4.3.1+1.19.x" -> 431
-                // "4.4.0+1.19.x" -> 440
-                latestVerString = new BufferedReader( new InputStreamReader( connection.getInputStream() ) ); // I lost count alr
-            }
+            // we are connecting to my intermediary server,
+            // which will extract the latest tag for us.
+            // It will return the latest version as a string,
+            // which we then convert to an int later.
+            // E.g. "4.3.1+1.19.x" -> 431
+            // "4.4.0+1.19.x" -> 440
+            latestVerString = reader.readLine();
         }
         catch ( Exception e )
         {
