@@ -8,12 +8,12 @@ import java.net.*;
 
 public class UpdateChecker
 {
-    public static String getLatestVersion( URL url )
+    public static String getLatestVersion( String url )
     {
         String latestVerString = "0.0.0";
 
         // openStream() implicitly performs the connection
-        try ( BufferedReader reader = new BufferedReader( new InputStreamReader( url.openStream() ) ) )
+        try ( BufferedReader reader = new BufferedReader( new InputStreamReader( new URL( url ).openStream() ) ) )
         {
             // we are connecting to my intermediary server,
             // which will extract the latest tag for us.

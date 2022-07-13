@@ -55,7 +55,7 @@ public enum Xenon
     public String getLatestVersion() { return this.latestVersion; }
 
 
-    private final URL backend = new URL( "http://pocostudios.ddns.net:5050/versions?project=xenon" );
+    private final String backend = "http://pocostudios.ddns.net:5050/versions?project=xenon";
 
     public ModContainer modContainer;
 
