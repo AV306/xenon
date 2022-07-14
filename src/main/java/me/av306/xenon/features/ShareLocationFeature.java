@@ -10,14 +10,22 @@ public class ShareLocationFeature extends IFeature
 {
 	public ShareLocationFeature() { super( "ShareLocation" ); }
 
-	/*private String formatDimType( DimensionType dim )
+	private String formatDimType( DimensionType dim )
 	{
 		// lasagna code to convert dim type to string
-		if ( dim.equals( DimensionType.OVERWORLD ) ) return "Overworld";
+		/*if ( dim.equals( DimensionType.OVERWORLD ) ) return "Overworld";
 		else if ( dim.equals( DimensionType.OVERWORLD_CAVES ) ) return "Overworld Caves";
 		else if ( dim.equals( DimensionType.THE_END ) ) return "The End";
-		else if ( dim.equals( DimensionType.THE_NETHER ) ) return "Nether";
-	}*/
+		else if ( dim.equals( DimensionType.THE_NETHER ) ) return "Nether";*/
+
+		switch ( dim )
+		{
+			case DimensionType.OVERWORLD -> return "Overworld";
+			case DimensionType.OVERWORLD_CAVES -> return "Caves"; // ???
+			case DimensionType.THE_END -> return "The End";
+			case DimensionType.THE_NETHER -> return "Nether";
+		}
+	}
 
 	@Override
 	protected void onEnable()
@@ -26,12 +34,16 @@ public class ShareLocationFeature extends IFeature
 		Vec3d currentPos = Xenon.INSTANCE.client.player.getPos();
 
 		// get the player's current dimension
-		DimensionType dim = Xenon.INSTANCE.client.world.getDimension();
+		String dim = formatDimType( Xenon.INSTANCE.client.world.getDimension() );
 
 		// round and display
-		String text = "[" + Math.round( currentPos.getX() ) + ", " +
-			Math.round( currentPos.getY() ) + ", " +
-			Math.round( currentPos.getZ() ) + "]";
+		Text loc = TextFactory.createTranslatable(
+			"text.xenon.sharelocation.location",
+			dim,
+			currentPos.getX(),
+			currentPos.getY(),
+			currentPos.getZ()
+		);
 
 		Xenon.INSTANCE.client.player.sendChatMessage( text );
 	}
