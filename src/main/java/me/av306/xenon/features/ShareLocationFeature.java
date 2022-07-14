@@ -27,6 +27,8 @@ public class ShareLocationFeature extends IFeature
 			case DimensionType.THE_END -> name = "The End";
 			case DimensionType.THE_NETHER -> name = "Nether";
 		}
+
+		return name;
 	}
 
 	@Override
