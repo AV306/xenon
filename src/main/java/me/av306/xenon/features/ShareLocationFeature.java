@@ -4,6 +4,7 @@ import me.av306.xenon.Xenon;
 import me.av306.xenon.feature.IFeature;
 import me.av306.xenon.util.text.TextFactory;
 
+import net.minecraft.text.Text;
 import net.minecraft.world.dimension.DimensionTypes;
 import net.minecraft.util.math.Vec3d;
 
