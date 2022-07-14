@@ -18,12 +18,14 @@ public class ShareLocationFeature extends IFeature
 		else if ( dim.equals( DimensionType.THE_END ) ) return "The End";
 		else if ( dim.equals( DimensionType.THE_NETHER ) ) return "Nether";*/
 
+		String name;
+
 		switch ( dim )
 		{
-			case DimensionType.OVERWORLD -> return "Overworld";
-			case DimensionType.OVERWORLD_CAVES -> return "Caves"; // ???
-			case DimensionType.THE_END -> return "The End";
-			case DimensionType.THE_NETHER -> return "Nether";
+			case DimensionType.OVERWORLD -> name = "Overworld";
+			case DimensionType.OVERWORLD_CAVES -> name = "Caves"; // ???
+			case DimensionType.THE_END -> name = "The End";
+			case DimensionType.THE_NETHER -> name = "Nether";
 		}
 	}
 
