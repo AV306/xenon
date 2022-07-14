@@ -2,8 +2,9 @@ package me.av306.xenon.features;
 
 import me.av306.xenon.Xenon;
 import me.av306.xenon.feature.IFeature;
+import me.av306.xenon.util.text.TextFactory;
 
-import net.minecraft.world.dimension.DimensionType;
+import net.minecraft.world.dimension.DimensionTypes;
 import net.minecraft.util.math.Vec3d;
 
 public class ShareLocationFeature extends IFeature
@@ -24,7 +25,7 @@ public class ShareLocationFeature extends IFeature
 		{
 			case DimensionType.OVERWORLD -> name = "Overworld";
 			case DimensionType.OVERWORLD_CAVES -> name = "Caves"; // ???
-			case DimensionType.THE_END -> name = "The End";
+			case DimensionType.THE_END -> name = "End";
 			case DimensionType.THE_NETHER -> name = "Nether";
 		}
 
