@@ -12,7 +12,7 @@ public class ShareLocationFeature extends IFeature
 {
 	public ShareLocationFeature() { super( "ShareLocation" ); }
 
-	private String formatDimType( DimensionType dim )
+	private String formatDimType( DimensionTypes dim )
 	{
 		// lasagna code to convert dim type to string
 		/*if ( dim.equals( DimensionType.OVERWORLD ) ) return "Overworld";
@@ -24,10 +24,10 @@ public class ShareLocationFeature extends IFeature
 
 		switch ( dim )
 		{
-			case DimensionType.OVERWORLD -> name = "Overworld";
-			case DimensionType.OVERWORLD_CAVES -> name = "Caves"; // ???
-			case DimensionType.THE_END -> name = "End";
-			case DimensionType.THE_NETHER -> name = "Nether";
+			case DimensionTypes.OVERWORLD -> name = "Overworld";
+			case DimensionTypes.OVERWORLD_CAVES -> name = "Caves"; // ???
+			case DimensionTypes.THE_END -> name = "End";
+			case DimensionTypes.THE_NETHER -> name = "Nether";
 		}
 
 		return name;
