@@ -44,6 +44,12 @@ run/
 .settings/
 .breakpoints
 replit.nix
+
+# +------+
+# | Misc |
+# +------+
+
+# building in special cases
 jdk-18/
 
 # reference
