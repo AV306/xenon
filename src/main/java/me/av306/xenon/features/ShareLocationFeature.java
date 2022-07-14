@@ -30,7 +30,7 @@ public class ShareLocationFeature extends IFeature
 			case DimensionTypes.THE_NETHER -> name = "Nether";
 		}
 
-		return name;
+		return name; // TODO: we have to figure it out by bedWorks and coordinateScale
 	}
 
 	@Override
