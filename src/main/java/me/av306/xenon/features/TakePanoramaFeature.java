@@ -42,7 +42,7 @@ public class TakePanoramaFeature extends IFeature
                                 new ClickEvent( ClickEvent.Action.OPEN_FILE, panoramaFile.getAbsolutePath() )
                         )
                 )
-					      .formatted( Xenon.INSTANCE.SUCCESS_FORMAT );
+		.formatted( Xenon.INSTANCE.SUCCESS_FORMAT );
 
         Text msg = TextFactory.createTranslatable( "text.xenon.takepanorama.success", linkToPanoramas );
 
