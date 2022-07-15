@@ -41,7 +41,7 @@ public class ShareLocationFeature extends IFeature
 			"text.xenon.sharelocation.location",
 			dim,
 			Math.round( currentPos.getX() ),
-			math.round( currentPos.getY() ),
+			Math.round( currentPos.getY() ),
 			Math.round( currentPos.getZ() )
 		);
 
