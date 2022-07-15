@@ -45,6 +45,6 @@ public class ShareLocationFeature extends IFeature
 			Math.round( currentPos.getZ() )
 		);
 
-		Xenon.INSTANCE.client.player.sendChatMessage( text );
+		Xenon.INSTANCE.client.player.sendChatMessage( loc );
 	}
 }
