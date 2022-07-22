@@ -34,9 +34,9 @@ public class JetpackFeature extends IToggleableFeature
             ((IToggleableFeature) Xenon.INSTANCE.featureRegistry.get( "CreativeFlight" )).disable();
             ((IToggleableFeature) Xenon.INSTANCE.featureRegistry.get( "Flight" )).disable();
         }
-        catch ( NullPointerException npe )
+        catch ( NullPointerException ignored )
         {
-            Xenon.INSTANCE.LOGGER.warn( "{} failed to disable other flight features!", this.name );
+            
         }
     }
 
