@@ -2,6 +2,7 @@ package me.av306.xenon.features;
 
 import me.av306.xenon.Xenon;
 import me.av306.xenon.feature.IFeature;
+import me.av306.xenon.util.text.TextFactory;
 import net.minecraft.util.math.Vec3d;
 
 public class ShareLocationFeature extends IFeature
@@ -42,6 +43,6 @@ public class ShareLocationFeature extends IFeature
 				""
 		);
 
-		Xenon.INSTANCE.client.player.sendChatMessage( loc );
+		Xenon.INSTANCE.client.player.sendChatMessage( loc, TextFactory.createLiteral( loc ) );
 	}
 }

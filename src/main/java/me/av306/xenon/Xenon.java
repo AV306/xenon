@@ -85,7 +85,7 @@ public enum Xenon
         //new ExtraReachFeature(); // FIXME: desyncs
         new FastBreakFeature();
         new FeatureList();
-        new FlightFeature();
+        //new FlightFeature();
         new FullBrightFeature();
         new HighJumpFeature();
         new JetpackFeature();

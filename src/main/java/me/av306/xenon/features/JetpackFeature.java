@@ -41,6 +41,6 @@ public class JetpackFeature extends IToggleableFeature
     @Override
     protected void onDisable()
     {
-
+        ((IToggleableFeature) Xenon.INSTANCE.featureRegistry.get( "nofalldamage" )).disable();
     }
 }

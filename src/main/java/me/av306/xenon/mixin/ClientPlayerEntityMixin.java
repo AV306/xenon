@@ -9,7 +9,6 @@ import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.network.encryption.PlayerPublicKey;
-import net.minecraft.network.message.ChatMessageSigner;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import org.jetbrains.annotations.Nullable;
@@ -50,10 +49,10 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 
     @Inject(
             at = @At( "HEAD" ),
-            method = "sendChatMessagePacket(Lnet/minecraft/network/message/ChatMessageSigner;Ljava/lang/String;Lnet/minecraft/text/Text;)V",
+            method = "sendChatMessage(Ljava/lang/String;Lnet/minecraft/text/Text;)V",
             cancellable = true
     )
-    private void onSendChatMessagePacket( ChatMessageSigner signer, String message, @Nullable Text previewCallbackInfo, CallbackInfo ci )
+    private void onSendChatMessage( String message, @Nullable Text previewCallbackInfo, CallbackInfo ci )
     {
         //Xenon.INSTANCE.LOGGER.info( "msg" );
         ActionResult result = ChatOutputEvent.EVENT.invoker().interact( message );
@@ -61,6 +60,23 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
         if ( result == ActionResult.FAIL )
             ci.cancel();
     }
+
+    /*
+    // backup code, use if above doesn't work
+    @Inject(
+            at = @At( "HEAD" ),
+            method = "sendChatMessagePacket(Ljava/lang/String;Lnet/minecraft/text/Text;)V",
+            cancellable = true
+    )
+    private void onSendChatMessagePacket( String message, @Nullable Text previewCallbackInfo, CallbackInfo ci )
+    {
+        //Xenon.INSTANCE.LOGGER.info( "msg" );
+        ActionResult result = ChatOutputEvent.EVENT.invoker().interact( message );
+
+        if ( result == ActionResult.FAIL )
+            ci.cancel();
+    }
+     */
 
     @Inject(
             at = @At( "HEAD" ),
