@@ -1,5 +1,8 @@
 package me.av306.xenon.features;
 
+import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket.OnGroundOnly;
+
 import me.av306.xenon.feature.IToggleableFeature;
 import me.av306.xenon.event.ClientPlayerTickEvents;
 
@@ -21,14 +24,15 @@ public class NoFallDamageFeature extends IToggleableFeature
         if ( player.fallDistance <= (player.isFallFlying() ? 1 : 2) )
             return ActionResult.PASS;
 
-        if(player.isFallFlying() && player.isSneaking()
-			&& !isFallingFastEnoughToCauseDamage(player))
-			return ActionResult.PASS;
+        if(
+            player.isFallFlying() && player.isSneaking()
+			&& !isFallingFastEnoughToCauseDamage(player)
+        ) return ActionResult.PASS;
 		
-		player.networkHandler.sendPacket(new OnGroundOnly(true));
+		player.networkHandler.sendPacket( new OnGroundOnly(true) );
 	}
 	
-	private boolean isFallingFastEnoughToCauseDamage(ClientPlayerEntity player)
+	private boolean isFallingFastEnoughToCauseDamage( ClientPlayerEntity player )
 	{
 		return player.getVelocity().y < -0.5;
 	}
