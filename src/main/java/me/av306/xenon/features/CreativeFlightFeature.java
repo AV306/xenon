@@ -32,6 +32,10 @@ public class CreativeFlightFeature extends IToggleableFeature
         // disable jetpack and normal flyhack
         ((IToggleableFeature) Xenon.INSTANCE.featureRegistry.get( "Jetpack" )).disable();
         //((IToggleableFeature) Xenon.INSTANCE.featureRegistry.get( "Flight" )).disable();
+
+        // enable no fall damage if wanted
+        if ( CreativeFlightGroup.enableNoFall )
+            ((IToggleableFeature) Xenon.INSTANCE.featureRegistry.get( "nofalldamage" )).enable();
     }
 
     @Override
