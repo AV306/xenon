@@ -1,8 +1,6 @@
 package me.av306.xenon.features;
 
-import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket.OnGroundOnly;
-
+import me.av306.xenon.Xenon;
 import me.av306.xenon.feature.IToggleableFeature;
 import me.av306.xenon.event.ClientPlayerTickEvents;
 
