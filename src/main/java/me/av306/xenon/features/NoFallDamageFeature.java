@@ -6,6 +6,10 @@ import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket.OnGroundOnly;
 import me.av306.xenon.feature.IToggleableFeature;
 import me.av306.xenon.event.ClientPlayerTickEvents;
 
+import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.network.packet.c2s.play.PlayerMoveC2SPacket.OnGroundOnly;
+import net.minecraft.util.ActionResult;
+
 public class NoFallDamageFeature extends IToggleableFeature
 {
     public NoFallDamageFeature()
