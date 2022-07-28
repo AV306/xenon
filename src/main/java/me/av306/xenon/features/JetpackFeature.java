@@ -1,6 +1,7 @@
 package me.av306.xenon.features;
 
 import me.av306.xenon.Xenon;
+import me.av306.xenon.config.JetpackGroup;
 import me.av306.xenon.event.ClientPlayerTickEvents;
 import me.av306.xenon.feature.IToggleableFeature;
 import net.minecraft.util.ActionResult;
@@ -28,16 +29,13 @@ public class JetpackFeature extends IToggleableFeature
     @Override
     protected void onEnable()
     {
-        try
-        {
-            // disable creative and normal flyhacks
-            ((IToggleableFeature) Xenon.INSTANCE.featureRegistry.get( "CreativeFlight" )).disable();
-            ((IToggleableFeature) Xenon.INSTANCE.featureRegistry.get( "Flight" )).disable();
-        }
-        catch ( NullPointerException ignored )
-        {
-            
-        }
+        // disable creative and normal flyhacks
+        ((IToggleableFeature) Xenon.INSTANCE.featureRegistry.get( "creativeflight" )).disable();
+        //((IToggleableFeature) Xenon.INSTANCE.featureRegistry.get( "flight" )).disable();
+
+        // enable no fall damage if wanted
+        if ( JetpackGroup.enableNoFall )
+            ((IToggleableFeature) Xenon.INSTANCE.featureRegistry.get( "nofalldamage" )).enable();
     }
 
     @Override

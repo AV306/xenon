@@ -1,3 +1,22 @@
+#             *
+#            / \
+#           / | \
+#          /  |  \
+#         /   *   \
+#        +---------+
+#      !!! WARNING !!!
+#
+# This file is no longer in use.
+# It was a part of the legacy configuration system, which has been replaced
+# by CompleteConfig.
+# This is just here for the ASCII diagrams.
+
+
+
+
+
+
+
 # +----------------------------------------+
 # | .CONGIF v0.0.1                         |
 # | Example Xenon configuration file       |
