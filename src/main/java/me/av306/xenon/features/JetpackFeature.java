@@ -1,7 +1,7 @@
 package me.av306.xenon.features;
 
 import me.av306.xenon.Xenon;
-import me.av306.xenon.config.JetpackGroup;
+import me.av306.xenon.config.feature.JetpackGroup;
 import me.av306.xenon.event.ClientPlayerTickEvents;
 import me.av306.xenon.feature.IToggleableFeature;
 import net.minecraft.util.ActionResult;
@@ -35,7 +35,7 @@ public class JetpackFeature extends IToggleableFeature
 
         // enable no fall damage if wanted
         if ( JetpackGroup.enableNoFall )
-            ((IToggleableFeature) Xenon.INSTANCE.featureRegistry.get( "nofalldamage" )).enable();
+            Xenon.INSTANCE.featureRegistry.get( "nofalldamage" ).enable();
     }
 
     @Override
