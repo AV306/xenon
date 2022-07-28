@@ -23,6 +23,7 @@ public class NoFallDamageFeature extends IToggleableFeature
 
         ClientPlayerEntity player = Xenon.INSTANCE.client.player;
 
+        assert player != null;
         if ( player.fallDistance <= (player.isFallFlying() ? 1 : 2) )
             return ActionResult.PASS;
 
@@ -31,11 +32,25 @@ public class NoFallDamageFeature extends IToggleableFeature
 			&& !isFallingFastEnoughToCauseDamage(player)
         ) return ActionResult.PASS;
 		
-		player.networkHandler.sendPacket( new OnGroundOnly(true) );
+		player.networkHandler.sendPacket( new OnGroundOnly( true ) );
+
+        return ActionResult.PASS;
 	}
 	
 	private boolean isFallingFastEnoughToCauseDamage( ClientPlayerEntity player )
 	{
 		return player.getVelocity().y < -0.5;
 	}
+
+    @Override
+    protected void onEnable()
+    {
+
+    }
+
+    @Override
+    protected void onDisable()
+    {
+
+    }
 }
