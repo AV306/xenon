@@ -12,23 +12,26 @@ NOTE: Once a new Minecraft version is released, support for previous versions te
 
 ## Requirements:
 
+(check these [here](https://fabricmc.net/develop))
+
 - Fabric Loader >= 0.13.3 (Recommended: 0.13.3 Just use the latest version, it's better that way)
 - Fabric API for that version (Recommended: 0.57.0+1.19)
 
 ## Incompatible mods:
 
-- Nexus
+- Nexus (Xenon will, in time, check if Nexus is present and disable itself, because Nexus's codebase is an exact copy of Xenon's with extra features)
 
 ## Features:
 
 (All are unbound by default)
 
 ~~Maybe someday I'll implement multi-key seqnences~~
+
 - FullBright 
 - QuickChat
-- Bad WAILA implementation (use WTHIT instead)
-- Panorama Generator (I'm proud of this one)
-- ShareLocation
+- Bad WAILA implementation (use WTHIT instead, it's much better)
+- Panorama Generator (I'm proud of this one) (Note: does not work with shaders)
+- ShareLocation (under maintenance)
 - NoFireOverlay (useless, present in code but not accessible, exists for initial testing purposes)
 - FeatureList (not really a feature)
 - DataHUD (useless)
@@ -40,14 +43,9 @@ NOTE: Once a new Minecraft version is released, support for previous versions te
 - SpeedBoost (WIP)
 - HighJump
 - AntiKnockback (WIP)
+- NoFall (WIP)
 - modular and user-friendly feature creation/registration system I spent way too much time on
 - Command processor and the beginnings of a macro system
-
-Planned features:
-
-- AntiAFK
-- QuickCommand
-- FreeCam
 
 ## Licensed under GNU GPL v3
 
@@ -69,25 +67,46 @@ Planned features:
 3. Register event callbacks in the constructor, see `Timer` for an example. (Note: some features, like JumpBoost, that require  modifying the values of fields right before they are accessed, are more complex. Use `EventFields`, see `JumpBoost`.)
 4. Register your feature by calling its constructor in `Xenon` (main class).
 
+.
 
+.
 
+.
 
+.
 
+.
 
+.
 
+.
 
+.
 
+.
 
+.
 
+.
 
+.
 
+.
 
+.
 
+.
 
+.
 
+.
 
+.
 
+.
 
+.
 
+.
 
-why did i even spend a year of my life making this no one even cares about or notices, much less uses this stupid thing
+why did i even spend more than a year of my life making this no one even cares about or notices, much less uses this stupid thing
