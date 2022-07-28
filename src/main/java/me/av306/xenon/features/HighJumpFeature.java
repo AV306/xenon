@@ -1,71 +1,28 @@
 package me.av306.xenon.features;
 
-import me.av306.xenon.config.GeneralConfigGroup;
+import me.av306.xenon.Xenon;
 import me.av306.xenon.config.feature.HighJumpGroup;
 import me.av306.xenon.event.EventFields;
-import me.av306.xenon.event.GetJumpVelocityEvent;
-import me.av306.xenon.event.RenderInGameHudEvent;
-import me.av306.xenon.feature.IToggleableFeature;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.ActionResult;
+import me.av306.xenon.feature.IFeature;
 
-public class HighJumpFeature extends IToggleableFeature
+public class HighJumpFeature extends IFeature
 {
-    //protected static HighJumpFeature instance;
-
-    private short ticks = 0;
-
     public HighJumpFeature()
     {
-        super( "HighJump" );
+        super( "HighJump", "hj" );
 
-        RenderInGameHudEvent.AFTER_VIGNETTE.register( this::onRenderInGameHud );
-        GetJumpVelocityEvent.EVENT.register( this::onGetJumpVelocity );
-
-        //instance = this;
+        //GetJumpVelocityEvent.EVENT.register( this::onGetJumpVelocity );
     }
-
-    private ActionResult onRenderInGameHud( MatrixStack matrixStack, float tickDelta )
-    {
-        if ( !this.isEnabled ) return ActionResult.PASS;
-
-        if ( ticks >= GeneralConfigGroup.interval )
-        {
-            ticks = 0;
-            this.setName( "HighJump (" + HighJumpGroup.height + ")" );
-        }
-        else ticks++;
-
-        return ActionResult.PASS;
-    }
-
-    private ActionResult onGetJumpVelocity()
-    {
-        if ( !this.isEnabled ) return ActionResult.PASS;
-
-        EventFields.JUMP_VELOCITY_MODIFIER = HighJumpGroup.height * HighJumpGroup.multiplier;
-
-        return ActionResult.PASS;
-    }
-
-    /*@Override
-    public static HighJumpFeature getInstance()
-    {
-        return instance;
-    }*/
 
     @Override
     protected void onEnable()
     {
-        float height = HighJumpGroup.height * HighJumpGroup.multiplier;
-        EventFields.JUMP_VELOCITY_MODIFIER = height;
-        this.setName( "HighJump (" + height + ")" );
-    }
+        float h = HighJumpGroup.height * HighJumpGroup.multiplier;
+        EventFields.JUMP_VELOCITY_MODIFIER += h;
 
-    @Override
-    protected void onDisable()
-    {
-        EventFields.JUMP_VELOCITY_MODIFIER = 0f; // TODO: make way for other features that might want to modify this
+        Xenon.INSTANCE.client.player.jump();
+
+        EventFields.JUMP_VELOCITY_MODIFIER -= h;
     }
 
     @Override
