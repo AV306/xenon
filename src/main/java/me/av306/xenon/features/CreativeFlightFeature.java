@@ -36,7 +36,7 @@ public class CreativeFlightFeature extends IToggleableFeature
 
         // enable no fall damage if wanted
         if ( CreativeFlightGroup.enableNoFall )
-            ((IToggleableFeature) Xenon.INSTANCE.featureRegistry.get( "nofalldamage" )).enable();
+            Xenon.INSTANCE.featureRegistry.get( "nofalldamage" ).enable();
     }
 
     @Override
@@ -49,5 +49,7 @@ public class CreativeFlightFeature extends IToggleableFeature
         // stop flying unless player is actually creative AND already flying
         abilities.flying = creative && !player.isOnGround();
         abilities.allowFlying = creative;
+
+        ((IToggleableFeature) Xenon.INSTANCE.featureRegistry.get( "nofalldamage" )).disable();
     }
 }
