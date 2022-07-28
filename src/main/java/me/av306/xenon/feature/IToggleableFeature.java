@@ -23,6 +23,11 @@ public abstract class IToggleableFeature extends IFeature
                 .formatted( Xenon.INSTANCE.SUCCESS_FORMAT );
     }
 
+    protected IToggleableFeature( String name, String... aliases )
+    {
+        super( name, aliases );
+    }
+
     /*public static IToggleableFeature getInstance()
     {
         return instance;

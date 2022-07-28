@@ -8,7 +8,6 @@ import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import org.lwjgl.glfw.GLFW;
 
-import java.util.Objects;
 import java.util.Arrays;
 
 /**
@@ -33,7 +32,7 @@ public abstract class IFeature
 	// generalised constructors (can't be called anyway)
 	protected IFeature( String name, int key )
 	{ 
-		this.name = Objects.requireNonNull( name );
+		this.name = name;
 
 		this.key = key;
 
@@ -57,6 +56,20 @@ public abstract class IFeature
 		// register our name in the registry
 		// (the DISPLAY name, not our actual class name)
 		Xenon.INSTANCE.featureRegistry.put( this.getName().toLowerCase(), this );
+	}
+
+
+	/**
+	 * @param name: The Feature's name
+	 * @param aliases: Aliases for the feature in CP. Should NOT contain the original name.
+	 */
+	protected IFeature( String name, String... aliases )
+	{
+		this( name, GLFW.GLFW_KEY_UNKNOWN );
+
+		// register aliases
+		for ( String alias : aliases )
+			Xenon.INSTANCE.featureRegistry.put( alias.toLowerCase(), this );
 	}
 
 	protected IFeature( String name )

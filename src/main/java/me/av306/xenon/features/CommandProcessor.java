@@ -14,7 +14,7 @@ public class CommandProcessor extends IToggleableFeature
 {
     public CommandProcessor()
     {
-        super( "CommandProcessor" );
+        super( "CommandProcessor", "cp", "cmd" );
 
         ChatOutputEvent.EVENT.register( this::onChatHudAddMessage );
 
