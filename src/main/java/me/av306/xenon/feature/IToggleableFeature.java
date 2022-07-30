@@ -56,6 +56,8 @@ public abstract class IToggleableFeature extends IFeature
 
         isEnabled = true;
 
+        Xenon.INSTANCE.log( this.getName() + " enabled!" );
+
         Xenon.INSTANCE.enabledFeatures.add( this );
 
         try
@@ -72,6 +74,8 @@ public abstract class IToggleableFeature extends IFeature
         if ( !isEnabled ) return; // safety catch
 
         isEnabled = false;
+
+        Xenon.INSTANCE.log( this.getName() + " disabled!" );
 
         Xenon.INSTANCE.enabledFeatures.remove( this );
 

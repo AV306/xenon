@@ -121,6 +121,7 @@ public class CommandProcessor extends IToggleableFeature
         catch ( NullPointerException npe )
         {
             Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocessor.invalidcommand.invalidfeature" );
+            npe.printStackTrace(); // debug
         }
         catch ( Exception e )
         {
