@@ -99,6 +99,8 @@ public abstract class IFeature
 			
 		isEnabled = true;
 
+		Xenon.INSTANCE.log( this.getName() + " enabled!" );
+
 		//Xenon.INSTANCE.featureManager.getEnabledFeatures().add( this.name );
 
 		onEnable();

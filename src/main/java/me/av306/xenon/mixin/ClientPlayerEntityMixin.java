@@ -47,12 +47,14 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
             ci.cancel();
     }*/
 
+    // 1.19.1 code
+    /*
     @Inject(
             at = @At( "HEAD" ),
             method = "sendChatMessage(Ljava/lang/String;Lnet/minecraft/text/Text;)V",
             cancellable = true
     )
-    private void onSendChatMessage( String message, @Nullable Text previewCallbackInfo, CallbackInfo ci )
+    private void onSendChatMessage(String message, @Nullable Text previewCallbackInfo, CallbackInfo ci )
     {
         //Xenon.INSTANCE.LOGGER.info( "msg" );
         ActionResult result = ChatOutputEvent.EVENT.invoker().interact( message );
@@ -76,7 +78,26 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
         if ( result == ActionResult.FAIL )
             ci.cancel();
     }
-     */
+    */
+
+    // 1.19 code
+    ///*
+
+    @Inject(
+            at = @At( "HEAD" ),
+            method = "sendChatMessagePacket(Lnet/minecraft/network/message/ChatMessageSigner;Ljava/lang/String;Lnet/minecraft/text/Text;)V",
+            cancellable = true
+    )
+    private void onSendChatMessagePacket (net.minecraft.network.message.ChatMessageSigner signer, String message, @Nullable Text previewCallbackInfo, CallbackInfo ci )
+    {
+        //Xenon.INSTANCE.LOGGER.info( "msg" );
+        ActionResult result = ChatOutputEvent.EVENT.invoker().interact( message );
+
+        if ( result == ActionResult.FAIL )
+            ci.cancel();
+    }
+    // */
+
 
     @Inject(
             at = @At( "HEAD" ),
