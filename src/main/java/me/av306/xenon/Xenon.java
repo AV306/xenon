@@ -53,9 +53,6 @@ public enum Xenon
     private String latestVersion;
     public String getLatestVersion() { return this.latestVersion; }
 
-
-    private final String backend = "http://pocostudios.ddns.net:5050/versions?project=xenon";
-
     public ModContainer modContainer;
 
     private final Text namePrefix = TextFactory.createLiteral( "[Xenon] " )
@@ -124,6 +121,9 @@ public enum Xenon
         this.updateAvailable = latestV > currentV;
         //this.updateAvailable = this.latestVersion > UpdateChecker.getCurrentVersion();
         */
+
+        this.latestVersion = "";
+        this.updateAvailable = false;
     }
 
 
