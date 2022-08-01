@@ -19,13 +19,13 @@ NOTE: Once a new Minecraft version is released, support for previous versions te
 
 ## Incompatible mods:
 
-- Nexus (Xenon will, in time, check if Nexus is present and disable itself, because Nexus's codebase is an exact copy of Xenon's with extra features)
+- Please help me find some
 
 ## Features:
 
 (All are unbound by default)
 
-~~Maybe someday I'll implement multi-key seqnences~~
+~~Maybe someday I'll implement multi-key sequences~~
 
 - FullBright 
 - QuickChat
@@ -43,7 +43,7 @@ NOTE: Once a new Minecraft version is released, support for previous versions te
 - SpeedBoost (WIP)
 - HighJump
 - AntiKnockback (WIP)
-- NoFall (WIP)
+- NoFallDamage
 - modular and user-friendly feature creation/registration system I spent way too much time on
 - Command processor and the beginnings of a macro system
 
@@ -109,4 +109,6 @@ NOTE: Once a new Minecraft version is released, support for previous versions te
 
 .
 
-why did i even spend more than a year of my life making this no one even cares about or notices, much less uses this stupid thing
+why did i even spend more than a year of my life making this, no one even cares about or notices, much less uses this stupid thing
+
+update: someone noticed yayy
