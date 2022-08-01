@@ -83,7 +83,7 @@ public class CommandProcessor extends IToggleableFeature
 
                 case "disable", "off", "d" -> ((IToggleableFeature) feature).disable(); // cce; user wants to disable a feature
 
-                case "exec", "execute", "ex", "run" ->
+                case "exec", "execute", "ex", "run", "do" ->
                 {
                     // pattern matching fun!
                     // copy over the components after the "exec"
@@ -109,28 +109,39 @@ public class CommandProcessor extends IToggleableFeature
                     feature.parseConfigChange( attrib, value );
                 }
             }
-        }
+        } // FIXME: This can't differentiate between exceptions thrown in here and those during enabling.
         catch ( ArrayIndexOutOfBoundsException oobe )
         {
+            // Tried to access smth outside the arg array
+            // probably not enough args
             Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocessor.invalidcommand.notenoughargs" );
         }
         catch ( ClassCastException cce )
         {
+            // Almost definitely tried to cast a Feature to a ToggleableFeature
             Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocessor.invalidcommand.featurenottoggleable" );
         }
         catch ( NullPointerException npe )
         {
+            // Somewhere, someone tried to access a non-existent feature
             Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocessor.invalidcommand.invalidfeature" );
-            npe.printStackTrace(); // debug
         }
         catch ( Exception e )
         {
+            // Oops!
             Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocessor.exception" );
         }
-
+        
+        // Cancel the message event.
         return ActionResult.FAIL;
     }
 
+    /**
+     * A helper method to deserialise a command into an array.
+     *
+     * @param prexixChar: The prefix character
+     * @param command: The command string to be formatted
+     */
     private String[] deserialiseCommand( char prefixChar, String command )
     {
         return command
@@ -154,7 +165,7 @@ public class CommandProcessor extends IToggleableFeature
         for ( String component : command )
             builder.append( component ).append( " " );
 
-        // the builder wll return a string with an extra space at the end
+        // the builder will return a string with an extra space at the end
         return builder.toString().trim();
     }
 

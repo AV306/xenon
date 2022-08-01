@@ -98,12 +98,14 @@ public enum Xenon
         new WailaFeature();
     }
 
-
+    // FIXME: usage of this is highly inconsistent
     public void log( String msg ) { if ( debug ) LOGGER.info( msg ); }
 
     private void readVersionData()
     {
         // set version & check for update
+
+        // assert that we're actually here
         assert FabricLoader.getInstance().getModContainer( "xenon" ).isPresent();
         this.modContainer = FabricLoader.getInstance().getModContainer( "xenon" ).get();
 
@@ -112,6 +114,7 @@ public enum Xenon
 
     private void checkForUpdate()
     {
+        /*
         // FIXME
         this.latestVersion = UpdateChecker.getLatestVersion( this.backend );
         
@@ -120,6 +123,7 @@ public enum Xenon
 
         this.updateAvailable = latestV > currentV;
         //this.updateAvailable = this.latestVersion > UpdateChecker.getCurrentVersion();
+        */
     }
 
 
