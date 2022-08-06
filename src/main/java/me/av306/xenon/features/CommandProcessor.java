@@ -89,7 +89,7 @@ public class CommandProcessor extends IToggleableFeature
                     // copy over the components after the "exec"
                     // e.g. [commandprocessor, exec, timer, enable] -> [timer, enable]
                     String[] action = Arrays.copyOfRange( possibleCommand, 2, possibleCommand.length );
-                    this.executeAction( action );
+                    feature.executeAction( action );
                 }
 
                 case "set" ->
