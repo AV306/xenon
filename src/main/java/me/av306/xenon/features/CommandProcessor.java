@@ -177,7 +177,7 @@ public class CommandProcessor extends IToggleableFeature
     protected void onDisable() {}
 
     @Override
-    protected boolean onConfigChange( String config, String value )
+    protected boolean onRequestConfigChange(String config, String value )
     {
         boolean result = config.contains( "prefix" );
         if ( result ) CommandProcessorGroup.prefix = value;

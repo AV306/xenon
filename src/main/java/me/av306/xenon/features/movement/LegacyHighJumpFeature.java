@@ -69,7 +69,7 @@ public class LegacyHighJumpFeature extends IToggleableFeature
     }
 
     @Override
-    protected boolean onConfigChange( String config, String value ) //throws NumberFormatException
+    protected boolean onRequestConfigChange(String config, String value ) //throws NumberFormatException
     {
         float v = Float.parseFloat( value );
         if (

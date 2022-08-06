@@ -7,6 +7,7 @@ import me.av306.xenon.features.*;
 import me.av306.xenon.features.blocks.FastBreakFeature;
 import me.av306.xenon.features.chat.QuickChatFeature;
 import me.av306.xenon.features.chat.ShareLocationFeature;
+import me.av306.xenon.features.fovchallenge.DecreaseFovFeature;
 import me.av306.xenon.features.fovchallenge.IncreaseFovFeature;
 import me.av306.xenon.features.movement.*;
 import me.av306.xenon.features.render.AustralianModeFeature;
@@ -104,6 +105,7 @@ public enum Xenon
         new WailaFeature();
 
         new IncreaseFovFeature();
+        new DecreaseFovFeature();
     }
 
     // FIXME: usage of this is highly inconsistent

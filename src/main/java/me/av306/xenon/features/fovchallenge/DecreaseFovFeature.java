@@ -7,7 +7,7 @@ public class DecreaseFovFeature extends IFeature
 {
     public DecreaseFovFeature()
     {
-        super( "DecreaseFov" );
+        super( "DecreaseFov", "df" );
     }
 
     @Override
