@@ -1,4 +1,4 @@
-package me.av306.xenon.features;
+package me.av306.xenon.features.chat;
 
 import me.av306.xenon.Xenon;
 import me.av306.xenon.config.feature.QuickChatGroup;

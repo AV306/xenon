@@ -37,7 +37,7 @@ public abstract class IFeature
 		this.key = key;
 
 		this.keyBinding = new KeyBinding(
-				"key.xenon." + this.name.toLowerCase(),
+				"key.xenon." + this.name.toLowerCase().replaceAll( " ", "" ),
 				InputUtil.Type.KEYSYM,
 				this.key,
 				"category.xenon.features"
@@ -53,9 +53,11 @@ public abstract class IFeature
 				client -> this.registerKeyEvent()
 		);
 
-		// register our name in the registry
-		// (the DISPLAY name, not our actual class name)
-		Xenon.INSTANCE.featureRegistry.put( this.getName().toLowerCase(), this );
+		// register our display name in the registry
+		Xenon.INSTANCE.featureRegistry.put(
+				this.getName().replaceAll( " ", "" ).toLowerCase(),
+				this
+		);
 	}
 
 
@@ -97,7 +99,7 @@ public abstract class IFeature
 	{
 		//if ( isEnabled ) return;
 			
-		isEnabled = true;
+		this.isEnabled = true;
 
 		Xenon.INSTANCE.log( this.getName() + " enabled!" );
 
