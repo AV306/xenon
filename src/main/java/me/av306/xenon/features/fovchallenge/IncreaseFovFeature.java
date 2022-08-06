@@ -15,20 +15,4 @@ public class IncreaseFovFeature extends IFeature
     {
         EventFields.FOV_MODIFIER += 10;
     }
-
-    @Override
-    protected boolean onRequestExecuteAction( String[] action )
-    {
-        try
-        {
-            double modifier = Double.parseDouble( action[0] );
-            EventFields.FOV_MODIFIER = Double.parseDouble( action[0] );
-        }
-        catch ( ArrayIndexOutOfBoundsException e )
-        {
-            return false;
-        }
-
-        return true;
-    }
 }

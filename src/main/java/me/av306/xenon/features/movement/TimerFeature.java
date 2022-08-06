@@ -54,7 +54,7 @@ public class TimerFeature extends IToggleableFeature
     }
 
     @Override
-    public boolean onConfigChange( String config, String value )
+    public boolean onRequestConfigChange(String config, String value )
     {
         boolean result = config.contains( "speed" );
 

@@ -29,6 +29,8 @@ public abstract class IFeature
 
 	protected KeyBinding keyBinding;
 
+	public boolean hide = false;
+
 	// generalised constructors (can't be called anyway)
 	protected IFeature( String name, int key )
 	{ 
@@ -129,7 +131,7 @@ public abstract class IFeature
 		
 		try
 		{
-            result = this.onConfigChange( config, value );
+            result = this.onRequestConfigChange( config, value );
 		}
 		catch ( NumberFormatException nfe )
 		{
@@ -161,8 +163,8 @@ public abstract class IFeature
 		}
 	}
 
-    // TODO: rename to "onRequestConfigChange"
-	protected boolean onConfigChange( String config, String value ) { return false; }
+    // renamed to "onRequestConfigChange"
+	protected boolean onRequestConfigChange( String config, String value ) { return false; }
 
     public void executeAction( String[] action )
 	{
@@ -185,7 +187,7 @@ public abstract class IFeature
 					"text.xenon.ifeature.executeaction.fail",
 					this.name,
 					Arrays.toString( action )
-				)
+				).formatted( Xenon.INSTANCE.ERROR_FORMAT )
 			);
 		}
 	}
