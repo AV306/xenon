@@ -43,6 +43,7 @@
   "config.xenon.featureconfiggroup.wailagroup.position.topCenter": "Top Center",
   "config.xenon.featureconfiggroup.wailagroup.position.topLeft": "Top Left",
   "config.xenon.featureconfiggroup.wailagroup.position.topRight": "Top Right",
+  "key.xenon.australianmode": "Australian Mode",
   "key.xenon.configmenu": "ConfigMenu",
   "key.xenon.commandprocessor": "CommandProcessor",
   "key.xenon.creativeflight": "CreativeFlight",

@@ -4,7 +4,15 @@ import me.av306.xenon.config.FeatureConfigGroup;
 import me.av306.xenon.feature.IFeature;
 import me.av306.xenon.feature.IToggleableFeature;
 import me.av306.xenon.features.*;
+import me.av306.xenon.features.blocks.FastBreakFeature;
+import me.av306.xenon.features.chat.QuickChatFeature;
+import me.av306.xenon.features.chat.ShareLocationFeature;
 import me.av306.xenon.features.fovchallenge.IncreaseFovFeature;
+import me.av306.xenon.features.movement.*;
+import me.av306.xenon.features.render.AustralianModeFeature;
+import me.av306.xenon.features.render.FullBrightFeature;
+import me.av306.xenon.features.render.ProximityRadarFeature;
+import me.av306.xenon.features.render.WailaFeature;
 import me.av306.xenon.mixin.MinecraftClientAccessor;
 import me.av306.xenon.util.text.TextFactory;
 import me.lortseam.completeconfig.data.Config;
@@ -76,6 +84,7 @@ public enum Xenon
         this.clientAccessor = (MinecraftClientAccessor) this.client;
 			
         // register features
+        new AustralianModeFeature();
         new CommandProcessor();
         new ConfigMenu();
         new CreativeFlightFeature();
