@@ -39,11 +39,12 @@ NOTE: Once a new Minecraft version is released, support for previous versions te
 - ProximityRadar
 - Timer (*wheee*)
 - FastBreak (Does not work *exactly* as intended, but close enough)
-- Fundy Ice Physics™ (WIP)
+- Fundy Ice Physics™ (Untested, just exists)
 - SpeedBoost (WIP)
 - HighJump
 - AntiKnockback (WIP)
 - NoFallDamage
+- Australian Mode (turns the world upside down)
 - modular and user-friendly feature creation/registration system I spent way too much time on
 - Command processor and the beginnings of a macro system
 
