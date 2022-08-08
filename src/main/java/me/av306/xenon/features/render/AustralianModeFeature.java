@@ -19,7 +19,8 @@ public class AustralianModeFeature extends IToggleableFeature
     private ActionResult onGetFov( Camera camera, float tickDelta, boolean changingFov )
     {
         if ( this.isEnabled )
-            EventFields.FOV_OVERRIDE = 360d - Xenon.INSTANCE.client.options.getFov().getValue();
+            //EventFields.FOV_OVERRIDE = 360d - Xenon.INSTANCE.client.options.getFov().getValue();
+            EventFields.FOV_OVERRIDE = -Xenon.INSTANCE.client.options.getFov().getValue();
 
         return ActionResult.PASS;
     }
