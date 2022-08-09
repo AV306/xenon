@@ -32,6 +32,36 @@ public abstract class IFeature
 	public boolean hide = false;
 
 	// generalised constructors (can't be called anyway)
+
+	// important ones
+	/**
+	 * @param name: The Feature's name
+	 * @param aliases: Aliases for the feature in CP. Should NOT contain the original name.
+	 */
+	protected IFeature( String name, String... aliases )
+	{
+		this( name, GLFW.GLFW_KEY_UNKNOWN );
+
+		// register aliases
+		for ( String alias : aliases )
+			Xenon.INSTANCE.featureRegistry.put( alias.toLowerCase(), this );
+	}
+
+	protected IFeature( String name, int key, String... aliases )
+	{
+		this( name, key );
+
+		// register aliases
+		for ( String alias : aliases )
+			Xenon.INSTANCE.featureRegistry.put( alias.toLowerCase(), this );
+	}
+
+	protected IFeature( String name )
+	{
+		this( name, GLFW.GLFW_KEY_UNKNOWN );
+	}
+
+	// random ones
 	protected IFeature( String name, int key )
 	{ 
 		this.name = name;
@@ -63,23 +93,6 @@ public abstract class IFeature
 	}
 
 
-	/**
-	 * @param name: The Feature's name
-	 * @param aliases: Aliases for the feature in CP. Should NOT contain the original name.
-	 */
-	protected IFeature( String name, String... aliases )
-	{
-		this( name, GLFW.GLFW_KEY_UNKNOWN );
-
-		// register aliases
-		for ( String alias : aliases )
-			Xenon.INSTANCE.featureRegistry.put( alias.toLowerCase(), this );
-	}
-
-	protected IFeature( String name )
-	{
-		this( name, GLFW.GLFW_KEY_UNKNOWN );
-	}
 
 	/*protected ActionResult onKeyboardKey( long window, int key, int scanCode, int action, int modifiers )
 	{

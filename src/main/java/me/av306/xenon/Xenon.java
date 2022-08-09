@@ -3,7 +3,10 @@ package me.av306.xenon;
 import me.av306.xenon.config.FeatureConfigGroup;
 import me.av306.xenon.feature.IFeature;
 import me.av306.xenon.feature.IToggleableFeature;
-import me.av306.xenon.features.*;
+import me.av306.xenon.features.CommandProcessor;
+import me.av306.xenon.features.ConfigMenu;
+import me.av306.xenon.features.FeatureList;
+import me.av306.xenon.features.PanicFeature;
 import me.av306.xenon.features.blocks.FastBreakFeature;
 import me.av306.xenon.features.chat.QuickChatFeature;
 import me.av306.xenon.features.chat.ShareLocationFeature;
@@ -106,6 +109,7 @@ public enum Xenon
 
         new IncreaseFovFeature();
         new DecreaseFovFeature();
+        //new FovChallengeFeature();
     }
 
     // FIXME: usage of this is highly inconsistent
