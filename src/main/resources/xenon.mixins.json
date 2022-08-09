@@ -16,6 +16,7 @@
     "InGameOverlayRendererMixin",
     "KeyboardMixin",
     "MinecraftClientAccessor",
+    "PlayerEntityMixin",
     "RenderTickCounterAccessor",
     "RenderTickCounterMixin",
     "SimpleOptionMixin"

@@ -128,4 +128,20 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
         if ( result == ActionResult.FAIL )
             ci.cancel();
 	}
+
+    /*@Override
+    public boolean onKilledOther( ServerWorld serverWorld, LivingEntity otherEntity )
+    {
+        PlayerKillEntityEvent.EVENT.invoker().interact( serverWorld, otherEntity );
+        Xenon.INSTANCE.sendInfoMessage( "Method override invoked" );
+        return super.onKilledOther( serverWorld, otherEntity );
+    }
+
+    @Override
+    protected void onKilledBy( @Nullable LivingEntity adversary)
+    {
+
+        Xenon.INSTANCE.sendInfoMessage( "player killed,Method override invoked" );
+        super.onKilledBy(adversary);
+    }*/
 }
