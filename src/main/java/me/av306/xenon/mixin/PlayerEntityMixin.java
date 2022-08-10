@@ -1,4 +1,4 @@
-package me.av306.xenon.mixin;
+/*package me.av306.xenon.mixin;
 
 import net.minecraft.entity.player.PlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
@@ -6,7 +6,7 @@ import org.spongepowered.asm.mixin.Mixin;
 @Mixin( PlayerEntity.class )
 public class PlayerEntityMixin
 {
-    /*@Inject(
+    @Inject(
             at = @At( "HEAD" ),
             method = "onKilledOther(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/entity/LivingEntity;)Z"
     )
@@ -14,5 +14,5 @@ public class PlayerEntityMixin
     {
         PlayerKillEntityEvent.EVENT.invoker().interact( world, other );
         Xenon.INSTANCE.sendInfoMessage( "Mixin invoked" );
-    }*/
-}
+    }
+}*/
