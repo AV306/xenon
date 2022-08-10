@@ -43,7 +43,7 @@ public abstract class IToggleableFeature extends IFeature
     }*/
 
     @Override
-    protected void registerKeyEvent()
+    protected void keyEvent()
     {
         if ( this.keyBinding.wasPressed() )
             this.toggle();
