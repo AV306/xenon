@@ -111,7 +111,7 @@ public abstract class IFeature
 
 		// register our event
 		ClientTickEvents.END_CLIENT_TICK.register(
-				client -> this.registerKeyEvent()
+				client -> this.keyEvent()
 		);
 
 		// register our display name in the registry
@@ -140,7 +140,7 @@ public abstract class IFeature
 	 * Method called when the key event is registered.
 	 * Override this for advanced behaviour (see ZoomFeature)
 	 */
-	protected void registerKeyEvent()
+	protected void keyEvent()
 	{
 		if ( this.keyBinding.wasPressed() )
 			this.enable();
