@@ -19,24 +19,37 @@ import java.util.Arrays;
  */
 public abstract class IFeature
 {
+	/**
+	 * The Feature's DISPLAY name.
+	 */
 	protected String name = "IFeature";
 	public String getName() { return this.name; }
 	public void setName( String name ) { this.name = name; }
 	
   	public boolean isEnabled = false;
 
+	/**
+	 * The key the Feature is bound to.
+	 */
 	protected int key;
 
+	/**
+	 * The `KeyBinding` instance of the Feature.
+	 */
 	protected KeyBinding keyBinding;
 
+	/**
+	 * Sets whether this Feature should be hidden in FeatureList.
+	 */
 	public boolean hide = false;
 
 	// generalised constructors (can't be called anyway)
 
 	// important ones
 	/**
+	 * Recommended constructor to call in a subclass.
 	 * @param name: The Feature's name
-	 * @param aliases: Aliases for the feature in CP. Should NOT contain the original name.
+	 * @param aliases: Aliases for the feature in CP. Should NOT contain the original name
 	 */
 	protected IFeature( String name, String... aliases )
 	{
@@ -47,6 +60,12 @@ public abstract class IFeature
 			Xenon.INSTANCE.featureRegistry.put( alias.toLowerCase(), this );
 	}
 
+	/**
+	 * Constructor with display name, aliases and pre-bound key.
+	 * @param name: Display name
+	 * @param key: GLFW keycode to bind to
+	 * @param aliases: CommandProcessor aliases
+	 */
 	protected IFeature( String name, int key, String... aliases )
 	{
 		this( name, key );
@@ -56,12 +75,22 @@ public abstract class IFeature
 			Xenon.INSTANCE.featureRegistry.put( alias.toLowerCase(), this );
 	}
 
+	/**
+	 * Name-only constructor.
+	 * @param name: Display name
+	 */
 	protected IFeature( String name )
 	{
 		this( name, GLFW.GLFW_KEY_UNKNOWN );
 	}
 
 	// random ones
+
+	/**
+	 * Constructor with only display name and pre-bound key.
+	 * @param name: Display name
+	 * @param key: GLFW keycode to bind to
+	 */
 	protected IFeature( String name, int key )
 	{ 
 		this.name = name;
@@ -92,6 +121,11 @@ public abstract class IFeature
 		);
 	}
 
+	/**
+	 * Weird constructor, don't use
+	 */
+	protected IFeature() { this( "IFeature" ); }
+
 
 
 	/*protected ActionResult onKeyboardKey( long window, int key, int scanCode, int action, int modifiers )
@@ -102,14 +136,20 @@ public abstract class IFeature
 		return ActionResult.PASS;
 	}*/
 
+	/**
+	 * Method called when the key event is registered.
+	 * Override this for advanced behaviour (see ZoomFeature)
+	 */
 	protected void registerKeyEvent()
 	{
 		if ( this.keyBinding.wasPressed() )
 			this.enable();
 	}
 
-	protected IFeature() { this( "IFeature" ); }
-	
+	/**
+	 * Method to enable a Feature. Used to hide shared logic.
+	 * Only override for advanced behaviour. Use onEnable() instead.
+	 */
 	public void enable()
 	{
 		//if ( isEnabled ) return;
@@ -138,7 +178,12 @@ public abstract class IFeature
 
   	protected abstract void onEnable();
 
-  	public void parseConfigChange( String config, String value )
+	/**
+	 * Called when a config change is requested in CP.
+	 * @param config: The name
+	 * @param value: The valu
+	 */
+	public void parseConfigChange( String config, String value )
 	{
         boolean result;
 		
