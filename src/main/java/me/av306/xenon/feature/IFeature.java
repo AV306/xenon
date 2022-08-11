@@ -277,6 +277,9 @@ public abstract class IFeature
     protected boolean onRequestExecuteAction( String[] action ) { return true; }
 	//public abstract void onDisable();
 
+	/**
+	 * Method to retrieve help tet for a feature.
+	 */
 	public Text getHelpText()
 	{
 		// TODO: add formatting
