@@ -152,6 +152,8 @@ public abstract class IFeature
 	 */
 	public void enable()
 	{
+		// this will cause the feature to only be enabled once per session
+		// but it is a failsafe in ITF
 		//if ( isEnabled ) return;
 			
 		this.isEnabled = true;
@@ -163,8 +165,7 @@ public abstract class IFeature
 		onEnable();
 	}
 
-	// this is not even going to be used, but it's here now.
-	// deal with it :shrug:
+	// this goes in IToggleableFeature instead
 	/*public void disable()
 	{
 		//if ( !isEnabled ) return;
@@ -176,26 +177,35 @@ public abstract class IFeature
 		onDisable();
 	}*/
 
+	/**
+	 * Abstract method that should contain logic for the feature.
+	 */
   	protected abstract void onEnable();
 
 	/**
 	 * Called when a config change is requested in CP.
-	 * @param config: The name
-	 * @param value: The valu
+	 * Used to hide config change logic.
+	 * @param config: The name of the config
+	 * @param value: The value to set teh config to
 	 */
 	public void parseConfigChange( String config, String value )
 	{
+		// success flag
         boolean result;
 		
 		try
 		{
+			// attempt to change the config
             result = this.onRequestConfigChange( config, value );
 		}
 		catch ( NumberFormatException nfe )
 		{
+			// Most features will need to parse a number from a string.
+			// if anything goes wrong, catch it here
 			result = false;
 		}
 
+		// respond based on success falag
 		if ( result )
 		{
 			Xenon.INSTANCE.sendInfoMessage(
@@ -221,9 +231,19 @@ public abstract class IFeature
 		}
 	}
 
-    // renamed to "onRequestConfigChange"
+	/**
+	 * Overrideable method that should contain logic for config changes.
+	 * NOTE: Catch ALL exceptions EXCEPT NumberFormatExceptions in here.
+	 * @param config: The name of the config
+	 * @param value: The value to set the config to
+	 */
 	protected boolean onRequestConfigChange( String config, String value ) { return false; }
 
+	/**
+	 * Method that hides execution logic.
+	 * See CP for an example of this.
+	 * @param action: An array containing the command.
+	 */
     public void executeAction( String[] action )
 	{
         boolean result = this.onRequestExecuteAction( action );
@@ -250,6 +270,16 @@ public abstract class IFeature
 		}
 	}
 
+	/**
+	 * Overridable method containing execution logic.
+	 * @param action: An array containing the command.
+	 */
     protected boolean onRequestExecuteAction( String[] action ) { return true; }
 	//public abstract void onDisable();
+
+	public Text getHelpText()
+	{
+		// TODO: add formatting
+		return TextFactory.createLiteral( "Whoops! This Feature doesn't have any documentation :(" );
+	}
 }

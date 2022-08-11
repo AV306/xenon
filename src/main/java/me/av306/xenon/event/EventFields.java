@@ -12,5 +12,7 @@ public class EventFields
 
   public static double FOV_OVERRIDE = 0d;
 
+  public static double FOV_ZOOM_LEVEL = 0d;
+
   //public static float SLIPPERINESS_OVERRIDE = 0f;
 }
