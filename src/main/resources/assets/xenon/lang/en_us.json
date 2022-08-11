@@ -25,6 +25,7 @@
   "config.xenon.featureconfiggroup.highjumpgroup.multiplier": "Multiplier",
   "config.xenon.featureconfiggroup.jetpackgroup": "Jetpack Settings",
   "config.xenon.featureconfiggroup.jetpackgroup.enableNoFall": "Enable NoFallDamage (Recommended)",
+  "config.xenon.featureconfiggroup.jetpackgroup.enableJumpBoost": "Enable JumpBoost",
   "config.xenon.featureconfiggroup.proximityradargroup": "ProximityRadar Settings",
   "config.xenon.featureconfiggroup.proximityradargroup.interval": "Update Interval",
   "config.xenon.featureconfiggroup.proximityradargroup.range": "Range",
