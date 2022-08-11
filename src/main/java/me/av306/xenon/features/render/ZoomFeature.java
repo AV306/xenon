@@ -1,15 +1,18 @@
 package me.av306.xenon.features.render;
 
-import me.av306.xenon.Xenon;
 import me.av306.xenon.event.EventFields;
+import me.av306.xenon.event.GetFovEvent;
 import me.av306.xenon.event.MouseScrollEvent;
 import me.av306.xenon.event.ScrollInHotbarEvent;
 import me.av306.xenon.feature.IFeature;
+import net.minecraft.client.render.Camera;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.MathHelper;
 
 public class ZoomFeature extends IFeature
 {
+    private double zoomLevel = 1d;
+
     public ZoomFeature()
     {
         // WI-zoom like implementation of zoom,
@@ -19,6 +22,13 @@ public class ZoomFeature extends IFeature
 
         MouseScrollEvent.EVENT.register( this::onMouseScroll );
         ScrollInHotbarEvent.EVENT.register( this::onScrollInHotbar );
+        GetFovEvent.EVENT.register( this::onGetFov );
+    }
+
+    private ActionResult onGetFov(Camera camera, float td, boolean changing )
+    {
+        EventFields.FOV_ZOOM_LEVEL = this.zoomLevel;
+        return ActionResult.PASS;
     }
 
     private ActionResult onScrollInHotbar( double amount )
@@ -35,11 +45,11 @@ public class ZoomFeature extends IFeature
         if ( this.keyBinding.isPressed() )
         {
             // change out zoom level based on mouse scroll
-            if ( vertical > 0 ) EventFields.FOV_ZOOM_LEVEL *= 1.1;
-            else if ( vertical < 0 ) EventFields.FOV_ZOOM_LEVEL *= 0.9;
+            if ( vertical > 0 ) this.zoomLevel *= 1.1;
+            else if ( vertical < 0 ) this.zoomLevel *= 0.9;
 
             // clamp it down
-            EventFields.FOV_ZOOM_LEVEL = MathHelper.clamp( EventFields.FOV_ZOOM_LEVEL, 2d, 50d );
+            this.zoomLevel = MathHelper.clamp( this.zoomLevel, 1d, 50d );
         }
         else EventFields.FOV_ZOOM_LEVEL = 1d; // otherwise set it to 1
 
