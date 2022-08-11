@@ -101,6 +101,12 @@ public class CommandProcessor extends IToggleableFeature
                     feature.parseConfigChange( attrib, value );
                 }
 
+                case "help", "h", "?" ->
+                {
+                    // user doesn't know how to use this
+                    Xenon.INSTANCE.sendInfoMessage( feature.getHelpText() );
+                }
+
                 default ->
                 {
                     // User probably wants to change a config

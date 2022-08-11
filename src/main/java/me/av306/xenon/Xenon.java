@@ -106,6 +106,7 @@ public enum Xenon
         new ShareLocationFeature();
         new TimerFeature();
         new WailaFeature();
+        new ZoomFeature();
 
         new IncreaseFovFeature();
         new DecreaseFovFeature();

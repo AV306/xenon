@@ -9,15 +9,15 @@ import me.av306.xenon.feature.IToggleableFeature;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.ActionResult;
 
-public class LegacyHighJumpFeature extends IToggleableFeature
+public class JumpBostFeature extends IToggleableFeature
 {
     //protected static LegacyHighJumpFeature instance;
 
     private short ticks = 0;
 
-    public LegacyHighJumpFeature()
+    public JumpBostFeature()
     {
-        super( "HighJump" );
+        super( "JumpBost" );
 
         RenderInGameHudEvent.AFTER_VIGNETTE.register( this::onRenderInGameHud );
         GetJumpVelocityEvent.EVENT.register( this::onGetJumpVelocity );
@@ -32,7 +32,7 @@ public class LegacyHighJumpFeature extends IToggleableFeature
         if ( ticks >= GeneralConfigGroup.interval )
         {
             ticks = 0;
-            this.setName( "HighJump (" + HighJumpGroup.height + ")" );
+            this.setName( "JumpBoost (" + HighJumpGroup.height + ")" );
         }
         else ticks++;
 
@@ -41,9 +41,8 @@ public class LegacyHighJumpFeature extends IToggleableFeature
 
     private ActionResult onGetJumpVelocity()
     {
-        if ( !this.isEnabled ) return ActionResult.PASS;
-
-        EventFields.JUMP_VELOCITY_MODIFIER = HighJumpGroup.height * HighJumpGroup.multiplier;
+        if ( this.isEnabled )
+            EventFields.JUMP_VELOCITY_MODIFIER = JumpBoostGroup.height * JumpBoostGroup.multiplier;
 
         return ActionResult.PASS;
     }
@@ -77,13 +76,13 @@ public class LegacyHighJumpFeature extends IToggleableFeature
             config.contains( "height" ) || config.contains( "h" )
         )
         {
-            HighJumpGroup.height = v;
+            JumpBoostGroup.height = v;
 
             return true;
         }
         else if ( config.contains( "multiplier" ) || config.contains( "m" ) )
         {
-            HighJumpGroup.multiplier = v;
+            JumpBoostGroup.multiplier = v;
             return true;
         }
         

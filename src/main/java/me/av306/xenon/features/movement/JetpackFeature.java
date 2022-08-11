@@ -36,11 +36,16 @@ public class JetpackFeature extends IToggleableFeature
         // enable no fall damage if wanted
         if ( JetpackGroup.enableNoFall )
             Xenon.INSTANCE.featureRegistry.get( "nofalldamage" ).enable();
+
+        if ( JetpackGroup.enableJumpBoost )
+            // add legacy highjump-like stuff
+            Xenon.INSTANCE.featureRegistry.get( "jumpboost" ).enable();
     }
 
     @Override
     protected void onDisable()
     {
         ((IToggleableFeature) Xenon.INSTANCE.featureRegistry.get( "nofalldamage" )).disable();
+        ((IToggleableFeature) Xenon.INSTANCE.featureRegistry.get( "jumpboost" )).disable();
     }
 }
