@@ -83,7 +83,7 @@ public enum Xenon
 	    // load configs
 	    this.config.load();
 			
-        // set client
+        // set client and its accessor
         this.client = MinecraftClient.getInstance();
         this.clientAccessor = (MinecraftClientAccessor) this.client;
 			
