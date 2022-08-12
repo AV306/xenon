@@ -11,7 +11,7 @@ import net.minecraft.util.math.MathHelper;
 
 public class ZoomFeature extends IFeature
 {
-    private double zoomLevel = 1d;
+    private double zoomLevel = 2d; // range: 2 to 50
 
     public ZoomFeature()
     {
@@ -27,14 +27,16 @@ public class ZoomFeature extends IFeature
 
     private ActionResult onGetFov(Camera camera, float td, boolean changing )
     {
-        EventFields.FOV_ZOOM_LEVEL = this.zoomLevel;
+        if ( this.keyBinding.isPressed() )
+            EventFields.FOV_ZOOM_LEVEL = this.zoomLevel;
+
         return ActionResult.PASS;
     }
 
     private ActionResult onScrollInHotbar( double amount )
     {
         // cancel the hotbar scroll if this is enabled
-        // and consume it for the zoom adjustment.
+        // and consume it for our zoom adjustment.
         if ( this.keyBinding.isPressed() ) return ActionResult.FAIL;
         else return ActionResult.PASS;
     }
@@ -49,25 +51,18 @@ public class ZoomFeature extends IFeature
             else if ( vertical < 0 ) this.zoomLevel *= 0.9;
 
             // clamp it down
-            this.zoomLevel = MathHelper.clamp( this.zoomLevel, 1d, 50d );
+            this.zoomLevel = MathHelper.clamp( this.zoomLevel, 2d, 50d );
         }
-        else EventFields.FOV_ZOOM_LEVEL = 1d; // otherwise set it to 1
 
         // pass
         return ActionResult.PASS;
     }
 
     @Override
-    protected void keyEvent()
-    {
-        // do nothing
-        // technically the key stuff could be here,
-        // but it's better to sync it to the getFov call.
-    }
-
-    @Override
     protected void onEnable()
     {
-
+        // on the frame when it is enabled,
+        // reset the zoom level
+        this.zoomLevel = 2d;
     }
 }
