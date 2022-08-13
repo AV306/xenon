@@ -27,7 +27,7 @@ public class GameRendererMixin implements AutoCloseable, SynchronousResourceRelo
     {
         GetFovEvent.EVENT.invoker().interact( camera, tickDelta, changingFov );
         if ( EventFields.shouldOverrideFov ) cir.setReturnValue( EventFields.FOV_OVERRIDE / EventFields.FOV_ZOOM_LEVEL );
-        else cir.setReturnValue( cir.getReturnValue() + EventFields.FOV_MODIFIER / EventFields.FOV_ZOOM_LEVEL );
+        else cir.setReturnValue( (cir.getReturnValue() + EventFields.FOV_MODIFIER) / EventFields.FOV_ZOOM_LEVEL );
 
         //Xenon.INSTANCE.sendInfoMessage( String.valueOf( cir.getReturnValue() ) );
     }
