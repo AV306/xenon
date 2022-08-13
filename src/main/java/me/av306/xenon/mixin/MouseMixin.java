@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class MouseMixin
 {
     @Inject(
-            at = @At("RETURN"),
+            at = @At( "RETURN" ),
             method = "onMouseScroll(JDD)V",
             cancellable = true
     )

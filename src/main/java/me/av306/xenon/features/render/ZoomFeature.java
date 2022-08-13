@@ -1,5 +1,6 @@
 package me.av306.xenon.features.render;
 
+import me.av306.xenon.Xenon;
 import me.av306.xenon.event.EventFields;
 import me.av306.xenon.event.GetFovEvent;
 import me.av306.xenon.event.MouseScrollEvent;
@@ -13,6 +14,10 @@ public class ZoomFeature extends IFeature
 {
     private double zoomLevel = 2d; // range: 2 to 50
 
+    //private SimpleOptionAccessor<Double> mouseSensitivityAccessor = null;
+
+    private Double originalMouseSensitivity = null;
+
     public ZoomFeature()
     {
         // WI-zoom like implementation of zoom,
@@ -23,12 +28,32 @@ public class ZoomFeature extends IFeature
         MouseScrollEvent.EVENT.register( this::onMouseScroll );
         ScrollInHotbarEvent.EVENT.register( this::onScrollInHotbar );
         GetFovEvent.EVENT.register( this::onGetFov );
+
+        this.originalMouseSensitivity = Xenon.INSTANCE.client.options.getMouseSensitivity().getValue();
+
+        //@SuppressWarnings( "unchecked" )
+        //this.mouseSensitivityAccessor = (SimpleOptionAccessor<Double>) (Object) Xenon.INSTANCE.client.options.getMouseSensitivity();
     }
 
-    private ActionResult onGetFov(Camera camera, float td, boolean changing )
+    private ActionResult onGetFov( Camera camera, float td, boolean changing )
     {
         if ( this.keyBinding.isPressed() )
+        {
             EventFields.FOV_ZOOM_LEVEL = this.zoomLevel;
+
+            Xenon.INSTANCE.client.options.getMouseSensitivity()
+                    .setValue( this.originalMouseSensitivity / this.zoomLevel );
+        }
+        else
+        {
+            EventFields.FOV_ZOOM_LEVEL = 1d;
+            this.zoomLevel = 2d;
+
+            this.originalMouseSensitivity = Xenon.INSTANCE.client.options.getMouseSensitivity().getValue();
+
+            Xenon.INSTANCE.client.options.getMouseSensitivity()
+                    .setValue( this.originalMouseSensitivity );
+        }
 
         return ActionResult.PASS;
     }
@@ -61,8 +86,5 @@ public class ZoomFeature extends IFeature
     @Override
     protected void onEnable()
     {
-        // on the frame when it is enabled,
-        // reset the zoom level
-        this.zoomLevel = 2d;
     }
 }
