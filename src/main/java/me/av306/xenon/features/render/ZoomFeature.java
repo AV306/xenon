@@ -16,7 +16,7 @@ public class ZoomFeature extends IFeature
 
     //private SimpleOptionAccessor<Double> mouseSensitivityAccessor = null;
 
-    private Double originalMouseSensitivity = null;
+    private Double originalMouseSensitivity; // should be null when NOT zooming; indicates we can use the current one
 
     public ZoomFeature()
     {
@@ -29,30 +29,36 @@ public class ZoomFeature extends IFeature
         ScrollInHotbarEvent.EVENT.register( this::onScrollInHotbar );
         GetFovEvent.EVENT.register( this::onGetFov );
 
-        this.originalMouseSensitivity = Xenon.INSTANCE.client.options.getMouseSensitivity().getValue();
-
         //@SuppressWarnings( "unchecked" )
         //this.mouseSensitivityAccessor = (SimpleOptionAccessor<Double>) (Object) Xenon.INSTANCE.client.options.getMouseSensitivity();
     }
 
     private ActionResult onGetFov( Camera camera, float td, boolean changing )
     {
-        if ( this.keyBinding.isPressed() )
+        try
         {
-            EventFields.FOV_ZOOM_LEVEL = this.zoomLevel;
+            if ( this.keyBinding.isPressed() )
+            {
+                EventFields.FOV_ZOOM_LEVEL = this.zoomLevel;
 
-            Xenon.INSTANCE.client.options.getMouseSensitivity()
-                    .setValue( this.originalMouseSensitivity / this.zoomLevel );
+                Xenon.INSTANCE.client.options.getMouseSensitivity()
+                        .setValue( this.originalMouseSensitivity / this.zoomLevel );
+            }
+            else
+            {
+                EventFields.FOV_ZOOM_LEVEL = 1d;
+                this.zoomLevel = 2d;
+
+                // reset sensitivity
+                Xenon.INSTANCE.client.options.getMouseSensitivity()
+                        .setValue( this.originalMouseSensitivity );
+            }
         }
-        else
+        catch ( NullPointerException npe )
         {
-            EventFields.FOV_ZOOM_LEVEL = 1d;
-            this.zoomLevel = 2d;
-
+            // originalMouseSensitivity probably null,
+            // set it
             this.originalMouseSensitivity = Xenon.INSTANCE.client.options.getMouseSensitivity().getValue();
-
-            Xenon.INSTANCE.client.options.getMouseSensitivity()
-                    .setValue( this.originalMouseSensitivity );
         }
 
         return ActionResult.PASS;
@@ -86,5 +92,8 @@ public class ZoomFeature extends IFeature
     @Override
     protected void onEnable()
     {
+        // set the original mouse sensitivity
+        // on the first frame zoom was enabled
+        //this.originalMouseSensitivity = Xenon.INSTANCE.client.options.getMouseSensitivity().getValue();
     }
 }
