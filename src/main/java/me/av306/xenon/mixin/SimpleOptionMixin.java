@@ -24,26 +24,23 @@ public abstract class SimpleOptionMixin<T> implements SimpleOptionAccessor<T>
 
     // Ugh.
     @Override
-    public void forceSetValue(T newValue)
+    public void forceSetValue( T newValue )
     {
-        // This is basically what akready exists in setValue,
+        // This is basically what already exists in setValue,
         // minus the validation.
-        // Why, Mojang? Why?
-        // First the text system, and now this!
-        // Why must you do this to us?
-        // I mean, I get why you would do this (and the text system too),
-        // but it makes life really difficult.
-        // Well, what's done is done, and this is how we have to do it now.
-        if( !Xenon.INSTANCE.client.isRunning() )
+
+        // [11-9-2022 Removed dramatic monologue]
+        if ( !Xenon.INSTANCE.client.isRunning() )
         {
+            // if we're somehow not running, just change it
             value = newValue;
             return;
         }
 
-        if( !Objects.equals( value, newValue ) )
+        if ( !Objects.equals( value, newValue ) )
         {
             value = newValue;
-            changeCallback.accept( value) ;
+            changeCallback.accept( value );
         }
     }
 }

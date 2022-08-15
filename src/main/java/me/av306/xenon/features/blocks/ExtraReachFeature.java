@@ -1,4 +1,4 @@
-package me.av306.xenon.features;
+package me.av306.xenon.features.blocks;
 
 import me.av306.xenon.config.GeneralConfigGroup;
 import me.av306.xenon.config.feature.ExtraReachGroup;

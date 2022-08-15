@@ -11,10 +11,13 @@
     "ClientPlayerInteractionManagerAccessor",
     "ClientPlayerInteractionManagerMixin",
     "GameOptionsAccessor",
+    "GameRendererMixin",
     "InGameHudMixin",
     "InGameOverlayRendererMixin",
     "KeyboardMixin",
     "MinecraftClientAccessor",
+    "MouseMixin",
+    "PlayerInventoryMixin",
     "RenderTickCounterAccessor",
     "RenderTickCounterMixin",
     "SimpleOptionMixin"

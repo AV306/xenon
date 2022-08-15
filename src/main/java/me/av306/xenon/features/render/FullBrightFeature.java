@@ -1,4 +1,4 @@
-package me.av306.xenon.features;
+package me.av306.xenon.features.render;
 
 import me.av306.xenon.Xenon;
 import me.av306.xenon.feature.IToggleableFeature;

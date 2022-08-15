@@ -89,7 +89,7 @@ public class CommandProcessor extends IToggleableFeature
                     // copy over the components after the "exec"
                     // e.g. [commandprocessor, exec, timer, enable] -> [timer, enable]
                     String[] action = Arrays.copyOfRange( possibleCommand, 2, possibleCommand.length );
-                    this.executeAction( action );
+                    feature.executeAction( action );
                 }
 
                 case "set" ->
@@ -99,6 +99,12 @@ public class CommandProcessor extends IToggleableFeature
                     String attrib = possibleCommand[2];
                     String value = possibleCommand[3]; // oobe
                     feature.parseConfigChange( attrib, value );
+                }
+
+                case "help", "h", "?" ->
+                {
+                    // user doesn't know how to use this
+                    Xenon.INSTANCE.sendInfoMessage( feature.getHelpText() );
                 }
 
                 default ->
@@ -124,6 +130,7 @@ public class CommandProcessor extends IToggleableFeature
         catch ( NullPointerException npe )
         {
             // Somewhere, someone tried to access a non-existent feature
+            // aka me trying to find who asked
             Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocessor.invalidcommand.invalidfeature" );
         }
         catch ( Exception e )
@@ -176,7 +183,7 @@ public class CommandProcessor extends IToggleableFeature
     protected void onDisable() {}
 
     @Override
-    protected boolean onConfigChange( String config, String value )
+    protected boolean onRequestConfigChange(String config, String value )
     {
         boolean result = config.contains( "prefix" );
         if ( result ) CommandProcessorGroup.prefix = value;
