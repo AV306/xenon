@@ -91,6 +91,7 @@ public enum Xenon
         new FullBrightFeature();
         new HighJumpFeature();
         new JetpackFeature();
+        new MultiQuickChatFeature();
         new NoFallDamageFeature();
         new PanicFeature();
         new ProximityRadarFeature();
