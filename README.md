@@ -8,7 +8,7 @@ Hello! This is Xenon, a Minecraft utility mod that adds stuff like Fullbright an
 
 This is good for people who want the features of clients such as Badlion or Lunar, but want it to be compatible with other mods.
 
-NOTE: Once a new Minecraft version is released, support for previous versions tends to be dropped due to my bad version control habits. Also, I may randomly skip versions because this is built according to my needs, since almost no one uses this.
+NOTE: Once a new Minecraft version is released, support for previous versions tends to be dropped due to my bad version control habits. Also, I may randomly skip versions because this is built according to my needs, and almost no one uses this.
 
 ## Requirements:
 
