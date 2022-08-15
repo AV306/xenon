@@ -9,4 +9,7 @@ public class JetpackGroup implements XenonConfigGroup
 {
     @ConfigEntry.Boolean
     public static boolean enableNoFall = true;
+
+    @ConfigEntry.Boolean
+    public static boolean enableJumpBoost = false;
 }

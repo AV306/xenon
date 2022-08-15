@@ -6,6 +6,7 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
+import net.minecraft.text.Text;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.Arrays;
@@ -19,17 +20,78 @@ import java.util.Arrays;
  */
 public abstract class IFeature
 {
+	/**
+	 * The Feature's DISPLAY name.
+	 */
 	protected String name = "IFeature";
 	public String getName() { return this.name; }
 	public void setName( String name ) { this.name = name; }
 	
   	public boolean isEnabled = false;
 
+	/**
+	 * The key the Feature is bound to.
+	 */
 	protected int key;
 
+	/**
+	 * The `KeyBinding` instance of the Feature.
+	 */
 	protected KeyBinding keyBinding;
 
+	/**
+	 * Sets whether this Feature should be hidden in FeatureList.
+	 */
+	public boolean hide = false;
+
 	// generalised constructors (can't be called anyway)
+
+	// important ones
+	/**
+	 * Recommended constructor to call in a subclass.
+	 * @param name: The Feature's name
+	 * @param aliases: Aliases for the feature in CP. Should NOT contain the original name
+	 */
+	protected IFeature( String name, String... aliases )
+	{
+		this( name, GLFW.GLFW_KEY_UNKNOWN );
+
+		// register aliases
+		for ( String alias : aliases )
+			Xenon.INSTANCE.featureRegistry.put( alias.toLowerCase(), this );
+	}
+
+	/**
+	 * Constructor with display name, aliases and pre-bound key.
+	 * @param name: Display name
+	 * @param key: GLFW keycode to bind to
+	 * @param aliases: CommandProcessor aliases
+	 */
+	protected IFeature( String name, int key, String... aliases )
+	{
+		this( name, key );
+
+		// register aliases
+		for ( String alias : aliases )
+			Xenon.INSTANCE.featureRegistry.put( alias.toLowerCase(), this );
+	}
+
+	/**
+	 * Name-only constructor.
+	 * @param name: Display name
+	 */
+	protected IFeature( String name )
+	{
+		this( name, GLFW.GLFW_KEY_UNKNOWN );
+	}
+
+	// random ones
+
+	/**
+	 * Constructor with only display name and pre-bound key.
+	 * @param name: Display name
+	 * @param key: GLFW keycode to bind to
+	 */
 	protected IFeature( String name, int key )
 	{ 
 		this.name = name;
@@ -37,7 +99,7 @@ public abstract class IFeature
 		this.key = key;
 
 		this.keyBinding = new KeyBinding(
-				"key.xenon." + this.name.toLowerCase(),
+				"key.xenon." + this.name.toLowerCase().replaceAll( " ", "" ),
 				InputUtil.Type.KEYSYM,
 				this.key,
 				"category.xenon.features"
@@ -50,32 +112,22 @@ public abstract class IFeature
 
 		// register our event
 		ClientTickEvents.END_CLIENT_TICK.register(
-				client -> this.registerKeyEvent()
+				client -> this.keyEvent()
 		);
 
-		// register our name in the registry
-		// (the DISPLAY name, not our actual class name)
-		Xenon.INSTANCE.featureRegistry.put( this.getName().toLowerCase(), this );
+		// register our display name in the registry
+		Xenon.INSTANCE.featureRegistry.put(
+				this.getName().replaceAll( " ", "" ).toLowerCase(),
+				this
+		);
 	}
-
 
 	/**
-	 * @param name: The Feature's name
-	 * @param aliases: Aliases for the feature in CP. Should NOT contain the original name.
+	 * Weird constructor, don't use
 	 */
-	protected IFeature( String name, String... aliases )
-	{
-		this( name, GLFW.GLFW_KEY_UNKNOWN );
+	protected IFeature() { this( "IFeature" ); }
 
-		// register aliases
-		for ( String alias : aliases )
-			Xenon.INSTANCE.featureRegistry.put( alias.toLowerCase(), this );
-	}
 
-	protected IFeature( String name )
-	{
-		this( name, GLFW.GLFW_KEY_UNKNOWN );
-	}
 
 	/*protected ActionResult onKeyboardKey( long window, int key, int scanCode, int action, int modifiers )
 	{
@@ -85,19 +137,27 @@ public abstract class IFeature
 		return ActionResult.PASS;
 	}*/
 
-	protected void registerKeyEvent()
+	/**
+	 * Method called when the key event is registered.
+	 * Override this for advanced behaviour (see ZoomFeature)
+	 */
+	protected void keyEvent()
 	{
 		if ( this.keyBinding.wasPressed() )
 			this.enable();
 	}
 
-	protected IFeature() { this( "IFeature" ); }
-	
+	/**
+	 * Method to enable a Feature. Used to hide shared logic.
+	 * Only override for advanced behaviour. Use onEnable() instead.
+	 */
 	public void enable()
 	{
+		// this will cause the feature to only be enabled once per session
+		// but it is a failsafe in ITF
 		//if ( isEnabled ) return;
 			
-		isEnabled = true;
+		this.isEnabled = true;
 
 		Xenon.INSTANCE.log( this.getName() + " enabled!" );
 
@@ -106,8 +166,7 @@ public abstract class IFeature
 		onEnable();
 	}
 
-	// this is not even going to be used, but it's here now.
-	// deal with it :shrug:
+	// this goes in IToggleableFeature instead
 	/*public void disable()
 	{
 		//if ( !isEnabled ) return;
@@ -119,21 +178,35 @@ public abstract class IFeature
 		onDisable();
 	}*/
 
+	/**
+	 * Abstract method that should contain logic for the feature.
+	 */
   	protected abstract void onEnable();
 
-  	public void parseConfigChange( String config, String value )
+	/**
+	 * Called when a config change is requested in CP.
+	 * Used to hide config change logic.
+	 * @param config: The name of the config
+	 * @param value: The value to set teh config to
+	 */
+	public void parseConfigChange( String config, String value )
 	{
+		// success flag
         boolean result;
 		
 		try
 		{
-            result = this.onConfigChange( config, value );
+			// attempt to change the config
+            result = this.onRequestConfigChange( config, value );
 		}
 		catch ( NumberFormatException nfe )
 		{
+			// Most features will need to parse a number from a string.
+			// if anything goes wrong, catch it here
 			result = false;
 		}
 
+		// respond based on success falag
 		if ( result )
 		{
 			Xenon.INSTANCE.sendInfoMessage(
@@ -159,9 +232,19 @@ public abstract class IFeature
 		}
 	}
 
-    // TODO: rename to "onRequestConfigChange"
-	protected boolean onConfigChange( String config, String value ) { return false; }
+	/**
+	 * Overrideable method that should contain logic for config changes.
+	 * NOTE: Catch ALL exceptions EXCEPT NumberFormatExceptions in here.
+	 * @param config: The name of the config
+	 * @param value: The value to set the config to
+	 */
+	protected boolean onRequestConfigChange( String config, String value ) { return false; }
 
+	/**
+	 * Method that hides execution logic.
+	 * See CP for an example of this.
+	 * @param action: An array containing the command.
+	 */
     public void executeAction( String[] action )
 	{
         boolean result = this.onRequestExecuteAction( action );
@@ -183,11 +266,24 @@ public abstract class IFeature
 					"text.xenon.ifeature.executeaction.fail",
 					this.name,
 					Arrays.toString( action )
-				)
+				).formatted( Xenon.INSTANCE.ERROR_FORMAT )
 			);
 		}
 	}
 
+	/**
+	 * Overridable method containing execution logic.
+	 * @param action: An array containing the command.
+	 */
     protected boolean onRequestExecuteAction( String[] action ) { return true; }
 	//public abstract void onDisable();
+
+	/**
+	 * Method to retrieve help tet for a feature.
+	 */
+	public Text getHelpText()
+	{
+		// TODO: add formatting
+		return TextFactory.createLiteral( "Whoops! This Feature doesn't have any documentation :(" );
+	}
 }

@@ -42,6 +42,9 @@ public class FeatureConfigGroup implements XenonConfigGroup
 	@Transitive
 	private final JetpackGroup jetpackGroup = new JetpackGroup();
 
+	@Transitive
+	private final JumpBoostGroup JumpBoostGroup = new JumpBoostGroup();
+
 	//@Transitive
 	//private final ExtraReachGroup extraReachGroup = new ExtraReachGroup();
 }

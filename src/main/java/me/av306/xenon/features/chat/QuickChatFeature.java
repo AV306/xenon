@@ -1,4 +1,4 @@
-package me.av306.xenon.features;
+package me.av306.xenon.features.chat;
 
 import me.av306.xenon.Xenon;
 import me.av306.xenon.config.feature.QuickChatGroup;
@@ -22,7 +22,7 @@ public class QuickChatFeature extends IFeature
     }
 
     @Override
-    public boolean onConfigChange( String config, String value )
+    public boolean onRequestConfigChange(String config, String value )
     {
         boolean result = config.contains( "message" ) || config.contains( "msg" );
 
