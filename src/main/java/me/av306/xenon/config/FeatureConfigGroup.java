@@ -48,6 +48,9 @@ public class FeatureConfigGroup implements XenonConfigGroup
 	@Transitive
 	private final ZoomGroup zoomGroup = new ZoomGroup();
 
+	@Transitive
+	private final MultiQuickChatGroup multiQuickChatGroup = new MultiQuickChatGroup();
+
 	//@Transitive
 	//private final ExtraReachGroup extraReachGroup = new ExtraReachGroup();
 }
