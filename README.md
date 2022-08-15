@@ -8,7 +8,7 @@ Hello! This is Xenon, a Minecraft utility mod that adds stuff like Fullbright an
 
 This is good for people who want the features of clients such as Badlion or Lunar, but want it to be compatible with other mods.
 
-NOTE: Once a new Minecraft version is released, support for previous versions tends to be dropped due to my bad version control habits.
+NOTE: Once a new Minecraft version is released, support for previous versions tends to be dropped due to my bad version control habits. Also, I may randomly skip versions because this is built according to my needs, since almost no one uses this.
 
 ## Requirements:
 
@@ -19,7 +19,8 @@ NOTE: Once a new Minecraft version is released, support for previous versions te
 
 ## Incompatible mods:
 
-- Please help me find some
+- WI-Zoom (breaks Xenon's FOV-related features)
+- Please help me find some more!
 
 ## Features:
 
@@ -39,12 +40,13 @@ NOTE: Once a new Minecraft version is released, support for previous versions te
 - ProximityRadar
 - Timer (*wheee*)
 - FastBreak (Does not work *exactly* as intended, but close enough)
-- Fundy Ice Physics™ (Untested, just exists)
+- Fundy Ice Physics™ (I forgot what happened to it)
 - SpeedBoost (WIP)
 - HighJump
-- AntiKnockback (WIP)
+- JumpBoost
 - NoFallDamage
 - Australian Mode (turns the world upside down)
+- Zoom (WI-Zoom like scroll-zoom function that *works* with Xenon's other fov-related features)
 - modular and user-friendly feature creation/registration system I spent way too much time on
 - Command processor and the beginnings of a macro system
 
@@ -65,8 +67,9 @@ NOTE: Once a new Minecraft version is released, support for previous versions te
 
 1. Extend IFeature or IToggleableFeature depending on the type of feature.
 2. Define a constructor and call `super( <name> );`, replacing `<name>` with the name of your feature.
-3. Register event callbacks in the constructor, see `Timer` for an example. (Note: some features, like JumpBoost, that require  modifying the values of fields right before they are accessed, are more complex. Use `EventFields`, see `JumpBoost`.)
+3. Register event callbacks in the constructor, see `Timer` for an example. (Note: some features, like JumpBoost, that require  modifying the return values of methods, are more complex. Use `EventFields`, see `JumpBoost`. Please DO NOT just write your code in the mixin itself, that defeats the whole purpose of the event system >:( )
 4. Register your feature by calling its constructor in `Xenon` (main class).
+5. Add any translations to the lang file.
 
 .
 
