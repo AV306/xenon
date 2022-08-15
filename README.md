@@ -28,27 +28,27 @@ NOTE: Once a new Minecraft version is released, support for previous versions te
 
 ~~Maybe someday I'll implement multi-key sequences~~
 
-- FullBright 
-- QuickChat
+- FullBright (No more pitch-black caves!)
+- QuickChat (Quickly send a predefined message)
 - Bad WAILA implementation (use WTHIT instead, it's much better)
 - Panorama Generator (I'm proud of this one) (Note: does not work with shaders)
-- ShareLocation (under maintenance)
+- ShareLocation (Quickly share your location with others! Under maintenance)
 - NoFireOverlay (useless, present in code but not accessible, exists for initial testing purposes)
 - FeatureList (not really a feature)
 - DataHUD (useless)
 - Configuration system
-- ProximityRadar
-- Timer (*wheee*)
-- FastBreak (Does not work *exactly* as intended, but close enough)
-- Fundy Ice Physics™ (I forgot what happened to it)
+- ProximityRadar (Tells you quietly when a hostile mob or projectile is near)
+- Timer (Speeds everything up! *wheee*)
+- FastBreak (Speeds up block breaking. Does not work *exactly* as intended, but close enough)
+- Fundy Ice Physics™ (Sort of work*ed*, I forgot what happened to it)
 - SpeedBoost (WIP)
-- HighJump
-- JumpBoost
-- NoFallDamage
-- Australian Mode (turns the world upside down)
-- Zoom (WI-Zoom like scroll-zoom function that *works* with Xenon's other fov-related features)
-- modular and user-friendly feature creation/registration system I spent way too much time on
-- Command processor and the beginnings of a macro system
+- HighJump (Jump high!)
+- JumpBoost (Jump high, all the time)
+- NoFallDamage (Don't die when you fall down!)
+- Australian Mode (Turn the world upside down!)
+- Zoom (Zoom! WI-Zoom like scroll-zoom function that *works* with Xenon's other fov-related features)
+- modular and user-friendly feature creation/registration system I spent way too much time on (yay!)
+- Command processor and the beginnings of a macro system (Too much code in there)
 
 ## Licensed under GNU GPL v3
 
