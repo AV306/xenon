@@ -68,37 +68,38 @@ public class ZoomFeature extends IFeature
             this.originalMouseSensitivity = Xenon.INSTANCE.client.options.getMouseSensitivity().getValue();
         }*/
 
-        if ( this.keyBinding.isPressed() )
-        {
-            if ( this.originalMouseSensitivity == null )
-                this.originalMouseSensitivity = Xenon.INSTANCE.client.options.getMouseSensitivity().getValue();
-            
-            // clamp it
-            EventFields.FOV_ZOOM_LEVEL = MathHelper.clamp(
-                EventFields.FOV_ZOOM_LEVEL,
-                ZoomGroup.minZoom,
-                ZoomGroup.maxZoom
-            );
 
-            // adjust mouse ssensitivity based on zoom
-            Xenon.INSTANCE.client.options.getMouseSensitivity()
-                    .setValue( this.originalMouseSensitivity / EventFields.FOV_ZOOM_LEVEL );
+        try {
+            if (this.keyBinding.isPressed()) {
+                if (this.originalMouseSensitivity == null)
+                    this.originalMouseSensitivity = Xenon.INSTANCE.client.options.getMouseSensitivity().getValue();
 
+                // clamp it
+                EventFields.FOV_ZOOM_LEVEL = MathHelper.clamp(
+                        EventFields.FOV_ZOOM_LEVEL,
+                        ZoomGroup.minZoom,
+                        ZoomGroup.maxZoom
+                );
+
+                // adjust mouse ssensitivity based on zoom
+                Xenon.INSTANCE.client.options.getMouseSensitivity()
+                        .setValue(this.originalMouseSensitivity / EventFields.FOV_ZOOM_LEVEL);
+
+            } else {
+                // reset zoom
+                EventFields.FOV_ZOOM_LEVEL = 1d;
+
+                // reset sensitivity
+                Xenon.INSTANCE.client.options.getMouseSensitivity()
+                        .setValue(this.originalMouseSensitivity); // npe
+
+                // set it to null when zoom is disabled,
+                // so that the next time zoom is enabled,
+                // the original mouse sensitivity will be set.
+                this.originalMouseSensitivity = null;
+            }
         }
-        else
-        {
-            // reset zoom
-            EventFields.FOV_ZOOM_LEVEL = 1d;
-
-            // reset sensitivity
-            Xenon.INSTANCE.client.options.getMouseSensitivity()
-                    .setValue( this.originalMouseSensitivity );
-
-            // set it to null when zoom is disabled,
-            // so that the next time zoom is enabled,
-            // the original mouse sensitivity will be set.
-            this.originalMouseSensitivity = null;
-        }
+        catch ( NullPointerException ignored ) {}
 
         return ActionResult.PASS;
     }

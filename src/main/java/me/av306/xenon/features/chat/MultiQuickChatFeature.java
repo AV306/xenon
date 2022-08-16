@@ -1,10 +1,12 @@
 package me.av306.xenon.features.chat;
 
 import me.av306.xenon.Xenon;
-import me.av306.xenon.config.feature.QuickChatGroup;
+import me.av306.xenon.config.feature.MultiQuickChatGroup;
 import me.av306.xenon.event.KeyEvent;
 import me.av306.xenon.feature.IFeature;
-import me.av306.xenon.util.text.TextFactory;
+import net.minecraft.client.util.InputUtil;
+import net.minecraft.util.ActionResult;
+import org.lwjgl.glfw.GLFW;
 
 public class MultiQuickChatFeature extends IFeature
 {
@@ -18,7 +20,7 @@ public class MultiQuickChatFeature extends IFeature
     @Override
     protected void keyEvent() {}
 
-    protected ActionResult onKeyboardKey(
+    protected ActionResult onKey(
         long window,
         int key,
         int scancode,
@@ -36,12 +38,11 @@ public class MultiQuickChatFeature extends IFeature
 
             try
             {
-                Xenon.INSTANCE.sendChatMessage( message );
+                assert Xenon.INSTANCE.client.player != null;
+                Xenon.INSTANCE.client.player.sendChatMessage( message );
             }
             catch ( NullPointerException ignored ) {}
         }
-
-        Xenon.INSTANCE.client.sendChatMessage( message );
 
         return ActionResult.PASS;
 	}
