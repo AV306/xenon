@@ -4,6 +4,7 @@ import me.av306.xenon.Xenon;
 import me.av306.xenon.config.feature.MultiQuickChatGroup;
 import me.av306.xenon.event.KeyEvent;
 import me.av306.xenon.feature.IFeature;
+import net.minecraft.client.util.InputUtil;
 import net.minecraft.util.ActionResult;
 import org.lwjgl.glfw.GLFW;
 
@@ -14,6 +15,8 @@ public class MultiQuickChatFeature extends IFeature
 		super( "MultiQuickChat" );
 
         KeyEvent.EVENT.register( this::onKey );
+
+        MultiQuickChatGroup.messages.put( InputUtil.fromKeyCode( InputUtil.GLFW_KEY_1, -1), "asdfsdaf");
     }
 
     @Override
@@ -33,7 +36,7 @@ public class MultiQuickChatFeature extends IFeature
             // TODO: Find a way to add optional configs in Cloth Config
             // Well, CC has support for Map...
 
-            String message = MultiQuickChatGroup.messages.get( /*InputUtil.fromKeyCode( key, scancode )*/key );
+            String message = MultiQuickChatGroup.messages.get( InputUtil.fromKeyCode( key, scancode ) );
 
             try
             {
