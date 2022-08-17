@@ -16,7 +16,7 @@ public class MultiQuickChatFeature extends IFeature
 
         KeyEvent.EVENT.register( this::onKey );
 
-        MultiQuickChatGroup.messages.put( InputUtil.fromKeyCode( InputUtil.GLFW_KEY_1, -1), "asdfsdaf");
+        MultiQuickChatGroup.messages.put( InputUtil.fromKeyCode( InputUtil.GLFW_KEY_1, -1 ), "asdfsdaf" );
     }
 
     @Override

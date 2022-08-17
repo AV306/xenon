@@ -57,7 +57,7 @@ public class JumpBoostFeature extends IToggleableFeature
     @Override
     protected void onEnable()
     {
-        float height = HighJumpGroup.height * HighJumpGroup.multiplier;
+        float height = JumpBoostGroup.height * JumpBoostGroup.multiplier;
         EventFields.JUMP_VELOCITY_MODIFIER = height;
         this.setName( "JumpBoost (" + height + ")" );
     }
