@@ -53,7 +53,7 @@ public class MultiQuickChatFeature extends IFeature
             String message = MultiQuickChatGroup.messageArray.get( key );*/
 
             // Hardcode method
-            String message;
+            String message = null;
             switch ( key )
             {
                 case GLFW.GLFW_KEY_0 -> { message = MultiQuickChatGroup.message0; }
