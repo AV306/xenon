@@ -46,7 +46,7 @@ public class ConfigMenu extends IFeature
         catch ( Exception e )
         {
             Xenon.INSTANCE.sendErrorMessage( "text.xenon.configmenu.unknownexception" );
-            e.printStacktrace();
+            e.printStackTrace();
         }
     }
 }
