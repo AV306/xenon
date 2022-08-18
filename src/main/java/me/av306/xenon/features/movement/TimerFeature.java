@@ -23,19 +23,28 @@ public class TimerFeature extends IToggleableFeature
         BeginRenderTickEvent.EVENT.register( this::onBeginRenderTick );
     }
 
+    @Override
+    public String getName()
+    {
+        // when the name is retrieved, update it and return
+        this.setName( "JumpBoost (" + HighJumpGroup.height + ")" );
+
+        return this.name;
+    }
+
     private ActionResult onBeginRenderTick( long timeMillis )
     {
         if ( this.isEnabled )
         {
-            // ducktyping!!!
             RenderTickCounter renderTickCounter = ((MinecraftClientAccessor) Xenon.INSTANCE.client).getRenderTickCounter();
 
+            // Get the duration of the last frame
             float lastFrameDurationLocal = ((RenderTickCounterAccessor) renderTickCounter).getLastFrameDuration();
 
+            // Make it seem longer than it was,
+            // to force Minecraft to try to run everything faster
             lastFrameDurationLocal *= TimerGroup.timerSpeed;
             ((RenderTickCounterAccessor) renderTickCounter).setLastFrameDuration( lastFrameDurationLocal );
-
-            this.setName( "Timer (" + TimerGroup.timerSpeed + ")" );
         }
 
         return ActionResult.PASS;

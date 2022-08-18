@@ -20,24 +20,18 @@ public class JumpBoostFeature extends IToggleableFeature
     {
         super( "JumpBoost" );
 
-        RenderInGameHudEvent.AFTER_VIGNETTE.register( this::onRenderInGameHud );
         GetJumpVelocityEvent.EVENT.register( this::onGetJumpVelocity );
 
         //instance = this;
     }
 
-    private ActionResult onRenderInGameHud( MatrixStack matrixStack, float tickDelta )
+    @Override
+    public String getName()
     {
-        if ( !this.isEnabled ) return ActionResult.PASS;
+        // when the name is retrieved, update it and return
+        this.setName( "JumpBoost (" + HighJumpGroup.height + ")" );
 
-        if ( ticks >= GeneralConfigGroup.interval )
-        {
-            ticks = 0;
-            this.setName( "JumpBoost (" + HighJumpGroup.height + ")" );
-        }
-        else ticks++;
-
-        return ActionResult.PASS;
+        return this.name;
     }
 
     private ActionResult onGetJumpVelocity()
