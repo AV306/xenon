@@ -29,7 +29,7 @@ public class JumpBoostFeature extends IToggleableFeature
     public String getName()
     {
         // when the name is retrieved, update it and return
-        this.setName( "JumpBoost (" + HighJumpGroup.height + ")" );
+        this.setName( "JumpBoost (" + JumpBoostGroup.height + ")" );
 
         return this.name;
     }
