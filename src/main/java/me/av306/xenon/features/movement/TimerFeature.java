@@ -27,7 +27,7 @@ public class TimerFeature extends IToggleableFeature
     public String getName()
     {
         // when the name is retrieved, update it and return
-        this.setName( "JumpBoost (" + HighJumpGroup.height + ")" );
+        this.setName( "Timer (" + TimerGroup.timerSpeed + ")" );
 
         return this.name;
     }
