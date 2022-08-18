@@ -55,6 +55,7 @@ public final class FeatureList extends IToggleableFeature
 
         // write feature names
 
+        // should we draw the version name?
         if ( shouldShowVersion )
             TextUtil.drawPositionedText(
                     matrices,
@@ -65,6 +66,7 @@ public final class FeatureList extends IToggleableFeature
                     Xenon.INSTANCE.SUCCESS_FORMAT
             );
 			
+        // draw the feature names
         for ( IFeature feature : Xenon.INSTANCE.enabledFeatures )
         {
             // hide FeatureList itself and Debbuger

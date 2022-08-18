@@ -27,12 +27,26 @@ public class ConfigMenu extends IFeature
     @Override
     protected void onEnable()
     {
-        // build a new one every time we open
-        ConfigScreenBuilder screenBuilder = new ClothConfigScreenBuilder(
-                () -> ConfigBuilder.create()
-                .transparentBackground()
-        );
-        Screen configScreen = screenBuilder.build( Xenon.INSTANCE.client.currentScreen, Xenon.INSTANCE.config );
-        Xenon.INSTANCE.client.setScreen( configScreen ); // TODO: make it save on exit screen
+        // Catch any exception when initialising the config menu
+        // because it's annoying when I test stuff and the game just crashes
+        try
+        {
+            // build a new one every time we open
+            ConfigScreenBuilder screenBuilder = new ClothConfigScreenBuilder(
+                    () -> ConfigBuilder.create()
+                    .transparentBackground()
+            );
+            Screen configScreen = screenBuilder.build( Xenon.INSTANCE.client.currentScreen, Xenon.INSTANCE.config );
+            Xenon.INSTANCE.client.setScreen( configScreen ); // TODO: make it save on exit screen
+        }
+        catch ( UnsupportedOperationException unsupported )
+        {
+            Xenon.INSTANCE.sendErrorMessage( "text.xenon.configmenu.unsupportedoperation" );
+        }
+        catch ( Exception e )
+        {
+            Xenon.INSTANCE.sendErrorMessage( "text.xenon.configmenu.unknownexception" );
+            e.printStacktrace();
+        }
     }
 }
