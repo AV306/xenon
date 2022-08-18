@@ -8,7 +8,9 @@ Hello! This is Xenon, a Minecraft utility mod that adds stuff like Fullbright an
 
 This is good for people who want the features of clients such as Badlion or Lunar, but want it to be compatible with other mods.
 
-NOTE: Once a new Minecraft version is released, support for previous versions tends to be dropped due to my bad version control habits. Also, I may randomly skip versions because this is built according to my needs, and almost no one uses this.
+NOTE: Once a new Minecraft version is released, support for previous versions tends to be dropped due to my bad version control habits. Also, I randomly skip versions because this is built according to my needs, and almost no one uses this.
+
+This project is **not** guaranteed to be in a working or complete state at *any* point, and (much) more often than not there are several translation keys missing.
 
 ## Requirements:
 
@@ -30,6 +32,7 @@ NOTE: Once a new Minecraft version is released, support for previous versions te
 
 - FullBright (No more pitch-black caves!)
 - QuickChat (Quickly send a predefined message)
+- MultiQuickChat (Quickly send one of several predefined messages)
 - Bad WAILA implementation (use WTHIT instead, it's much better)
 - Panorama Generator (I'm proud of this one) (Note: does not work with shaders)
 - ShareLocation (Quickly share your location with others! Under maintenance)
