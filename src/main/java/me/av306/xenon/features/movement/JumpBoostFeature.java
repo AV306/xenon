@@ -1,13 +1,9 @@
 package me.av306.xenon.features.movement;
 
-import me.av306.xenon.config.GeneralConfigGroup;
-import me.av306.xenon.config.feature.HighJumpGroup;
 import me.av306.xenon.config.feature.JumpBoostGroup;
 import me.av306.xenon.event.EventFields;
 import me.av306.xenon.event.GetJumpVelocityEvent;
-import me.av306.xenon.event.RenderInGameHudEvent;
 import me.av306.xenon.feature.IToggleableFeature;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.ActionResult;
 
 public class JumpBoostFeature extends IToggleableFeature
@@ -18,7 +14,7 @@ public class JumpBoostFeature extends IToggleableFeature
 
     public JumpBoostFeature()
     {
-        super( "JumpBoost" );
+        super( "JumpBoost", "boost", "jb" );
 
         GetJumpVelocityEvent.EVENT.register( this::onGetJumpVelocity );
 

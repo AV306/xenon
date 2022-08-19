@@ -4,7 +4,6 @@ import me.av306.xenon.Xenon;
 import me.av306.xenon.config.feature.MultiQuickChatGroup;
 import me.av306.xenon.event.KeyEvent;
 import me.av306.xenon.feature.IFeature;
-import net.minecraft.client.util.InputUtil;
 import net.minecraft.util.ActionResult;
 import org.lwjgl.glfw.GLFW;
 
@@ -53,33 +52,31 @@ public class MultiQuickChatFeature extends IFeature
             String message = MultiQuickChatGroup.messageArray.get( key );*/
 
             // Hardcode method
-            String message = null;
-            switch ( key )
+            String message;
+            switch ( keycode )
             {
-                case GLFW.GLFW_KEY_0 -> { message = MultiQuickChatGroup.message0; }
-                case GLFW.GLFW_KEY_1 -> { message = MultiQuickChatGroup.message1; }
-                case GLFW.GLFW_KEY_2 -> { message = MultiQuickChatGroup.message2; }
-                case GLFW.GLFW_KEY_3 -> { message = MultiQuickChatGroup.message3; }
-                case GLFW.GLFW_KEY_4 -> { message = MultiQuickChatGroup.message4; }
-                case GLFW.GLFW_KEY_5 -> { message = MultiQuickChatGroup.message5; }
-                case GLFW.GLFW_KEY_6 -> { message = MultiQuickChatGroup.message6; }
-                case GLFW.GLFW_KEY_7 -> { message = MultiQuickChatGroup.message7; }
-                case GLFW.GLFW_KEY_8 -> { message = MultiQuickChatGroup.message8; }
-                case GLFW.GLFW_KEY_9 -> { message = MultiQuickChatGroup.message9; }
-                default -> {}
+                case GLFW.GLFW_KEY_0 -> message = MultiQuickChatGroup.message0;
+                case GLFW.GLFW_KEY_1 -> message = MultiQuickChatGroup.message1;
+                case GLFW.GLFW_KEY_2 -> message = MultiQuickChatGroup.message2;
+                case GLFW.GLFW_KEY_3 -> message = MultiQuickChatGroup.message3;
+                case GLFW.GLFW_KEY_4 -> message = MultiQuickChatGroup.message4;
+                case GLFW.GLFW_KEY_5 -> message = MultiQuickChatGroup.message5;
+                case GLFW.GLFW_KEY_6 -> message = MultiQuickChatGroup.message6;
+                case GLFW.GLFW_KEY_7 -> message = MultiQuickChatGroup.message7;
+                case GLFW.GLFW_KEY_8 -> message = MultiQuickChatGroup.message8;
+                case GLFW.GLFW_KEY_9 -> message = MultiQuickChatGroup.message9;
+                default -> message = "";
             }
+
+            //Xenon.INSTANCE.LOGGER.info( "key: {}, message: {}", keycode, message );
 
             // send the message
-            try
+            if ( !message.isBlank() )
             {
-                // throws NPE if message is null
+                // cancel if the message is not blank
                 Xenon.INSTANCE.client.player.sendChatMessage( message );
-
-                // Cancel keypress if message was present and sent successfully
-                // Will not be reached if message was not sent
                 return ActionResult.FAIL;
             }
-            catch ( NullPointerException ignored ) {}
         }
 
         return ActionResult.PASS;

@@ -17,17 +17,18 @@ public class MultiQuickChatGroup implements XenonConfigGroup
     public static HashMap<InputUtil.Key, String> messageMap = new HashMap<>();
 
     // Array method
+    @ConfigEntries.Exclude
     public static ArrayList<String> messageArray = new ArrayList<>();
 
     // hardcode message
-    public static String message0;
-    public static String message1;
-    public static String message2;
-    public static String message3;
-    public static String message4;
-    public static String message5;
-    public static String message6;
-    public static String message7;
-    public static String message8;
-    public static String message9;
+    public static String message0 = "";
+    public static String message1 = "";
+    public static String message2 = "";
+    public static String message3 = "";
+    public static String message4 = "";
+    public static String message5 = "";
+    public static String message6 = "";
+    public static String message7 = "";
+    public static String message8 = "";
+    public static String message9 = "";
 }

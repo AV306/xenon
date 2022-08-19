@@ -39,13 +39,13 @@ public class JetpackFeature extends IToggleableFeature
 
         if ( JetpackGroup.enableJumpBoost )
             // add legacy highjump-like stuff
-            Xenon.INSTANCE.featureRegistry.get( "jumpboost" ).enable();
+            Xenon.INSTANCE.featureRegistry.get( "boost" ).enable();
     }
 
     @Override
     protected void onDisable()
     {
         ((IToggleableFeature) Xenon.INSTANCE.featureRegistry.get( "nofalldamage" )).disable();
-        ((IToggleableFeature) Xenon.INSTANCE.featureRegistry.get( "jumpboost" )).disable();
+        ((IToggleableFeature) Xenon.INSTANCE.featureRegistry.get( "boost" )).disable();
     }
 }
