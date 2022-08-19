@@ -33,11 +33,11 @@ This project is **not** guaranteed to be in a working or complete state at *any*
 
 EDIT: MultiQuickChat has multi-key sequences, I did it yay
 
-- FullBright (No more pitch-black caves!)
+- FullBright (Allows you to quickly set gamma to 100.0. No more pitch-black caves!)
 - QuickChat (Quickly send a predefined message)
 - MultiQuickChat (Quickly send one of several predefined messages)
 - Bad WAILA implementation (use WTHIT instead, it's much better)
-- Panorama Generator (I'm proud of this one) (Note: does not work with shaders)
+- Panorama Generator (Allows you to take panoramas. I'm proud of this one) (Note: does not work with shaders)
 - ShareLocation (Quickly share your location with others! Under maintenance)
 - NoFireOverlay (useless, present in code but not accessible, exists for initial testing purposes)
 - FeatureList (not really a feature)
@@ -50,9 +50,9 @@ EDIT: MultiQuickChat has multi-key sequences, I did it yay
 - SpeedBoost (WIP)
 - HighJump (Jump high!)
 - JumpBoost (Jump high, all the time)
-- NoFallDamage (Don't die when you fall down!)
+- NoFallDamage (Don't die when you fall down! P.s. if you enable it mid-air, you might die. Of fall damage.)
 - Australian Mode (Turn the world upside down!)
-- Zoom (Zoom! WI-Zoom like scroll-zoom function that works with Xenon's other fov-related features)
+- Zoom (Look at far away things! WI-Zoom like scroll-zoom function that works with Xenon's other fov-related features)
 - modular and user-friendly feature creation/registration system I spent way too much time on (yay!)
 - Command processor and the beginnings of a macro system (Too much code in there)
 
