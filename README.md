@@ -22,13 +22,16 @@ This project is **not** guaranteed to be in a working or complete state at *any*
 ## Incompatible mods:
 
 - WI-Zoom (breaks Xenon's FOV-related features)
-- Please help me find some more!
+- Wurst Client
+- Please help find some more!
 
 ## Features:
 
 (All are unbound by default)
 
 ~~Maybe someday I'll implement multi-key sequences~~
+
+EDIT: MultiQuickChat has multi-key sequences, I did it yay
 
 - FullBright (No more pitch-black caves!)
 - QuickChat (Quickly send a predefined message)
@@ -49,7 +52,7 @@ This project is **not** guaranteed to be in a working or complete state at *any*
 - JumpBoost (Jump high, all the time)
 - NoFallDamage (Don't die when you fall down!)
 - Australian Mode (Turn the world upside down!)
-- Zoom (Zoom! WI-Zoom like scroll-zoom function that *works* with Xenon's other fov-related features)
+- Zoom (Zoom! WI-Zoom like scroll-zoom function that works with Xenon's other fov-related features)
 - modular and user-friendly feature creation/registration system I spent way too much time on (yay!)
 - Command processor and the beginnings of a macro system (Too much code in there)
 
