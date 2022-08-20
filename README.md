@@ -27,6 +27,8 @@ This project is **not** guaranteed to be in a working or complete state at *any*
 
 ## Features:
 
+Full documentation [here](FEATURES.md)
+
 (All are unbound by default)
 
 ~~Maybe someday I'll implement multi-key sequences~~
@@ -55,8 +57,6 @@ EDIT: MultiQuickChat has multi-key sequences, I did it yay
 - Zoom (Look at far away things! WI-Zoom like scroll-zoom function that works with Xenon's other fov-related features)
 - modular and user-friendly feature creation/registration system I spent way too much time on (yay!)
 - Command processor and the beginnings of a macro system (Too much code in there)
-
-Full list of features [over here!](FEATURES.md)
 
 ## Licensed under GNU GPL v3
 
