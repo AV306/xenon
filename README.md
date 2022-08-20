@@ -4,11 +4,11 @@
 [![CodeQL](https://github.com/AV306/xenon/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/AV306/xenon/actions/workflows/codeql-analysis.yml)
 [![HitCount](https://hits.dwyl.com/AV306/xenon.svg?style=flat&show=unique)](http://hits.dwyl.com/AV306/xenon)
 
-Hello! This is Xenon, a Minecraft utility mod that adds stuff like Fullbright and WAILA functionality to Minecraft.
+Hello! This is Xenon, a Minecraft utility mod that adds stuff that makes Minecraft more pleasant and convenient.
 
-This is good for people who want the features of clients such as Badlion or Lunar, but want it to be compatible with other mods.
+This mod aims to implement the functionality of clients such as Badlion and Lunar, while maintaining compatability with other mods. 
 
-NOTE: Once a new Minecraft version is released, support for previous versions tends to be dropped due to my bad version control habits. Also, I randomly skip versions because this is built according to my needs, and almost no one uses this.
+NOTE: This project is not likely to be up-to-date, as it is updated according to my needs since no one uses this.
 
 This project is **not** guaranteed to be in a working or complete state at *any* point, and (much) more often than not there are several translation keys missing.
 
