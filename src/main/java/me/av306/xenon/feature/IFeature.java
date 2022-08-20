@@ -98,8 +98,9 @@ public abstract class IFeature
 
 		this.key = key;
 
+		// use the name passed in because some features change their name (e.g. timer)
 		this.keyBinding = new KeyBinding(
-				"key.xenon." + this.name.toLowerCase().replaceAll( " ", "" ),
+				"key.xenon." + name.toLowerCase().replaceAll( " ", "" ),
 				InputUtil.Type.KEYSYM,
 				this.key,
 				"category.xenon.features"
@@ -117,7 +118,7 @@ public abstract class IFeature
 
 		// register our display name in the registry
 		Xenon.INSTANCE.featureRegistry.put(
-				this.getName().replaceAll( " ", "" ).toLowerCase(),
+				name.replaceAll( " ", "" ).toLowerCase(),
 				this
 		);
 	}
