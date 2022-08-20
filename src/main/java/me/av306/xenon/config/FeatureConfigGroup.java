@@ -27,7 +27,7 @@ public class FeatureConfigGroup implements XenonConfigGroup
 	@Transitive
 	private final TimerGroup timerGroup = new TimerGroup();
 
-	@Transitive
+	/*@Transitive
 	private final ProximityRadarGroup proximityRadarGroup = new ProximityRadarGroup();
 
 	@Transitive
@@ -43,7 +43,7 @@ public class FeatureConfigGroup implements XenonConfigGroup
 	private final JetpackGroup jetpackGroup = new JetpackGroup();
 
 	@Transitive
-	private final JumpBoostGroup jumpBoostGroup = new JumpBoostGroup();
+	private final JumpBoostGroup jumpBoostGroup = new JumpBoostGroup();*/
 
 	@Transitive
 	private final ZoomGroup zoomGroup = new ZoomGroup();
