@@ -56,6 +56,8 @@ EDIT: MultiQuickChat has multi-key sequences, I did it yay
 - modular and user-friendly feature creation/registration system I spent way too much time on (yay!)
 - Command processor and the beginnings of a macro system (Too much code in there)
 
+Full list of features [over here!](FEATURES.md)
+
 ## Licensed under GNU GPL v3
 
 ## Instructions for developers
