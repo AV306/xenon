@@ -8,9 +8,7 @@ Hello! This is Xenon, a Minecraft utility mod that adds stuff that makes Minecra
 
 This mod aims to implement the functionality of clients such as Badlion and Lunar, while maintaining compatability with other mods. 
 
-NOTE: This project is not likely to be up-to-date, as it is updated according to my needs since no one uses this.
-
-This project is **not** guaranteed to be in a working or complete state at *any* point, and (much) more often than not there are several translation keys missing.
+This project is **not** guaranteed to be in a working, up-to-date, or complete state at *any* point, and (much) more often than not there are several translation keys missing. This is updated according to my needs since exactly 2 other people use it, and they don't really care about the feature versions.
 
 ## Requirements:
 
@@ -22,7 +20,7 @@ This project is **not** guaranteed to be in a working or complete state at *any*
 ## Incompatible mods:
 
 - WI-Zoom (breaks Xenon's FOV-related features)
-- Wurst Client
+- Wurst Client (will almost defnintely break, not fully tested)
 - Please help find some more!
 
 ## Features:
