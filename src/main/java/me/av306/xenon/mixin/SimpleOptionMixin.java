@@ -1,6 +1,5 @@
 package me.av306.xenon.mixin;
 
-
 import me.av306.xenon.Xenon;
 import me.av306.xenon.mixinterface.SimpleOptionAccessor;
 import net.minecraft.client.option.SimpleOption;
@@ -11,6 +10,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import java.util.Objects;
 import java.util.function.Consumer;
 
+// I have no idea where I found this or how it works
 @Mixin( SimpleOption.class )
 public abstract class SimpleOptionMixin<T> implements SimpleOptionAccessor<T>
 {

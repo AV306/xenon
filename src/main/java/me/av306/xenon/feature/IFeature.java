@@ -27,7 +27,7 @@ public abstract class IFeature
 	public String getName() { return this.name; }
 	public void setName( String name ) { this.name = name; }
 	
-  	public boolean isEnabled = false;
+  	//public boolean isEnabled = false;
 
 	/**
 	 * The key the Feature is bound to.
@@ -44,12 +44,15 @@ public abstract class IFeature
 	 */
 	public boolean hide = false;
 
-	// generalised constructors (can't be called anyway)
+	/**
+	 * +-------------+
+	 * | Contructors |
+	 * +-------------+
+	 */
 
-	// important ones
 	/**
 	 * Recommended constructor to call in a subclass.
-	 * @param name: The Feature's name
+	 * @param name: The Feature's display name
 	 * @param aliases: Aliases for the feature in CP. Should NOT contain the original name
 	 */
 	protected IFeature( String name, String... aliases )
@@ -123,13 +126,6 @@ public abstract class IFeature
 		);
 	}
 
-	/**
-	 * Weird constructor, don't use
-	 */
-	protected IFeature() { this( "IFeature" ); }
-
-
-
 	/*protected ActionResult onKeyboardKey( long window, int key, int scanCode, int action, int modifiers )
 	{
 		if ( action == GLFW.GLFW_PRESS && key == this.key )
@@ -158,7 +154,7 @@ public abstract class IFeature
 		// but it is a failsafe in ITF
 		//if ( isEnabled ) return;
 			
-		this.isEnabled = true;
+		//this.isEnabled = true;
 
 		Xenon.INSTANCE.log( this.getName() + " enabled!" );
 
@@ -277,10 +273,9 @@ public abstract class IFeature
 	 * @param action: An array containing the command.
 	 */
     protected boolean onRequestExecuteAction( String[] action ) { return true; }
-	//public abstract void onDisable();
 
 	/**
-	 * Method to retrieve help tet for a feature.
+	 * Method to retrieve help text for a feature.
 	 */
 	public Text getHelpText()
 	{
