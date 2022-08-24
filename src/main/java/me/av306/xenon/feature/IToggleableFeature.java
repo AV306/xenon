@@ -9,6 +9,8 @@ public abstract class IToggleableFeature extends IFeature
     protected Text enabledText;
     protected Text disabledText;
 
+    protected boolean isEnabled = false;
+
     //protected int key = GLFW.GLFW_KEY_UNKNOWN;
 
     //protected static IToggleableFeature instance;
@@ -52,9 +54,9 @@ public abstract class IToggleableFeature extends IFeature
     @Override
     public void enable()
     {
-        if ( isEnabled ) return; // safety
+        if ( this.isEnabled ) return; // safety
 
-        isEnabled = true;
+        this.isEnabled = true;
 
         Xenon.INSTANCE.log( this.getName() + " enabled!" );
 
@@ -71,9 +73,9 @@ public abstract class IToggleableFeature extends IFeature
 
     public void disable()
     {
-        if ( !isEnabled ) return; // safety catch
+        if ( !this.isEnabled ) return; // safety catch
 
-        isEnabled = false;
+        this.isEnabled = false;
 
         Xenon.INSTANCE.log( this.getName() + " disabled!" );
 
@@ -86,7 +88,7 @@ public abstract class IToggleableFeature extends IFeature
 
     private void toggle()
     {
-        if ( isEnabled ) disable();
+        if ( this.isEnabled ) disable();
         else enable();
     }
 
