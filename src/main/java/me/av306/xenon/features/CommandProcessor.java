@@ -7,6 +7,7 @@ import me.av306.xenon.feature.IFeature;
 import me.av306.xenon.feature.IToggleableFeature;
 import me.av306.xenon.util.text.TextFactory;
 import net.minecraft.text.MutableText;
+import net.minecraft.text.Text;
 import net.minecraft.text.TextContent;
 import net.minecraft.util.ActionResult;
 
