@@ -118,7 +118,7 @@ public class CommandProcessor extends IToggleableFeature
 
                 case "toggle", "t" ->
                 {
-                    ((IToggleableFeature) featureTargeted).toggle();
+                    ((IToggleableFeature) feature).toggle();
                 }
 
                 default ->
@@ -225,7 +225,7 @@ public class CommandProcessor extends IToggleableFeature
     }
 
     @Override
-    protected Text getHelpText( String[] args )
+    public Text getHelpText( String[] args )
     {
         // example: !cp help listf
         // args[0]
