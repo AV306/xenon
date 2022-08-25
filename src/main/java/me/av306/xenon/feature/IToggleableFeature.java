@@ -85,12 +85,12 @@ public abstract class IToggleableFeature extends IFeature
 
         onDisable();
     }
+    
+    protected abstract void onDisable();
 
-    private void toggle()
+    public void toggle()
     {
         if ( this.isEnabled ) disable();
         else enable();
     }
-
-    protected abstract void onDisable();
 }
