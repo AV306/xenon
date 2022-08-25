@@ -6,4 +6,4 @@
 - Comment and document code. Please.
 - Ignore any prompts to merge branches for previous Minecraft versions into the main branch.
 
-\* Please try to write meaningful yet succint commit messages, like those in the [Linux kernel repo](https://github.com/torvalds/linux), and not either single characters "是", keysmashes or weird ones like "patch patch patch patch" (All real examples from me)
+\* Please try to write meaningful yet succint commit messages, like those in the [Linux kernel repo](https://github.com/torvalds/linux), and not either single characters "是", keysmashes or weird ones like "patch patch patch patch". (All real examples from me)
