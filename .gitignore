@@ -1,27 +1,22 @@
 # github
-
 .github/
 
 # gradle
-
 .gradle/
 build/
 out/
 classes/
 
 # eclipse
-
 *.launch
 
 # idea
-
 .idea/
 *.iml
 *.ipr
 *.iws
 
 # vscode
-
 .settings/
 .vscode/
 bin/
@@ -29,28 +24,15 @@ bin/
 .project
 
 # macos
-
 *.DS_Store
 
 # fabric
-
 run/
 
 # replit
-
 .replit
 .project
 .classpath
 .settings/
 .breakpoints
 replit.nix
-
-# +------+
-# | Misc |
-# +------+
-
-# building in special cases
-jdk-18/
-
-# reference
-reference/
