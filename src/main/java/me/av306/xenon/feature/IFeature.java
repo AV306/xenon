@@ -277,7 +277,7 @@ public abstract class IFeature
 	/**
 	 * Method to retrieve help text for a feature.
 	 */
-	public Text getHelpText()
+	public Text getHelpText( String[] args )
 	{
 		// TODO: add formatting
 		return TextFactory.createLiteral( "Whoops! This Feature doesn't have any documentation :(" );

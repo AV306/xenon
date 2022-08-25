@@ -6,6 +6,8 @@ import me.av306.xenon.event.ChatOutputEvent;
 import me.av306.xenon.feature.IFeature;
 import me.av306.xenon.feature.IToggleableFeature;
 import me.av306.xenon.util.text.TextFactory;
+import net.minecraft.text.MutableText;
+import net.minecraft.text.TextContent;
 import net.minecraft.util.ActionResult;
 
 import java.util.Arrays;
@@ -106,7 +108,16 @@ public class CommandProcessor extends IToggleableFeature
                 case "help", "h", "?" ->
                 {
                     // user doesn't know how to use this
-                    Xenon.INSTANCE.sendInfoMessage( feature.getHelpText() );
+                    Xenon.INSTANCE.sendInfoMessage(
+                        feature.getHelpText(
+                            Arrays.copyOfRange( possibleCommand, 2, possibleCommand.length )
+                        )
+                    );
+                }
+
+                case "toggle", "t" ->
+                {
+                    ((IToggleableFeature) featureTargeted).toggle();
                 }
 
                 default ->
@@ -160,6 +171,11 @@ public class CommandProcessor extends IToggleableFeature
                 .split( " " ); // split
     }
 
+    /**
+     * Helper method to serialise a command array into a command string.
+     * @param prefixChar: The prefix character
+     * @param command: The command array
+     */
     public String serialiseCommand( char prefixChar, String[] command )
     {
         String prefixString = String.valueOf( prefixChar );
@@ -205,6 +221,40 @@ public class CommandProcessor extends IToggleableFeature
         );
 
         return true;
+    }
+
+    @Override
+    protected Text getHelpText( String[] args )
+    {
+        // example: !cp help listf
+        // args[0]
+
+        MutableText helpText = MutableText.of( TextContent.EMPTY ).append( "[CommandProcessor] ");
+        switch( args[0] )
+        {
+            case "listf", "listfeatures", "features", "lf" ->
+            {
+                helpText.append( "Registered aliases:\n" )
+                        .append(
+                            Arrays.toString(
+                                Xenon.INSTANCE.featureRegistry.keySet()
+                                    .toArray( new String[]{} )
+                            )
+                        );
+            }
+
+            case "configs", "listconfigs" ->
+            {
+                helpText.append( "Possible configs:\n" )
+                        .append(
+                            "prefix - change the prefix of the command"
+                        );
+            }
+        }
+
+        helpText.formatted( Xenon.INSTANCE.MESSAGE_FORMAT );
+        
+        return helpText;
     }
 }
 
