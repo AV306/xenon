@@ -27,10 +27,10 @@ public class FeatureConfigGroup implements XenonConfigGroup
 	@Transitive
 	private final TimerGroup timerGroup = new TimerGroup();
 
-	/*@Transitive
+	@Transitive
 	private final ProximityRadarGroup proximityRadarGroup = new ProximityRadarGroup();
 
-	@Transitive
+	/*@Transitive
 	private final FastBreakGroup fastBreakGroup = new FastBreakGroup();
 
 	@Transitive

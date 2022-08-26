@@ -3,11 +3,17 @@ package me.av306.xenon;
 import me.av306.xenon.config.FeatureConfigGroup;
 import me.av306.xenon.feature.IFeature;
 import me.av306.xenon.feature.IToggleableFeature;
-import me.av306.xenon.features.*;
-import me.av306.xenon.features.blocks.*;
-import me.av306.xenon.features.chat.*;
-import me.av306.xenon.features.fovchallenge.*;
-import me.av306.xenon.features.movement.*;
+import me.av306.xenon.features.CommandProcessor;
+import me.av306.xenon.features.ConfigMenu;
+import me.av306.xenon.features.FeatureList;
+import me.av306.xenon.features.PanicFeature;
+import me.av306.xenon.features.chat.MultiQuickChatFeature;
+import me.av306.xenon.features.chat.QuickChatFeature;
+import me.av306.xenon.features.chat.ShareLocationFeature;
+import me.av306.xenon.features.fovchallenge.DecreaseFovFeature;
+import me.av306.xenon.features.fovchallenge.IncreaseFovFeature;
+import me.av306.xenon.features.movement.CreativeFlightFeature;
+import me.av306.xenon.features.movement.TimerFeature;
 import me.av306.xenon.features.render.*;
 import me.av306.xenon.mixin.MinecraftClientAccessor;
 import me.av306.xenon.util.text.TextFactory;
@@ -104,7 +110,6 @@ public enum Xenon
 
         new IncreaseFovFeature();
         new DecreaseFovFeature();
-        //new FovChallengeFeature();
     }
 
     // FIXME: usage of this is highly inconsistent
