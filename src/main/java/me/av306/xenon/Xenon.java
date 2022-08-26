@@ -81,8 +81,6 @@ public enum Xenon
         new AustralianModeFeature();
         new CommandProcessor();
         new ConfigMenu();
-        new CreativeFlightFeature();
-        new FastBreakFeature();
         new FeatureList();
         new FullBrightFeature();
         new MultiQuickChatFeature();
