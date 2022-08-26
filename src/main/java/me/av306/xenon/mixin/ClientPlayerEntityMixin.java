@@ -11,7 +11,6 @@ import net.minecraft.client.world.ClientWorld;
 import net.minecraft.network.encryption.PlayerPublicKey;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
-import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -47,24 +46,9 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
             ci.cancel();
     }*/
 
-    // 1.19.1 code
+    // code from an unknwown (post-1.18, pre-1.19) version
+    // (chat reports in-progress build)
     /*
-    @Inject(
-            at = @At( "HEAD" ),
-            method = "sendChatMessage(Ljava/lang/String;Lnet/minecraft/text/Text;)V",
-            cancellable = true
-    )
-    private void onSendChatMessage(String message, @Nullable Text previewCallbackInfo, CallbackInfo ci )
-    {
-        //Xenon.INSTANCE.LOGGER.info( "msg" );
-        ActionResult result = ChatOutputEvent.EVENT.invoker().interact( message );
-
-        if ( result == ActionResult.FAIL )
-            ci.cancel();
-    }
-
-    /*
-    // backup code, use if above doesn't work
     @Inject(
             at = @At( "HEAD" ),
             method = "sendChatMessagePacket(Ljava/lang/String;Lnet/minecraft/text/Text;)V",
@@ -81,8 +65,7 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
     */
 
     // 1.19 code
-    ///*
-
+    /*
     @Inject(
             at = @At( "HEAD" ),
             method = "sendChatMessagePacket(Lnet/minecraft/network/message/ChatMessageSigner;Ljava/lang/String;Lnet/minecraft/text/Text;)V",
@@ -96,7 +79,22 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
         if ( result == ActionResult.FAIL )
             ci.cancel();
     }
-    // */
+    */
+
+    // 1.19.1++ code
+    @Inject(
+            at = @At( "HEAD" ),
+            method = "sendChatMessage(Ljava/lang/String;Lnet/minecraft/text/Text;)V",
+            cancellable = true
+    )
+    private void onSendChatMessage(String message, Text preview, CallbackInfo ci )
+    {
+        //Xenon.INSTANCE.LOGGER.info( "msg" );
+        ActionResult result = ChatOutputEvent.EVENT.invoker().interact( message );
+
+        if ( result == ActionResult.FAIL )
+            ci.cancel();
+    }
 
 
     @Inject(
