@@ -4,8 +4,10 @@ import me.av306.xenon.config.FeatureConfigGroup;
 import me.av306.xenon.feature.IFeature;
 import me.av306.xenon.feature.IToggleableFeature;
 import me.av306.xenon.features.*;
+import me.av306.xenon.features.blocks.*;
 import me.av306.xenon.features.chat.*;
 import me.av306.xenon.features.fovchallenge.*;
+import me.av306.xenon.features.movement.*;
 import me.av306.xenon.features.render.*;
 import me.av306.xenon.mixin.MinecraftClientAccessor;
 import me.av306.xenon.util.text.TextFactory;
@@ -81,17 +83,28 @@ public enum Xenon
         new AustralianModeFeature();
         new CommandProcessor();
         new ConfigMenu();
+        new CreativeFlightFeature();
+        //new ExtraReachFeature(); // FIXME: desyncs
+        //new FastBreakFeature();
         new FeatureList();
+        //new FlightFeature();
         new FullBrightFeature();
+        //new HighJumpFeature();
+        //new JetpackFeature();
+        //new JumpBoostFeature();
         new MultiQuickChatFeature();
+        //new NoFallDamageFeature();
         new PanicFeature();
+        new ProximityRadarFeature();
         new QuickChatFeature();
         new ShareLocationFeature();
+        new TimerFeature();
         new WailaFeature();
         new ZoomFeature();
 
         new IncreaseFovFeature();
         new DecreaseFovFeature();
+        //new FovChallengeFeature();
     }
 
     // FIXME: usage of this is highly inconsistent
