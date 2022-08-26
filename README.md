@@ -4,6 +4,8 @@
 [![CodeQL](https://github.com/AV306/xenon/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/AV306/xenon/actions/workflows/codeql-analysis.yml)
 [![HitCount](https://hits.dwyl.com/AV306/xenon.svg?style=flat&show=unique)](http://hits.dwyl.com/AV306/xenon)
 
+### NOTE: CI and CodeQL are failing because one of the artifact providers seems to be down, see [this log](https://github.com/AV306/xenon/runs/8038992603?check_suite_focus=true#step:4:74)
+
 Hello! This is Xenon, a Minecraft utility mod that adds stuff that makes Minecraft more pleasant and convenient.
 
 This mod aims to implement the functionality of clients such as Badlion and Lunar, while maintaining compatability with other mods. 
