@@ -12,10 +12,10 @@ version = project.mod_version
 group = project.maven_group
 
 repositories {
-	maven {
+	/*maven {
 		name = "CottonMC"
 		url = "https://server.bbkr.space/artifactory/libs-release"
-	}
+	}*/
 
 	maven {
     	url "https://jitpack.io"
