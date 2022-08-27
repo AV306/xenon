@@ -74,7 +74,7 @@ public class MultiQuickChatFeature extends IFeature
             if ( !message.isBlank() )
             {
                 // cancel if the message is not blank
-                Xenon.INSTANCE.client.player.sendChatMessage( message );
+                Xenon.INSTANCE.client.player.sendChatMessage( message, TextFactory.createLiteral( message ) );
                 return ActionResult.FAIL;
             }
         }
