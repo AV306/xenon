@@ -14,8 +14,8 @@ This project is **not** guaranteed to be in a working, up-to-date, or complete s
 
 (check these [here](https://fabricmc.net/develop))
 
-- Fabric Loader >= 0.13.3 (Recommended: 0.13.3 Just use the latest version, it's better that way)
-- Fabric API for that version (Recommended: 0.57.0+1.19)
+- Latest Fabric API (may break if you use an older one)
+- Fabric Loader >=0.13.3
 
 ## Incompatible mods:
 
