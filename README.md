@@ -39,24 +39,23 @@ EDIT: MultiQuickChat has multi-key sequences, I did it yay
 - Bad WAILA implementation (use WTHIT instead, it's much better)
 - Panorama Generator (Allows you to take panoramas. I'm proud of this one) (Note: does not work with shaders)
 - ShareLocation (Quickly share your location with others! Under maintenance)
-- NoFireOverlay (useless, present in code but not accessible, exists for initial testing purposes)
 - FeatureList (not really a feature)
-- DataHUD (useless)
 - Configuration system
-- ProximityRadar (Tells you quietly when a hostile mob or projectile is near)
 - Timer (Speeds everything up! *wheee*)
-- FastBreak (Speeds up block breaking. Does not work *exactly* as intended, but close enough)
-- Fundy Ice Physics™ (Sort of work*ed*, I forgot what happened to it)
-- SpeedBoost (WIP)
-- HighJump (Jump high!)
-- JumpBoost (Jump high, all the time)
-- NoFallDamage (Don't die when you fall down! P.s. if you enable it mid-air, you might die. Of fall damage.)
 - Australian Mode (Turn the world upside down!)
 - Zoom (Look at far away things! WI-Zoom like scroll-zoom function that works with Xenon's other fov-related features)
 - modular and user-friendly feature creation/registration system I spent way too much time on (yay!)
 - Command processor and the beginnings of a macro system (Too much code in there)
 
 ## Licensed under GNU GPL v3
+
+## IFAQ (Infrequently Asked Questions)
+Q: How do I use this?
+A: Download a build that matches your Minecraft version, and drop it in your mods folder.
+Google "How to install Fabric mods" for more info.
+
+Q: Is there a Forge version?
+A: No, and probably never. It's very hard to find good Forge API documentation, and Fabric is, in my slightly biased opinion, better overall.
 
 ## Instructions for developers
 
@@ -75,50 +74,4 @@ EDIT: MultiQuickChat has multi-key sequences, I did it yay
 2. Define a constructor and call `super( <name> );`, replacing `<name>` with the name of your feature.
 3. Register event callbacks in the constructor, see `Timer` for an example. (Note: some features, like JumpBoost, that require  modifying the return values of methods, are more complex. Use `EventFields`, see `JumpBoost`. Please DO NOT just write your code in the mixin itself, that defeats the whole purpose of the event system >:( )
 4. Register your feature by calling its constructor in `Xenon` (main class).
-5. Add any translations to the lang file.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-.
-
-why did i even spend more than a year of my life making this, no one even cares about or notices, much less uses this stupid thing
-
-update: someone noticed yayy
+5. Add any translation keys to the lang file.
