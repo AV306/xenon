@@ -19,7 +19,7 @@
   "config.xenon.featureconfiggroup.featurelistgroup.shadow": "Shadow",
   "config.xenon.featureconfiggroup.featurelistgroup.showVersion": "Show Version",
   "config.xenon.featureconfiggroup.generalconfiggroup": "General Settings",
-  "config.xenon.featureconfiggroup.generalconfiggroup.interval": "Global Update Interval",
+  "config.xenon.featureconfiggroup.generalconfiggroup.lazyDfu": "Enable Lazy DFU Optimisation",
   "config.xenon.featureconfiggroup.highjumpgroup": "HighJump Settings",
   "config.xenon.featureconfiggroup.highjumpgroup.height": "Velocity",
   "config.xenon.featureconfiggroup.highjumpgroup.multiplier": "Multiplier",
