@@ -1,5 +1,6 @@
 package me.av306.xenon.mixin;
 
+import me.av306.xenon.Xenon;
 import me.av306.xenon.config.GeneralConfigGroup;
 import net.minecraft.SharedConstants;
 import org.spongepowered.asm.mixin.Mixin;
@@ -28,15 +29,11 @@ public class SharedConstantsMixin
      * in the Vanilla logs.
      *
      * Look for a line in the logs saying something like
-     * "[x] datafixer optimisations took [y] milliseconds".
+     * "[x] Datafixer optimisations took [y] milliseconds".
      * [x] should be in the range of a few thousand,
-     * and [y] should be in the range of thousands to ten thousands.
-     * (For me, [x] = 4256 and [y] = ???)
-     * TODO: This line only seems to appear in Fabric DevLaunchInjector logs?
+     * and [y] could be anything.
+     * (For me, [x] = 4238 and [y] = 43843)
      */
-
-    /*@Overwrite
-    public static void enableDataFixerOptimization() {} // nope*/
 
     @Inject(
         at = @At( "HEAD" ),
@@ -47,6 +44,7 @@ public class SharedConstantsMixin
     {
         // make it conditional
         // cancel the optimisations if user wants MC to be fast
+        Xenon.INSTANCE.LOGGER.info( GeneralConfigGroup.lazyDfu );
         if ( GeneralConfigGroup.lazyDfu ) ci.cancel();
     }
 }

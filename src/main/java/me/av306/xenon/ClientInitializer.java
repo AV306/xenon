@@ -9,7 +9,7 @@ public class ClientInitializer implements ClientModInitializer
     @Override
     public void onInitializeClient()
     {
-        Xenon.INSTANCE.LOGGER.info("Hello Fabric world!");
+        Xenon.INSTANCE.LOGGER.info( "Hello Fabric world!" );
 
         if ( initialized )
             throw new RuntimeException( "Oh no! Xenon tried to initialise twice and this is very bad!!!" );
