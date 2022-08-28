@@ -20,7 +20,8 @@
     "PlayerInventoryMixin",
     "RenderTickCounterAccessor",
     "RenderTickCounterMixin",
-    "SimpleOptionMixin"
+    "SimpleOptionMixin",
+    "SharedConstantsMixin"
   ],
   "injectors": {
     "defaultRequire": 1
