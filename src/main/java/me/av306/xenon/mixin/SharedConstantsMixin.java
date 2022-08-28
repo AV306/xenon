@@ -1,5 +1,6 @@
 package me.av306.xenon.mixin;
 
+import me.av306.xenon.config.GeneralConfigGroup;
 import net.minecraft.SharedConstants;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
