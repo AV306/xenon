@@ -71,15 +71,20 @@ public enum Xenon
     //private boolean updateAvailable = false;
     //public boolean getUpdateAvailable() { return updateAvailable; }
 
+    public void preLaunchInitialise()
+    {
+        // Load our configs BEFORE the game loads.
+        // This is mainly because of the LazyDFU integration,
+        // where the DFU "optimisations" are executed BEFORE our initialisation.
+        // This can be here because it does not depend on MC.
+        this.config.load();
+    }
+
     public void initialise()
     {
-        //assert this.client == null;
-
+        // Read our version data
         readVersionData();
         checkForUpdate();
-
-	    // load configs
-	    this.config.load();
 			
         // set client and its accessor
         this.client = MinecraftClient.getInstance();
@@ -90,7 +95,6 @@ public enum Xenon
         new CommandProcessor();
         new ConfigMenu();
         new CreativeFlightFeature();
-        //new ExtraReachFeature(); // FIXME: desyncs
         //new FastBreakFeature();
         new FeatureList();
         //new FlightFeature();

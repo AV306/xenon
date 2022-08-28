@@ -18,13 +18,10 @@
 
   "environment": "client",
   "entrypoints": {
-    "client": [
-      "me.av306.xenon.ClientInitializer"
-    ]
+    "client": [ "me.av306.xenon.ClientInitializer" ],
+    "preLaunch": [ "me.av306.xenon.PreLaunchInitializer" ]
   },
-  "mixins": [
-    "xenon.mixins.json"
-  ],
+  "mixins": [ "xenon.mixins.json" ],
 
   "depends": {
     "fabricloader": ">=0.14.7",
