@@ -54,10 +54,13 @@ EDIT: MultiQuickChat has multi-key sequences, I did it yay
 
 ## IFAQ (Infrequently Asked Questions)
 Q: How do I use this?
+
 A: Download a build that matches your Minecraft version, and drop it in your mods folder.
 Google "How to install Fabric mods" for more info.
 
+
 Q: Is there a Forge version?
+
 A: No, and probably never. It's very hard to find good Forge API documentation, and Fabric is, in my slightly biased opinion, better overall.
 
 ## Instructions for developers
