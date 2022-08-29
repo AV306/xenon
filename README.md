@@ -21,7 +21,10 @@ This project is **not** guaranteed to be in a working, up-to-date, or complete s
 
 - WI-Zoom (breaks Xenon's FOV-related features)
 - Wurst Client (will almost defnintely break, not fully tested)
+- LazyDFU * (Won't crash, but will override your configuration of whether Xenon should disable DFU "optimisations")
 - Please help find some more!
+
+\* LazyDFU functionality was integrated into Xenon in v4.6.1+1.19.2
 
 ## Features:
 
