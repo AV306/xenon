@@ -1,18 +1,15 @@
 # Feature Documentation
 
 ## Blocks
-- FastBreak - Doesn't work, deprecated anyway
+- To be added (Feel free to make sggestions!)
 
 ## Chat
-- QuickChat - Send a custom message at the touch of a button
-- MultiQuickChat - Send a custom message at the touch of two buttons
-- ShareLocation - Send a chat message with your current location and dimension
+- QuickChat - Send a custom message at the push of a button
+- MultiQuickChat - Send a custom message at the push of two buttons
+- ShareLocation - Send a chat message with your current location and dimension, still at the push of a button
 
 ## Movement
-- HighJump - Jump really high
-- JumpBoost - Jump really high, all the time
-- Timer - Do things really fast
-- SpeedBoost - Move really fast
+- Pending ethics review
 
 ## Render
 - Australian Mode - Simulate Australian Minecraft
@@ -26,3 +23,4 @@
 - ConfigMenu - Change feature configs
 - FeatureList - Lists the features you have enabled
 - Panic - Disables everything
+- LazyDFU Integration - Optimises DFU (DataFixerUpper) just like LazyDFU
