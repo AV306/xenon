@@ -78,11 +78,15 @@ public class CommandProcessor extends IToggleableFeature
             // Now we try to parse the command
             // should have length > 2
             String featureTargeted = possibleCommand[0];
-            String command = possibleCommand[1]; // oobe
+            String keyword = possibleCommand[1]; // oobe
+
+            // Cooy over the args after the keyword
+            // e.g. [cp, exec, timer, enable] -> [timer, enable]
+            String[] args = Arrays.copyOfRange( possibleCommand, 2, possibleCommand.length );
 
             IFeature feature = Xenon.INSTANCE.featureRegistry.get( featureTargeted ); // npe
 
-            switch ( command )
+            switch ( keyword )
             {
                 case "enable", "on", "e" -> feature.enable(); // User wants to enable a feature
 
@@ -93,11 +97,10 @@ public class CommandProcessor extends IToggleableFeature
                     // pattern matching fun!
                     // copy over the components after the "exec"
                     // e.g. [commandprocessor, exec, timer, enable] -> [timer, enable]
-                    String[] action = Arrays.copyOfRange( possibleCommand, 2, possibleCommand.length );
-                    feature.executeAction( action );
+                    feature.executeAction( args );
                 }
 
-                case "set" ->
+                case "set", "s" ->
                 {
                     // User wants to change a config,
                     // this is delegated to the feature.
@@ -110,9 +113,7 @@ public class CommandProcessor extends IToggleableFeature
                 {
                     // user doesn't know how to use this
                     Xenon.INSTANCE.sendInfoMessage(
-                        feature.getHelpText(
-                            Arrays.copyOfRange( possibleCommand, 2, possibleCommand.length )
-                        )
+                        feature.getHelpText( args )
                     );
                 }
 
@@ -124,12 +125,23 @@ public class CommandProcessor extends IToggleableFeature
                 default ->
                 {
                     // User probably wants to change a config
-                    String attrib = possibleCommand[1];
-                    String value = possibleCommand[2]; // oobe
-                    feature.parseConfigChange( attrib, value );
+                    // or list the arguments
+                    if ( possibleCommand.length == 1 )
+                    {
+                        // no arguments at all, list possible keywords
+                        Xenon.INSTANCE.client.sendInfoMessage(
+                            "text.xenon.commandprocessor.possiblekeywords"
+                        )
+                    }
+                    else
+                    {
+                        String attrib = possibleCommand[1];
+                        String value = possibleCommand[2]; // oobe
+                        feature.parseConfigChange( attrib, value );
+                    }
                 }
             }
-        } // FIXME: This can't differentiate between exceptions thrown in here and those during enabling.
+        } 
         catch ( ArrayIndexOutOfBoundsException oobe )
         {
             // Tried to access smth outside the arg array
