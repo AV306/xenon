@@ -129,7 +129,7 @@ public class CommandProcessor extends IToggleableFeature
                     if ( possibleCommand.length == 1 )
                     {
                         // no arguments at all, list possible keywords
-                        Xenon.INSTANCE.client.sendInfoMessage(
+                        Xenon.INSTANCE.sendInfoMessage(
                             "text.xenon.commandprocessor.possiblekeywords"
                         );
                     }
