@@ -90,6 +90,7 @@
   "text.xenon.commandprocessor.invalidcommand.invalidfeature": "[CommandProcessor] Invalid command: Cannot resolve Feature!",
   "text.xenon.commandprocessor.invalidcommand.featurenottoggleable": "[CommandProcessor] Invalid command: Feature not toggleable!",
   "text.xenon.commandprocessor.exception": "[CommandProcessor] Oh no! An unexpected exception ocurred and this is very bad!!!",
+  "text.xenon.commandprocessor.possiblekeywords": "Possible command keywords:\n[enable, e, on, disable, d, off, toggle, t\nexecute, exec, ex, run, do, set, s, help, h, ?",
   "text.xenon.configmenu.unknownexception": "[ConfigMenu] An unexpected error occurred when generating the config screen. See logs for more info.",
   "text.xenon.configmenu.unsupportedoperation": "[ConfigMenu] An error occurred when generating the config screen. This appears to be caused by a bad config entry.",
   "text.xenon.ifeature.configchange.invalidconfig": "[%s] Failed to change config \"%s\" to value %s: Invalid config name!",
