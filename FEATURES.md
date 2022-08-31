@@ -1,7 +1,10 @@
 # Feature Documentation
 
+All are open for suggestions and PRs!
+
+Please note that all feature suggestions will be subject to extensive review (see [this](ETHICS.md))
+
 ## Blocks
-- To be added (Feel free to make sggestions!)
 
 ## Chat
 - QuickChat - Send a custom message at the push of a button
@@ -9,7 +12,6 @@
 - ShareLocation - Send a chat message with your current location and dimension, still at the push of a button
 
 ## Movement
-- Pending ethics review
 
 ## Render
 - Australian Mode - Simulate Australian Minecraft
