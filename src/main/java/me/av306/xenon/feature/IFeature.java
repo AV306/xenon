@@ -45,12 +45,6 @@ public abstract class IFeature
 	public boolean hide = false;
 
 	/**
-	 * +-------------+
-	 * | Contructors |
-	 * +-------------+
-	 */
-
-	/**
 	 * Recommended constructor to call in a subclass.
 	 * @param name: The Feature's display name
 	 * @param aliases: Aliases for the feature in CP. Should NOT contain the original name

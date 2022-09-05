@@ -86,19 +86,18 @@ public class CommandProcessor extends IToggleableFeature
 
             IFeature feature = Xenon.INSTANCE.featureRegistry.get( featureTargeted ); // npe
 
-            switch ( keyword )
-            {
-                case "enable", "on", "e" -> feature.enable(); // User wants to enable a feature
+            switch ( keyword ) {
+                case "enable", "on", "e" ->
+                        feature.enable(); // User wants to enable a feature
 
-                case "disable", "off", "d" -> ((IToggleableFeature) feature).disable(); // cce; user wants to disable a feature
+                case "disable", "off", "d" ->
+                        ((IToggleableFeature) feature).disable(); // cce; user wants to disable a feature
 
                 case "exec", "execute", "ex", "run", "do" ->
-                {
-                    // pattern matching fun!
-                    // copy over the components after the "exec"
-                    // e.g. [commandprocessor, exec, timer, enable] -> [timer, enable]
-                    feature.executeAction( args );
-                }
+                        // pattern matching fun!
+                        // copy over the components after the "exec"
+                        // e.g. [commandprocessor, exec, timer, enable] -> [timer, enable]
+                        feature.executeAction(args);
 
                 case "set", "s" ->
                 {
@@ -118,9 +117,7 @@ public class CommandProcessor extends IToggleableFeature
                 }
 
                 case "toggle", "t" ->
-                {
-                    ((IToggleableFeature) feature).toggle();
-                }
+                        ((IToggleableFeature) feature).toggle();
 
                 default ->
                 {
@@ -172,7 +169,7 @@ public class CommandProcessor extends IToggleableFeature
     /**
      * A helper method to deserialise a command into an array.
      *
-     * @param prexixChar: The prefix character
+     * @param prefixChar: The prefix character
      * @param command: The command string to be formatted
      */
     private String[] deserialiseCommand( char prefixChar, String command )
