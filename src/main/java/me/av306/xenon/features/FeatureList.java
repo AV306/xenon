@@ -57,7 +57,7 @@ public final class FeatureList extends IToggleableFeature
         // Now, begin drawing text
 
         // should we draw the version name?
-        if ( this.shouldShowVersion )
+        if ( shouldShowVersion )
             TextUtil.drawPositionedText(
                     matrices,
                     this.versionText,
