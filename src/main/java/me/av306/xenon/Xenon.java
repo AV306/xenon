@@ -97,7 +97,6 @@ public enum Xenon
         //new JumpBoostFeature();
         new MultiQuickChatFeature();
         //new NoFallDamageFeature();
-        new PanicFeature(); // FIXME: crashes
         new ProximityRadarFeature();
         new QuickChatFeature();
         new ShareLocationFeature();
