@@ -10,22 +10,24 @@ import java.util.List;
 public final class PanicFeature extends IFeature
 {
     public PanicFeature()
-  {
-    super( "Panic" );
-  }
+    {
+        super( "Panic" );
+    }
 
     @Override
     protected void onEnable()
     {
-        // copy the list
-        List<IToggleableFeature> list = new ArrayList<>( Xenon.INSTANCE.enabledFeatures );
+        // FIXME: this crashes MC, need to deobfuscate stacktrace
+    
+        // copy the list through copy-construction
+        // because disabling the features will mutate the list,
+        // causing errors
+        List<IToggleableFeature> enabledFeatures_copy = new ArrayList<>( Xenon.INSTANCE.enabledFeatures );
 
         // iterate over the enabled ITFs in the copy
         // and disable them
-        list.forEach(
+        enabledFeatures_copy.forEach(
                 IToggleableFeature::disable
         );
-
-        // destroy the list
     }
 }
