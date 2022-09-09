@@ -144,22 +144,33 @@ public class CommandProcessor extends IToggleableFeature
             // Tried to access smth outside the arg array
             // probably not enough args
             Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocessor.invalidcommand.notenoughargs" );
+            // don't print stacktrace here, because this is gonna happen pretty often
+            Xenon.INSTANCE.LOGGER.warn( oobe );
+            //oobe.printStackTrace();
         }
         catch ( ClassCastException cce )
         {
             // Almost definitely tried to cast a Feature to a ToggleableFeature
             Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocessor.invalidcommand.featurenottoggleable" );
+            //Xenon.INSTANCE.LOGGER.warn( cce );
+            cce.printStackTrace(); // print stacktrace, this shouldn't happen
         }
         catch ( NullPointerException npe )
         {
             // Somewhere, someone tried to access a non-existent feature
             // aka me trying to find who asked
             Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocessor.invalidcommand.invalidfeature" );
+            //Xenon.INSTANCE.LOGGER.warn( npe );
+            // this technically should happen pretty often, but PanicFeature causes this
+            // when accessed through CP,
+            // so I need this for now.
+            npe.printStackTrace();
         }
         catch ( Exception e )
         {
             // Oops!
             Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocessor.exception" );
+            e.printStackTrace();
         }
         
         // Cancel the message event.

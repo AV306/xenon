@@ -57,12 +57,7 @@ public enum Xenon
 
     private String version;
     public String getVersion() { return version; }
-    //public void setVersion( String version ) { this.version = version; }
-    private boolean updateAvailable = false;
-    public boolean getUpdateAvailable() { return this.updateAvailable; }
-    private String latestVersion;
-    public String getLatestVersion() { return this.latestVersion; }
-
+    
     public ModContainer modContainer;
 
     private final Text namePrefix = TextFactory.createLiteral( "[Xenon] " )
@@ -84,8 +79,7 @@ public enum Xenon
     {
         // Read our version data
         readVersionData();
-        checkForUpdate();
-			
+		
         // set client and its accessor
         this.client = MinecraftClient.getInstance();
         this.clientAccessor = (MinecraftClientAccessor) this.client;
@@ -95,7 +89,6 @@ public enum Xenon
         new CommandProcessor();
         new ConfigMenu();
         new CreativeFlightFeature();
-        //new FastBreakFeature();
         new FeatureList();
         //new FlightFeature();
         new FullBrightFeature();
@@ -104,7 +97,7 @@ public enum Xenon
         //new JumpBoostFeature();
         new MultiQuickChatFeature();
         //new NoFallDamageFeature();
-        new PanicFeature();
+        new PanicFeature(); // FIXME: crashes
         new ProximityRadarFeature();
         new QuickChatFeature();
         new ShareLocationFeature();
@@ -121,36 +114,20 @@ public enum Xenon
 
     private void readVersionData()
     {
-        // set version & check for update
+        // set version
 
-        // assert that we're actually here
+        // assert that we're actually loaded
+        // If this ever fails, please, send me the logs.
         assert FabricLoader.getInstance().getModContainer( "xenon" ).isPresent();
         this.modContainer = FabricLoader.getInstance().getModContainer( "xenon" ).get();
 
         this.version = modContainer.getMetadata().getVersion().getFriendlyString();
     }
 
-    private void checkForUpdate()
-    {
-        /*
-        // FIXME
-        this.latestVersion = UpdateChecker.getLatestVersion( this.backend );
-        
-        int latestV = UpdateChecker.getVersionInt( latestVersion );
-        int currentV = UpdateChecker.getVersionInt( this.version );
-
-        this.updateAvailable = latestV > currentV;
-        //this.updateAvailable = this.latestVersion > UpdateChecker.getCurrentVersion();
-        */
-
-        this.latestVersion = "";
-        this.updateAvailable = false;
-    }
 
 
 
-
-    /**
+    /*
      * +-----------------+
      * | Utility methods |
      * +-----------------+

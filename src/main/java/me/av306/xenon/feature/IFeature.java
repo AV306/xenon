@@ -27,7 +27,6 @@ public abstract class IFeature
 	public String getName() { return this.name; }
 	public void setName( String name ) { this.name = name; }
 	
-  	//public boolean isEnabled = false;
 
 	/**
 	 * The key the Feature is bound to.
@@ -36,6 +35,7 @@ public abstract class IFeature
 
 	/**
 	 * The `KeyBinding` instance of the Feature.
+	 * It is advised not to set this directly; use one of the constructors instead.
 	 */
 	protected KeyBinding keyBinding;
 
@@ -51,11 +51,7 @@ public abstract class IFeature
 	 */
 	protected IFeature( String name, String... aliases )
 	{
-		this( name, GLFW.GLFW_KEY_UNKNOWN );
-
-		// register aliases
-		for ( String alias : aliases )
-			Xenon.INSTANCE.featureRegistry.put( alias.toLowerCase(), this );
+		this( name, GLFW.GLFW_KEY_UNKNOWN, aliases );
 	}
 
 	/**
@@ -101,19 +97,18 @@ public abstract class IFeature
 				InputUtil.Type.KEYSYM,
 				this.key,
 				"category.xenon.features"
-		); // don't construct statically because name might not have been set
-
-		//KeyEvent.EVENT.register( this::onKeyboardKey );
+		);
 
 		// register our keybind
 		KeyBindingHelper.registerKeyBinding( this.keyBinding );
 
-		// register our event
+		// register our key event
 		ClientTickEvents.END_CLIENT_TICK.register(
 				client -> this.keyEvent()
 		);
 
 		// register our display name in the registry
+		// in lower case (for CP)
 		Xenon.INSTANCE.featureRegistry.put(
 				name.replaceAll( " ", "" ).toLowerCase(),
 				this
