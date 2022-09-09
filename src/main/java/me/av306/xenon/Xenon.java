@@ -1,12 +1,8 @@
 package me.av306.xenon;
 
 import me.av306.xenon.config.FeatureConfigGroup;
-import me.av306.xenon.feature.IFeature;
-import me.av306.xenon.feature.IToggleableFeature;
-import me.av306.xenon.features.CommandProcessor;
-import me.av306.xenon.features.ConfigMenu;
-import me.av306.xenon.features.FeatureList;
-import me.av306.xenon.features.PanicFeature;
+import me.av306.xenon.feature.*;
+import me.av306.xenon.features.*;
 import me.av306.xenon.features.chat.MultiQuickChatFeature;
 import me.av306.xenon.features.chat.QuickChatFeature;
 import me.av306.xenon.features.chat.ShareLocationFeature;
