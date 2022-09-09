@@ -26,21 +26,21 @@ public final class FeatureList extends IToggleableFeature
         // set name
         super( "FeatureList" );
 
+        // Hide FL from the list
         this.hide = true;
 
 		// start enabled by default
         this.enable();
 		
         // version data should alr be initialised at this time
-        this.versionText = Xenon.INSTANCE.getUpdateAvailable() ?
-                TextFactory.createTranslatable( "text.xenon.version.updateavailable", Xenon.INSTANCE.getVersion(), Xenon.INSTANCE.getLatestVersion() ) :
-                TextFactory.createTranslatable( "text.xenon.version", Xenon.INSTANCE.getVersion() );
+        this.versionText = TextFactory.createTranslatable(
+                "text.xenon.version", Xenon.INSTANCE.getVersion()
+        );
 
-        // register listener
+        // register render listener
         RenderInGameHudEvent.AFTER_VIGNETTE.register( this::onInGameHudRender );
     }
 
-    // TODO: profile
     private ActionResult onInGameHudRender( MatrixStack matrices, float tickDelta )
     {
         if ( !this.isEnabled ) return ActionResult.PASS;
@@ -51,12 +51,13 @@ public final class FeatureList extends IToggleableFeature
         TextRenderer textRenderer = Xenon.INSTANCE.client.inGameHud.getTextRenderer();
         Window window = Xenon.INSTANCE.client.getWindow();
 
+        // Initialise an empty AL that will contain the feature names
         ArrayList<Text> nameTexts = new ArrayList<>();
 
-        // write feature names
+        // Now, begin drawing text
 
         // should we draw the version name?
-        if ( shouldShowVersion )
+        if ( this.shouldShowVersion )
             TextUtil.drawPositionedText(
                     matrices,
                     this.versionText,
@@ -66,7 +67,12 @@ public final class FeatureList extends IToggleableFeature
                     Xenon.INSTANCE.SUCCESS_FORMAT
             );
 			
-        // draw the feature names
+        // Place the feature names to be drawn in an AL
+        // then convert it into a normal array.
+        // THis is done because the logic for drawing text on
+        // multiple lines at a given ScreenPosition
+        // is hidden in TextUtil.drawPositionedMultiLineText,
+        // and we don't need to reinvent the motor car here.
         for ( IFeature feature : Xenon.INSTANCE.enabledFeatures )
         {
             // hide FeatureList itself and Debbuger
@@ -77,6 +83,7 @@ public final class FeatureList extends IToggleableFeature
 			}
         }
 
+        // Begin drawing the feature names from the array.
         // remember to leave space for the version text!
         TextUtil.drawPositionedMultiLineText(
                 matrices,
