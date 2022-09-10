@@ -1,5 +1,6 @@
 package me.av306.xenon.features.render;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import me.av306.xenon.Xenon;
 import me.av306.xenon.feature.IToggleableFeature;
 import me.av306.xenon.mixin.GameOptionsAccessor;

@@ -1,5 +1,8 @@
 package me.av306.xenon.mixin;
 
+import com.mojang.blaze3d.systems.RenderSystem;
+import me.av306.xenon.Xenon;
+import me.av306.xenon.event.RenderCrosshairEvent;
 import me.av306.xenon.event.RenderInGameHudEvent;
 
 import net.minecraft.client.gui.hud.InGameHud;
@@ -49,6 +52,27 @@ public class InGameHudMixin
 
         // cancel if fail
         if ( result == ActionResult.FAIL )
+            ci.cancel();
+    }
+
+    /*@Inject(
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lcom/mojang/blaze3d/systems/RenderSystem;renderCrosshair(I)V",
+                    shift = At.Shift.BEFORE
+            ),
+            method = "renderCrosshair(Lnet/minecraft/client/util/math/MatrixStack;)V",
+            cancellable = true
+    )*/
+    @Inject(
+            at = @At( "HEAD" ),
+            method = "renderCrosshair(Lnet/minecraft/client/util/math/MatrixStack;)V",
+            cancellable = true
+    )
+    private void onRenderCrosshair( MatrixStack matrixStack, CallbackInfo ci )
+    {
+        if ( RenderCrosshairEvent.START_RENDER.invoker()
+                .onStartRenderCrosshair( matrixStack ) == ActionResult.FAIL )
             ci.cancel();
     }
 }

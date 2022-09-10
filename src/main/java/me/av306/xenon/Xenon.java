@@ -81,6 +81,7 @@ public enum Xenon
         this.clientAccessor = (MinecraftClientAccessor) this.client;
 			
         // register features
+        new AimAssistFeature();
         new AustralianModeFeature();
         new CommandProcessor();
         new ConfigMenu();
@@ -97,6 +98,7 @@ public enum Xenon
         new QuickChatFeature();
         new ShareLocationFeature();
         new TimerFeature();
+        new TakePanoramaFeature();
         new WailaFeature();
         new ZoomFeature();
 
