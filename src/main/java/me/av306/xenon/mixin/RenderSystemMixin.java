@@ -20,9 +20,10 @@ public class RenderSystemMixin
     @ModifyVariable(
             at = @At( "HEAD" ), // Idk what this does for now
             ordinal = 0, // There's only one argument - size
-            method = "renderCrosshair(I)V"
+            method = "renderCrosshair(I)V",
+            argsOnly = true
     )
-    private int onRenderSystemRenderCrosshair( int size )
+    private static int onRenderSystemRenderCrosshair( int size )
     {
         //return EventFields.CROSSHAIR_SIZE_OVERRIDE;
         return GeneralConfigGroup.customCrosshairSize;

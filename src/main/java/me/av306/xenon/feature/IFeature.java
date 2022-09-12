@@ -112,7 +112,7 @@ public abstract class IFeature
 		// register our display name in the registry
 		// in lower case (for CP)
 		Xenon.INSTANCE.featureRegistry.put(
-				name.replaceAll( " ", "" ).toLowerCase(),
+				name.toLowerCase().replaceAll( " ", "" ),
 				this
 		);
 	}
