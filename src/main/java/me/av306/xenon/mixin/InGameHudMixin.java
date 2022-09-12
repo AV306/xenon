@@ -45,10 +45,11 @@ public class InGameHudMixin
             ),
             method = "render(Lnet/minecraft/client/util/math/MatrixStack;F)V",
             cancellable = true
-    )
+    ) // Inject right AFTER scaledHeight is set, because we use it a lot
     private void onStartRender( MatrixStack matrices, float tickDelta, CallbackInfo ci )
     {
-        ActionResult result = RenderInGameHudEvent.START.invoker().onStartRender( matrices, tickDelta );
+        ActionResult result = RenderInGameHudEvent.START.invoker()
+                .onStartRender( matrices, tickDelta );
 
         // cancel if fail
         if ( result == ActionResult.FAIL )

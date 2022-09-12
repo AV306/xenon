@@ -27,7 +27,7 @@ public final class FeatureList extends IToggleableFeature
         super( "FeatureList" );
 
         // Hide FL from the list
-        this.hide = true;
+        this.setShouldHide( true );
 
 		// start enabled by default
         this.enable();
@@ -76,7 +76,7 @@ public final class FeatureList extends IToggleableFeature
         for ( IFeature feature : Xenon.INSTANCE.enabledFeatures )
         {
             // hide FeatureList itself and Debbuger
-		    if ( !feature.hide )
+		    if ( !feature.getShouldHide() )
 		  	{
                 Text nameText = TextFactory.createLiteral( feature.getName() );
                 nameTexts.add( nameText );

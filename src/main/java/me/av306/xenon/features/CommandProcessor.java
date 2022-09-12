@@ -19,7 +19,7 @@ public class CommandProcessor extends IToggleableFeature
     {
         super( "CommandProcessor", "cp", "cmd" );
 
-        this.hide = true;
+        this.setShouldHide( true );
 
         ChatOutputEvent.EVENT.register( this::onChatHudAddMessage );
 
@@ -86,7 +86,8 @@ public class CommandProcessor extends IToggleableFeature
 
             IFeature feature = Xenon.INSTANCE.featureRegistry.get( featureTargeted ); // npe
 
-            switch ( keyword ) {
+            switch ( keyword )
+            {
                 case "enable", "on", "e" ->
                         feature.enable(); // User wants to enable a feature
 
@@ -97,7 +98,7 @@ public class CommandProcessor extends IToggleableFeature
                         // pattern matching fun!
                         // copy over the components after the "exec"
                         // e.g. [commandprocessor, exec, timer, enable] -> [timer, enable]
-                        feature.executeAction(args);
+                        feature.executeAction( args );
 
                 case "set", "s" ->
                 {
@@ -121,21 +122,47 @@ public class CommandProcessor extends IToggleableFeature
 
                 default ->
                 {
-                    // User probably wants to change a config
-                    // or list the arguments
-                    if ( possibleCommand.length == 1 )
-                    {
-                        // no arguments at all, list possible keywords
-                        Xenon.INSTANCE.sendInfoMessage(
-                            "text.xenon.commandprocessor.possiblekeywords"
+                    // try both of them
+                    /*
+                     * We go straight to the actual logic
+                     * and skip any error messages.
+                     * This is because the user themselves
+                     * did not clarify what they're trying to do,
+                     * so it's actually a toss-up for Xenon.
+                     * I just decided to be nice and make it more convenient for users.
+                     * 
+                     * E.g. A hypothetical feature "f" with a config "congif"
+                     * and a command "reset".
+                     * 
+                     * The user can change the config like so:
+                     * !f congif set 2.0f OR !f congif 2.0f
+                     * 
+                     * The use can execute the command like so:
+                     * !f exec reset OR !f reset
+                     * 
+                     * This reduces typing and makes it more convenient.
+                     * 
+                     * Xenon will try to "guess" what the user intended to do,
+                     * by the advanced technique of simply trying both of them.
+                     * This can cause issues where a command accepts an argument,
+                     * but has the same name as a config.
+                     * Generally, no one does that, so it's probably fine.
+                     * We skip the error message because it might be a bit disconcerting
+                     * for the user to see an "Invalid config" error
+                     * when they only intended to execute a command,
+                     * and vice versa.
+                     */
+                    // Same here
+                    feature.onRequestExecuteAction( args );
+                    
+                    // We can be a little smarter about this
+                    // and only try the config change if there is more than one argument.
+                    // This avoids another "Not enough arguments" error message.
+                    if ( possibleCommand.length >= 3 )
+                        feature.onRequestConfigChange(
+                            possibleCommand[1],
+                            possibleCommand[2]
                         );
-                    }
-                    else
-                    {
-                        String attrib = possibleCommand[1];
-                        String value = possibleCommand[2]; // oobe
-                        feature.parseConfigChange( attrib, value );
-                    }
                 }
             }
         } 
@@ -160,11 +187,12 @@ public class CommandProcessor extends IToggleableFeature
             // Somewhere, someone tried to access a non-existent feature
             // aka me trying to find who asked
             Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocessor.invalidcommand.invalidfeature" );
-            //Xenon.INSTANCE.LOGGER.warn( npe );
+            Xenon.INSTANCE.LOGGER.warn( npe );
             // this technically should happen pretty often, but PanicFeature causes this
             // when accessed through CP,
             // so I need this for now.
-            npe.printStackTrace();
+            // EDIT: Panic removed, FIXME remove this when i get to an actual computer
+            //npe.printStackTrace();
         }
         catch ( Exception e )
         {
