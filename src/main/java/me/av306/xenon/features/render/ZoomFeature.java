@@ -34,66 +34,38 @@ public class ZoomFeature extends IFeature
 
     private ActionResult onGetFov( Camera camera, float td, boolean changing )
     {
-        /*try
+        try
         {
             if ( this.keyBinding.isPressed() )
             {
-                EventFields.FOV_ZOOM_LEVEL = MathHelper.clamp(
-                    EventFields.FOV_ZOOM_LEVEL,
-                    ZoomGroup.minZoom,
-                    ZoomGroup.maxZoom
-                );
-
-                Xenon.INSTANCE.client.options.getMouseSensitivity()
-                        .setValue( this.originalMouseSensitivity / EventFields.FOV_ZOOM_LEVEL );
-            }
-            else
-            {
-                EventFields.FOV_ZOOM_LEVEL = 1d;
-
-                // reset sensitivity
-                Xenon.INSTANCE.client.options.getMouseSensitivity()
-                        .setValue( this.originalMouseSensitivity );
-
-                // set it to null when zoom is disabled,
-                // so that the next time zoom is enabled,
-                // the original mouse sensitivity will be set.
-                this.originalMouseSensitivity = null;
-            }
-        }
-        catch ( NullPointerException npe )
-        {
-            // originalMouseSensitivity probably null,
-            // set it
-            this.originalMouseSensitivity = Xenon.INSTANCE.client.options.getMouseSensitivity().getValue();
-        }*/
-
-
-        try {
-            if (this.keyBinding.isPressed()) {
-                if (this.originalMouseSensitivity == null)
+                if ( this.originalMouseSensitivity == null )
+                    // Zoom has just been enabled, remember our original sensitivity
                     this.originalMouseSensitivity = Xenon.INSTANCE.client.options.getMouseSensitivity().getValue();
 
-                // clamp it
+                // Clamp our zoom level
+                // It should be 1 by default (when just enabled), the clamp
+                // will boost it up to 2
+                // eliminating the need for a local variable
                 EventFields.FOV_ZOOM_LEVEL = MathHelper.clamp(
                         EventFields.FOV_ZOOM_LEVEL,
                         ZoomGroup.minZoom,
                         ZoomGroup.maxZoom
                 );
 
-                // adjust mouse ssensitivity based on zoom
+                // Adjust our mouse sensitivity based on zoom
                 Xenon.INSTANCE.client.options.getMouseSensitivity()
-                        .setValue(this.originalMouseSensitivity / EventFields.FOV_ZOOM_LEVEL);
+                        .setValue( this.originalMouseSensitivity / EventFields.FOV_ZOOM_LEVEL );
 
             } else {
-                // reset zoom
+                // Zoom not needed, reset zoom level
                 EventFields.FOV_ZOOM_LEVEL = 1d;
 
-                // reset sensitivity
+                // Reset sensitivity
                 Xenon.INSTANCE.client.options.getMouseSensitivity()
-                        .setValue(this.originalMouseSensitivity); // npe
+                        .setValue( this.originalMouseSensitivity ); // npe
 
-                // set it to null when zoom is disabled,
+                // Set original mouse sensitivity
+                // to null when zoom is disabled,
                 // so that the next time zoom is enabled,
                 // the original mouse sensitivity will be set.
                 this.originalMouseSensitivity = null;
@@ -106,7 +78,7 @@ public class ZoomFeature extends IFeature
 
     private ActionResult onScrollInHotbar( double amount )
     {
-        // cancel the hotbar scroll if this is enabled
+        // Cancel the hotbar scroll if zoom is enabled
         // and consume it for our zoom adjustment.
         if ( this.keyBinding.isPressed() ) return ActionResult.FAIL;
         else return ActionResult.PASS;
@@ -114,13 +86,11 @@ public class ZoomFeature extends IFeature
 
     private ActionResult onMouseScroll( long window, double horizontal, double vertical )
     {
-        // If anyone knows how to do a horizontal scroll,
-        // please email me.
-
-        // if our key is pressed, set the zoom level
+        // If our key is pressed, adjust the zoom level
         if ( this.keyBinding.isPressed() )
         {
-            // change our zoom level based on mouse scroll
+            // Scrolling up zooms in,
+            // scrolling down zooms out
             if ( vertical > 0 ) EventFields.FOV_ZOOM_LEVEL *= 1.1;
             else if ( vertical < 0 ) EventFields.FOV_ZOOM_LEVEL *= 0.9;
         }
