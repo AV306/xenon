@@ -9,4 +9,8 @@ public class GeneralConfigGroup implements XenonConfigGroup
     @ConfigEntry.Boolean
     @ConfigEntry( requiresRestart = true )
     public static boolean lazyDfu = true;
+
+    @ConfigEntry.BoundedInteger( min = 1, max = 512 )
+    @ConfigEntry.Slider
+    public static int customCrosshairSize = 10;
 }

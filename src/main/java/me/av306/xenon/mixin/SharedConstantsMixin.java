@@ -44,7 +44,6 @@ public class SharedConstantsMixin
     {
         // make it conditional
         // cancel the optimisations if user wants MC to be fast
-        Xenon.INSTANCE.LOGGER.info( GeneralConfigGroup.lazyDfu );
         if ( GeneralConfigGroup.lazyDfu ) ci.cancel();
     }
 }

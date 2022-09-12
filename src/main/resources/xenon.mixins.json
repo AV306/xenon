@@ -3,8 +3,7 @@
   "minVersion": "0.8",
   "package": "me.av306.xenon.mixin",
   "compatibilityLevel": "JAVA_17",
-  "mixins": [
-  ],
+  "mixins": [],
   "client": [
     "ChatHudMixin",
     "ClientPlayerEntityMixin",
@@ -18,6 +17,7 @@
     "MinecraftClientAccessor",
     "MouseMixin",
     "PlayerInventoryMixin",
+    "RenderSystemMixin",
     "RenderTickCounterAccessor",
     "RenderTickCounterMixin",
     "SimpleOptionMixin",

@@ -42,7 +42,9 @@ public abstract class IFeature
 	/**
 	 * Sets whether this Feature should be hidden in FeatureList.
 	 */
-	public boolean hide = false;
+	private boolean hide = false;
+	public void setShouldHide( boolean shouldHide ) { this.hide = shouldHide; }
+	public boolean getShouldHide() { return this.hide; }
 
 	/**
 	 * Recommended constructor to call in a subclass.
