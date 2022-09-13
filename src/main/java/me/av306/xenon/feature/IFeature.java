@@ -226,7 +226,7 @@ public abstract class IFeature
 	 * @param config: The name of the config
 	 * @param value: The value to set the config to
 	 */
-	protected boolean onRequestConfigChange( String config, String value ) { return false; }
+	public boolean onRequestConfigChange( String config, String value ) { return false; }
 
 	/**
 	 * Method that hides execution logic.
@@ -263,7 +263,7 @@ public abstract class IFeature
 	 * Overridable method containing execution logic.
 	 * @param action: An array containing the command.
 	 */
-    protected boolean onRequestExecuteAction( String[] action ) { return true; }
+    public boolean onRequestExecuteAction( String[] action ) { return true; }
 
 	/**
 	 * Method to retrieve help text for a feature.

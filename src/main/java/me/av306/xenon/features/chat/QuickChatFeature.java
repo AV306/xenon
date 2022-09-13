@@ -22,7 +22,7 @@ public class QuickChatFeature extends IFeature
     }
 
     @Override
-    public boolean onRequestConfigChange(String config, String value )
+    public boolean onRequestConfigChange( String config, String value )
     {
         boolean result = config.contains( "message" ) || config.contains( "msg" );
 

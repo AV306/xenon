@@ -250,7 +250,7 @@ public class CommandProcessor extends IToggleableFeature
     protected void onDisable() {}
 
     @Override
-    protected boolean onRequestConfigChange(String config, String value )
+    public boolean onRequestConfigChange(String config, String value )
     {
         boolean result = config.contains( "prefix" );
         if ( result ) CommandProcessorGroup.prefix = value;
@@ -259,7 +259,7 @@ public class CommandProcessor extends IToggleableFeature
     }
 
     @Override
-    protected boolean onRequestExecuteAction( String[] action )
+    public boolean onRequestExecuteAction( String[] action )
     {
         // test command: !commandprocessor exec timer set speed 2f
         this.onChatHudAddMessage(
