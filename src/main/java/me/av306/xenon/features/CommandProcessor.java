@@ -205,7 +205,7 @@ public class CommandProcessor extends IToggleableFeature
      * @param prefixChar: The prefix character
      * @param command: The command string to be formatted
      */
-    private String[] deserialiseCommand( char prefixChar, String command )
+    public static String[] deserialiseCommand( char prefixChar, String command )
     {
         // FIXME: This may cause very weird errors if the prefix is a space or control character.
         return command
@@ -215,23 +215,9 @@ public class CommandProcessor extends IToggleableFeature
                 .split( " " ); // split
     }
 
-    private String[] deserialiseCommand( String prefixStr, String command )
+    public static String[] deserialiseCommand( String prefixStr, String command )
     {
-        char prefixChar;
-        try
-        {
-            // grab the first character in the string
-            prefixChar = prefixStr.toCharArray()[0];
-        }
-        catch ( ArrayIndexOutOfBoundsException oobe )
-        {
-            // Hmm, appears the string is empty or something
-            Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocessor.invalidprefix" );
-            prefixChar = '!';
-        }
-
-        // Pass it on
-        return this.deserialiseCommand prefixChar, command );
+        return deserialiseCommand( prefixStringToChar( prefixStr ), command );
     }
 
     /**
@@ -239,22 +225,40 @@ public class CommandProcessor extends IToggleableFeature
      * @param prefixChar: The prefix character
      * @param command: The command array
      */
-    public String serialiseCommand( char prefixChar, String[] command )
+    public static String serialiseCommand( char prefixChar, String[] command )
     {
         String prefixString = String.valueOf( prefixChar );
         
         return serialiseCommand( prefixString, command );
     }
 
-    public String serialiseCommand( String prefixStr, String[] command )
+    public static String serialiseCommand( String prefixStr, String[] command )
     {
-        StringBuilder builder = new StringBuilder( prefixStr );
+        StringBuilder builder = new StringBuilder()
+                .append( prefixStringToChar( prefixStr ) );
 
         for ( String component : command )
             builder.append( component ).append( " " );
 
         // the builder will return a string with an extra space at the end
         return builder.toString().trim();
+    }
+
+    public static char prefixStringToChar( String prefixStr )
+    {
+        char prefixChar;
+        try
+        {
+            prefixChar = prefixStr.toCharArray()[0];
+        }
+        catch( ArrayIndexOutOfBoundsException oobe )
+        {
+            oobe.printStackTrace();
+            Xenon.INSTANCE.LOGGER.warn( "Prefix silently corrected to '!'" );
+            prefixChar = '!';
+        }
+
+        return prefixChar;
     }
 
     @Override
