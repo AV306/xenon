@@ -177,7 +177,7 @@ public abstract class IFeature
 	 * @param config: The name of the config
 	 * @param value: The value to set teh config to
 	 */
-	public void parseConfigChange( String config, String value )
+	public void requestConfigChange( String config, String value )
 	{
 		// success flag
         boolean result;
@@ -233,7 +233,7 @@ public abstract class IFeature
 	 * See CP for an example of this.
 	 * @param action: An array containing the command.
 	 */
-    public void executeAction( String[] action )
+    public void requestExecuteAction( String[] action )
 	{
         boolean result = this.onRequestExecuteAction( action );
 
