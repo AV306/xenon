@@ -90,7 +90,7 @@ public class CommandProcessor extends IToggleableFeature
                         ((IToggleableFeature) feature).toggle();
 
                 case "exec", "execute", "ex", "run", "do" ->
-                        feature.executeAction( args );
+                        feature.requestExecuteAction( args );
 
 
                 case "set", "s" ->
@@ -99,7 +99,7 @@ public class CommandProcessor extends IToggleableFeature
                     // this is delegated to the feature.
                     String attrib = possibleCommand[2];
                     String value = possibleCommand[3]; // oobe
-                    feature.parseConfigChange( attrib, value );
+                    feature.requestConfigChange( attrib, value );
                 }
 
                 case "help", "h", "?" ->
