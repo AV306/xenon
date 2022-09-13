@@ -26,6 +26,10 @@ public class CommandProcessor extends IToggleableFeature
         this.enable();
     }
 
+    // Fun fact: the very first version of this
+    // would respond to *any* chat message that was a valid command,
+    // allowing you to control someone else's client.
+    // :P
     private ActionResult onChatHudAddMessage( String text )
     {
         // Check if CP is enabled
@@ -41,37 +45,21 @@ public class CommandProcessor extends IToggleableFeature
             else return ActionResult.PASS;
         }
 
-        // Some bookkeeping for the prefix
-        // because CompleteConfig doesn't like chars
-        char prefixChar;
-        try
-        {
-             prefixChar = CommandProcessorGroup.prefix.toCharArray()[0];
-        }
-        catch ( ArrayIndexOutOfBoundsException e )
-        {
-            Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocessor.invalidprefix" );
-            prefixChar = '!';
-        }
-
         // First, check if it's a possible command
+        // Pass if it isn't
         if ( !text.startsWith( CommandProcessorGroup.prefix ) )
             return ActionResult.PASS;
 
-        // example command: !timer speed 2.0f
-        // advanced: !commandprocessor execute timer set speed 3f
-        // [prefix][featurename] [config] [value]
-
         // Ok, should be a command,
         // now remove the prefix and split
-        String[] possibleCommand = this.deserialiseCommand( prefixChar, text );
+        String[] possibleCommand = this.deserialiseCommand(
+            CommandProcessorGroup.prefix,
+            text
+        );
 
         //Xenon.INSTANCE.LOGGER.info( Arrays.toString( possibleCommand ) );
         // Tell the player what they sent
-        Xenon.INSTANCE.sendInfoMessage(
-                TextFactory.createLiteral( "> " )
-                        .append( text )
-        );
+        Xenon.INSTANCE.sendInfoMessage( TextFactory.createLiteral( "> " ).append( text ) );
 
         try
         {
@@ -89,16 +77,21 @@ public class CommandProcessor extends IToggleableFeature
             switch ( keyword )
             {
                 case "enable", "on", "e" ->
-                        feature.enable(); // User wants to enable a feature
+                        // User wants to enable a feature
+                        feature.enable();
 
                 case "disable", "off", "d" ->
-                        ((IToggleableFeature) feature).disable(); // cce; user wants to disable a feature
+                        // User wants to disable a feature
+                        // Only for ITF
+                        ((IToggleableFeature) feature).disable(); // cce
+
+                case "toggle", "t" ->
+                        // User wants to toggle an ITF
+                        ((IToggleableFeature) feature).toggle();
 
                 case "exec", "execute", "ex", "run", "do" ->
-                        // pattern matching fun!
-                        // copy over the components after the "exec"
-                        // e.g. [commandprocessor, exec, timer, enable] -> [timer, enable]
                         feature.executeAction( args );
+
 
                 case "set", "s" ->
                 {
@@ -111,18 +104,16 @@ public class CommandProcessor extends IToggleableFeature
 
                 case "help", "h", "?" ->
                 {
-                    // user doesn't know how to use this
+                    // User doesn't know how to use the feature
+                    // FIXME: This feels like it causes more confusion
+                    // than it resolves.
                     Xenon.INSTANCE.sendInfoMessage(
                         feature.getHelpText( args )
                     );
                 }
 
-                case "toggle", "t" ->
-                        ((IToggleableFeature) feature).toggle();
-
                 default ->
                 {
-                    // try both of them
                     /*
                      * We go straight to the actual logic
                      * and skip any error messages.
@@ -151,15 +142,23 @@ public class CommandProcessor extends IToggleableFeature
                      * for the user to see an "Invalid config" error
                      * when they only intended to execute a command,
                      * and vice versa.
+                     *
+                     * EDIT: Due to the fact that implementing the above
+                     * will only transfer the headache to me
+                     * and make it a million times worse,
+                     * the encapsulating function (with error messages)
+                     * is still used.
                      */
                     // Same here
-                    feature.onRequestExecuteAction( args );
+                    feature.requestExecuteAction( args );
                     
-                    // We can be a little smarter about this
-                    // and only try the config change if there is more than one argument.
-                    // This avoids another "Not enough arguments" error message.
+                    /*
+                     * We can be a little smarter about this
+                     * and only try the config change if there is more than one argument.
+                     * This avoids another "Not enough arguments" error message.
+                     */
                     if ( possibleCommand.length >= 3 )
-                        feature.onRequestConfigChange(
+                        feature.requestConfigChange(
                             possibleCommand[1],
                             possibleCommand[2]
                         );
@@ -171,15 +170,15 @@ public class CommandProcessor extends IToggleableFeature
             // Tried to access smth outside the arg array
             // probably not enough args
             Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocessor.invalidcommand.notenoughargs" );
+
             // don't print stacktrace here, because this is gonna happen pretty often
             Xenon.INSTANCE.LOGGER.warn( oobe );
-            //oobe.printStackTrace();
         }
         catch ( ClassCastException cce )
         {
             // Almost definitely tried to cast a Feature to a ToggleableFeature
             Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocessor.invalidcommand.featurenottoggleable" );
-            //Xenon.INSTANCE.LOGGER.warn( cce );
+            
             cce.printStackTrace(); // print stacktrace, this shouldn't happen
         }
         catch ( NullPointerException npe )
@@ -188,11 +187,6 @@ public class CommandProcessor extends IToggleableFeature
             // aka me trying to find who asked
             Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocessor.invalidcommand.invalidfeature" );
             Xenon.INSTANCE.LOGGER.warn( npe );
-            // this technically should happen pretty often, but PanicFeature causes this
-            // when accessed through CP,
-            // so I need this for now.
-            // EDIT: Panic removed, FIXME remove this when i get to an actual computer
-            //npe.printStackTrace();
         }
         catch ( Exception e )
         {
@@ -201,7 +195,7 @@ public class CommandProcessor extends IToggleableFeature
             e.printStackTrace();
         }
         
-        // Cancel the message event.
+        // Cancel the message event
         return ActionResult.FAIL;
     }
 
@@ -213,11 +207,31 @@ public class CommandProcessor extends IToggleableFeature
      */
     private String[] deserialiseCommand( char prefixChar, String command )
     {
+        // FIXME: This may cause very weird errors if the prefix is a space or control character.
         return command
                 .toLowerCase()
-                .replace( prefixChar, ' ' ) // remove prefix
-                .trim() // remove leading and trailing spaces
+                .replace( prefixChar, ' ' ) // replace prefix with a space
+                .trim() // remove leading space (from above) and trailing spaces (if any)
                 .split( " " ); // split
+    }
+
+    private String[] deserialiseCommand( String prefixStr, String command )
+    {
+        char prefixChar;
+        try
+        {
+            // grab the first character in the string
+            prefixChar = prefixStr.toCharArray()[0];
+        }
+        catch ( ArrayIndexOutOfBoundsException oobe )
+        {
+            // Hmm, appears the string is empty or something
+            Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocessor.invalidprefix" );
+            prefixChar = '!';
+        }
+
+        // Pass it on
+        return this.deserialiseCommand prefixChar, command );
     }
 
     /**
@@ -250,7 +264,7 @@ public class CommandProcessor extends IToggleableFeature
     protected void onDisable() {}
 
     @Override
-    protected boolean onRequestConfigChange(String config, String value )
+    protected boolean onRequestConfigChange( String config, String value )
     {
         boolean result = config.contains( "prefix" );
         if ( result ) CommandProcessorGroup.prefix = value;
@@ -279,25 +293,42 @@ public class CommandProcessor extends IToggleableFeature
         // args[0]
 
         MutableText helpText = MutableText.of( TextContent.EMPTY ).append( "[CommandProcessor] ");
+
+        if ( args.length < 1 )
+        {
+            // Whoops! No help arguments were passed in.
+            // Change the args variable to point to a new String[]
+            // with exactly one help argument
+            // so that it will proceed to the default branch without an NPE.
+            args = new String[]{ " " };
+        }
+
         switch( args[0] )
         {
-            case "listf", "listfeatures", "features", "lf" ->
+            case "listf", "listfeatures", "features", "lf", "aliases" ->
             {
                 helpText.append( "Registered aliases:\n" )
                         .append(
                             Arrays.toString(
                                 Xenon.INSTANCE.featureRegistry.keySet()
-                                    .toArray( new String[]{} )
+                                    .toArray( String[]::new )
                             )
                         );
             }
 
-            case "configs", "listconfigs" ->
+            case "configs", "listconfigs", "listcfg" ->
             {
                 helpText.append( "Possible configs:\n" )
-                        .append(
-                            "prefix - change the prefix of the command"
-                        );
+                        .append( "prefix - change the prefix of the command" );
+            }
+
+            default ->
+            {
+                // Invalid help argument,
+                // list out possible help arguments
+                helpText.append( "Possible help arguments:\n" )
+                        .append( "listf, listfeatures, features, lf, aliases,\n" )
+                        .append( "configs, listconfigs, listcfg" );
             }
         }
 

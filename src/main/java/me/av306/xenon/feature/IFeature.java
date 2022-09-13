@@ -194,7 +194,7 @@ public abstract class IFeature
 			result = false;
 		}
 
-		// respond based on success falag
+		// respond based on success flag
 		if ( result )
 		{
 			Xenon.INSTANCE.sendInfoMessage(

@@ -9,20 +9,23 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 @Mixin( RenderSystem.class )
 public class RenderSystemMixin
 {
-    // This is dark magic,
-    // but it seems to work.
-    // Captures the variable passed to renderCrosshair()
-    // that sets the size of the crosshair,
-    // and overrides it.
-    // It is safe to override
-    // (unlike FOV, which has an option to either override or modify)
-    // because the crosshair size is hardcoded to 10.
+    /*
+     * This is dark magic,
+     * but it seems to work.
+     * Captures the variable passed to renderCrosshair()
+     * that sets the size of the crosshair,
+     * and overrides it.
+     * It is safe to override
+     * (unlike FOV, which has an option to either override or modify)
+     * because the crosshair size is hardcoded to 10.
+     */
     @ModifyVariable(
             at = @At( "HEAD" ), // Idk what this does for now
             ordinal = 0, // There's only one argument - size
-            method = "renderCrosshair(I)V"
+            method = "renderCrosshair(I)V",
+            argsOnly = true
     )
-    private int onRenderSystemRenderCrosshair( int size )
+    private static int onRenderSystemRenderCrosshair( int size )
     {
         //return EventFields.CROSSHAIR_SIZE_OVERRIDE;
         return GeneralConfigGroup.customCrosshairSize;
