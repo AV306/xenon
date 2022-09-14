@@ -46,6 +46,8 @@ EDIT: MultiQuickChat has multi-key sequences, I did it yay
 - Configuration system
 - Australian Mode
 - Zoom
+- Halo Red Reticle
+- Crosshair size modification (untested)
 - modular and user-friendly feature creation/registration system I spent way too much time on
 - Command processor and the beginnings of a macro system
 
@@ -56,8 +58,3 @@ Q: How do I use this?
 
 A: Download a build that matches your Minecraft version, and drop it in your mods folder.
 Google "How to install Fabric mods" for more info.
-
-
-Q: Is there a Forge version?
-
-A: No, and probably never. It's very hard to find good Forge API documentation, and Fabric is, in my slightly biased opinion, better overall.
