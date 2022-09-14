@@ -15,7 +15,7 @@ public class GeneralConfigGroup implements XenonConfigGroup
     @ConfigEntry.Slider
     public static int debugCrosshairSize = 10;
 
-    @ConfigInteger.BoundedInteger( min = 1, max = 64 )
+    @ConfigEntry.BoundedInteger( min = 1, max = 64 )
     @ConfigEntry( requiresRestart = false )
     @ConfigEntry.Slider
     public static int crosshairSize = 1;
