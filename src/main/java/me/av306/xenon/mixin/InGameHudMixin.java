@@ -72,6 +72,12 @@ public class InGameHudMixin
     )
     private void onRenderCrosshair( MatrixStack matrixStack, CallbackInfo ci )
     {
+        matrixStack.scale(
+                (float) GeneralConfigGroup.crosshairSize,
+                (float) GeneralConfigGroup.crosshairSize,
+                (float) GeneralConfigGroup.crosshairSize
+        );
+
         if ( RenderCrosshairEvent.START_RENDER.invoker()
                 .onStartRenderCrosshair( matrixStack ) == ActionResult.FAIL )
             ci.cancel();
