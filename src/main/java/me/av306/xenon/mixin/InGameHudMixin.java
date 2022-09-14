@@ -2,6 +2,7 @@ package me.av306.xenon.mixin;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import me.av306.xenon.Xenon;
+import me.av306.xenon.config.GeneralConfigGroup;
 import me.av306.xenon.event.RenderCrosshairEvent;
 import me.av306.xenon.event.RenderInGameHudEvent;
 
