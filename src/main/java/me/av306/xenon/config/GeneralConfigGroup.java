@@ -11,6 +11,12 @@ public class GeneralConfigGroup implements XenonConfigGroup
     public static boolean lazyDfu = true;
 
     @ConfigEntry.BoundedInteger( min = 1, max = 512 )
+    @ConfigEntry( requiresRestart = false )
     @ConfigEntry.Slider
-    public static int customCrosshairSize = 10;
+    public static int debugCrosshairSize = 10;
+
+    @ConfigInteger.BoundedInteger( min = 1, max = 64 )
+    @ConfigEntry( requiresRestart = false )
+    @ConfigEntry.Slider
+    public static int crosshairSize = 1;
 }

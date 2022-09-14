@@ -12,34 +12,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin( RenderSystem.class )
 public class RenderSystemMixin
 {
-    /*
-     * This is dark magic,
-     * but it seems to work.
-     * Captures the variable passed to renderCrosshair()
-     * that sets the size of the crosshair,
-     * and overrides it.
-     * It is safe to override
-     * (unlike FOV, which has an option to either override or modify)
-     * because the crosshair size is hardcoded to 10.
-     */
     @ModifyVariable(
             at = @At( "HEAD" ), // Idk what this does for now
             ordinal = 0, // There's only one argument - size
             method = "renderCrosshair(I)V",
             argsOnly = true
     )
-    private static int onRenderSystemRenderCrosshair( int size )
+    private static int onRenderDebugCrosshair( int size )
     {
-        //return EventFields.CROSSHAIR_SIZE_OVERRIDE;
-        return GeneralConfigGroup.customCrosshairSize;
-    }
-
-    @Inject(
-            at = @At( "TAIL" ),
-            method = "renderCrosshair(I)V"
-    )
-    private static void onRenderCrosshair( int size, CallbackInfo ci )
-    {
-        Xenon.INSTANCE.LOGGER.info( size );
+        // This method name is a bit misleading
+        return GeneralConfigGroup.debugCrosshairSize;
     }
 }

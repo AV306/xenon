@@ -68,10 +68,6 @@ public class CommandProcessor extends IToggleableFeature
             String featureTargeted = possibleCommand[0];
             String keyword = possibleCommand[1]; // oobe
 
-            // Cooy over the args after the keyword
-            // e.g. [cp, exec, timer, enable] -> [timer, enable]
-            String[] args = Arrays.copyOfRange( possibleCommand, 2, possibleCommand.length );
-
             IFeature feature = Xenon.INSTANCE.featureRegistry.get( featureTargeted ); // npe
 
             switch ( keyword )
@@ -90,7 +86,9 @@ public class CommandProcessor extends IToggleableFeature
                         ((IToggleableFeature) feature).toggle();
 
                 case "exec", "execute", "ex", "run", "do" ->
-                        feature.requestExecuteAction( args );
+                        feature.requestExecuteAction(
+                            Arrays.copyOfRange( possibleCommand, 2, possibleCommand.length )
+                        );
 
 
                 case "set", "s" ->
@@ -108,7 +106,9 @@ public class CommandProcessor extends IToggleableFeature
                     // FIXME: This feels like it causes more confusion
                     // than it resolves.
                     Xenon.INSTANCE.sendInfoMessage(
-                        feature.getHelpText( args )
+                        feature.getHelpText(
+                            Arrays.copyOfRange( possibleCommand, 2, possibleCommand.length )
+                        )
                     );
                 }
 
@@ -131,26 +131,17 @@ public class CommandProcessor extends IToggleableFeature
                      * The use can execute the command like so:
                      * !f exec reset OR !f reset
                      * 
-                     * This reduces typing and makes it more convenient.
+                     * This reduces typing and makes it more convenient, apparently.
                      * 
                      * Xenon will try to "guess" what the user intended to do,
                      * by the advanced technique of simply trying both of them.
                      * This can cause issues where a command accepts an argument,
-                     * but has the same name as a config.
+                     * and has the same name as a config.
                      * Generally, no one does that, so it's probably fine.
-                     * We skip the error message because it might be a bit disconcerting
-                     * for the user to see an "Invalid config" error
-                     * when they only intended to execute a command,
-                     * and vice versa.
-                     *
-                     * EDIT: Due to the fact that implementing the above
-                     * will only transfer the headache to me
-                     * and make it a million times worse,
-                     * the encapsulating function (with error messages)
-                     * is still used.
                      */
-                    // Same here
-                    feature.requestExecuteAction( args );
+                    feature.requestExecuteAction(
+                        Arrays.copyOfRange( possibleCommand, 1, possibleCommand.length )
+                    );
                     
                     /*
                      * We can be a little smarter about this
@@ -249,6 +240,7 @@ public class CommandProcessor extends IToggleableFeature
         char prefixChar;
         try
         {
+            // Grab the first character out of the string
             prefixChar = prefixStr.toCharArray()[0];
         }
         catch( ArrayIndexOutOfBoundsException oobe )
@@ -279,6 +271,7 @@ public class CommandProcessor extends IToggleableFeature
     @Override
     protected boolean onRequestExecuteAction( String[] action )
     {
+        // This is a bit useless, just for testing
         // test command: !commandprocessor exec timer set speed 2f
         this.onChatHudAddMessage(
             this.serialiseCommand(
