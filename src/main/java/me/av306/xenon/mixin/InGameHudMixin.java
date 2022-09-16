@@ -57,7 +57,7 @@ public class InGameHudMixin
             ci.cancel();
     }
 
-    /*@Inject(
+    /*@Inject( // This is for the debug crosshair
             at = @At(
                     value = "INVOKE",
                     target = "Lcom/mojang/blaze3d/systems/RenderSystem;renderCrosshair(I)V",
@@ -66,6 +66,7 @@ public class InGameHudMixin
             method = "renderCrosshair(Lnet/minecraft/client/util/math/MatrixStack;)V",
             cancellable = true
     )*/
+
     @Inject(
             at = @At( "HEAD" ),
             method = "renderCrosshair(Lnet/minecraft/client/util/math/MatrixStack;)V",
@@ -73,14 +74,22 @@ public class InGameHudMixin
     )
     private void onRenderCrosshair( MatrixStack matrixStack, CallbackInfo ci )
     {
-        matrixStack.scale(
-                (float) GeneralConfigGroup.crosshairSize,
-                (float) GeneralConfigGroup.crosshairSize,
-                (float) GeneralConfigGroup.crosshairSize
-        );
 
         if ( RenderCrosshairEvent.START_RENDER.invoker()
                 .onStartRenderCrosshair( matrixStack ) == ActionResult.FAIL )
+            ci.cancel();
+    }
+
+    @Inject(
+            at = @At( "TAIL" ),
+            method = "renderCrosshair(Lnet/minecraft/client/util/math/MatrixStack;)V",
+            cancellable = true
+    )
+    private void onEndRenderCrosshair( MatrixStack matrixStack, CallbackInfo ci )
+    {
+
+        if ( RenderCrosshairEvent.END_RENDER.invoker()
+                .onEndRenderCrosshair( matrixStack ) == ActionResult.FAIL )
             ci.cancel();
     }
 }

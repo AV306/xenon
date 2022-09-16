@@ -17,32 +17,36 @@ public class AimAssistFeature extends IToggleableFeature
     {
         super( "AimAssist" );
         RenderCrosshairEvent.START_RENDER.register( this::onStartRenderCrosshair );
+        RenderCrosshairEvent.END_RENDER.register( this::onEndRenderCrosshair );
     }
 
     private ActionResult onStartRenderCrosshair( MatrixStack matrixStack )
     {
-        RenderSystem.disableBlend();
-        HitResult hitResult = Xenon.INSTANCE.client.crosshairTarget;
-        if ( hitResult.getType() == HitResult.Type.ENTITY )
+        if ( this.isEnabled )
         {
-            Entity entity = ((EntityHitResult) hitResult).getEntity();
+            RenderSystem.disableBlend();
+            HitResult hitResult = Xenon.INSTANCE.client.crosshairTarget;
+            if (hitResult.getType() == HitResult.Type.ENTITY) {
+                Entity entity = ((EntityHitResult) hitResult).getEntity();
 
-            if ( entity.isTeammate( Xenon.INSTANCE.client.player ) )
-            {
-                // Friendly!
-                // Green crosshair
-                RenderSystem.setShaderColor( 0f, 1f, 0f, 1f );
-            }
-            else if ( entity instanceof HostileEntity )
-            {
-                // Hostile and enemy!
-                // Red crosshair
-                RenderSystem.setShaderColor( 1f, 0f, 0f, 1f );
+                if (entity.isTeammate(Xenon.INSTANCE.client.player)) {
+                    // Friendly!
+                    // Green crosshair
+                    RenderSystem.setShaderColor(0f, 1f, 0f, 1f);
+                } else if (entity instanceof HostileEntity) {
+                    // Hostile and enemy!
+                    // Red crosshair
+                    RenderSystem.setShaderColor(1f, 0f, 0f, 1f);
+                }
             }
         }
 
-        RenderSystem.enableBlend();
+        return ActionResult.PASS;
+    }
 
+    private ActionResult onEndRenderCrosshair(MatrixStack matrixStack)
+    {
+        if ( this.isEnabled ) RenderSystem.enableBlend();
         return ActionResult.PASS;
     }
 
