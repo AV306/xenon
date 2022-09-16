@@ -22,9 +22,30 @@ public class RenderCrosshairEvent
             }
     );
 
+    public static final Event<EndRender> END_RENDER = EventFactory.createArrayBacked(
+            EndRender.class,
+            (listeners) -> (matrixStack) ->
+            {
+                for ( EndRender listener : listeners )
+                {
+                    ActionResult result = listener.onEndRenderCrosshair( matrixStack );
+
+                    if ( result != ActionResult.PASS ) return result;
+                }
+
+                return ActionResult.PASS;
+            }
+    );
+
     @FunctionalInterface
     public interface StartRender
     {
         ActionResult onStartRenderCrosshair( MatrixStack matrixStack );
+    }
+
+    @FunctionalInterface
+    public interface EndRender
+    {
+        ActionResult onEndRenderCrosshair( MatrixStack matrixStack );
     }
 }
