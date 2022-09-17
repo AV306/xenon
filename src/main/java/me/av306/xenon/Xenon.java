@@ -81,29 +81,29 @@ public enum Xenon
         this.clientAccessor = (MinecraftClientAccessor) this.client;
 			
         // register features
-        new AimAssistFeature();
+        //new FlightFeature();
+        //new HighJumpFeature();
+        //new JetpackFeature();
+        //new JumpBoostFeature();
+        //new NoFallDamageFeature();
         new AustralianModeFeature();
         new CommandProcessor();
         new ConfigMenu();
         new CreativeFlightFeature();
         new FeatureList();
-        //new FlightFeature();
         new FullBrightFeature();
-        //new HighJumpFeature();
-        //new JetpackFeature();
-        //new JumpBoostFeature();
         new MultiQuickChatFeature();
-        //new NoFallDamageFeature();
         new ProximityRadarFeature();
         new QuickChatFeature();
+        new RedReticleFeature();
         new ShareLocationFeature();
-        new TimerFeature();
         new TakePanoramaFeature();
+        new TimerFeature();
         new WailaFeature();
         new ZoomFeature();
 
-        new IncreaseFovFeature();
-        new DecreaseFovFeature();
+        //new IncreaseFovFeature();
+        //new DecreaseFovFeature();
     }
 
     // FIXME: usage of this is highly inconsistent

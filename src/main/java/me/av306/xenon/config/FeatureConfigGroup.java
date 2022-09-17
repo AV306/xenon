@@ -10,6 +10,9 @@ public class FeatureConfigGroup implements XenonConfigGroup
 	private final GeneralConfigGroup generalConfigGroup = new GeneralConfigGroup();
 
 	@Transitive
+	private final RedReticleGroup redReticleGroup = new RedReticleGroup();
+
+	@Transitive
 	private final CommandProcessorGroup commandProcessorGroup = new CommandProcessorGroup();
 
 	@Transitive

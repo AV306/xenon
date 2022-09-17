@@ -83,7 +83,7 @@ public abstract class IFeature
 	// random ones
 
 	/**
-	 * Constructor with only display name and pre-bound key.
+	 * The basic constructor, with display name and pre-bound key.
 	 * @param name: Display name
 	 * @param key: GLFW keycode to bind to
 	 */
@@ -147,7 +147,7 @@ public abstract class IFeature
 			
 		//this.isEnabled = true;
 
-		Xenon.INSTANCE.log( this.getName() + " enabled!" );
+		Xenon.INSTANCE.LOGGER.info( this.getName() + " enabled!" );
 
 		//Xenon.INSTANCE.featureManager.getEnabledFeatures().add( this.name );
 

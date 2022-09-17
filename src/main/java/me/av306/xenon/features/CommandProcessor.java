@@ -177,7 +177,8 @@ public class CommandProcessor extends IToggleableFeature
             // Somewhere, someone tried to access a non-existent feature
             // aka me trying to find who asked
             Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocessor.invalidcommand.invalidfeature" );
-            Xenon.INSTANCE.LOGGER.warn( npe );
+            //Xenon.INSTANCE.LOGGER.warn( npe );
+            npe.printStackTrace();
         }
         catch ( Exception e )
         {
