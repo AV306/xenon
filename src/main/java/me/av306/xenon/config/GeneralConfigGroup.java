@@ -7,16 +7,9 @@ import me.lortseam.completeconfig.api.ConfigEntry;
 public class GeneralConfigGroup implements XenonConfigGroup
 {
     @ConfigEntry.Boolean
-    @ConfigEntry( requiresRestart = true )
     public static boolean lazyDfu = true;
 
     @ConfigEntry.BoundedInteger( min = 1, max = 512 )
-    @ConfigEntry( requiresRestart = false )
     @ConfigEntry.Slider
     public static int debugCrosshairSize = 10;
-
-    @ConfigEntry.BoundedInteger( min = 1, max = 64 )
-    @ConfigEntry( requiresRestart = false )
-    @ConfigEntry.Slider
-    public static int crosshairSize = 1;
 }

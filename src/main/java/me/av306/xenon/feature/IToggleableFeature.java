@@ -19,15 +19,20 @@ public abstract class IToggleableFeature extends IFeature
     {
         super( name );
 
-        this.enabledText = TextFactory.createLiteral( this.name + " ENABLED!" )
+        this.enabledText = TextFactory.createLiteral( name + " ENABLED!" )
                 .formatted( Xenon.INSTANCE.SUCCESS_FORMAT );
-        this.disabledText = TextFactory.createLiteral( this.name + " DISABLED!" )
+        this.disabledText = TextFactory.createLiteral( name + " DISABLED!" )
                 .formatted( Xenon.INSTANCE.SUCCESS_FORMAT );
     }
 
     protected IToggleableFeature( String name, String... aliases )
     {
         super( name, aliases );
+
+        this.enabledText = TextFactory.createLiteral( name + " ENABLED!" )
+                .formatted( Xenon.INSTANCE.SUCCESS_FORMAT );
+        this.disabledText = TextFactory.createLiteral( name + " DISABLED!" )
+                .formatted( Xenon.INSTANCE.SUCCESS_FORMAT );
     }
 
     /*public static IToggleableFeature getInstance()
@@ -58,7 +63,7 @@ public abstract class IToggleableFeature extends IFeature
 
         this.isEnabled = true;
 
-        Xenon.INSTANCE.log( this.getName() + " enabled!" );
+        Xenon.INSTANCE.LOGGER.info( this.getName() + " enabled!" );
 
         Xenon.INSTANCE.enabledFeatures.add( this );
 
@@ -66,7 +71,7 @@ public abstract class IToggleableFeature extends IFeature
         {
             Xenon.INSTANCE.client.player.sendMessage( this.enabledText, true );
         }
-        catch ( NullPointerException ignored ) {}
+        catch ( NullPointerException ignored ) {} // Features that start enabled will try to send this message and fail
 
         onEnable();
     }
@@ -77,7 +82,7 @@ public abstract class IToggleableFeature extends IFeature
 
         this.isEnabled = false;
 
-        Xenon.INSTANCE.log( this.getName() + " disabled!" );
+        Xenon.INSTANCE.LOGGER.info( this.getName() + " disabled!" );
 
         Xenon.INSTANCE.enabledFeatures.remove( this );
 
