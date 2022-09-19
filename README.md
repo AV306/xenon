@@ -58,3 +58,7 @@ Q: How do I use this?
 
 A: Download a build that matches your Minecraft version, and drop it in your mods folder.
 Google "How to install Fabric mods" for more info.
+
+## Credits (for integrations)
+
+- **LazyDFU**: [astei/lazydfu](https://github.com/astei/lazydfu)
