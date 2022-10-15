@@ -4,6 +4,7 @@ import me.av306.xenon.Xenon;
 import me.av306.xenon.config.feature.HighJumpGroup;
 import me.av306.xenon.event.EventFields;
 import me.av306.xenon.feature.IFeature;
+import me.av306.xenon.feature.IToggleableFeature;
 
 public class HighJumpFeature extends IFeature
 {

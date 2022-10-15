@@ -5,6 +5,7 @@ import me.av306.xenon.feature.IFeature;
 import me.lortseam.completeconfig.gui.ConfigScreenBuilder;
 import me.lortseam.completeconfig.gui.cloth.ClothConfigScreenBuilder;
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
+import me.shedaniel.clothconfig2.impl.builders.FieldBuilder;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.util.ActionResult;
 
