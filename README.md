@@ -47,9 +47,9 @@ EDIT: MultiQuickChat has multi-key sequences, I did it yay
 - Australian Mode
 - Zoom
 - Halo Red Reticle
-- Crosshair size modification (untested)
+- Debug crosshair size modification
 - modular and user-friendly feature creation/registration system I spent way too much time on
-- Command processor and the beginnings of a macro system
+- Command processor
 
 ## Licensed under GNU GPL v3
 
