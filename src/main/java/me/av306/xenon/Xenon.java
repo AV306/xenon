@@ -1,15 +1,11 @@
 package me.av306.xenon;
 
 import me.av306.xenon.config.FeatureConfigGroup;
+import me.av306.xenon.config.GeneralConfigGroup;
 import me.av306.xenon.feature.*;
 import me.av306.xenon.features.*;
-import me.av306.xenon.features.chat.MultiQuickChatFeature;
-import me.av306.xenon.features.chat.QuickChatFeature;
-import me.av306.xenon.features.chat.ShareLocationFeature;
-import me.av306.xenon.features.fovchallenge.DecreaseFovFeature;
-import me.av306.xenon.features.fovchallenge.IncreaseFovFeature;
-import me.av306.xenon.features.movement.CreativeFlightFeature;
-import me.av306.xenon.features.movement.TimerFeature;
+import me.av306.xenon.features.chat.*;
+import me.av306.xenon.features.movement.*;
 import me.av306.xenon.features.render.*;
 import me.av306.xenon.mixin.MinecraftClientAccessor;
 import me.av306.xenon.util.text.TextFactory;
@@ -17,6 +13,7 @@ import me.lortseam.completeconfig.data.Config;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import org.apache.logging.log4j.LogManager;
@@ -56,6 +53,10 @@ public enum Xenon
     
     public ModContainer modContainer;
 
+    /**
+     * This field `namePrefix` should contain "[Xenon] " (note whitespace),
+     * and be formatted with Xenon's messsage format.
+     */
     private final Text namePrefix = TextFactory.createLiteral( "[Xenon] " )
             .formatted( this.MESSAGE_FORMAT );
 
@@ -81,15 +82,23 @@ public enum Xenon
         this.clientAccessor = (MinecraftClientAccessor) this.client;
 			
         // register features
-        //new FlightFeature();
-        //new HighJumpFeature();
-        //new JetpackFeature();
-        //new JumpBoostFeature();
-        //new NoFallDamageFeature();
+
+        // Illegal features
+        if ( GeneralConfigGroup.enableIllegalFeatures )
+        {
+            // We register them all in one go because they tend to depend on one another
+            // E.g. CreativeFlight will crash if it tries to enable NFD but NFD isn't present
+            new FlightFeature();
+            new HighJumpFeature();
+            new JetpackFeature();
+            new JumpBoostFeature();
+            new NoFallDamageFeature();
+            new CreativeFlightFeature();
+        }
+
         new AustralianModeFeature();
         new CommandProcessor();
         new ConfigMenu();
-        new CreativeFlightFeature();
         new FeatureList();
         new FullBrightFeature();
         new MultiQuickChatFeature();
@@ -98,7 +107,7 @@ public enum Xenon
         new RedReticleFeature();
         new ShareLocationFeature();
         new TakePanoramaFeature();
-        new TimerFeature();
+        if ( GeneralConfigGroup.enableTimer ) new TimerFeature();
         new WailaFeature();
         new ZoomFeature();
 
@@ -143,6 +152,26 @@ public enum Xenon
         this.client.player.sendMessage( finalText, false );
     }
 
+    public void sendWarningMessage( String key )
+    {
+        Text finalText = namePrefix.copy()
+                .append(
+                        TextFactory.createTranslatable( key )
+                                .formatted( this.MESSAGE_FORMAT )
+                );
+        this.client.player.sendMessage( finalText, false );
+    }
+
+    public void sendWarningMessage( Text text )
+    {
+        Text finalText = namePrefix.copy()
+                .append(
+                        text.copyContentOnly()
+                                .formatted( this.MESSAGE_FORMAT )
+                );
+        this.client.player.sendMessage( finalText, false );
+    }
+
     public void sendErrorMessage( String key )
     {
         // TODO: impl parameter packs?
@@ -154,10 +183,14 @@ public enum Xenon
         this.client.player.sendMessage(finalText, false);
     }
 
+    // FIXME
     public void sendErrorMessage( Text text )
     {
         Text finalText = namePrefix.copy()
-                .append( text/*.formatted( this.ERROR_FORMAT )*/ );
+                .append(
+                        text.copyContentOnly()
+                                .formatted( this.ERROR_FORMAT )
+                );
         this.client.player.sendMessage( finalText, false );
     }
 }

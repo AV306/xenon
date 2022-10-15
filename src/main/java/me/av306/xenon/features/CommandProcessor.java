@@ -52,7 +52,7 @@ public class CommandProcessor extends IToggleableFeature
 
         // Ok, should be a command,
         // now remove the prefix and split
-        String[] possibleCommand = this.deserialiseCommand(
+        String[] possibleCommand = deserialiseCommand(
             CommandProcessorGroup.prefix,
             text
         );
@@ -103,8 +103,7 @@ public class CommandProcessor extends IToggleableFeature
                 case "help", "h", "?" ->
                 {
                     // User doesn't know how to use the feature
-                    // FIXME: This feels like it causes more confusion
-                    // than it resolves.
+                    // FIXME: This feels like it causes more confusion than it resolves.
                     Xenon.INSTANCE.sendInfoMessage(
                         feature.getHelpText(
                             Arrays.copyOfRange( possibleCommand, 2, possibleCommand.length )

@@ -56,6 +56,13 @@ dependencies {
 	modImplementation include("com.gitlab.Lortseam.completeconfig:base:${project.complete_config_version}")
 	modImplementation include("com.gitlab.Lortseam.completeconfig:gui-cloth:${project.complete_config_version}")
 
+	// Cloth Config
+	// This is gonna make the entire JAR like 1GB or something
+	// WHY CAN'T IT ALL BE IN ONE NICE JAR TO INCLUDE
+	/*modApi( "me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}" ) {
+		exclude( group: "net.fabricmc.fabric-api" )
+	}*/
+
 	// apache commons-io
 	//compileOnly 'commons-io:commons-io:2.11.0'
 

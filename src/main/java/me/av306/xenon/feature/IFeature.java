@@ -26,6 +26,8 @@ public abstract class IFeature
 	protected String name = "IFeature";
 	public String getName() { return this.name; }
 	public void setName( String name ) { this.name = name; }
+
+	protected String category = "features";
 	
 
 	/**
@@ -98,7 +100,7 @@ public abstract class IFeature
 				"key.xenon." + name.toLowerCase().replaceAll( " ", "" ),
 				InputUtil.Type.KEYSYM,
 				this.key,
-				"category.xenon.features"
+				"category.xenon." + this.category
 		);
 
 		// register our keybind

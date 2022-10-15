@@ -35,10 +35,15 @@ public abstract class IToggleableFeature extends IFeature
                 .formatted( Xenon.INSTANCE.SUCCESS_FORMAT );
     }
 
-    /*public static IToggleableFeature getInstance()
+    protected IToggleableFeature( String name, int key )
     {
-        return instance;
-    }*/
+        super( name, key );
+    }
+
+    protected IToggleableFeature( String name, int key, String... aliases )
+    {
+        super( name, key, aliases );
+    }
 
     /*@Override
     protected ActionResult onKeyboardKey( long window, int key, int scanCode, int action, int modifiers )

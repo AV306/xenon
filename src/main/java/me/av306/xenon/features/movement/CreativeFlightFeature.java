@@ -36,7 +36,9 @@ public class CreativeFlightFeature extends IToggleableFeature
 
         // enable no fall damage if wanted
         if ( CreativeFlightGroup.enableNoFall )
-            Xenon.INSTANCE.featureRegistry.get( "nofalldamage" ).enable();
+            if ( Xenon.INSTANCE.featureRegistry.containsKey( "nofalldamage" ) )
+                Xenon.INSTANCE.featureRegistry.get( "nofalldamage" ).enable();
+            else Xenon.INSTANCE.sendWarningMessage( "text.xenon.creativeflight.nofallnotpresent" );
     }
 
     @Override

@@ -100,6 +100,7 @@
   "text.xenon.commandprocessor.possiblekeywords": "Possible command keywords:\n[enable, e, on, disable, d, off, toggle, t\nexecute, exec, ex, run, do, set, s, help, h, ?",
   "text.xenon.configmenu.unknownexception": "[ConfigMenu] An unexpected error occurred when generating the config screen. See logs for more info.",
   "text.xenon.configmenu.unsupportedoperation": "[ConfigMenu] An error occurred when generating the config screen. This appears to be caused by a bad config entry.",
+  "text.xenon.creativeflight.nofallnotpresent": "[CreativeFlight] NoFallDamane not present, could not enable",
   "text.xenon.debug.configreload": "Configurations reloaded!",
   "text.xenon.ifeature.configchange.invalidconfig": "[%s] Failed to change config \"%s\" to value %s: Invalid config name!",
   "text.xenon.ifeature.configchange.notsupported": "[%s] This feature does not yet support configuration through commands.",
