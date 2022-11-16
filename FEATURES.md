@@ -24,5 +24,4 @@ Please note that all feature suggestions will be subject to extensive review (se
 - CommandProcessor - Enable/disable features, change their configs, get help and run macros, all from the chat!
 - ConfigMenu - Change feature configs
 - FeatureList - Lists the features you have enabled
-- Panic - Disables everything
 - LazyDFU Integration - Optimises DFU (DataFixerUpper) just like LazyDFU
