@@ -30,7 +30,7 @@ This project is **not** guaranteed to be in a working, up-to-date, or complete s
 
 Full documentation [here](FEATURES.md)
 
-(All are unbound by default)
+(Most features are unbound by default)
 
 ~~Maybe someday I'll implement multi-key sequences~~
 
