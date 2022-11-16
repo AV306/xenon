@@ -1,10 +1,12 @@
 package me.av306.xenon.features.render;
 
-import me.av306.Xenon;
-import me.av306.xenon.events.ClientPlayerTickEvents;
-import me.av306.xenon.events.PlayerMotionEvents;
-
+import me.av306.xenon.Xenon;
+import me.av306.xenon.event.PlayerMotionEvents;
+import me.av306.xenon.feature.IToggleableFeature;
+import me.av306.xenon.mixin.CameraAccessor;
+import net.minecraft.client.render.Camera;
 import net.minecraft.entity.MovementType;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.Vec3d;
 
 public class FreeCamFeature extends IToggleableFeature
@@ -21,18 +23,12 @@ public class FreeCamFeature extends IToggleableFeature
         if ( this.isEnabled )
         {
             // Capture the movement vector and apply it to the camera
-            Camera camera = Xenon.INSTANCE.client.gameRenderer.getCamera();
-
-            ((CameraAccessor) camera).forceMoveBy(
-                movement.getX(),
-                movement.getY(),
-                movement.getZ()
-            );
+            Xenon.INSTANCE.client.player.noClip = true;
 
             // Cancel it so the player doesn't move
-            return ActionResult.FAIL;
+            //return ActionResult.FAIL;
         }
-        else return ActionResult.PASS;
+        return ActionResult.PASS;
     }
 
     @Override

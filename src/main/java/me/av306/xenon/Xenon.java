@@ -111,6 +111,8 @@ public enum Xenon
         new WailaFeature();
         new ZoomFeature();
 
+        //new FreeCamFeature();
+
         //new IncreaseFovFeature();
         //new DecreaseFovFeature();
     }

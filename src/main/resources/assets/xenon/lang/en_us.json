@@ -67,6 +67,7 @@
   "config.xenon.generalconfiggroup": "General Configs",
   "config.xenon.generalconfiggroup.crosshairSize": "Crosshair Size",
   "config.xenon.generalconfiggroup.debugCrosshairSize": "Debug Crosshair Size",
+  "config.xenon.generalconfiggroup.enableIllegalFeatures": "Perform LazyDFU optimisation at startup",
   "config.xenon.generalconfiggroup.lazyDFU": "Perform LazyDFU optimisation at startup",
   "key.xenon.australianmode": "Australian Mode",
   "key.xenon.commandprocessor": "CommandProcessor",

@@ -1,10 +1,7 @@
 package me.av306.xenon.mixin;
 
 import com.mojang.authlib.GameProfile;
-import me.av306.xenon.event.ChatOutputEvent;
-import me.av306.xenon.event.ClientPlayerTickEvents;
-import me.av306.xenon.event.EventFields;
-import me.av306.xenon.event.GetJumpVelocityEvent;
+import me.av306.xenon.event.*;
 
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerEntity;
@@ -89,7 +86,7 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 	private void beforeSendMovementPackets( CallbackInfo ci )
 	{
         ActionResult result = PlayerMotionEvents.BEFORE_MOTION_PACKET.invoker()
-                .onPlayerMove();
+		        .onPreMotion();
 
         if ( result == ActionResult.FAIL ) ci.cancel();
 	}
@@ -101,10 +98,10 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 	private void afterSendMovementPackets( CallbackInfo ci )
 	{
         PlayerMotionEvents.AFTER_MOTION_PACKET.invoker()
-                .onPlayerMove();
+		        .onPostMotion();
 	}
 
-    @Mixin(
+    @Inject(
         at = @At( "HEAD" ),
         method = "move(Lnet/minecraft/entity/MovementType;Lnet/minecraft/util/math/Vec3d;)V",
         cancellable = true
