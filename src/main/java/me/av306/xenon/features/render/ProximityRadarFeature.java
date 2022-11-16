@@ -19,14 +19,12 @@ public class ProximityRadarFeature extends IToggleableFeature
 
     public ProximityRadarFeature()
     {
-        super( "ProximityRadar" );
+        super( "ProximityRadar", "proxradar", "pr" );
         ClientTickEvents.END_WORLD_TICK.register( (object) -> this.tick() );
     }
 
     @Override
-    public void onEnable()
-    {
-    }
+    public void onEnable() {}
 
 
     @Override

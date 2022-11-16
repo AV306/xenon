@@ -7,6 +7,10 @@ import me.av306.xenon.util.ScreenPosition;
 import me.av306.xenon.util.color.ColorUtil;
 import me.av306.xenon.util.text.TextFactory;
 import me.av306.xenon.util.text.TextUtil;
+import net.minecraft.client.render.BufferBuilder;
+import net.minecraft.client.render.Tessellator;
+import net.minecraft.client.render.VertexFormat;
+import net.minecraft.client.render.VertexFormats;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.ActionResult;
 
@@ -37,13 +41,8 @@ public class DataHudFeature extends IToggleableFeature
     }
 
     @Override
-    protected void onEnable()
-    {
-    }
+    protected void onEnable() {}
 
     @Override
-    protected void onDisable()
-    {
-
-    }
+    protected void onDisable() {}
 }
