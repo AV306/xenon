@@ -1,15 +1,13 @@
 package me.av306.xenon.util.text;
 
-import me.av306.xenon.util.ScreenPosition;
+import me.av306.xenon.util.render.ScreenPosition;
 import me.av306.xenon.Xenon;
 
 import me.av306.xenon.util.color.ColorUtil;
 import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.util.Window;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-import org.apache.logging.log4j.core.util.datetime.Format;
 
 /**
  * Helper class for text-related operations.

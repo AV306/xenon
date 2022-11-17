@@ -5,7 +5,7 @@ import me.av306.xenon.config.feature.FeatureListGroup;
 import me.av306.xenon.event.RenderInGameHudEvent;
 import me.av306.xenon.feature.IFeature;
 import me.av306.xenon.feature.IToggleableFeature;
-import me.av306.xenon.util.ScreenPosition;
+import me.av306.xenon.util.render.ScreenPosition;
 import me.av306.xenon.util.color.ColorUtil;
 import me.av306.xenon.util.text.TextFactory;
 import me.av306.xenon.util.text.TextUtil;

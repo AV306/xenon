@@ -120,6 +120,11 @@ public enum Xenon
     // FIXME: usage of this is highly inconsistent
     public void log( String msg ) { if ( debug ) LOGGER.info( msg ); }
 
+    public void disableAllFeatures()
+    {
+
+    }
+
     private void readVersionData()
     {
         // set version
@@ -144,14 +149,22 @@ public enum Xenon
     {
         Text finalText = namePrefix.copy()
                 .append( TextFactory.createTranslatable( key ) );
-        this.client.player.sendMessage( finalText, false );
+        try
+        {
+            this.client.player.sendMessage( finalText, false );
+        }
+        catch ( NullPointerException ignored ) {}
     }
 
     public void sendInfoMessage( Text text )
     {
         Text finalText = namePrefix.copy()
                 .append( text );
-        this.client.player.sendMessage( finalText, false );
+        try
+        {
+            this.client.player.sendMessage( finalText, false );
+        }
+        catch ( NullPointerException ignored ) {}
     }
 
     public void sendWarningMessage( String key )
@@ -161,7 +174,11 @@ public enum Xenon
                         TextFactory.createTranslatable( key )
                                 .formatted( this.MESSAGE_FORMAT )
                 );
-        this.client.player.sendMessage( finalText, false );
+        try
+        {
+            this.client.player.sendMessage( finalText, false );
+        }
+        catch ( NullPointerException ignored ) {}
     }
 
     public void sendWarningMessage( Text text )
@@ -171,7 +188,11 @@ public enum Xenon
                         text.copyContentOnly()
                                 .formatted( this.MESSAGE_FORMAT )
                 );
-        this.client.player.sendMessage( finalText, false );
+        try
+        {
+            this.client.player.sendMessage( finalText, false );
+        }
+        catch ( NullPointerException ignored ) {}
     }
 
     public void sendErrorMessage( String key )
@@ -182,7 +203,11 @@ public enum Xenon
                         TextFactory.createTranslatable( key )
                         .formatted( this.ERROR_FORMAT )
                 );
-        this.client.player.sendMessage(finalText, false);
+        try
+        {
+            this.client.player.sendMessage(finalText, false);
+        }
+        catch ( NullPointerException ignored ) {}
     }
 
     // FIXME
@@ -193,6 +218,10 @@ public enum Xenon
                         text.copyContentOnly()
                                 .formatted( this.ERROR_FORMAT )
                 );
-        this.client.player.sendMessage( finalText, false );
+        try
+        {
+            this.client.player.sendMessage( finalText, false );
+        }
+        catch ( NullPointerException ignored ) {}
     }
 }
