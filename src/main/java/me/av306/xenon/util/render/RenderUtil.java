@@ -24,74 +24,65 @@ import net.minecraft.world.chunk.Chunk;
 
 public class RenderUtil
 {
-	private static final Box DEFAULT_BOX = new Box(0, 0, 0, 1, 1, 1);
+	// Zero-size box
+	private static final Box ZERO_SIZE_BOX = new Box( 0, 0, 0, 1, 1, 1 );
 
-	public static void scissorBox(int startX, int startY, int endX, int endY)
+	// 1x1 box, centered on the origin and resting on the surface
+	public static final Box DEFAULT_BOX = new Box( -0.5, 0, -0.5, 0.5, 1, 0.5 );
+
+	public static void scissorBox( int startX, int startY, int endX, int endY )
 	{
 		int width = endX - startX;
 		int height = endY - startY;
 		int bottomY = Xenon.INSTANCE.client.currentScreen.height - endY;
 		double factor = Xenon.INSTANCE.client.getWindow().getScaleFactor();
 
-		int scissorX = (int)(startX * factor);
-		int scissorY = (int)(bottomY * factor);
-		int scissorWidth = (int)(width * factor);
-		int scissorHeight = (int)(height * factor);
-		GL11.glScissor(scissorX, scissorY, scissorWidth, scissorHeight);
+		int scissorX = (int) (startX * factor);
+		int scissorY = (int) (bottomY * factor);
+		int scissorWidth = (int) (width * factor);
+		int scissorHeight = (int) (height * factor);
+		GL11.glScissor( scissorX, scissorY, scissorWidth, scissorHeight );
 	}
 
-	public static void applyRenderOffset(MatrixStack matrixStack)
+	public static void applyRenderOffset( MatrixStack matrixStack )
 	{
-		applyCameraRotationOnly();
 		Vec3d camPos = getCameraPos();
 
-		matrixStack.translate(-camPos.x, -camPos.y, -camPos.z);
+		matrixStack.translate( -camPos.x, -camPos.y, -camPos.z );
 	}
 
-	public static void applyRegionalRenderOffset(MatrixStack matrixStack)
+	public static void applyRegionalRenderOffset( MatrixStack matrixStack )
 	{
-		applyCameraRotationOnly();
-
 		Vec3d camPos = getCameraPos();
 		BlockPos blockPos = getCameraBlockPos();
 
 		int regionX = (blockPos.getX() >> 9) * 512;
 		int regionZ = (blockPos.getZ() >> 9) * 512;
 
-		matrixStack.translate(regionX - camPos.x, -camPos.y,
-				regionZ - camPos.z);
+		matrixStack.translate(
+				regionX - camPos.x, -camPos.y,
+				regionZ - camPos.z
+		);
 	}
 
-	public static void applyRegionalRenderOffset(MatrixStack matrixStack,
-	                                             Chunk chunk)
+	public static void applyRegionalRenderOffset( MatrixStack matrixStack, Chunk chunk )
 	{
-		applyCameraRotationOnly();
 
 		Vec3d camPos = getCameraPos();
 
 		int regionX = (chunk.getPos().getStartX() >> 9) * 512;
 		int regionZ = (chunk.getPos().getStartZ() >> 9) * 512;
 
-		matrixStack.translate(regionX - camPos.x, -camPos.y,
-				regionZ - camPos.z);
-	}
-
-	public static void applyCameraRotationOnly()
-	{
-		// no longer necessary for some reason
-
-		// Camera camera =
-		// WurstClient.MC.getBlockEntityRenderDispatcher().camera;
-		// GL11.glRotated(MathHelper.wrapDegrees(camera.getPitch()), 1, 0, 0);
-		// GL11.glRotated(MathHelper.wrapDegrees(camera.getYaw() + 180.0), 0, 1,
-		// 0);
+		matrixStack.translate(
+				regionX - camPos.x, -camPos.y,
+				regionZ - camPos.z
+		);
 	}
 
 	public static Vec3d getCameraPos()
 	{
 		Camera camera = Xenon.INSTANCE.client.getBlockEntityRenderDispatcher().camera;
-		if(camera == null)
-			return Vec3d.ZERO;
+		if ( camera == null ) return Vec3d.ZERO;
 
 		return camera.getPos();
 	}
@@ -99,321 +90,215 @@ public class RenderUtil
 	public static BlockPos getCameraBlockPos()
 	{
 		Camera camera = Xenon.INSTANCE.client.getBlockEntityRenderDispatcher().camera;
-		if(camera == null)
-			return BlockPos.ORIGIN;
+		if ( camera == null ) return BlockPos.ORIGIN;
 
 		return camera.getBlockPos();
 	}
 
-	public static float[] getRainbowColor()
+	public static void drawSolidBox( MatrixStack matrixStack )
 	{
-		float x = System.currentTimeMillis() % 2000 / 1000F;
-		float pi = (float)Math.PI;
-
-		float[] rainbow = new float[3];
-		rainbow[0] = 0.5F + 0.5F * MathHelper.sin(x * pi);
-		rainbow[1] = 0.5F + 0.5F * MathHelper.sin((x + 4F / 3F) * pi);
-		rainbow[2] = 0.5F + 0.5F * MathHelper.sin((x + 8F / 3F) * pi);
-		return rainbow;
+		drawSolidBox (ZERO_SIZE_BOX, matrixStack );
 	}
 
-	public static void drawSolidBox(MatrixStack matrixStack)
+	public static void drawSolidBox( Box bb, MatrixStack matrixStack )
 	{
-		drawSolidBox(DEFAULT_BOX, matrixStack);
-	}
-
-	public static void drawSolidBox(Box bb, MatrixStack matrixStack)
-	{
+		// Get the position matrix
 		Matrix4f matrix = matrixStack.peek().getPositionMatrix();
+		// Get the current tesselator
 		Tessellator tessellator = RenderSystem.renderThreadTesselator();
+		// Get the tesselator's buffer
 		BufferBuilder bufferBuilder = tessellator.getBuffer();
+		// Set the shader
 		RenderSystem.setShader(GameRenderer::getPositionShader);
 
-		bufferBuilder.begin(VertexFormat.DrawMode.QUADS,
-				VertexFormats.POSITION);
-		bufferBuilder
-				.vertex(matrix, (float)bb.minX, (float)bb.minY, (float)bb.minZ)
-				.next();
-		bufferBuilder
-				.vertex(matrix, (float)bb.maxX, (float)bb.minY, (float)bb.minZ)
-				.next();
-		bufferBuilder
-				.vertex(matrix, (float)bb.maxX, (float)bb.minY, (float)bb.maxZ)
-				.next();
-		bufferBuilder
-				.vertex(matrix, (float)bb.minX, (float)bb.minY, (float)bb.maxZ)
-				.next();
+		// Begin!
+		bufferBuilder.begin( VertexFormat.DrawMode.QUADS, VertexFormats.POSITION );
 
-		bufferBuilder
-				.vertex(matrix, (float)bb.minX, (float)bb.maxY, (float)bb.minZ)
-				.next();
-		bufferBuilder
-				.vertex(matrix, (float)bb.minX, (float)bb.maxY, (float)bb.maxZ)
-				.next();
-		bufferBuilder
-				.vertex(matrix, (float)bb.maxX, (float)bb.maxY, (float)bb.maxZ)
-				.next();
-		bufferBuilder
-				.vertex(matrix, (float)bb.maxX, (float)bb.maxY, (float)bb.minZ)
-				.next();
 
-		bufferBuilder
-				.vertex(matrix, (float)bb.minX, (float)bb.minY, (float)bb.minZ)
-				.next();
-		bufferBuilder
-				.vertex(matrix, (float)bb.minX, (float)bb.maxY, (float)bb.minZ)
-				.next();
-		bufferBuilder
-				.vertex(matrix, (float)bb.maxX, (float)bb.maxY, (float)bb.minZ)
-				.next();
-		bufferBuilder
-				.vertex(matrix, (float)bb.maxX, (float)bb.minY, (float)bb.minZ)
-				.next();
+		bufferBuilder.vertex( matrix, (float) bb.minX, (float) bb.minY, (float) bb.minZ ).next();
+		bufferBuilder.vertex( matrix, (float) bb.maxX, (float) bb.minY, (float) bb.minZ ).next();
+		bufferBuilder.vertex( matrix, (float) bb.maxX, (float) bb.minY, (float) bb.maxZ ).next();
+		bufferBuilder.vertex( matrix, (float) bb.minX, (float) bb.minY, (float) bb.maxZ ).next();
 
-		bufferBuilder
-				.vertex(matrix, (float)bb.maxX, (float)bb.minY, (float)bb.minZ)
-				.next();
-		bufferBuilder
-				.vertex(matrix, (float)bb.maxX, (float)bb.maxY, (float)bb.minZ)
-				.next();
-		bufferBuilder
-				.vertex(matrix, (float)bb.maxX, (float)bb.maxY, (float)bb.maxZ)
-				.next();
-		bufferBuilder
-				.vertex(matrix, (float)bb.maxX, (float)bb.minY, (float)bb.maxZ)
-				.next();
+		bufferBuilder.vertex( matrix, (float) bb.minX, (float) bb.maxY, (float) bb.minZ ).next();
+		bufferBuilder.vertex( matrix, (float) bb.minX, (float) bb.maxY, (float) bb.maxZ ).next();
+		bufferBuilder.vertex( matrix, (float) bb.maxX, (float) bb.maxY, (float) bb.maxZ ).next();
+		bufferBuilder.vertex( matrix, (float) bb.maxX, (float) bb.maxY, (float) bb.minZ ).next();
 
-		bufferBuilder
-				.vertex(matrix, (float)bb.minX, (float)bb.minY, (float)bb.maxZ)
-				.next();
-		bufferBuilder
-				.vertex(matrix, (float)bb.maxX, (float)bb.minY, (float)bb.maxZ)
-				.next();
-		bufferBuilder
-				.vertex(matrix, (float)bb.maxX, (float)bb.maxY, (float)bb.maxZ)
-				.next();
-		bufferBuilder
-				.vertex(matrix, (float)bb.minX, (float)bb.maxY, (float)bb.maxZ)
-				.next();
+		bufferBuilder.vertex( matrix, (float) bb.minX, (float) bb.minY, (float) bb.minZ ).next();
+		bufferBuilder.vertex( matrix, (float) bb.minX, (float) bb.maxY, (float) bb.minZ ).next();
+		bufferBuilder.vertex( matrix, (float) bb.maxX, (float) bb.maxY, (float) bb.minZ ).next();
+		bufferBuilder.vertex( matrix, (float) bb.maxX, (float) bb.minY, (float) bb.minZ ).next();
 
-		bufferBuilder
-				.vertex(matrix, (float)bb.minX, (float)bb.minY, (float)bb.minZ)
-				.next();
-		bufferBuilder
-				.vertex(matrix, (float)bb.minX, (float)bb.minY, (float)bb.maxZ)
-				.next();
-		bufferBuilder
-				.vertex(matrix, (float)bb.minX, (float)bb.maxY, (float)bb.maxZ)
-				.next();
-		bufferBuilder
-				.vertex(matrix, (float)bb.minX, (float)bb.maxY, (float)bb.minZ)
-				.next();
+		bufferBuilder.vertex( matrix, (float) bb.maxX, (float) bb.minY, (float) bb.minZ ).next();
+		bufferBuilder.vertex( matrix, (float) bb.maxX, (float) bb.maxY, (float) bb.minZ ).next();
+		bufferBuilder.vertex( matrix, (float) bb.maxX, (float) bb.maxY, (float) bb.maxZ ).next();
+		bufferBuilder.vertex( matrix, (float) bb.maxX, (float) bb.minY, (float) bb.maxZ ).next();
+
+		bufferBuilder.vertex( matrix, (float) bb.minX, (float) bb.minY, (float) bb.maxZ ).next();
+		bufferBuilder.vertex( matrix, (float) bb.maxX, (float) bb.minY, (float) bb.maxZ ).next();
+		bufferBuilder.vertex( matrix, (float) bb.maxX, (float) bb.maxY, (float) bb.maxZ ).next();
+		bufferBuilder.vertex( matrix, (float) bb.minX, (float) bb.maxY, (float) bb.maxZ ).next();
+
+		bufferBuilder.vertex( matrix, (float) bb.minX, (float) bb.minY, (float) bb.minZ ).next();
+		bufferBuilder.vertex( matrix, (float) bb.minX, (float) bb.minY, (float) bb.maxZ ).next();
+		bufferBuilder.vertex( matrix, (float) bb.minX, (float) bb.maxY, (float) bb.maxZ ).next();
+		bufferBuilder.vertex( matrix, (float) bb.minX, (float) bb.maxY, (float) bb.minZ ).next();
 		tessellator.draw();
 	}
 
-	public static void drawSolidBox(Box bb, VertexBuffer vertexBuffer)
+	public static void drawSolidBox( Box bb, VertexBuffer vertexBuffer )
 	{
 		Tessellator tessellator = RenderSystem.renderThreadTesselator();
 		BufferBuilder bufferBuilder = tessellator.getBuffer();
 
-		bufferBuilder.begin(VertexFormat.DrawMode.QUADS,
-				VertexFormats.POSITION);
-		drawSolidBox(bb, bufferBuilder);
+		bufferBuilder.begin( VertexFormat.DrawMode.QUADS, VertexFormats.POSITION );
+		drawSolidBox( bb, bufferBuilder );
 		BuiltBuffer buffer = bufferBuilder.end();
 
 		vertexBuffer.bind();
-		vertexBuffer.upload(buffer);
+		vertexBuffer.upload( buffer );
 		VertexBuffer.unbind();
 	}
 
-	public static void drawSolidBox(Box bb, BufferBuilder bufferBuilder)
+	public static void drawSolidBox( Box bb, BufferBuilder bufferBuilder )
 	{
-		bufferBuilder.vertex(bb.minX, bb.minY, bb.minZ).next();
-		bufferBuilder.vertex(bb.maxX, bb.minY, bb.minZ).next();
-		bufferBuilder.vertex(bb.maxX, bb.minY, bb.maxZ).next();
-		bufferBuilder.vertex(bb.minX, bb.minY, bb.maxZ).next();
+		bufferBuilder.vertex( bb.minX, bb.minY, bb.minZ ).next();
+		bufferBuilder.vertex( bb.maxX, bb.minY, bb.minZ ).next();
+		bufferBuilder.vertex( bb.maxX, bb.minY, bb.maxZ ).next();
+		bufferBuilder.vertex( bb.minX, bb.minY, bb.maxZ ).next();
 
-		bufferBuilder.vertex(bb.minX, bb.maxY, bb.minZ).next();
-		bufferBuilder.vertex(bb.minX, bb.maxY, bb.maxZ).next();
-		bufferBuilder.vertex(bb.maxX, bb.maxY, bb.maxZ).next();
-		bufferBuilder.vertex(bb.maxX, bb.maxY, bb.minZ).next();
+		bufferBuilder.vertex( bb.minX, bb.maxY, bb.minZ ).next();
+		bufferBuilder.vertex( bb.minX, bb.maxY, bb.maxZ ).next();
+		bufferBuilder.vertex( bb.maxX, bb.maxY, bb.maxZ ).next();
+		bufferBuilder.vertex( bb.maxX, bb.maxY, bb.minZ ).next();
 
-		bufferBuilder.vertex(bb.minX, bb.minY, bb.minZ).next();
-		bufferBuilder.vertex(bb.minX, bb.maxY, bb.minZ).next();
-		bufferBuilder.vertex(bb.maxX, bb.maxY, bb.minZ).next();
-		bufferBuilder.vertex(bb.maxX, bb.minY, bb.minZ).next();
+		bufferBuilder.vertex( bb.minX, bb.minY, bb.minZ ).next();
+		bufferBuilder.vertex( bb.minX, bb.maxY, bb.minZ ).next();
+		bufferBuilder.vertex( bb.maxX, bb.maxY, bb.minZ ).next();
+		bufferBuilder.vertex( bb.maxX, bb.minY, bb.minZ ).next();
 
-		bufferBuilder.vertex(bb.maxX, bb.minY, bb.minZ).next();
-		bufferBuilder.vertex(bb.maxX, bb.maxY, bb.minZ).next();
-		bufferBuilder.vertex(bb.maxX, bb.maxY, bb.maxZ).next();
-		bufferBuilder.vertex(bb.maxX, bb.minY, bb.maxZ).next();
+		bufferBuilder.vertex( bb.maxX, bb.minY, bb.minZ ).next();
+		bufferBuilder.vertex( bb.maxX, bb.maxY, bb.minZ ).next();
+		bufferBuilder.vertex( bb.maxX, bb.maxY, bb.maxZ ).next();
+		bufferBuilder.vertex( bb.maxX, bb.minY, bb.maxZ ).next();
 
-		bufferBuilder.vertex(bb.minX, bb.minY, bb.maxZ).next();
-		bufferBuilder.vertex(bb.maxX, bb.minY, bb.maxZ).next();
-		bufferBuilder.vertex(bb.maxX, bb.maxY, bb.maxZ).next();
-		bufferBuilder.vertex(bb.minX, bb.maxY, bb.maxZ).next();
+		bufferBuilder.vertex( bb.minX, bb.minY, bb.maxZ ).next();
+		bufferBuilder.vertex( bb.maxX, bb.minY, bb.maxZ ).next();
+		bufferBuilder.vertex( bb.maxX, bb.maxY, bb.maxZ ).next();
+		bufferBuilder.vertex( bb.minX, bb.maxY, bb.maxZ ).next();
 
-		bufferBuilder.vertex(bb.minX, bb.minY, bb.minZ).next();
-		bufferBuilder.vertex(bb.minX, bb.minY, bb.maxZ).next();
-		bufferBuilder.vertex(bb.minX, bb.maxY, bb.maxZ).next();
-		bufferBuilder.vertex(bb.minX, bb.maxY, bb.minZ).next();
+		bufferBuilder.vertex( bb.minX, bb.minY, bb.minZ ).next();
+		bufferBuilder.vertex( bb.minX, bb.minY, bb.maxZ ).next();
+		bufferBuilder.vertex( bb.minX, bb.maxY, bb.maxZ ).next();
+		bufferBuilder.vertex( bb.minX, bb.maxY, bb.minZ ).next();
 	}
 
 	public static void drawOutlinedBox(MatrixStack matrixStack)
 	{
-		drawOutlinedBox(DEFAULT_BOX, matrixStack);
+		drawOutlinedBox( ZERO_SIZE_BOX, matrixStack );
 	}
 
-	public static void drawOutlinedBox(Box bb, MatrixStack matrixStack)
+	public static void drawOutlinedBox( Box bb, MatrixStack matrixStack )
 	{
 		Matrix4f matrix = matrixStack.peek().getPositionMatrix();
 		Tessellator tessellator = RenderSystem.renderThreadTesselator();
 		BufferBuilder bufferBuilder = tessellator.getBuffer();
-		RenderSystem.setShader(GameRenderer::getPositionShader);
+		RenderSystem.setShader( GameRenderer::getPositionShader );
 
-		bufferBuilder.begin(VertexFormat.DrawMode.DEBUG_LINES,
-				VertexFormats.POSITION);
-		bufferBuilder
-				.vertex(matrix, (float)bb.minX, (float)bb.minY, (float)bb.minZ)
-				.next();
-		bufferBuilder
-				.vertex(matrix, (float)bb.maxX, (float)bb.minY, (float)bb.minZ)
-				.next();
+		bufferBuilder.begin( VertexFormat.DrawMode.DEBUG_LINES, VertexFormats.POSITION );
+		bufferBuilder.vertex( matrix, (float) bb.minX, (float) bb.minY, (float) bb.minZ ).next();
+		bufferBuilder.vertex( matrix, (float) bb.maxX, (float) bb.minY, (float) bb.minZ ).next();
 
-		bufferBuilder
-				.vertex(matrix, (float)bb.maxX, (float)bb.minY, (float)bb.minZ)
-				.next();
-		bufferBuilder
-				.vertex(matrix, (float)bb.maxX, (float)bb.minY, (float)bb.maxZ)
-				.next();
+		bufferBuilder.vertex( matrix, (float) bb.maxX, (float) bb.minY, (float) bb.minZ ).next();
+		bufferBuilder.vertex( matrix, (float) bb.maxX, (float) bb.minY, (float) bb.maxZ ).next();
 
-		bufferBuilder
-				.vertex(matrix, (float)bb.maxX, (float)bb.minY, (float)bb.maxZ)
-				.next();
-		bufferBuilder
-				.vertex(matrix, (float)bb.minX, (float)bb.minY, (float)bb.maxZ)
-				.next();
+		bufferBuilder.vertex( matrix, (float) bb.maxX, (float) bb.minY, (float) bb.maxZ ).next();
+		bufferBuilder.vertex( matrix, (float) bb.minX, (float) bb.minY, (float) bb.maxZ ).next();
 
-		bufferBuilder
-				.vertex(matrix, (float)bb.minX, (float)bb.minY, (float)bb.maxZ)
-				.next();
-		bufferBuilder
-				.vertex(matrix, (float)bb.minX, (float)bb.minY, (float)bb.minZ)
-				.next();
+		bufferBuilder.vertex( matrix, (float) bb.minX, (float) bb.minY, (float) bb.maxZ ).next();
+		bufferBuilder.vertex( matrix, (float) bb.minX, (float) bb.minY, (float) bb.minZ ).next();
 
-		bufferBuilder
-				.vertex(matrix, (float)bb.minX, (float)bb.minY, (float)bb.minZ)
-				.next();
-		bufferBuilder
-				.vertex(matrix, (float)bb.minX, (float)bb.maxY, (float)bb.minZ)
-				.next();
+		bufferBuilder.vertex( matrix, (float) bb.minX, (float) bb.minY, (float) bb.minZ ).next();
+		bufferBuilder.vertex( matrix, (float) bb.minX, (float) bb.maxY, (float) bb.minZ ).next();
 
-		bufferBuilder
-				.vertex(matrix, (float)bb.maxX, (float)bb.minY, (float)bb.minZ)
-				.next();
-		bufferBuilder
-				.vertex(matrix, (float)bb.maxX, (float)bb.maxY, (float)bb.minZ)
-				.next();
+		bufferBuilder.vertex( matrix, (float) bb.maxX, (float) bb.minY, (float) bb.minZ ).next();
+		bufferBuilder.vertex( matrix, (float) bb.maxX, (float) bb.maxY, (float) bb.minZ ).next();
 
-		bufferBuilder
-				.vertex(matrix, (float)bb.maxX, (float)bb.minY, (float)bb.maxZ)
-				.next();
-		bufferBuilder
-				.vertex(matrix, (float)bb.maxX, (float)bb.maxY, (float)bb.maxZ)
-				.next();
+		bufferBuilder.vertex( matrix, (float) bb.maxX, (float) bb.minY, (float) bb.maxZ ).next();
+		bufferBuilder.vertex( matrix, (float) bb.maxX, (float) bb.maxY, (float) bb.maxZ ).next();
 
-		bufferBuilder
-				.vertex(matrix, (float)bb.minX, (float)bb.minY, (float)bb.maxZ)
-				.next();
-		bufferBuilder
-				.vertex(matrix, (float)bb.minX, (float)bb.maxY, (float)bb.maxZ)
-				.next();
+		bufferBuilder.vertex( matrix, (float) bb.minX, (float) bb.minY, (float) bb.maxZ ).next();
+		bufferBuilder.vertex( matrix, (float) bb.minX, (float) bb.maxY, (float) bb.maxZ ).next();
 
-		bufferBuilder
-				.vertex(matrix, (float)bb.minX, (float)bb.maxY, (float)bb.minZ)
-				.next();
-		bufferBuilder
-				.vertex(matrix, (float)bb.maxX, (float)bb.maxY, (float)bb.minZ)
-				.next();
+		bufferBuilder.vertex( matrix, (float) bb.minX, (float) bb.maxY, (float) bb.minZ ).next();
+		bufferBuilder.vertex( matrix, (float) bb.maxX, (float) bb.maxY, (float) bb.minZ ).next();
 
-		bufferBuilder
-				.vertex(matrix, (float)bb.maxX, (float)bb.maxY, (float)bb.minZ)
-				.next();
-		bufferBuilder
-				.vertex(matrix, (float)bb.maxX, (float)bb.maxY, (float)bb.maxZ)
-				.next();
+		bufferBuilder.vertex( matrix, (float) bb.maxX, (float) bb.maxY, (float) bb.minZ ).next();
+		bufferBuilder.vertex( matrix, (float) bb.maxX, (float) bb.maxY, (float) bb.maxZ ).next();
 
-		bufferBuilder
-				.vertex(matrix, (float)bb.maxX, (float)bb.maxY, (float)bb.maxZ)
-				.next();
-		bufferBuilder
-				.vertex(matrix, (float)bb.minX, (float)bb.maxY, (float)bb.maxZ)
-				.next();
+		bufferBuilder.vertex( matrix, (float) bb.maxX, (float) bb.maxY, (float) bb.maxZ ).next();
+		bufferBuilder.vertex( matrix, (float) bb.minX, (float) bb.maxY, (float) bb.maxZ ).next();
 
-		bufferBuilder
-				.vertex(matrix, (float)bb.minX, (float)bb.maxY, (float)bb.maxZ)
-				.next();
-		bufferBuilder
-				.vertex(matrix, (float)bb.minX, (float)bb.maxY, (float)bb.minZ)
-				.next();
+		bufferBuilder.vertex( matrix, (float) bb.minX, (float) bb.maxY, (float) bb.maxZ ).next();
+		bufferBuilder.vertex( matrix, (float) bb.minX, (float) bb.maxY, (float) bb.minZ ).next();
 		tessellator.draw();
 	}
 
-	public static void drawOutlinedBox(Box bb, VertexBuffer vertexBuffer)
+	public static void drawOutlinedBox( Box bb, VertexBuffer vertexBuffer )
 	{
 		Tessellator tessellator = RenderSystem.renderThreadTesselator();
 		BufferBuilder bufferBuilder = tessellator.getBuffer();
 
-		bufferBuilder.begin(VertexFormat.DrawMode.DEBUG_LINES,
-				VertexFormats.POSITION);
-		drawOutlinedBox(bb, bufferBuilder);
+		bufferBuilder.begin( VertexFormat.DrawMode.DEBUG_LINES, VertexFormats.POSITION );
+		drawOutlinedBox( bb, bufferBuilder );
 		BuiltBuffer buffer = bufferBuilder.end();
 
 		vertexBuffer.bind();
-		vertexBuffer.upload(buffer);
+		vertexBuffer.upload( buffer );
 		VertexBuffer.unbind();
 	}
 
-	public static void drawOutlinedBox(Box bb, BufferBuilder bufferBuilder)
+	public static void drawOutlinedBox( Box bb, BufferBuilder bufferBuilder )
 	{
-		bufferBuilder.vertex(bb.minX, bb.minY, bb.minZ).next();
-		bufferBuilder.vertex(bb.maxX, bb.minY, bb.minZ).next();
+		bufferBuilder.vertex( bb.minX, bb.minY, bb.minZ ).next();
+		bufferBuilder.vertex( bb.maxX, bb.minY, bb.minZ ).next();
 
-		bufferBuilder.vertex(bb.maxX, bb.minY, bb.minZ).next();
-		bufferBuilder.vertex(bb.maxX, bb.minY, bb.maxZ).next();
+		bufferBuilder.vertex( bb.maxX, bb.minY, bb.minZ ).next();
+		bufferBuilder.vertex( bb.maxX, bb.minY, bb.maxZ ).next();
 
-		bufferBuilder.vertex(bb.maxX, bb.minY, bb.maxZ).next();
-		bufferBuilder.vertex(bb.minX, bb.minY, bb.maxZ).next();
+		bufferBuilder.vertex( bb.maxX, bb.minY, bb.maxZ ).next();
+		bufferBuilder.vertex( bb.minX, bb.minY, bb.maxZ ).next();
 
-		bufferBuilder.vertex(bb.minX, bb.minY, bb.maxZ).next();
-		bufferBuilder.vertex(bb.minX, bb.minY, bb.minZ).next();
+		bufferBuilder.vertex( bb.minX, bb.minY, bb.maxZ ).next();
+		bufferBuilder.vertex( bb.minX, bb.minY, bb.minZ ).next();
 
-		bufferBuilder.vertex(bb.minX, bb.minY, bb.minZ).next();
-		bufferBuilder.vertex(bb.minX, bb.maxY, bb.minZ).next();
+		bufferBuilder.vertex( bb.minX, bb.minY, bb.minZ ).next();
+		bufferBuilder.vertex( bb.minX, bb.maxY, bb.minZ ).next();
 
-		bufferBuilder.vertex(bb.maxX, bb.minY, bb.minZ).next();
-		bufferBuilder.vertex(bb.maxX, bb.maxY, bb.minZ).next();
+		bufferBuilder.vertex( bb.maxX, bb.minY, bb.minZ ).next();
+		bufferBuilder.vertex( bb.maxX, bb.maxY, bb.minZ ).next();
 
-		bufferBuilder.vertex(bb.maxX, bb.minY, bb.maxZ).next();
-		bufferBuilder.vertex(bb.maxX, bb.maxY, bb.maxZ).next();
+		bufferBuilder.vertex( bb.maxX, bb.minY, bb.maxZ ).next();
+		bufferBuilder.vertex( bb.maxX, bb.maxY, bb.maxZ ).next();
 
-		bufferBuilder.vertex(bb.minX, bb.minY, bb.maxZ).next();
-		bufferBuilder.vertex(bb.minX, bb.maxY, bb.maxZ).next();
+		bufferBuilder.vertex( bb.minX, bb.minY, bb.maxZ ).next();
+		bufferBuilder.vertex( bb.minX, bb.maxY, bb.maxZ ).next();
 
-		bufferBuilder.vertex(bb.minX, bb.maxY, bb.minZ).next();
-		bufferBuilder.vertex(bb.maxX, bb.maxY, bb.minZ).next();
+		bufferBuilder.vertex( bb.minX, bb.maxY, bb.minZ ).next();
+		bufferBuilder.vertex( bb.maxX, bb.maxY, bb.minZ ).next();
 
-		bufferBuilder.vertex(bb.maxX, bb.maxY, bb.minZ).next();
-		bufferBuilder.vertex(bb.maxX, bb.maxY, bb.maxZ).next();
+		bufferBuilder.vertex( bb.maxX, bb.maxY, bb.minZ ).next();
+		bufferBuilder.vertex( bb.maxX, bb.maxY, bb.maxZ ).next();
 
-		bufferBuilder.vertex(bb.maxX, bb.maxY, bb.maxZ).next();
-		bufferBuilder.vertex(bb.minX, bb.maxY, bb.maxZ).next();
+		bufferBuilder.vertex( bb.maxX, bb.maxY, bb.maxZ ).next();
+		bufferBuilder.vertex( bb.minX, bb.maxY, bb.maxZ ).next();
 
-		bufferBuilder.vertex(bb.minX, bb.maxY, bb.maxZ).next();
-		bufferBuilder.vertex(bb.minX, bb.maxY, bb.minZ).next();
+		bufferBuilder.vertex( bb.minX, bb.maxY, bb.maxZ ).next();
+		bufferBuilder.vertex( bb.minX, bb.maxY, bb.minZ ).next();
 	}
 
-	public static void drawCrossBox(Box bb, MatrixStack matrixStack)
+	/*public static void drawCrossBox( Box bb, MatrixStack matrixStack )
 	{
 		Matrix4f matrix = matrixStack.peek().getPositionMatrix();
 		Tessellator tessellator = RenderSystem.renderThreadTesselator();
@@ -848,5 +733,5 @@ public class RenderUtil
 
 		bufferBuilder.vertex(matrix, 0, 0, 0).next();
 		bufferBuilder.vertex(matrix, 0, 2, 1).next();
-	}
+	}*/
 }
