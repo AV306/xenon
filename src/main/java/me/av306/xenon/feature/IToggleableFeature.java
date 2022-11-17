@@ -91,7 +91,11 @@ public abstract class IToggleableFeature extends IFeature
 
         Xenon.INSTANCE.enabledFeatures.remove( this );
 
-        Xenon.INSTANCE.client.player.sendMessage( this.disabledText, true );
+        try
+        {
+            Xenon.INSTANCE.client.player.sendMessage( this.disabledText, true );
+        }
+        catch ( NullPointerException ignored ) {}
 
         onDisable();
     }

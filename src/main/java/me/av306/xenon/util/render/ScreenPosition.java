@@ -1,4 +1,4 @@
-package me.av306.xenon.util;
+package me.av306.xenon.util.render;
 
 /**
  * Enum for positions on-screen where objects can be drawn.
