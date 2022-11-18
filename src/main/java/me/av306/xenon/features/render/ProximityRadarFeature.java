@@ -47,11 +47,12 @@ public class ProximityRadarFeature extends IToggleableFeature
 
     private ActionResult scanEntities( MatrixStack matrices )
     {
-        final int interval = ProximityRadarGroup.interval;
-        ticks++;
+        // FIXME: figure out how to optimise this
+        //final int interval = ProximityRadarGroup.interval;
+        //ticks++;
 
         if (
-                ticks >= interval && this.isEnabled
+                /*ticks >= interval &&*/ this.isEnabled
                 && Xenon.INSTANCE.client.world != null && Xenon.INSTANCE.client.player != null
         )
         {
