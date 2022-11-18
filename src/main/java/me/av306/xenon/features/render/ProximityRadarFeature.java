@@ -3,6 +3,7 @@ package me.av306.xenon.features.render;
 import com.mojang.blaze3d.systems.RenderSystem;
 import me.av306.xenon.Xenon;
 import me.av306.xenon.config.feature.ProximityRadarGroup;
+import me.av306.xenon.event.GameRenderEvents;
 import me.av306.xenon.event.RenderInGameHudEvent;
 import me.av306.xenon.feature.IToggleableFeature;
 import me.av306.xenon.util.render.RenderUtil;
@@ -30,7 +31,9 @@ public class ProximityRadarFeature extends IToggleableFeature
         // Perform entity scanning in the render thread
         // because they're gonna be rendered somewhere before this anyway,
         // and we're rendering stuff too
-        RenderInGameHudEvent.AFTER_VIGNETTE.register( (matrices, tickDelta) -> this.scanEntities( matrices ) );
+        GameRenderEvents.RENDER_WORLD.register(
+                (tickDelta, limitTime, matrices) -> this.scanEntities( matrices )
+        );
     }
 
     @Override
@@ -57,7 +60,8 @@ public class ProximityRadarFeature extends IToggleableFeature
             GL11.glEnable( GL11.GL_BLEND );
             GL11.glBlendFunc( GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA );
             GL11.glEnable( GL11.GL_LINE_SMOOTH );
-            GL11.glDisable( GL11.GL_DEPTH_TEST );
+            //GL11.glDisable( GL11.GL_DEPTH_TEST );
+            GL11.glClear( GL11.GL_DEPTH_BUFFER_BIT );
 
             matrices.push();
 
@@ -69,8 +73,8 @@ public class ProximityRadarFeature extends IToggleableFeature
 
             matrices.pop();
 
-            GL11.glEnable( GL11.GL_DEPTH_TEST );
             GL11.glDisable( GL11.GL_BLEND );
+            //GL11.glEnable( GL11.GL_DEPTH_TEST );
             GL11.glDisable( GL11.GL_LINE_SMOOTH );
         }
 
