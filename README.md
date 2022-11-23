@@ -20,9 +20,9 @@ This project is **not** guaranteed to be in a working, up-to-date, or complete s
 ## Incompatible mods:
 
 - WI-Zoom (breaks Xenon's FOV-related features)
-- Wurst Client (will almost defnintely break, not fully tested)
+- Wurst Client (will almost definitely break, not fully tested)
 - LazyDFU * (Won't crash, but will override your configuration of whether Xenon should disable DFU "optimisations")
-- Please help find some more!
+- Please help find more!
 
 \* LazyDFU functionality was integrated into Xenon in v4.6.1+1.19.2
 
@@ -39,11 +39,9 @@ EDIT: MultiQuickChat has multi-key sequences, I did it yay
 - FullBright
 - QuickChat 
 - MultiQuickChat
-- Bad WAILA implementation
+- Incomplete WAILA implementation
 - Panorama Generator
 - ShareLocation
-- FeatureList
-- Configuration system
 - Australian Mode
 - Zoom
 - Halo Red Reticle
@@ -58,6 +56,8 @@ Q: How do I use this?
 
 A: Download a build that matches your Minecraft version, and drop it in your mods folder.
 Google "How to install Fabric mods" for more info.
+
+Alternatively, you can clone the repo and run one of the export scripts, then copy the JAR from /build/libs/ to your mods folder. 
 
 ## Credits (for integrations)
 
