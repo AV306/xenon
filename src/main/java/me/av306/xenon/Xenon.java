@@ -122,7 +122,9 @@ public enum Xenon
 
     public void disableAllFeatures()
     {
-
+        ArrayList<IToggleableFeature> enabledFeatures_copy = new ArrayList<>( this.enabledFeatures );
+        for ( IToggleableFeature feature : enabledFeatures_copy )
+            feature.disable();
     }
 
     private void readVersionData()
