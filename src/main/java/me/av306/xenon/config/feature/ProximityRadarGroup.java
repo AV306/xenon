@@ -3,6 +3,7 @@ package me.av306.xenon.config.feature;
 import me.av306.xenon.config.XenonConfigGroup;
 import me.lortseam.completeconfig.api.ConfigEntries;
 import me.lortseam.completeconfig.api.ConfigEntry;
+import me.shedaniel.math.Color;
 
 @ConfigEntries( includeAll = true )
 public class ProximityRadarGroup implements XenonConfigGroup
@@ -10,10 +11,16 @@ public class ProximityRadarGroup implements XenonConfigGroup
     @ConfigEntry.BoundedInteger( min = 1, max = 100 )
     public static int range = 3;
 
-    @ConfigEntry.BoundedInteger( min = 1, max = 100 )
+    /*@ConfigEntry.BoundedInteger( min = 1, max = 100 )
     @ConfigEntry.Slider
-    public static int interval = 5;
+    public static int interval = 5;*/
 
     @ConfigEntry.Boolean
     public static boolean showBox = true;
+
+    @ConfigEntry.Color( alphaMode = false )
+    public static Color playerBoxColor = Color.ofRGB( 255, 255, 255 );
+
+    @ConfigEntry.Color( alphaMode = false )
+    public static Color hostileBoxColor = Color.ofRGB( 255, 0, 0 );
 }
