@@ -297,4 +297,18 @@ public class RenderUtil
 		bufferBuilder.vertex( bb.minX, bb.maxY, bb.maxZ ).next();
 		bufferBuilder.vertex( bb.minX, bb.maxY, bb.minZ ).next();
 	}
+
+	public static void drawLine( Vec3d start, Vec3d end, MatrixStack matrixStack )
+	{
+		Matrix4f matrix = matrixStack.peek().getPositionMatrix();
+		Tessellator tessellator = RenderSystem.renderThreadTesselator();
+		BufferBuilder bufferBuilder = tessellator.getBuffer();
+		RenderSystem.setShader( GameRenderer::getPositionShader );
+
+		bufferBuilder.begin( VertexFormat.DrawMode.DEBUG_LINES, VertexFormats.POSITION );
+		bufferBuilder.vertex( matrix, (float) start.getX(), (float) start.getY(), (float) start.getZ() ).next();
+		bufferBuilder.vertex( matrix, (float) end.getX(), (float) end.getY(), (float) end.getZ() ).next();
+
+		tessellator.draw();
+	}
 }

@@ -7,6 +7,7 @@ import me.av306.xenon.event.GameRenderEvents;
 import me.av306.xenon.event.RenderInGameHudEvent;
 import me.av306.xenon.feature.IToggleableFeature;
 import me.av306.xenon.util.render.RenderUtil;
+import me.av306.xenon.util.render.RotationUtil;
 import me.av306.xenon.util.text.TextFactory;
 import me.shedaniel.math.Color;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -109,6 +110,9 @@ public class ProximityRadarFeature extends IToggleableFeature
 
                 if ( ProximityRadarGroup.showBox )
                     drawEntityBox( entity, matrices, ProximityRadarGroup.hostileBoxColor );
+
+                if ( ProximityRadarGroup.showTracer )
+                    drawEntityTracer( entity, matrices, ProximityRadarGroup.hostileBoxColor );
             }
             else if ( entity instanceof PlayerEntity && entity != Xenon.INSTANCE.client.player )
             {
@@ -116,10 +120,14 @@ public class ProximityRadarFeature extends IToggleableFeature
                         "text.xenon.proximityradar.player",
                         Double.toString( distance ).substring( 0, 3 )
                 ).formatted( Formatting.RED, Formatting.BOLD );
+
                 Xenon.INSTANCE.client.player.sendMessage( text,  true );
 
                 if ( ProximityRadarGroup.showBox )
-                    drawEntityBox( entity, matrices, ProximityRadarGroup.playerBoxColor );
+                    this.drawEntityBox( entity, matrices, ProximityRadarGroup.playerBoxColor );
+
+                if ( ProximityRadarGroup.showTracer )
+                    drawEntityTracer( entity, matrices, ProximityRadarGroup.playerBoxColor );
             }
 
             matrices.pop();
@@ -146,5 +154,20 @@ public class ProximityRadarFeature extends IToggleableFeature
                 1f
         );
         RenderUtil.drawOutlinedBox( RenderUtil.DEFAULT_BOX, matrices );
+    }
+
+    private void drawEntityTracer( Entity entity, MatrixStack matrices, Color color )
+    {
+        Vec3d start = RotationUtil.getClientLookVec().add( RenderUtil.getCameraPos() );
+        Vec3d end = entity.getBoundingBox().getCenter();
+
+        RenderSystem.setShaderColor(
+                color.getRed() / 255f,
+                color.getGreen() / 255f,
+                color.getBlue() / 255f,
+                1f
+        );
+
+        RenderUtil.drawLine( start, end, matrices );
     }
 }
