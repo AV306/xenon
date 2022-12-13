@@ -18,9 +18,13 @@ public class ProximityRadarGroup implements XenonConfigGroup
     @ConfigEntry.Boolean
     public static boolean showBox = true;
 
+    @ConfigEntry.Boolean
+    public static boolean showTracer = true;
+
     @ConfigEntry.Color( alphaMode = false )
     public static Color playerBoxColor = Color.ofRGB( 255, 255, 255 );
 
     @ConfigEntry.Color( alphaMode = false )
     public static Color hostileBoxColor = Color.ofRGB( 255, 0, 0 );
+
 }
