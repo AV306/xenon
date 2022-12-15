@@ -94,8 +94,6 @@ public class ProximityRadarFeature extends IToggleableFeature
 
         if ( distance < range )
         {
-            matrices.push();
-
             if ( entity instanceof HostileEntity )
             {
                 // These math ops might be expensive, so we sacrifice code neatness
@@ -129,23 +127,25 @@ public class ProximityRadarFeature extends IToggleableFeature
                 if ( ProximityRadarGroup.showTracer )
                     drawEntityTracer( entity, matrices, ProximityRadarGroup.playerBoxColor );
             }
-
-            matrices.pop();
         }
     }
 
-    private void drawEntityBox( Entity entity, MatrixStack matrices, Color color )
+    private void drawEntityBox( Entity entity, MatrixStack matrixStack, Color color )
     {
-        matrices.translate(
+        matrixStack.push();
+
+        matrixStack.translate(
                 entity.getPos().getX(),
                 entity.getPos().getY(),
                 entity.getPos().getZ()
         );
-        matrices.scale(
+        matrixStack.scale(
                 entity.getWidth() + 0.1f,
                 entity.getHeight() + 0.1f,
                 entity.getWidth() + 0.1f
         );
+
+
 
         RenderSystem.setShaderColor(
                 color.getRed() / 255f,
@@ -153,11 +153,15 @@ public class ProximityRadarFeature extends IToggleableFeature
                 color.getBlue() / 255f,
                 1f
         );
-        RenderUtil.drawOutlinedBox( RenderUtil.DEFAULT_BOX, matrices );
+        RenderUtil.drawOutlinedBox( RenderUtil.DEFAULT_BOX, matrixStack );
+
+        matrixStack.pop();
     }
 
-    private void drawEntityTracer( Entity entity, MatrixStack matrices, Color color )
+    private void drawEntityTracer( Entity entity, MatrixStack matrixStack, Color color )
     {
+        matrixStack.push();
+
         Vec3d start = RotationUtil.getClientLookVec().add( RenderUtil.getCameraPos() );
         Vec3d end = entity.getBoundingBox().getCenter();
 
@@ -168,6 +172,8 @@ public class ProximityRadarFeature extends IToggleableFeature
                 1f
         );
 
-        RenderUtil.drawLine( start, end, matrices );
+        RenderUtil.drawLine( start, end, matrixStack );
+
+        matrixStack.pop();
     }
 }
