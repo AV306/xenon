@@ -1,5 +1,7 @@
 package me.av306.xenon;
 
+import me.av306.xenon.command.Command;
+import me.av306.xenon.commands.HelpCommand;
 import me.av306.xenon.config.FeatureConfigGroup;
 import me.av306.xenon.config.GeneralConfigGroup;
 import me.av306.xenon.feature.*;
@@ -42,11 +44,13 @@ public enum Xenon
     public final Formatting WARNING_FORMAT = Formatting.YELLOW;
     public final Formatting ERROR_FORMAT = Formatting.RED;
 
-    // this is most likely going to be used
-    // to resolve a feature by its name (e.g. CommandProcessor),
+    // This is most likely going to be used to resolve a feature
+    // by its name (e.g. CommandProcessor),
     // so I put it in this order.
     public HashMap<String, IFeature> featureRegistry = new HashMap<>();
     public ArrayList<IToggleableFeature> enabledFeatures = new ArrayList<>();
+
+    public HashMap<String, Command> commandRegistry = new HashMap<>();
 
     private String version;
     public String getVersion() { return version; }
@@ -82,7 +86,18 @@ public enum Xenon
         this.clientAccessor = (MinecraftClientAccessor) this.client;
 			
         // register features
+        initCommands();
+        initFeatures();
 
+    }
+
+    private void initCommands()
+    {
+        new HelpCommand();
+    }
+
+    private void initFeatures()
+    {
         // Illegal features
         if ( GeneralConfigGroup.enableIllegalFeatures )
         {
@@ -116,6 +131,11 @@ public enum Xenon
         //new IncreaseFovFeature();
         //new DecreaseFovFeature();
     }
+
+
+
+
+
 
     // FIXME: usage of this is highly inconsistent
     public void log( String msg ) { if ( debug ) LOGGER.info( msg ); }
