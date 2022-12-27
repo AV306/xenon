@@ -1,6 +1,8 @@
 package me.av306.xenon.features;
 
+import com.mojang.blaze3d.platform.GlStateManager;
 import me.av306.xenon.Xenon;
+import me.av306.xenon.command.Command;
 import me.av306.xenon.config.feature.CommandProcessorGroup;
 import me.av306.xenon.event.ChatOutputEvent;
 import me.av306.xenon.feature.IFeature;
@@ -45,149 +47,92 @@ public class CommandProcessor extends IToggleableFeature
             else return ActionResult.PASS;
         }
 
-        // First, check if it's a possible command
-        // Pass if it isn't
-        if ( !text.startsWith( CommandProcessorGroup.prefix ) )
-            return ActionResult.PASS;
+        // TODO: Rewrite
 
-        // Ok, should be a command,
-        // now remove the prefix and split
-        String[] possibleCommand = deserialiseCommand(
-            CommandProcessorGroup.prefix,
-            text
-        );
+        // Could it be a command (starts with prefix and isn't *just* the prefix)?
+        if ( !text.startsWith( CommandProcessorGroup.prefix ) &&
+                !text.equalsIgnoreCase( CommandProcessorGroup.prefix )
+        ) return ActionResult.PASS;
 
-        //Xenon.INSTANCE.LOGGER.info( Arrays.toString( possibleCommand ) );
-        // Tell the player what they sent
-        Xenon.INSTANCE.sendInfoMessage( TextFactory.createLiteral( "> " ).append( text ) );
+        String[] cmd = text.replaceAll( CommandProcessorGroup.prefix, "" )
+                .split( " " );
+
+        // Pad command array
+        if ( cmd.length < 5 ) cmd = Arrays.copyOfRange( cmd, 0, 4 );
+
+        if ( !handleStandaloneCommand( cmd ) && ! handleFeatureCommand( cmd ) )
+            Xenon.INSTANCE.sendErrorMessage( "Could not resolve target!" );
+
+
+
+        return ActionResult.FAIL;
+    }
+
+
+
+    private boolean handleStandaloneCommand( String[] cmd )
+    {
 
         try
         {
-            // Now we try to parse the command
-            // should have length > 2
-            String featureTargeted = possibleCommand[0];
-            String keyword = possibleCommand[1]; // oobe
+            Command target = Xenon.INSTANCE.commandRegistry.get( cmd[0] );
+            target.execute( Arrays.copyOfRange( cmd, 1, cmd.length ) );
+        }
+        catch ( NullPointerException npe ) { return false; }
 
-            IFeature feature = Xenon.INSTANCE.featureRegistry.get( featureTargeted ); // npe
+        return true;
+    }
 
-            switch ( keyword )
+    private boolean handleFeatureCommand( String[] cmd )
+    {
+        // FC handling has *many* error messages,
+        /// so the `return false` is only used for the "cannot resolve target" scenario
+        if ( !Xenon.INSTANCE.featureRegistry.containsKey( cmd[0] ) ) return false;
+
+        IFeature target = Xenon.INSTANCE.featureRegistry.get( cmd[0] );
+
+        switch ( cmd[1] )
+        {
+            case "e", "enable", "on" -> target.enable();
+
+            case "d", "disable", "off" ->
             {
-                case "enable", "on", "e" ->
-                        // User wants to enable a feature
-                        feature.enable();
-
-                case "disable", "off", "d" ->
-                        // User wants to disable a feature
-                        // Only for ITF
-                        ((IToggleableFeature) feature).disable(); // cce
-
-                case "toggle", "t" ->
-                        // User wants to toggle an ITF
-                        ((IToggleableFeature) feature).toggle();
-
-                case "exec", "execute", "ex", "run", "do" ->
-                        feature.requestExecuteAction(
-                            Arrays.copyOfRange( possibleCommand, 2, possibleCommand.length )
-                        );
-
-
-                case "set", "s" ->
-                {
-                    // User wants to change a config,
-                    // this is delegated to the feature.
-                    String attrib = possibleCommand[2];
-                    String value = possibleCommand[3]; // oobe
-                    feature.requestConfigChange( attrib, value );
-                }
-
-                case "help", "h", "?" ->
-                {
-                    // User doesn't know how to use the feature
-                    // FIXME: This feels like it causes more confusion than it resolves.
-                    Xenon.INSTANCE.sendInfoMessage(
-                        feature.getHelpText(
-                            Arrays.copyOfRange( possibleCommand, 2, possibleCommand.length )
-                        )
-                    );
-                }
-
-                default ->
-                {
-                    /*
-                     * We go straight to the actual logic
-                     * and skip any error messages.
-                     * This is because the user themselves
-                     * did not clarify what they're trying to do,
-                     * so it's actually a toss-up for Xenon.
-                     * I just decided to be nice and make it more convenient for users.
-                     * 
-                     * E.g. A hypothetical feature "f" with a config "congif"
-                     * and a command "reset".
-                     * 
-                     * The user can change the config like so:
-                     * !f congif set 2.0f OR !f congif 2.0f
-                     * 
-                     * The use can execute the command like so:
-                     * !f exec reset OR !f reset
-                     * 
-                     * This reduces typing and makes it more convenient, apparently.
-                     * 
-                     * Xenon will try to "guess" what the user intended to do,
-                     * by the advanced technique of simply trying both of them.
-                     * This can cause issues where a command accepts an argument,
-                     * and has the same name as a config.
-                     * Generally, no one does that, so it's probably fine.
-                     */
-                    feature.requestExecuteAction(
-                        Arrays.copyOfRange( possibleCommand, 1, possibleCommand.length )
-                    );
-                    
-                    /*
-                     * We can be a little smarter about this
-                     * and only try the config change if there is more than one argument.
-                     * This avoids another "Not enough arguments" error message.
-                     */
-                    if ( possibleCommand.length >= 3 )
-                        feature.requestConfigChange(
-                            possibleCommand[1],
-                            possibleCommand[2]
-                        );
-                }
+                try
+                { ((IToggleableFeature) target).disable(); }
+                catch ( ClassCastException cce )
+                { Xenon.INSTANCE.sendErrorMessage( "Non-toggleable feature!" ); }
             }
-        } 
-        catch ( ArrayIndexOutOfBoundsException oobe )
-        {
-            // Tried to access smth outside the arg array
-            // probably not enough args
-            Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocessor.invalidcommand.notenoughargs" );
 
-            // don't print stacktrace here, because this is gonna happen pretty often
-            Xenon.INSTANCE.LOGGER.warn( oobe );
+            case "set" ->
+            {
+                if ( cmd[2] == null || cmd[3] == null )
+                {
+                    Xenon.INSTANCE.sendErrorMessage( "Not enough arguments for config change!" );
+                    return true;
+                }
+
+                target.requestConfigChange( cmd[2], cmd[3] );
+            }
+
+            case "execute", "exec", "ex" ->
+            {
+                if ( cmd.length < 3 )
+                {
+                    Xenon.INSTANCE.sendErrorMessage( "Not enough arguments for action execution!" );
+                    return true;
+                }
+
+                target.requestExecuteAction( Arrays.copyOfRange( cmd, 2, cmd.length ) );
+            }
+
+            case null -> Xenon.INSTANCE.sendErrorMessage( "Missing action!" );
+
+            default -> Xenon.INSTANCE.sendErrorMessage(
+                    String.format( "Unknown action %s!", cmd[1] )
+            );
         }
-        catch ( ClassCastException cce )
-        {
-            // Almost definitely tried to cast a Feature to a ToggleableFeature
-            Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocessor.invalidcommand.featurenottoggleable" );
-            
-            cce.printStackTrace(); // print stacktrace, this shouldn't happen
-        }
-        catch ( NullPointerException npe )
-        {
-            // Somewhere, someone tried to access a non-existent feature
-            // aka me trying to find who asked
-            Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocessor.invalidcommand.invalidfeature" );
-            //Xenon.INSTANCE.LOGGER.warn( npe );
-            npe.printStackTrace();
-        }
-        catch ( Exception e )
-        {
-            // Oops!
-            Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocessor.exception" );
-            e.printStackTrace();
-        }
-        
-        // Cancel the message event
-        return ActionResult.FAIL;
+
+        return true;
     }
 
     /**
@@ -195,6 +140,7 @@ public class CommandProcessor extends IToggleableFeature
      *
      * @param prefixChar: The prefix character
      * @param command: The command string to be formatted
+     * @return The array of components in the command
      */
     public static String[] deserialiseCommand( char prefixChar, String command )
     {
@@ -274,7 +220,7 @@ public class CommandProcessor extends IToggleableFeature
         // This is a bit useless, just for testing
         // test command: !commandprocessor exec timer set speed 2f
         this.onChatHudAddMessage(
-            this.serialiseCommand(
+            serialiseCommand(
                 CommandProcessorGroup.prefix,
                 action
             )
