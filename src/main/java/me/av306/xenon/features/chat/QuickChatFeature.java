@@ -18,7 +18,7 @@ public class QuickChatFeature extends IFeature
         assert Xenon.INSTANCE.client.player != null;
 
         // field will be updated every time configs are changed
-        Xenon.INSTANCE.client.player.sendChatMessage( QuickChatGroup.message, TextFactory.createLiteral( QuickChatGroup.message ) );
+        Xenon.INSTANCE.client.getNetworkHandler().sendChatMessage( QuickChatGroup.message );
     }
 
     @Override

@@ -20,9 +20,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin( ClientPlayerEntity.class )
 public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 {
-    public ClientPlayerEntityMixin( ClientWorld world, GameProfile profile, PlayerPublicKey key )
+    public ClientPlayerEntityMixin( ClientWorld world, GameProfile profile )
     {
-        super( world, profile, key );
+        super( world, profile );
     }
 
     @Override
@@ -32,8 +32,8 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
         return super.getJumpVelocity() + EventFields.JUMP_VELOCITY_MODIFIER;
     }
 
-    // 1.19.1++ code
-    @Inject(
+    // Outdated as of 1.19.3, see ChatScreenMixin
+    /*@Inject(
             at = @At( "HEAD" ),
             method = "sendChatMessage(Ljava/lang/String;Lnet/minecraft/text/Text;)V",
             cancellable = true
@@ -45,7 +45,7 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
 
         if ( result == ActionResult.FAIL )
             ci.cancel();
-    }
+    }*/
 
 
     @Inject(
