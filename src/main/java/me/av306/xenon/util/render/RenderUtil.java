@@ -1,5 +1,6 @@
 package me.av306.xenon.util.render;
 
+import net.minecraft.util.math.*;
 import org.lwjgl.opengl.GL11;
 
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -14,12 +15,7 @@ import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.VertexFormat;
 import net.minecraft.client.render.VertexFormats;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Matrix4f;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.Vec3f;
+import org.joml.Matrix4f;
 import net.minecraft.world.chunk.Chunk;
 
 public class RenderUtil
@@ -109,7 +105,7 @@ public class RenderUtil
 		// Get the tesselator's buffer
 		BufferBuilder bufferBuilder = tessellator.getBuffer();
 		// Set the shader
-		RenderSystem.setShader(GameRenderer::getPositionShader);
+		RenderSystem.setShader(GameRenderer::getPositionProgram);
 
 		// Begin!
 		bufferBuilder.begin( VertexFormat.DrawMode.QUADS, VertexFormats.POSITION );
@@ -204,7 +200,7 @@ public class RenderUtil
 		Matrix4f matrix = matrixStack.peek().getPositionMatrix();
 		Tessellator tessellator = RenderSystem.renderThreadTesselator();
 		BufferBuilder bufferBuilder = tessellator.getBuffer();
-		RenderSystem.setShader( GameRenderer::getPositionShader );
+		RenderSystem.setShader( GameRenderer::getPositionProgram );
 
 		bufferBuilder.begin( VertexFormat.DrawMode.DEBUG_LINES, VertexFormats.POSITION );
 		bufferBuilder.vertex( matrix, (float) bb.minX, (float) bb.minY, (float) bb.minZ ).next();
@@ -303,7 +299,7 @@ public class RenderUtil
 		Matrix4f matrix = matrixStack.peek().getPositionMatrix();
 		Tessellator tessellator = RenderSystem.renderThreadTesselator();
 		BufferBuilder bufferBuilder = tessellator.getBuffer();
-		RenderSystem.setShader( GameRenderer::getPositionShader );
+		RenderSystem.setShader( GameRenderer::getPositionProgram );
 
 		bufferBuilder.begin( VertexFormat.DrawMode.DEBUG_LINES, VertexFormats.POSITION );
 		bufferBuilder.vertex( matrix, (float) start.getX(), (float) start.getY(), (float) start.getZ() ).next();

@@ -43,6 +43,6 @@ public class ShareLocationFeature extends IFeature
 				""
 		);
 
-		Xenon.INSTANCE.client.player.sendChatMessage( loc, TextFactory.createLiteral( loc ) );
+		Xenon.INSTANCE.client.getNetworkHandler().sendChatMessage( loc );
 	}
 }

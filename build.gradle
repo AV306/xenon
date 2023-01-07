@@ -33,6 +33,9 @@ repositories {
 		url "https://maven.siphalor.de/"
 	}
 
+	maven {
+		url "https://maven.isxander.dev/releases"
+	}
 }
 
 dependencies {
@@ -44,17 +47,11 @@ dependencies {
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-	// LibGui
-	//modImplementation include("io.github.cottonmc:LibGui:5.1.0+1.18")
-	
-	// Guava for BiMap
-	//implementation "com.google.guava:guava:31.0.1-jre"
-
 	// CompleteConfig
 	// why is there nothing in here
-	modImplementation include("com.gitlab.Lortseam:completeconfig:${project.complete_config_version}")
-	modImplementation include("com.gitlab.Lortseam.completeconfig:base:${project.complete_config_version}")
-	modImplementation include("com.gitlab.Lortseam.completeconfig:gui-cloth:${project.complete_config_version}")
+	modImplementation "com.github.Lortseam:completeconfig:${project.complete_config_version}"
+	modImplementation "com.github.Lortseam.completeconfig:base:${project.complete_config_version}"
+	modImplementation "com.github.Lortseam.completeconfig:gui-cloth:${project.complete_config_version}"
 
 	// Cloth Config
 	// This is gonna make the entire JAR like 1GB or something

@@ -32,5 +32,9 @@
   },
   "suggests": {
     "another-mod": "https://github.com/nianny/minecraft-mod-1"
+  },
+  "breaks": {
+    "wurst-client": "*",
+    "wi-zoom": "*"
   }
 }
