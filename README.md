@@ -19,7 +19,7 @@ This project is **not** guaranteed to be in a working, up-to-date, or complete s
 
 ## Incompatible mods:
 
-- WI-Zoom (breaks Xenon's FOV-related features)
+- WI-Zoom (breaks Xenon's FOV-related features, overwrites `GameRenderer.getFov()`, which Xenon injects into)
 - Wurst Client (will almost definitely break, not fully tested)
 - LazyDFU * (Won't crash, but will override your configuration of whether Xenon should disable DFU "optimisations")
 - Please help find more!
@@ -50,14 +50,6 @@ EDIT: MultiQuickChat has multi-key sequences, I did it yay
 - Command processor
 
 ## Licensed under GNU GPL v3
-
-## IFAQ (Infrequently Asked Questions)
-Q: How do I use this?
-
-A: Download a build that matches your Minecraft version, and drop it in your mods folder.
-Google "How to install Fabric mods" for more info.
-
-Alternatively, you can clone the repo and run one of the export scripts, then copy the JAR from /build/libs/ to your mods folder. 
 
 ## Credits (for integrations)
 
