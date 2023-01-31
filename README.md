@@ -1,5 +1,7 @@
 # Xenon
 
+(Wow how is this getting so much traffic? Better start fixing the translations)
+
 [![Austin CI with Gradle](https://github.com/AV306/xenon/actions/workflows/austin_gradle.yml/badge.svg)](https://github.com/AV306/xenon/actions/workflows/austin_gradle.yml)
 [![CodeQL](https://github.com/AV306/xenon/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/AV306/xenon/actions/workflows/codeql-analysis.yml)
 [![HitCount](https://hits.dwyl.com/AV306/xenon.svg?style=flat&show=unique)](http://hits.dwyl.com/AV306/xenon)
@@ -8,7 +10,7 @@ Hello! This is Xenon, a Minecraft utility mod that adds stuff that makes Minecra
 
 This mod aims to implement the functionality of clients such as Badlion and Lunar, while maintaining compatability with other mods. 
 
-This project is **not** guaranteed to be in a working, up-to-date, or complete state at *any* point, and (much) more often than not there are several translation keys missing. This is updated according to my needs since exactly 2 other people use it, and they don't really care about the feature versions.
+This project is **not** guaranteed to be in a working, up-to-date, or complete state at *any* point, and (much) more often than not there are several translation keys missing. This is updated according to my needs since exactly 2 other people use it, and they don't really care about its completeness.
 
 ## Requirements:
 
@@ -17,12 +19,11 @@ This project is **not** guaranteed to be in a working, up-to-date, or complete s
 - Latest Fabric API (may break if you use an older one)
 - Fabric Loader >=0.13.3
 
-## Incompatible mods:
+## Known incompatabilities:
 
-- WI-Zoom (breaks Xenon's FOV-related features)
+- WI-Zoom (breaks Xenon's FOV-related features as it overwrites `GameRenderer.getFov()`, which Xenon injects into)
 - Wurst Client (will almost definitely break, not fully tested)
-- LazyDFU * (Won't crash, but will override your configuration of whether Xenon should disable DFU "optimisations")
-- Please help find more!
+- LazyDFU * (Won't crash, but will optimise DFU regardless of whether you set Xenon's option)
 
 \* LazyDFU functionality was integrated into Xenon in v4.6.1+1.19.2
 
@@ -39,7 +40,7 @@ EDIT: MultiQuickChat has multi-key sequences, I did it yay
 - FullBright
 - QuickChat 
 - MultiQuickChat
-- Incomplete WAILA implementation
+- Incomplete WAILA implementation (PRs to finish this are welcome)
 - Panorama Generator
 - ShareLocation
 - Australian Mode
@@ -50,14 +51,6 @@ EDIT: MultiQuickChat has multi-key sequences, I did it yay
 - Command processor
 
 ## Licensed under GNU GPL v3
-
-## IFAQ (Infrequently Asked Questions)
-Q: How do I use this?
-
-A: Download a build that matches your Minecraft version, and drop it in your mods folder.
-Google "How to install Fabric mods" for more info.
-
-Alternatively, you can clone the repo and run one of the export scripts, then copy the JAR from /build/libs/ to your mods folder. 
 
 ## Credits (for integrations)
 
