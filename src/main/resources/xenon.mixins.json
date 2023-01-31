@@ -4,6 +4,7 @@
   "package": "me.av306.xenon.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+
   ],
   "client": [
     "CameraAccessor",
@@ -14,6 +15,7 @@
     "ClientPlayerInteractionManagerMixin",
     "ClientWorldMixin",
     "GameOptionsAccessor",
+    "GameRendererAccessor",
     "GameRendererMixin",
     "InGameHudMixin",
     "InGameOverlayRendererMixin",
