@@ -4,25 +4,12 @@ import me.av306.xenon.Xenon;
 import me.av306.xenon.feature.IFeature;
 import me.av306.xenon.util.text.TextFactory;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.dimension.DimensionType;
 
 public class ShareLocationFeature extends IFeature
 {
 	public ShareLocationFeature() { super( "ShareLocation" ); }
 
-	/*private String formatDimType( DimensionType dim )
-	{
-		// lasagna code to convert dim type to string
-		if ( dim.equals( DimensionType.OVERWORLD ) ) return "Overworld";
-		else if ( dim.equals( DimensionType.OVERWORLD_CAVES ) ) return "Overworld Caves";
-		else if ( dim.equals( DimensionType.THE_END ) ) return "The End";
-		else if ( dim.equals( DimensionType.THE_NETHER ) ) return "Nether";
-
-		if ( dim.bedWorks() ) return "Overworld"; // beds only work in OW
-		else if ( dim.coordinateScale() != 1 ) return "Nether"; // Nether has x8 CS
-		else return "End"; // does not support modded dims
-
-		// TODO: figure registries out
-	}*/
 
 	@Override
 	protected void onEnable()
@@ -32,7 +19,8 @@ public class ShareLocationFeature extends IFeature
 		Vec3d currentPos = Xenon.INSTANCE.client.player.getPos();
 
 		// get the player's current dimension
-		//String dim = formatDimType( Xenon.INSTANCE.client.world.getDimension() );
+		//assert Xenon.INSTANCE.client.world != null;
+		//String dim = Xenon.INSTANCE.client.world.getChunk( Xenon.INSTANCE.client.player.getBlockPos()).bi
 
 		// round and display
 		String loc = String.format(

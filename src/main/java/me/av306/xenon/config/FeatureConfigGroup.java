@@ -33,9 +33,7 @@ public class FeatureConfigGroup implements XenonConfigGroup
 	@Transitive
 	private final ProximityRadarGroup proximityRadarGroup = new ProximityRadarGroup();
 
-	/*@Transitive
-	private final FastBreakGroup fastBreakGroup = new FastBreakGroup();
-
+	/*
 	@Transitive
 	private final HighJumpGroup highJumpGroup = new HighJumpGroup();
 
@@ -46,7 +44,8 @@ public class FeatureConfigGroup implements XenonConfigGroup
 	private final JetpackGroup jetpackGroup = new JetpackGroup();
 
 	@Transitive
-	private final JumpBoostGroup jumpBoostGroup = new JumpBoostGroup();*/
+	private final JumpBoostGroup jumpBoostGroup = new JumpBoostGroup();
+	*/
 
 	@Transitive
 	private final ZoomGroup zoomGroup = new ZoomGroup();
