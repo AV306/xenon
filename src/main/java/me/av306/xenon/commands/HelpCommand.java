@@ -1,5 +1,6 @@
 package me.av306.xenon.commands;
 
+import me.av306.xenon.Xenon;
 import me.av306.xenon.command.Command;
 
 public class HelpCommand extends Command
@@ -9,6 +10,6 @@ public class HelpCommand extends Command
 	@Override
 	public void execute( String[] args )
 	{
-
+		Xenon.INSTANCE.sendInfoMessage( "Test" );
 	}
 }

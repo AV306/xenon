@@ -4,8 +4,8 @@ import me.av306.xenon.Xenon;
 import me.av306.xenon.feature.IFeature;
 import me.lortseam.completeconfig.gui.ConfigScreenBuilder;
 import me.lortseam.completeconfig.gui.cloth.ClothConfigScreenBuilder;
+import me.shedaniel.clothconfig2.api.AbstractConfigListEntry;
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
-import me.shedaniel.clothconfig2.impl.builders.FieldBuilder;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.util.ActionResult;
 
@@ -48,6 +48,10 @@ public class ConfigMenu extends IFeature
         {
             Xenon.INSTANCE.sendErrorMessage( "text.xenon.configmenu.unknownexception" );
             e.printStackTrace();
+        }
+        catch ( Error error )
+        {
+
         }
     }
 }

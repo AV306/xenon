@@ -15,11 +15,12 @@ import me.lortseam.completeconfig.data.Config;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.entity.vehicle.MinecartEntity;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,7 +35,7 @@ public enum Xenon
 
     public Config config = new Config( this.MODID, new FeatureConfigGroup() );
 	
-    public final Logger LOGGER = LogManager.getLogger( this.MODID );
+    public final Logger LOGGER = LoggerFactory.getLogger( this.MODID );
 
     public MinecraftClient client;
     public MinecraftClientAccessor clientAccessor;
@@ -47,8 +48,8 @@ public enum Xenon
     // This is most likely going to be used to resolve a feature
     // by its name (e.g. CommandProcessor),
     // so I put it in this order.
-    public HashMap<String, IFeature> featureRegistry = new HashMap<>();
-    public ArrayList<IToggleableFeature> enabledFeatures = new ArrayList<>();
+    public final HashMap<String, IFeature> featureRegistry = new HashMap<>();
+    public final ArrayList<IToggleableFeature> enabledFeatures = new ArrayList<>();
 
     public HashMap<String, Command> commandRegistry = new HashMap<>();
 
@@ -133,13 +134,6 @@ public enum Xenon
     }
 
 
-
-
-
-
-    // FIXME: usage of this is highly inconsistent
-    public void log( String msg ) { if ( debug ) LOGGER.info( msg ); }
-
     public void disableAllFeatures()
     {
         ArrayList<IToggleableFeature> enabledFeatures_copy = new ArrayList<>( this.enabledFeatures );
@@ -192,10 +186,7 @@ public enum Xenon
     public void sendWarningMessage( String key )
     {
         Text finalText = namePrefix.copy()
-                .append(
-                        TextFactory.createTranslatable( key )
-                                .formatted( this.MESSAGE_FORMAT )
-                );
+                .append( TextFactory.createTranslatable( key ).formatted( this.MESSAGE_FORMAT ) );
         try
         {
             this.client.player.sendMessage( finalText, false );
@@ -228,6 +219,22 @@ public enum Xenon
         try
         {
             this.client.player.sendMessage(finalText, false);
+        }
+        catch ( NullPointerException ignored ) {}
+    }
+
+    public void sendErrorMessage( String key, Object... args )
+    {
+        // TODO: impl parameter packs?
+        Text finalText = namePrefix.copy()
+                .append(
+                        TextFactory.createTranslatable( key, args )
+                                .formatted( this.ERROR_FORMAT )
+                );
+
+        try
+        {
+            this.client.player.sendMessage( finalText, false );
         }
         catch ( NullPointerException ignored ) {}
     }

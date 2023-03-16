@@ -14,6 +14,7 @@ import net.minecraft.util.hit.HitResult;
 
 public class RedReticleFeature extends IToggleableFeature
 {
+
     public RedReticleFeature()
     {
         super( "Red Reticle", "aimassist", "rr" );
@@ -46,6 +47,8 @@ public class RedReticleFeature extends IToggleableFeature
                     RenderSystem.setShaderColor( 1f, 0f, 0f, 1f );
                 }
             }
+
+            RenderSystem.setShaderColor( 1f, 1f, 1f, 1f );
         }
 
         return ActionResult.PASS;

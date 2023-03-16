@@ -23,6 +23,8 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 
+import java.util.Arrays;
+
 
 public class ProximityRadarFeature extends IToggleableFeature
 {
@@ -62,6 +64,7 @@ public class ProximityRadarFeature extends IToggleableFeature
         {
             ticks = 0; // Reset counter
 
+            // GL stuff
             GL11.glEnable( GL11.GL_BLEND );
             GL11.glBlendFunc( GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA );
             GL11.glEnable( GL11.GL_LINE_SMOOTH );
@@ -79,6 +82,9 @@ public class ProximityRadarFeature extends IToggleableFeature
 
             GL11.glDisable( GL11.GL_BLEND );
             GL11.glDisable( GL11.GL_LINE_SMOOTH );
+
+            // Reset shader color
+            RenderSystem.setShaderColor( 1f, 1f, 1f, 1f );
         }
 
         return ActionResult.PASS;

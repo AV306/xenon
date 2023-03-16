@@ -47,11 +47,15 @@ public class CommandProcessor extends IToggleableFeature
             else return ActionResult.PASS;
         }
 
-        // Could it be a command (starts with prefix and isn't *just* the prefix)?
+        // Reject if it doesn't start with the prefix or is just the prefix character alone
         if ( !text.startsWith( CommandProcessorGroup.prefix ) &&
                 !text.equalsIgnoreCase( CommandProcessorGroup.prefix )
         ) return ActionResult.PASS;
 
+        // Possible command, process :D
+
+        // Process command into array
+        // Ok the code here is all kinds of messed up
         String[] cmd = text.replaceAll( CommandProcessorGroup.prefix, "" )
                 .split( " " );
 
@@ -59,8 +63,7 @@ public class CommandProcessor extends IToggleableFeature
         if ( cmd.length < 5 ) cmd = Arrays.copyOfRange( cmd, 0, 4 );
 
         if ( !handleStandaloneCommand( cmd ) && ! handleFeatureCommand( cmd ) )
-            Xenon.INSTANCE.sendErrorMessage( "Could not resolve target!" );
-
+            Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocesor.unresolvable" );
 
 
         return ActionResult.FAIL;
@@ -70,21 +73,29 @@ public class CommandProcessor extends IToggleableFeature
 
     private boolean handleStandaloneCommand( String[] cmd )
     {
-
         try
         {
             Command target = Xenon.INSTANCE.commandRegistry.get( cmd[0] );
             target.execute( Arrays.copyOfRange( cmd, 1, cmd.length ) );
         }
-        catch ( NullPointerException npe ) { return false; }
+        catch ( NullPointerException npe )
+        {
+
+            return false;
+        }
 
         return true;
     }
 
+    /**
+     * Feature-command handler
+     * @param cmd: Command keyword array
+     * @return False ONLY if the target could not be resolved
+     */
     private boolean handleFeatureCommand( String[] cmd )
     {
         // FC handling has *many* error messages,
-        /// so the `return false` is only used for the "cannot resolve target" scenario
+        // so the `return false` is only used for the "cannot resolve target" scenario
         if ( !Xenon.INSTANCE.featureRegistry.containsKey( cmd[0] ) ) return false;
 
         IFeature target = Xenon.INSTANCE.featureRegistry.get( cmd[0] );
@@ -98,14 +109,14 @@ public class CommandProcessor extends IToggleableFeature
                 try
                 { ((IToggleableFeature) target).disable(); }
                 catch ( ClassCastException cce )
-                { Xenon.INSTANCE.sendErrorMessage( "Non-toggleable feature!" ); }
+                { Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocesor.invalid.command.featurenottoggleable" ); }
             }
 
             case "set" ->
             {
                 if ( cmd[2] == null || cmd[3] == null )
                 {
-                    Xenon.INSTANCE.sendErrorMessage( "Not enough arguments for config change!" );
+                    Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocessor.missing.args" );
                     return true;
                 }
 
@@ -116,22 +127,23 @@ public class CommandProcessor extends IToggleableFeature
             {
                 if ( cmd.length < 3 )
                 {
-                    Xenon.INSTANCE.sendErrorMessage( "Not enough arguments for action execution!" );
+                    Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocessor.missing.args" );
                     return true;
                 }
 
                 target.requestExecuteAction( Arrays.copyOfRange( cmd, 2, cmd.length ) );
             }
 
-            case null -> Xenon.INSTANCE.sendErrorMessage( "Missing action!" );
+            case null -> Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocesor.missing.action" );
 
             default -> Xenon.INSTANCE.sendErrorMessage(
-                    String.format( "Unknown action %s!", cmd[1] )
+                    "text.xenon.commandprocesor.unknown", "action", cmd[1]
             );
         }
 
         return true;
     }
+
 
     /**
      * A helper method to deserialise a command into an array.
@@ -197,6 +209,8 @@ public class CommandProcessor extends IToggleableFeature
         return prefixChar;
     }
 
+
+
     @Override
     protected void onEnable() {}
 
@@ -233,7 +247,7 @@ public class CommandProcessor extends IToggleableFeature
         // example: !cp help listf
         // args[0]
 
-        MutableText helpText = MutableText.of( TextContent.EMPTY ).append( "[CommandProcessor] ");
+        MutableText helpText = MutableText.of( TextContent.EMPTY ).append( "[CommandProcessor] " );
 
         if ( args.length < 1 )
         {
