@@ -28,11 +28,11 @@ bin/
 
 # fabric
 run/
+remappedSrc/
 
 # replit
 .replit
 .project
 .classpath
-.settings/
 .breakpoints
 replit.nix

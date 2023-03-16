@@ -1,6 +1,6 @@
 plugins {
 	id 'java'
-	id 'fabric-loom' version '0.12-SNAPSHOT'
+	id 'fabric-loom' version '1.1-SNAPSHOT'
 	id 'maven-publish'
 }
 
@@ -49,16 +49,10 @@ dependencies {
 
 	// CompleteConfig
 	// why is there nothing in here
-	modImplementation "com.github.Lortseam:completeconfig:${project.complete_config_version}"
 	modImplementation "com.github.Lortseam.completeconfig:base:${project.complete_config_version}"
 	modImplementation "com.github.Lortseam.completeconfig:gui-cloth:${project.complete_config_version}"
 
-	// Cloth Config
-	// This is gonna make the entire JAR like 1GB or something
-	// WHY CAN'T IT ALL BE IN ONE NICE JAR TO INCLUDE
-	/*modApi( "me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}" ) {
-		exclude( group: "net.fabricmc.fabric-api" )
-	}*/
+	implementation "org.slf4j:slf4j-api:${project.slf4j_version}"
 
 	// apache commons-io
 	//compileOnly 'commons-io:commons-io:2.11.0'
