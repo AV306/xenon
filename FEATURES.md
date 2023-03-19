@@ -25,5 +25,5 @@ All are open for suggestions and PRs!
 - FeatureList - Lists the features you have enabled
 - LazyDFU Integration - Optimises DFU (DataFixerUpper) just like LazyDFU
 
-# Interactions (coming soon)
+## Interactions (coming soon)
 - FriendList - A way to mark certain players as "friends", for use with features like ProximityRadar and (Multi)QuickChat
