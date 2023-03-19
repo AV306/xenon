@@ -6,22 +6,22 @@
 [![CodeQL](https://github.com/AV306/xenon/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/AV306/xenon/actions/workflows/codeql-analysis.yml)
 [![HitCount](https://hits.dwyl.com/AV306/xenon.svg?style=flat&show=unique)](http://hits.dwyl.com/AV306/xenon)
 
-Hello! This is Xenon, a Minecraft utility mod that adds stuff that makes Minecraft more pleasant and convenient.
+Hello! This is Xenon, a Minecraft utility mod that adds stuff that aims to make Minecraft more pleasant and convenient.
 
-This mod aims to implement the functionality of clients such as Badlion and Lunar, while maintaining compatability with other mods. 
+This mod tries to implement the functionality of clients such as Badlion and Lunar, while maintaining compatability with other mods. 
 
-This project is **not** guaranteed to be in a working, up-to-date, or complete state at *any* point, and (much) more often than not there are several translation keys missing. This is updated according to my needs since exactly 2 other people use it, and they don't really care about its completeness.
+This project is unfortunately **not** guaranteed to be in a working, up-to-date, or complete state at *any* point, especially translations. This is only updated according to my needs since exactly 1 other person uses it, and they don't really care about its completeness.
 
 ## Requirements:
 
 (check these [here](https://fabricmc.net/develop))
 
-- Latest Fabric API (may break if you use an older one)
+- Latest Fabric API (may not work with older ones)
 - Fabric Loader >=0.13.3
 
 ## Known incompatabilities:
 
-- WI-Zoom (breaks Xenon's FOV-related features as it overwrites `GameRenderer.getFov()`, which Xenon injects into)
+- WI-Zoom (breaks Xenon's FOV-related features)
 - Wurst Client (will almost definitely break, not fully tested)
 - LazyDFU * (Won't crash, but will optimise DFU regardless of whether you set Xenon's option)
 
@@ -33,20 +33,16 @@ Full documentation [here](FEATURES.md)
 
 (Most features are unbound by default)
 
-~~Maybe someday I'll implement multi-key sequences~~
-
-EDIT: MultiQuickChat has multi-key sequences, I did it yay
-
-- FullBright
-- QuickChat 
-- MultiQuickChat
+- FullBright (fullbright)
+- QuickChat (send a preset message with one button)
+- MultiQuickChat (QuickChat, but with up to 10 messages)
 - Incomplete WAILA implementation (PRs to finish this are welcome)
-- Panorama Generator
-- ShareLocation
-- Australian Mode
-- Zoom
-- Halo Red Reticle
-- Debug crosshair size modification
+- Panorama Generator (generate title screen panoramas that can be used in a resource pack!)
+- ShareLocation (share your location and dimension, not recommended for public survival servers)
+- Australian Mode (Aussie Minecraft)
+- Zoom (Adjustable zoom)
+- Halo "Red Reticle" (Makes your crosshair change color when pointing at hostile movs)
+- Debug crosshair size modification (~~bug~~ _feature_)
 - modular and user-friendly feature creation/registration system I spent way too much time on
 - Command processor
 
