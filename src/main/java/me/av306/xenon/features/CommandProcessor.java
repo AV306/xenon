@@ -32,6 +32,8 @@ public class CommandProcessor extends IToggleableFeature
     // would respond to *any* chat message that was a valid command,
     // allowing you to control someone else's client.
     // :P
+
+    // TODO: make QuickChat and MQC messages pass through this
     private ActionResult onChatHudAddMessage( String text )
     {
         // Check if CP is enabled
@@ -59,28 +61,49 @@ public class CommandProcessor extends IToggleableFeature
         String[] cmd = text.replaceAll( CommandProcessorGroup.prefix, "" )
                 .split( " " );
 
-        // Pad command array
-        if ( cmd.length < 5 ) cmd = Arrays.copyOfRange( cmd, 0, 4 );
+        String target = cmd[0]; // Target will always be removed from command
+        cmd = Arrays.copyOfRange( cmd, 1, cmd.length ); // Remove target by copying everything after it
 
-        if ( !handleStandaloneCommand( cmd ) && ! handleFeatureCommand( cmd ) )
-            Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocesor.unresolvable" );
+        /*
+            [ Command format specification ]
+            length: 1+
+            elements:
+            0.  Target ID
+            1.  Action keyword (FC), arg (SC)
+            2.  Config name (FC, if action is "set"), arg (SC / FC if action is "exec")
+            3.  Config value (FC, if action is "set"), arg (SC / FC if action is "exec")
+            4+. Argumants (SC / FC if action is "exec")
+        */
 
+
+        if ( !handleStandaloneCommand( cmd ) )
+        {
+            // Not an SC
+            // Pad argument array to be at least long enough for a config change (3)
+            if ( cmd.length < 3 ) cmd = Arrays.copyOfRange( cmd, 0, 3 );
+            if ( !handleFeatureCommand( cmd ) ) // Not an FC either
+                Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocesor.unresolvable", target );
+        }
 
         return ActionResult.FAIL;
     }
 
 
-
-    private boolean handleStandaloneCommand( String[] cmd )
+    /**
+     * Attempt to execute the command as a standalone command
+     * @param target: The target ID
+     * @param args: The rest of the command
+     * @return Whether the command was resolved
+     */
+    private boolean handleStandaloneCommand( String target, String[] args )
     {
         try
         {
-            Command target = Xenon.INSTANCE.commandRegistry.get( cmd[0] );
-            target.execute( Arrays.copyOfRange( cmd, 1, cmd.length ) );
+            Command target = Xenon.INSTANCE.commandRegistry.get( target );
+            target.execute( args );
         }
         catch ( NullPointerException npe )
         {
-
             return false;
         }
 
@@ -89,18 +112,19 @@ public class CommandProcessor extends IToggleableFeature
 
     /**
      * Feature-command handler
-     * @param cmd: Command keyword array
+     * @param target: Target ID
+     * @param args: Command keyword + args
      * @return False ONLY if the target could not be resolved
      */
-    private boolean handleFeatureCommand( String[] cmd )
+    private boolean handleFeatureCommand( String target, String[] args )
     {
         // FC handling has *many* error messages,
         // so the `return false` is only used for the "cannot resolve target" scenario
-        if ( !Xenon.INSTANCE.featureRegistry.containsKey( cmd[0] ) ) return false;
+        if ( !Xenon.INSTANCE.featureRegistry.containsKey( target ) ) return false;
 
         IFeature target = Xenon.INSTANCE.featureRegistry.get( cmd[0] );
 
-        switch ( cmd[1] )
+        switch ( cmd[1] /* action keyword */ )
         {
             case "e", "enable", "on" -> target.enable();
 
@@ -114,20 +138,20 @@ public class CommandProcessor extends IToggleableFeature
 
             case "set" ->
             {
-                if ( cmd[2] == null || cmd[3] == null )
+                if ( cmd[1] == null || cmd[2] == null )
                 {
-                    Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocessor.missing.args" );
+                    Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocessor.missing.args.null" );
                     return true;
                 }
 
-                target.requestConfigChange( cmd[2], cmd[3] );
+                target.requestConfigChange( cmd[1], cmd[2] );
             }
 
             case "execute", "exec", "ex" ->
             {
                 if ( cmd.length < 3 )
                 {
-                    Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocessor.missing.args" );
+                    Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocessor.missing.args", cmd.length - 1, 2 );
                     return true;
                 }
 
