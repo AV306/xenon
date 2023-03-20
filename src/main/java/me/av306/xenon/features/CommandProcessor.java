@@ -76,12 +76,12 @@ public class CommandProcessor extends IToggleableFeature
         */
 
 
-        if ( !handleStandaloneCommand( cmd ) )
+        if ( !handleStandaloneCommand( target, cmd ) )
         {
             // Not an SC
             // Pad argument array to be at least long enough for a config change (3)
             if ( cmd.length < 3 ) cmd = Arrays.copyOfRange( cmd, 0, 3 );
-            if ( !handleFeatureCommand( cmd ) ) // Not an FC either
+            if ( !handleFeatureCommand( target, cmd ) ) // Not an FC either
                 Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocesor.unresolvable", target );
         }
 
@@ -91,15 +91,15 @@ public class CommandProcessor extends IToggleableFeature
 
     /**
      * Attempt to execute the command as a standalone command
-     * @param target: The target ID
+     * @param targetId: The target ID
      * @param args: The rest of the command
      * @return Whether the command was resolved
      */
-    private boolean handleStandaloneCommand( String target, String[] args )
+    private boolean handleStandaloneCommand( String targetId, String[] args )
     {
         try
         {
-            Command target = Xenon.INSTANCE.commandRegistry.get( target );
+            Command target = Xenon.INSTANCE.commandRegistry.get( targetId );
             target.execute( args );
         }
         catch ( NullPointerException npe )
@@ -112,17 +112,17 @@ public class CommandProcessor extends IToggleableFeature
 
     /**
      * Feature-command handler
-     * @param target: Target ID
+     * @param targetId: Target ID
      * @param args: Command keyword + args
      * @return False ONLY if the target could not be resolved
      */
-    private boolean handleFeatureCommand( String target, String[] args )
+    private boolean handleFeatureCommand( String targetId, String[] cmd )
     {
         // FC handling has *many* error messages,
         // so the `return false` is only used for the "cannot resolve target" scenario
-        if ( !Xenon.INSTANCE.featureRegistry.containsKey( target ) ) return false;
+        if ( !Xenon.INSTANCE.featureRegistry.containsKey( targetId ) ) return false;
 
-        IFeature target = Xenon.INSTANCE.featureRegistry.get( cmd[0] );
+        IFeature target = Xenon.INSTANCE.featureRegistry.get( targetId );
 
         switch ( cmd[1] /* action keyword */ )
         {
