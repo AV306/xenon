@@ -117,6 +117,7 @@ public enum Xenon
         new ConfigMenu();
         new FeatureList();
         new FullBrightFeature();
+        new FullKeyboardFeature();
         new MultiQuickChatFeature();
         new ProximityRadarFeature();
         new QuickChatFeature();
