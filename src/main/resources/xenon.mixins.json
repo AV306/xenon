@@ -21,6 +21,7 @@
     "InGameOverlayRendererMixin",
     "KeyboardMixin",
     "MinecraftClientAccessor",
+    "MouseAccessor",
     "MouseMixin",
     "PlayerInventoryMixin",
     "RenderSystemMixin",
