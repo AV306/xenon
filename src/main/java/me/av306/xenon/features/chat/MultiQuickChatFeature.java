@@ -53,6 +53,7 @@ public class MultiQuickChatFeature extends IFeature
             String message = MultiQuickChatGroup.messageArray.get( key );*/
 
             // Hardcode method
+            // TODO: Message 0 should be at the end of the list (change config)
             String message;
             switch ( keycode )
             {
