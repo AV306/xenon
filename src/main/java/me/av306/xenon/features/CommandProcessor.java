@@ -124,7 +124,8 @@ public class CommandProcessor extends IToggleableFeature
 
         IFeature target = Xenon.INSTANCE.featureRegistry.get( targetId );
 
-        switch ( cmd[1] /* action keyword */ )
+        if ( target == null ) Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocesor.missing.action" );
+        else switch ( cmd[1] /* action keyword */ )
         {
             case "e", "enable", "on" -> target.enable();
 
@@ -158,7 +159,7 @@ public class CommandProcessor extends IToggleableFeature
                 target.requestExecuteAction( Arrays.copyOfRange( cmd, 2, cmd.length ) );
             }
 
-            case null -> Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocesor.missing.action" );
+            //case null -> Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocesor.missing.action" );
 
             default -> Xenon.INSTANCE.sendErrorMessage(
                     "text.xenon.commandprocesor.unknown", "action", cmd[1]
