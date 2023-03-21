@@ -125,7 +125,7 @@ public class CommandProcessor extends IToggleableFeature
         IFeature target = Xenon.INSTANCE.featureRegistry.get( targetId );
 
         if ( target == null ) Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocesor.missing.action" );
-        else switch ( cmd[1] /* action keyword */ )
+        else switch ( cmd[0] /* action keyword */ )
         {
             case "e", "enable", "on" -> target.enable();
 
@@ -162,7 +162,7 @@ public class CommandProcessor extends IToggleableFeature
             //case null -> Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocesor.missing.action" );
 
             default -> Xenon.INSTANCE.sendErrorMessage(
-                    "text.xenon.commandprocesor.unknown", "action", cmd[1]
+                    "text.xenon.commandprocesor.unknown", "action", cmd[0]
             );
         }
 
