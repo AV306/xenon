@@ -1,4 +1,20 @@
 #!/bin/sh
 
-cd run/mods
+# Create the mods directory if it doesn't exist
+mkdir -p ./run/mods/
+cd ./run/mods/
+
+# Download Sodium
 wget https://cdn.modrinth.com/data/AANobbMI/versions/b4hTi3mo/sodium-fabric-mc1.19.4-0.4.10%2Bbuild.24.jar
+
+# Reese's Sodium Options
+wget https://cdn.modrinth.com/data/Bh37bMuy/versions/aO0hSGlL/reeses_sodium_options-1.5.0%2Bmc1.19.4-build.72.jar
+
+# Sodium Extras
+wget https://cdn.modrinth.com/data/PtjYWJkn/versions/YknbqkHe/sodium-extra-0.4.18%2Bmc1.19.4-build.100.jar
+
+# Lithium
+wget https://cdn.modrinth.com/data/gvQqBUqZ/versions/14hWYkog/lithium-fabric-mc1.19.4-0.11.1.jar
+
+# Starlight
+wget https://cdn.modrinth.com/data/H8CaAYZC/versions/1.1.1%2B1.19/starlight-1.1.1%2Bfabric.ae22326.jar
