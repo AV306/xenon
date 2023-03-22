@@ -8,9 +8,12 @@ import me.lortseam.completeconfig.api.ConfigEntry;
 public class ZoomGroup implements XenonConfigGroup
 {
 	@ConfigEntry.BoundedDouble( min = 1.5d, max = 300d )
-	//@ConfigEntry.Slider
+	@ConfigEntry.Slider
+	@ConfigEntry.DoubleSliderInterval( 0.5d )
 	public static double minZoom = 2d;
 
     @ConfigEntry.BoundedDouble( min = 1.5d, max = 300d )
-    public static double maxZoom = 60d;
+	@ConfigEntry.Slider
+	@ConfigEntry.DoubleSliderInterval( 0.5d )
+	public static double maxZoom = 60d;
 }

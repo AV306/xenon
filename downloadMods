@@ -18,3 +18,18 @@ wget https://cdn.modrinth.com/data/gvQqBUqZ/versions/14hWYkog/lithium-fabric-mc1
 
 # Starlight
 wget https://cdn.modrinth.com/data/H8CaAYZC/versions/1.1.1%2B1.19/starlight-1.1.1%2Bfabric.ae22326.jar
+
+# C2ME
+wget https://cdn.modrinth.com/data/VSNURh3q/versions/GtUrsjth/c2me-fabric-mc1.19.4-0.2.0%2Balpha.10.30.jar
+
+# EntityCulling
+wget https://cdn.modrinth.com/data/NNAgCjsB/versions/UvJN5Cy4/entityculling-fabric-1.6.2-mc1.19.4.jar
+
+# Distant Horizons (QoL)
+#wget https://cdn.modrinth.com/data/uCdwusMi/versions/xBHpiuwg/DistantHorizons-1.6.11a-1.19.4.jar
+
+# Exordium
+wget https://cdn.modrinth.com/data/DynYZEae/versions/MaOM64pW/exordium-fabric-1.0.3-mc1.19.4.jar
+
+# ImmediatelyFast
+wget https://cdn.modrinth.com/data/5ZwdcRci/versions/izX4Zjnu/ImmediatelyFast-1.1.10%2B1.19.4.jar
