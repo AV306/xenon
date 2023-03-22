@@ -1,6 +1,7 @@
 package me.av306.xenon.features.movement;
 
 import me.av306.xenon.Xenon;
+import me.av306.xenon.config.feature.FullKeyboardGroup;
 import me.av306.xenon.event.KeyEvent;
 import me.av306.xenon.feature.IToggleableFeature;
 import me.av306.xenon.mixin.MouseAccessor;
