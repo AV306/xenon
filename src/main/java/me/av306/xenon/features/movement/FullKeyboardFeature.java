@@ -26,6 +26,7 @@ public final class FullKeyboardFeature extends IToggleableFeature
     )
     {
         if ( !this.isEnabled ) return ActionResult.PASS;
+        
         double f = Xenon.INSTANCE.client.options.getMouseSensitivity().getValue() * 32d;
         switch ( keycode )
         {
