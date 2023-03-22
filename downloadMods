@@ -1,13 +1,40 @@
 #!/bin/sh
 
+# Small script to quickly install optimisation / QoL mods
+# QoL mods are not downloaded by default
+
 # Create the mods directory if it doesn't exist
 mkdir -p ./run/mods/
 cd ./run/mods/
 
+
+
 # ModMenu
 wget -nc https://cdn.modrinth.com/data/mOgUt4GM/versions/5e62j63G/modmenu-6.1.0-rc.4.jar
 
-# Download Sodium
+# Fabric API
+#wget -nc https://cdn.modrinth.com/data/P7dR8mSH/versions/Pz1hLqTB/fabric-api-0.76.0%2B1.19.4.jar
+
+
+
+# +=======================+
+# | XENON + EXTERNAL DEPS |
+# +=======================+
+
+# Xenon!
+# TODO: Publish to modrinth?
+#wget -nc 
+
+# Complete Config (all, apparently)
+#wget -nc https://cdn.modrinth.com/data/GtqG8z1h/versions/xTRB8xOO/completeconfig-2.3.1.jar
+
+
+
+# +===================+
+# | OPTIMISATION MODS |
+# +===================+
+
+# Sodium
 wget -nc https://cdn.modrinth.com/data/AANobbMI/versions/b4hTi3mo/sodium-fabric-mc1.19.4-0.4.10%2Bbuild.24.jar
 
 # Reese's Sodium Options
@@ -28,11 +55,53 @@ wget -nc https://cdn.modrinth.com/data/VSNURh3q/versions/GtUrsjth/c2me-fabric-mc
 # EntityCulling
 wget -nc https://cdn.modrinth.com/data/NNAgCjsB/versions/UvJN5Cy4/entityculling-fabric-1.6.2-mc1.19.4.jar
 
-# Distant Horizons (QoL)
-#wget -nc https://cdn.modrinth.com/data/uCdwusMi/versions/xBHpiuwg/DistantHorizons-1.6.11a-1.19.4.jar
-
 # Exordium
 wget -nc https://cdn.modrinth.com/data/DynYZEae/versions/MaOM64pW/exordium-fabric-1.0.3-mc1.19.4.jar
 
 # ImmediatelyFast
 wget -nc https://cdn.modrinth.com/data/5ZwdcRci/versions/izX4Zjnu/ImmediatelyFast-1.1.10%2B1.19.4.jar
+
+
+
+# +=======================+
+# | QoL (QUALITY of LIFE) |
+# +=======================+
+
+case "$1" in
+    qol)
+        echo Installing QoL mods as well
+        # Distant Horizons (QoL)
+        wget -nc https://cdn.modrinth.com/data/uCdwusMi/versions/xBHpiuwg/DistantHorizons-1.6.11a-1.19.4.jar
+
+        # AppleSkin
+        wget -nc https://cdn.modrinth.com/data/EsAfCjCV/versions/sLboyqjL/appleskin-fabric-mc1.19.4-2.4.3.jar
+
+        # Iris
+        wget -nc https://cdn.modrinth.com/data/YL57xq9U/versions/mVGu4Ze2/iris-mc1.19.4-1.5.2.jar
+
+        # ClientStorage
+        wget -nc https://cdn.modrinth.com/data/A8d8aILe/versions/lIF8mTCm/clientstorage-fabric-client-1.19.4-2.2.0.jar
+
+        # NoChatReports
+        wget -nc https://cdn.modrinth.com/data/qQyHxfxd/versions/6yybObpX/NoChatReports-FABRIC-1.19.4-v2.1.0.jar
+
+        # Craftify
+        wget -nc https://cdn.modrinth.com/data/nrJ2NpD0/versions/T9Ejwd3N/Craftify-1.19.4-1.8.0-fabric.jar
+
+        # Fabric Kotlin (Craftify dep)
+        wget -nc https://cdn.modrinth.com/data/Ha28R6CL/versions/Ibros2FW/fabric-language-kotlin-1.9.2%2Bkotlin.1.8.10.jar
+
+        # Xaero's Minimap
+
+        # Xaero's World Map
+        ;;
+
+    clean)
+        echo Cleaning mod directory
+        rm -f ./*
+        ;;
+
+    *)
+        echo Unrecognised argument, exiting
+        ;;
+esac
