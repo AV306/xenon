@@ -45,7 +45,7 @@ public class MouseMixin implements IMouse
     @Override
     public void changeY( double dy )
     {
-        this.y += y;
+        this.y += dy;
     }
 
 

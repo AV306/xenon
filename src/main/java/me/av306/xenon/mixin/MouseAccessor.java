@@ -7,13 +7,13 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 @Mixin( Mouse.class )
 public interface MouseAccessor
 {
-    @Accessor
-    double getCursorDeltaX();
+    //@Accessor
+    //double getCursorDeltaX();
     @Accessor( "cursorDeltaX" )
     void setCursorDeltaX( double x );
 
-    @Accessor
-    void getCursorDeltaY();
+   // @Accessor
+    //void getCursorDeltaY();
     @Accessor( "cursorDeltaY" )
     void setCursorDeltaY( double y );
 
@@ -22,4 +22,10 @@ public interface MouseAccessor
 
     @Accessor( "y" )
     void setY( double y );
+
+    @Accessor( "leftButtonClicked" )
+    void setLeftButtonClicked( boolean clicked );
+
+    @Accessor( "rightButtonClicked" )
+    void setRightButtonClicked( boolean clicked );
 }
