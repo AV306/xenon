@@ -20,18 +20,37 @@ public final class FullKeyboardFeature extends IToggleableFeature
     }
 
     protected ActionResult onKey(
-        long window,
-        int keycode,
-        int scancode,
-        int action,
-        int modifiers
+            long window,
+            int keycode,
+            int scancode,
+            int action,
+            int modifiers
     )
     {
         if ( !this.isEnabled ) return ActionResult.PASS;
         
-        double f = Xenon.INSTANCE.client.options.getMouseSensitivity().getValue() * FullKeyboardGroup.sensitivity;
+        double fac = Xenon.INSTANCE.client.options.getMouseSensitivity().getValue() * FullKeyboardGroup.sensitivity;
 
-        if ( !FullKeyboardGroup.acceleration )
+        // The cursor will be unlocked when in a GUI or chat, so when this happens
+        // we need to modify the cursor position directly
+        boolean mouseLocked = Xenon.INSTANCE.client.mouse.isCursorLocked();
+
+        if ( mouseLocked )
+        {
+            // Gameplay; use deltas
+            this.modifyMouseDelta( keycode, fac, FullKeyboardGroup.acceleration );
+        }
+        else
+        {
+            this.modifyMousePos( keycode, fac );
+        }
+
+        return ActionResult.PASS;
+    }
+
+    private void modifyMouseDelta( int keycode, double f, boolean accelerate )
+    {
+        if ( !accelerate )
         {
             // Linear movement
             switch ( keycode )
@@ -49,13 +68,24 @@ public final class FullKeyboardFeature extends IToggleableFeature
             {
                 case GLFW.GLFW_KEY_UP -> ((IMouse) Xenon.INSTANCE.client.mouse).accelerateDeltaY( -f );
                 case GLFW.GLFW_KEY_DOWN -> ((IMouse) Xenon.INSTANCE.client.mouse).accelerateDeltaY( f );
-                case GLFW.GLFW_KEY_LEFT -> ((IMouse) Xenon.INSTANCE.client.mouse).accelerateDeltaY( -f );
+                case GLFW.GLFW_KEY_LEFT -> ((IMouse) Xenon.INSTANCE.client.mouse).accelerateDeltaX( -f );
                 case GLFW.GLFW_KEY_RIGHT -> ((IMouse) Xenon.INSTANCE.client.mouse).accelerateDeltaX( f );
                 default -> {}
             }
         }
+    }
 
-        return ActionResult.PASS;
+    private void modifyMousePos( int keycode, double f )
+    {
+        // Linear movement
+        switch ( keycode )
+        {
+            case GLFW.GLFW_KEY_UP -> ((IMouse) Xenon.INSTANCE.client.mouse).changeY( -f );
+            case GLFW.GLFW_KEY_DOWN -> ((IMouse) Xenon.INSTANCE.client.mouse).changeY( f );
+            case GLFW.GLFW_KEY_LEFT -> ((IMouse) Xenon.INSTANCE.client.mouse).changeX( -f );
+            case GLFW.GLFW_KEY_RIGHT -> ((IMouse) Xenon.INSTANCE.client.mouse).changeX( f );
+            default -> {}
+        }
     }
 
     @Override
