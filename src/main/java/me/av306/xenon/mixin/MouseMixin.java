@@ -16,20 +16,36 @@ public class MouseMixin implements IMouse
 {
     @Shadow
     private double cursorDeltaX;
-
     @Shadow
     private double cursorDeltaY;
 
+    @Shadow
+    private double x;
+    @Shadow
+    private double y;
+
     @Override
-    public void accelerateDeltaX( double x )
+    public void accelerateDeltaX( double dx )
     {
-        this.cursorDeltaX += x;
+        this.cursorDeltaX += dx;
     }
 
     @Override
-    public void accelerateDeltaY( double y )
+    public void accelerateDeltaY( double dy )
     {
-        this.cursorDeltaY += y;
+        this.cursorDeltaY += dy;
+    }
+
+    @Override
+    public void changeX( double dx )
+    {
+        this.x += dx;
+    }
+
+    @Override
+    public void changeY( double dy )
+    {
+        this.y += y;
     }
 
 
