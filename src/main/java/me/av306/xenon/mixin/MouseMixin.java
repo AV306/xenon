@@ -1,7 +1,6 @@
 package me.av306.xenon.mixin;
 
-import me.av306.xenon.Xenon;
-import me.av306.xenon.event.MouseScrollEvent;
+import me.av306.xenon.event.MouseEvents;
 import me.av306.xenon.mixinterface.IMouse;
 import net.minecraft.client.Mouse;
 import net.minecraft.util.ActionResult;
@@ -56,7 +55,7 @@ public class MouseMixin implements IMouse
     )
     private void onOnMouseScroll( long window, double horizontal, double vertical, CallbackInfo ci )
     {
-        ActionResult result = MouseScrollEvent.EVENT.invoker().interact( window, horizontal, vertical );
+        ActionResult result = MouseEvents.ON_MOUSE_SCROLL.invoker().onMouseScroll( window, horizontal, vertical );
 
         if ( result == ActionResult.FAIL ) ci.cancel();
     }

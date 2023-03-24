@@ -4,7 +4,7 @@ import me.av306.xenon.Xenon;
 import me.av306.xenon.config.feature.ZoomGroup;
 import me.av306.xenon.event.EventFields;
 import me.av306.xenon.event.GetFovEvent;
-import me.av306.xenon.event.MouseScrollEvent;
+import me.av306.xenon.event.MouseEvents;
 import me.av306.xenon.event.ScrollInHotbarEvent;
 import me.av306.xenon.feature.IFeature;
 import net.minecraft.client.render.Camera;
@@ -24,7 +24,7 @@ public class ZoomFeature extends IFeature
         // e.g. Australian mode.
         super( "Zoom" );
 
-        MouseScrollEvent.EVENT.register( this::onMouseScroll );
+        MouseEvents.ON_MOUSE_SCROLL.register( this::onMouseScroll );
         ScrollInHotbarEvent.EVENT.register( this::onScrollInHotbar );
         GetFovEvent.EVENT.register( this::onGetFov );
 

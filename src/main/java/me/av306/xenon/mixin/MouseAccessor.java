@@ -3,17 +3,15 @@ package me.av306.xenon.mixin;
 import net.minecraft.client.Mouse;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
+import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin( Mouse.class )
 public interface MouseAccessor
 {
-    //@Accessor
-    //double getCursorDeltaX();
+
     @Accessor( "cursorDeltaX" )
     void setCursorDeltaX( double x );
 
-   // @Accessor
-    //void getCursorDeltaY();
     @Accessor( "cursorDeltaY" )
     void setCursorDeltaY( double y );
 
@@ -23,9 +21,10 @@ public interface MouseAccessor
     @Accessor( "y" )
     void setY( double y );
 
-    @Accessor( "leftButtonClicked" )
+    // Somehow these aren't used???
+    /*@Accessor( "leftButtonClicked" )
     void setLeftButtonClicked( boolean clicked );
 
     @Accessor( "rightButtonClicked" )
-    void setRightButtonClicked( boolean clicked );
+    void setRightButtonClicked( boolean clicked );*/
 }

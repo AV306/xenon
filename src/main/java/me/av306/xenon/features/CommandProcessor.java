@@ -62,7 +62,15 @@ public class CommandProcessor extends IToggleableFeature
                 .split( " " );
 
         String target = cmd[0]; // Target will always be removed from command
-        cmd = Arrays.copyOfRange( cmd, 1, cmd.length ); // Remove target by copying everything after it
+        try
+        {
+            cmd = Arrays.copyOfRange( cmd, 1, cmd.length ); // Remove target by copying everything after it
+        }
+        catch ( ArrayIndexOutOfBoundsException | IllegalArgumentException e )
+        {
+            // These exceptions are thrown if the command only has length 1; i.e. missing action
+            cmd = new String[]{ null };
+        }
 
         /*
             [ Command format specification ]
@@ -124,7 +132,7 @@ public class CommandProcessor extends IToggleableFeature
 
         IFeature target = Xenon.INSTANCE.featureRegistry.get( targetId );
 
-        if ( target == null ) Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocesor.missing.action" );
+        if ( cmd[0] == null ) Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocesor.missing.action" );
         else switch ( cmd[0] /* action keyword */ )
         {
             case "e", "enable", "on" -> target.enable();
