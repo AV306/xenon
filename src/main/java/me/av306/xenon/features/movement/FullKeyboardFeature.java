@@ -15,17 +15,16 @@ import net.minecraft.client.world.ClientWorld;
 import org.lwjgl.glfw.GLFW;
 
 import net.minecraft.util.ActionResult;
-import org.lwjgl.opengl.GL;
-
-import java.awt.*;
-import java.awt.event.InputEvent;
 
 public final class FullKeyboardFeature extends IToggleableFeature
 {
+    private final KeyBinding upKey;
+    private final KeyBinding downKey;
+    private final KeyBinding leftKey;
+    private final KeyBinding rightKey;
     private final KeyBinding virtualLeftMouseKey;
     private final KeyBinding virtualRightMouseKey;
 
-    private final Robot robot;
     public FullKeyboardFeature()
     {
         super( "FullKeyboard", "fullkey", "fullkb" );
@@ -33,42 +32,48 @@ public final class FullKeyboardFeature extends IToggleableFeature
         KeyEvent.EVENT.register( this::onKey );
 
         // Register extra keys
-        this.virtualLeftMouseKey = new KeyBinding(
-            "key.xenon.fullkeyboard.virtualLeftMouseKey",
-            InputUtil.Type.KEYSYM,
-            GLFW.GLFW_KEY_UNKNOWN,
-            "category.xenon." + this.category
+        this.virtualLeftMouseKey = KeybindHelper.registerKeyBinding(
+            "fullkeyboard.virtualLeftMouseKey",
+            GLFW.GLFW_KEY_COMMA,
+            this.category
         );
-        KeyBindingHelper.registerKeyBinding( this.virtualLeftMouseKey );
 
-        this.virtualRightMouseKey = new KeyBinding(
-                "key.xenon.fullkeyboard.virtualRightMouseKey",
-                InputUtil.Type.KEYSYM,
-                GLFW.GLFW_KEY_UNKNOWN,
-                "category.xenon." + this.category
+        this.virtualRightMouseKey = KeybindHelper.registerKeyBinding(
+            "fullkeyboard.virtualRightMouseKey",
+            GLFW.GLFW_KEY_PERIOD,
+            this.category
         );
-        KeyBindingHelper.registerKeyBinding( this.virtualRightMouseKey );
 
-        Robot robot1;
-        try
-        {
-            robot1 = new Robot();
-        }
-        catch ( AWTException e )
-        {
-            Xenon.INSTANCE.LOGGER.warn( "Could not create AWT Robot!" );
-            robot1 = null;
-        }
-        this.robot = robot1;
+        this.upKey = KeybindHelper.registerKeyBinding(
+            "fullkeyboard.upKey",
+            GLFW.GLFW_KEY_UP,
+            this.category
+        );
+
+        this.downKey = KeybindHelper.registerKeyBinding(
+            "fullkeyboard.downKey",
+            GLFW.GLFW_KEY_DOWN,
+            this.category
+        );
+
+        this.leftKey = KeybindHelper.registerKeyBinding(
+            "fullkeyboard.leftKey",
+            GLFW.GLFW_KEY_LEFT,
+            this.category
+        );
+
+        this.rightKey = KeybindHelper.registerKeyBinding(
+            "fullkeyboard.rightKey",
+            GLFW.GLFW_KEY_RIGHT,
+            this.category
+        );
+        
+
+        // Register double-bindings
+        ClientTickEvents.START_TICK_EVENT.register( (client) -> this.onEndTick() );
     }
 
-    private ActionResult onKey(
-            long window,
-            int keycode,
-            int scancode,
-            int action,
-            int modifiers
-    )
+    private void onEndTick()
     {
         if ( !this.isEnabled ) return ActionResult.PASS;
         
@@ -81,22 +86,13 @@ public final class FullKeyboardFeature extends IToggleableFeature
         // Movement stuff
         if ( mouseLocked )
             // Gameplay; use deltas
-            this.modifyMouseDelta( keycode, fac, FullKeyboardGroup.acceleration );
+            this.modifyMouseDelta( fac, FullKeyboardGroup.acceleration );
         else
             // This works, but doesn't update the actual cursor position
-            this.modifyMousePos( keycode, fac );
+            this.modifyMousePos( fac );
 
-        if ( this.robot == null ) return ActionResult.PASS; // Could not create Robot, don't try to use it
-
-        // Mouse stuff
-        if ( keycode == GLFW.GLFW_KEY_COMMA )
-            // Simulate left mouse
-            this.robot.mousePress( InputEvent.BUTTON1_DOWN_MASK );
-
-
-        if ( this.virtualRightMouseKey.matchesKey( keycode, scancode ) )
-            // Simulate left mouse
-            this.robot.mousePress( InputEvent.BUTTON2_DOWN_MASK );
+        Xenon.INSTANCE.client.options.attackKey.setPressed( this.virtualLeftMouseKey.isPressed() );
+        Xenon.INSTANCE.client.options.useKey.setPressed( this.virtualRightMouseKey.isPressed() );
 
 
         return ActionResult.PASS;
@@ -105,7 +101,6 @@ public final class FullKeyboardFeature extends IToggleableFeature
     /**
      * Modify the mouse delta, so that the arrow keys control look angle.
      * Note: Mouse deltas are only used when the cursor is locked; i.e. when "actually playing"
-     * @param keycode: GLFW keycode
      * @param f: Delta delta :)
      * @param accelerate: Make the delta change at an increasing rate. Not sure if this actually does anything
      */
@@ -114,25 +109,17 @@ public final class FullKeyboardFeature extends IToggleableFeature
         if ( !accelerate )
         {
             // Linear movement
-            switch ( keycode )
-            {
-                case GLFW.GLFW_KEY_UP -> ((MouseAccessor) Xenon.INSTANCE.client.mouse).setCursorDeltaY( -f );
-                case GLFW.GLFW_KEY_DOWN -> ((MouseAccessor) Xenon.INSTANCE.client.mouse).setCursorDeltaY( f );
-                case GLFW.GLFW_KEY_LEFT -> ((MouseAccessor) Xenon.INSTANCE.client.mouse).setCursorDeltaX( -f );
-                case GLFW.GLFW_KEY_RIGHT -> ((MouseAccessor) Xenon.INSTANCE.client.mouse).setCursorDeltaX( f );
-                default -> {}
-            }
+            if ( this.upKey.isPressed() ) ((MouseAccessor) Xenon.INSTANCE.client.mouse).setCursorDeltaY( -f );
+            if ( this.downKey.isPressed() ) ((MouseAccessor) Xenon.INSTANCE.client.mouse).setCursorDeltaY( f );
+            if ( this.leftKey.isPressed() ) ((MouseAccessor) Xenon.INSTANCE.client.mouse).setCursorDeltaX( -f );
+            if ( this.rightKey.isPressed() ) ((MouseAccessor) Xenon.INSTANCE.client.mouse).setCursorDeltaX( f );
         }
         else
         {
-            switch ( keycode )
-            {
-                case GLFW.GLFW_KEY_UP -> ((IMouse) Xenon.INSTANCE.client.mouse).accelerateDeltaY( -f );
-                case GLFW.GLFW_KEY_DOWN -> ((IMouse) Xenon.INSTANCE.client.mouse).accelerateDeltaY( f );
-                case GLFW.GLFW_KEY_LEFT -> ((IMouse) Xenon.INSTANCE.client.mouse).accelerateDeltaX( -f );
-                case GLFW.GLFW_KEY_RIGHT -> ((IMouse) Xenon.INSTANCE.client.mouse).accelerateDeltaX( f );
-                default -> {}
-            }
+            if ( this.upKey.isPressed() ) ((IMouse) Xenon.INSTANCE.client.mouse).accelerateDeltaY( -f );
+            if ( this.downKey.isPressed() ) ((IMouse) Xenon.INSTANCE.client.mouse).accelerateDeltaY( f );
+            if ( this.leftKey.isPressed() ) ((IMouse) Xenon.INSTANCE.client.mouse).accelerateDeltaX( -f );
+            if ( this.rightKey.isPressed() ) ((IMouse) Xenon.INSTANCE.client.mouse).accelerateDeltaX( f );
         }
     }
 
@@ -145,14 +132,10 @@ public final class FullKeyboardFeature extends IToggleableFeature
     private void modifyMousePos( int keycode, double f )
     {
         // Linear movement
-        switch ( keycode )
-        {
-            case GLFW.GLFW_KEY_UP -> ((IMouse) Xenon.INSTANCE.client.mouse).changeY( -f );
-            case GLFW.GLFW_KEY_DOWN -> ((IMouse) Xenon.INSTANCE.client.mouse).changeY( f );
-            case GLFW.GLFW_KEY_LEFT -> ((IMouse) Xenon.INSTANCE.client.mouse).changeX( -f );
-            case GLFW.GLFW_KEY_RIGHT -> ((IMouse) Xenon.INSTANCE.client.mouse).changeX( f );
-            default -> {}
-        }
+        if ( this.upKey.isPressed() ) ((IMouse) Xenon.INSTANCE.client.mouse).changeY( -f );
+        if ( this.downKey.isPressed() ) ((IMouse) Xenon.INSTANCE.client.mouse).changeY( f );
+        if ( this.leftKey.isPressed() ) ((IMouse) Xenon.INSTANCE.client.mouse).changeX( -f );
+        if ( this.rightKey.isPressed() ) ((IMouse) Xenon.INSTANCE.client.mouse).changeX( f );
     }
 
     @Override
