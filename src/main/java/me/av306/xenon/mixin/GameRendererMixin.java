@@ -1,5 +1,7 @@
 package me.av306.xenon.mixin;
 
+import me.av306.xenon.Xenon;
+
 import me.av306.xenon.event.EventFields;
 import me.av306.xenon.event.GameRenderEvents;
 import me.av306.xenon.event.GetFovEvent;
@@ -53,5 +55,16 @@ public abstract class GameRendererMixin implements AutoCloseable, SynchronousRes
                 .onRenderWorld( tickDelta, limitTime, matrices );
 
         if ( result == ActionResult.FAIL ) ci.cancel();
+    }
+
+    @Inject(
+            at = @At( "RETURN" ),
+            method = "render(FJZ)V",
+            cancellable = true
+    )
+    private void onRender( float tickDelta, long startTime, boolean tick )
+    {
+        if ( !Xenon.INSTANCE.client.isPaused() && !Xenon.INSTANCE.client.mouse.isCursorLocked() )
+            Xenon.INSTANCE.client.mouse.lockCursor();
     }
 }
