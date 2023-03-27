@@ -56,15 +56,4 @@ public abstract class GameRendererMixin implements AutoCloseable, SynchronousRes
 
         if ( result == ActionResult.FAIL ) ci.cancel();
     }
-
-    @Inject(
-            at = @At( "RETURN" ),
-            method = "render(FJZ)V",
-            cancellable = true
-    )
-    private void onRender( float tickDelta, long startTime, boolean tick )
-    {
-        if ( !Xenon.INSTANCE.client.isPaused() && !Xenon.INSTANCE.client.mouse.isCursorLocked() )
-            Xenon.INSTANCE.client.mouse.lockCursor();
-    }
 }
