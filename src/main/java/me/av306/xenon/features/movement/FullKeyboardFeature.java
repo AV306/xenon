@@ -7,8 +7,8 @@ import me.av306.xenon.event.MouseEvents;
 import me.av306.xenon.feature.IToggleableFeature;
 import me.av306.xenon.mixin.MouseAccessor;
 import me.av306.xenon.mixinterface.IMouse;
+import me.av306.xenon.util.KeybindUtil;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.client.world.ClientWorld;
@@ -29,40 +29,38 @@ public final class FullKeyboardFeature extends IToggleableFeature
     {
         super( "FullKeyboard", "fullkey", "fullkb" );
 
-        KeyEvent.EVENT.register( this::onKey );
-
         // Register extra keys
-        this.virtualLeftMouseKey = KeybindHelper.registerKeyBinding(
+        this.virtualLeftMouseKey = KeybindUtil.registerKeybind(
             "fullkeyboard.virtualLeftMouseKey",
             GLFW.GLFW_KEY_COMMA,
             this.category
         );
 
-        this.virtualRightMouseKey = KeybindHelper.registerKeyBinding(
+        this.virtualRightMouseKey = KeybindUtil.registerKeybind(
             "fullkeyboard.virtualRightMouseKey",
             GLFW.GLFW_KEY_PERIOD,
             this.category
         );
 
-        this.upKey = KeybindHelper.registerKeyBinding(
+        this.upKey = KeybindUtil.registerKeybind(
             "fullkeyboard.upKey",
             GLFW.GLFW_KEY_UP,
             this.category
         );
 
-        this.downKey = KeybindHelper.registerKeyBinding(
+        this.downKey = KeybindUtil.registerKeybind(
             "fullkeyboard.downKey",
             GLFW.GLFW_KEY_DOWN,
             this.category
         );
 
-        this.leftKey = KeybindHelper.registerKeyBinding(
+        this.leftKey = KeybindUtil.registerKeybind(
             "fullkeyboard.leftKey",
             GLFW.GLFW_KEY_LEFT,
             this.category
         );
 
-        this.rightKey = KeybindHelper.registerKeyBinding(
+        this.rightKey = KeybindUtil.registerKeybind(
             "fullkeyboard.rightKey",
             GLFW.GLFW_KEY_RIGHT,
             this.category
@@ -70,12 +68,12 @@ public final class FullKeyboardFeature extends IToggleableFeature
         
 
         // Register double-bindings
-        ClientTickEvents.START_TICK_EVENT.register( (client) -> this.onEndTick() );
+        ClientTickEvents.START_CLIENT_TICK.register( (client) -> this.onEndTick() );
     }
 
     private void onEndTick()
     {
-        if ( !this.isEnabled ) return ActionResult.PASS;
+        if ( !this.isEnabled ) return;
         
         double fac = Xenon.INSTANCE.client.options.getMouseSensitivity().getValue() * FullKeyboardGroup.sensitivity;
 
@@ -93,9 +91,6 @@ public final class FullKeyboardFeature extends IToggleableFeature
 
         Xenon.INSTANCE.client.options.attackKey.setPressed( this.virtualLeftMouseKey.isPressed() );
         Xenon.INSTANCE.client.options.useKey.setPressed( this.virtualRightMouseKey.isPressed() );
-
-
-        return ActionResult.PASS;
     }
 
     /**
@@ -104,7 +99,7 @@ public final class FullKeyboardFeature extends IToggleableFeature
      * @param f: Delta delta :)
      * @param accelerate: Make the delta change at an increasing rate. Not sure if this actually does anything
      */
-    private void modifyMouseDelta( int keycode, double f, boolean accelerate )
+    private void modifyMouseDelta( double f, boolean accelerate )
     {
         if ( !accelerate )
         {
@@ -129,7 +124,7 @@ public final class FullKeyboardFeature extends IToggleableFeature
      * @param keycode: GLFW keycode
      * @param f: Delta delta
      */
-    private void modifyMousePos( int keycode, double f )
+    private void modifyMousePos( double f )
     {
         // Linear movement
         if ( this.upKey.isPressed() ) ((IMouse) Xenon.INSTANCE.client.mouse).changeY( -f );
