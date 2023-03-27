@@ -99,19 +99,6 @@ public enum Xenon
 
     private void initFeatures()
     {
-        // Illegal features
-        if ( GeneralConfigGroup.enableIllegalFeatures )
-        {
-            // We register them all in one go because they tend to depend on one another
-            // E.g. CreativeFlight will crash if it tries to enable NFD but NFD isn't present
-            new FlightFeature();
-            new HighJumpFeature();
-            new JetpackFeature();
-            new JumpBoostFeature();
-            new NoFallDamageFeature();
-            new CreativeFlightFeature();
-        }
-
         new AustralianModeFeature();
         new CommandProcessor();
         new ConfigMenu();
