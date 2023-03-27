@@ -14,9 +14,6 @@ public class GeneralConfigGroup implements XenonConfigGroup
     public static int debugCrosshairSize = 10;
 
     @ConfigEntry.Boolean
-    public static boolean enableIllegalFeatures = false;
-
-    @ConfigEntry.Boolean
     public static boolean enableTimer = true;
 
     @ConfigEntry.Boolean
