@@ -8,22 +8,23 @@ import me.shedaniel.clothconfig2.api.AbstractConfigListEntry;
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.util.ActionResult;
+import org.lwjgl.glfw.GLFW;
 
 public class ConfigMenu extends IFeature
 {
     public ConfigMenu()
     {
-        super( "ConfigMenu" );
+        super( "ConfigMenu", GLFW.GLFW_KEY_RIGHT_SHIFT );
 
         //KeyEvent.AFTER_VIGNETTE.register( this::onKey );
     }
 
-    protected ActionResult onKey( long window, int key, int scanCode, int action, int modifiers )
+    /*protected ActionResult onKey( long window, int key, int scanCode, int action, int modifiers )
     {
         //if ( Xenon.INSTANCE.client.currentScreen instanceof XenonScreen )
 
         return ActionResult.PASS;
-    }
+    }*/
 
     @Override
     protected void onEnable()
@@ -43,6 +44,7 @@ public class ConfigMenu extends IFeature
         catch ( UnsupportedOperationException unsupported )
         {
             Xenon.INSTANCE.sendErrorMessage( "text.xenon.configmenu.unsupportedoperation" );
+            unsupported.printStackTrace();
         }
         catch ( Exception e )
         {

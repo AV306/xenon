@@ -13,5 +13,16 @@ public abstract class Command
 		Xenon.INSTANCE.commandRegistry.put( this.name, this );
 	}
 
+	public Command( String name, String... aliases )
+	{
+		this( name );
+		
+		for ( String alias : aliases )
+			Xenon.INSTANCE.commandRegistry.put( alias, this );
+	}
+
+	/**
+	 * Implementations miust handle a blank case
+	 */
 	public abstract void execute( String[] args );
 }

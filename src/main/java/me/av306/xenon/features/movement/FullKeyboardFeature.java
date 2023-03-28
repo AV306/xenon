@@ -101,7 +101,12 @@ public final class FullKeyboardFeature extends IToggleableFeature
      */
     private void modifyMouseDelta( double f, boolean accelerate )
     {
-        if ( !accelerate )
+        if ( Xenon.INSTANCE.client.options.sprintKey.isPressed() )
+        {
+            // FLick view
+            // TODO
+        }
+        else if ( !accelerate )
         {
             // Linear movement
             if ( this.upKey.isPressed() ) ((MouseAccessor) Xenon.INSTANCE.client.mouse).setCursorDeltaY( -f );
