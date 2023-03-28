@@ -28,6 +28,13 @@ public abstract class IFeature
 	public void setName( String name ) { this.name = name; }
 
 	protected String category = "features";
+
+	/**
+	 * Whether the server wishes to force-disable the feature
+	 */
+	protected boolean forceDisabled = false;
+	public boolean isForceDisabled() { return this.forceDisabled; }
+	public void setForceDisabled( boolean b ) { this.forceDisabled = b; }
 	
 
 	/**
@@ -51,7 +58,7 @@ public abstract class IFeature
 	/**
 	 * Recommended constructor to call in a subclass.
 	 * @param name: The Feature's display name
-	 * @param aliases: Aliases for the feature in CP. Should NOT contain the original name
+	 * @param aliases: Aliases for the feature in CP. Should not contain the original name
 	 */
 	protected IFeature( String name, String... aliases )
 	{
@@ -134,7 +141,10 @@ public abstract class IFeature
 	protected void keyEvent()
 	{
 		if ( this.keyBinding.wasPressed() )
-			this.enable();
+			if ( this.forceDisabled )
+				// Server wishes to opt out of this feature
+				Xenon.INSTANCE.sendErrorMessage( "text.xenon.ifeature.forcedisabled" );
+			else this.enable();
 	}
 
 	/**
