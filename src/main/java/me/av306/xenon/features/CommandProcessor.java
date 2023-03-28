@@ -58,8 +58,7 @@ public class CommandProcessor extends IToggleableFeature
 
         // Process command into array
         // Ok the code here is all kinds of messed up
-        String[] cmd = text.replaceAll( CommandProcessorGroup.prefix, "" )
-                .split( " " );
+        String[] cmd = text.replaceAll( CommandProcessorGroup.prefix, "" ).split( " " );
 
         String target = cmd[0]; // Target will always be removed from command
         try
@@ -69,7 +68,7 @@ public class CommandProcessor extends IToggleableFeature
         catch ( ArrayIndexOutOfBoundsException | IllegalArgumentException e )
         {
             // These exceptions are thrown if the command only has length 1; i.e. missing action
-            cmd = new String[]{ null };
+            cmd = new String[]{ "" };
         }
 
         /*
