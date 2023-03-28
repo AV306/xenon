@@ -31,7 +31,7 @@ public class ClientPlayNetworkHandlerMixin
         {
             // Get the feature name out
             content = content.replaceAll( "{{xenon forcedisable ", "" ).replaceAll( " }}", "" );
-            IFeature feature = Xenon.INSTANCE.get( content );
+            IFeature feature = Xenon.INSTANCE.featureRegistry.get( content );
 
             if ( feature == null )
             {
