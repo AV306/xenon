@@ -129,6 +129,7 @@
   "text.xenon.ifeature.configchange.success": "[%s] Successfully changed config \"%s\" to value %s!",
   "text.xenon.ifeature.executeaction.fail": "[%s] Failed to execute action: %s",
   "text.xenon.ifeature.executeaction.success": "[%s] Successfully executed action: %s",
+  "text.xenon.ifeature.forcedisabled": "The feature has been disabled by the server.",
   "text.xenon.ifeature.help": "[%s] %s",
   "text.xenon.proximityradar.hostile": "WARNING: HOSTILE IN RANGE (%s)",
   "text.xenon.proximityradar.projectile": "WARNING: PROJECTILE IN RANGE (%s)",
