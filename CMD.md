@@ -4,7 +4,7 @@ Documentation for Xenon's command processor
 
 ### Basic command structure
 
-`\[prefix character\]\[feature / command name\]\[action (for feature), or argument\]\[more arguments...\]`
+`[prefix character][feature / command name][action (for feature), or argument][more arguments...]`
 
 Example feature command: `!fullkeyboard enable`
 "!" - prefix
