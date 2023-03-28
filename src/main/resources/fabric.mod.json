@@ -13,7 +13,7 @@
     "sources": "https://github.com/AV306/xenon"
   },
 
-  "license": "GNU GPL v3",
+  "license": "MIT License",
   "icon": "assets/xenon/icon.png",
 
   "environment": "client",

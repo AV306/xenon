@@ -46,7 +46,7 @@ Full documentation [here](FEATURES.md)
 - modular and user-friendly feature creation/registration system I spent way too much time on
 - Command processor
 
-## Licensed under GNU GPL v3
+## Licensed under MIT license
 
 ## Credits (for integrations)
 
