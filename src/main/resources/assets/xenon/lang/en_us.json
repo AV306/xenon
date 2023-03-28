@@ -89,7 +89,7 @@
   "key.xenon.fullkeyboard.upKey": "FullKeyboard: Look Up",
   "key.xenon.fullkeyboard.downKey": "FullKeyboard: Look Down",
   "key.xenon.fullkeyboard.leftKey": "FullKeyboard: Look Left",
-  "key.xenon.fullkeyboard.urightKey": "FullKeyboard: Look Right",
+  "key.xenon.fullkeyboard.rightKey": "FullKeyboard: Look Right",
   "key.xenon.highjump": "HighJump",
   "key.xenon.jetpack": "Jetpack",
   "key.xenon.jumpboost": "JumpBoost",
