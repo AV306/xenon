@@ -2,8 +2,6 @@
 
 All are open for suggestions and PRs!
 
-## Blocks
-
 ## Chat
 - QuickChat - Send a custom message at the push of a button (commands will be sent as a chat message, fix for that WIP)
 - MultiQuickChat - Send a custom message at the push of two buttons (feature key+ number key)
