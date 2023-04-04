@@ -11,4 +11,17 @@
 4.0.0: ProximityRadar implemented, along with a whole slew of features.
 4.1.0: i forgot :/
 
-5.0.0: Well. This is awkward.
+5.0.0: Well, this is awkward
+
+=====
+
+3.1.0
+    Added a "full keyboard gameplay" feature: Allows you to play Minecraft using only your keyboard and a touchscreen. Full mouse event simulation (so you can drop the touchscreen) is in progress, but not very successful
+    Added missing translation keys
+    Fixed a bug in CommandProcessor where it would crash if the command is missing the action keyword
+    Fixed a bug where the shader color was not reset in ProximityRadar and RedReticle, causing the hotbar to be miscolored
+
+3.1.1
+    Fixed a typo in the FKB "look right" translation key
+    Implemented server-side feature-restriction via chat messages (so all servers can do it)
+    
