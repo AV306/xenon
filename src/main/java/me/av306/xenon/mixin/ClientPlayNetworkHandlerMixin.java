@@ -20,13 +20,15 @@ public class ClientPlayNetworkHandlerMixin
     )
     private void onOnChatMessage( ChatMessageS2CPacket packet, CallbackInfo ci )
     {
+        // FIXME: Need to test
         // Hook into this method to ensure that the packet is always received and processed
         // Otherwise people could just disable chat messages
 
         // Grab the packet content
         String content = packet.body().content();
 
-        // Packet format: {{xenon forcedisable [name]}}
+        // Packet format: {{xenon restrict [name]}}
+        // e.g. {{xenon restrict proximityradar}}
         if ( content.startsWith( "{{xenon forcedisable " ) && content.endsWith( " }}" ) )
         {
             // Get the feature name out
@@ -35,13 +37,15 @@ public class ClientPlayNetworkHandlerMixin
 
             if ( feature == null )
             {
-                Xenon.INSTANCE.LOGGER.warn( "Server requested force-disable of missing feature {}", content );
+                Xenon.INSTANCE.LOGGER.warn( "Server requested restriction of missing feature {}", content );
                 return;
             }
 
             feature.setForceDisabled( true );
 
-            // Don't process the opt-out packet
+            Xenon.INSTANCE.sendInfoMessage( "Server restricted feature {}", content );
+
+            // Don't continue processing the opt-out packet
             ci.cancel();
         }
         

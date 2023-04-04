@@ -124,12 +124,18 @@ public enum Xenon
 
     public void disableAllFeatures()
     {
+        // FIXME: This feels very inefficient
         ArrayList<IToggleableFeature> enabledFeatures_copy = new ArrayList<>( this.enabledFeatures );
         for ( IToggleableFeature feature : enabledFeatures_copy )
             feature.disable();
+
+        // Remove restrictions
+        for ( IFeature feature : this.featureRegistry )
+            feature.setForceDisabled( false );
     }
 
-    private void readVersionData()
+    // TODO: With the Modrinth API this can finally be implemented
+    /*private void readVersionData()
     {
         // set version
 
@@ -139,7 +145,7 @@ public enum Xenon
         this.modContainer = FabricLoader.getInstance().getModContainer( "xenon" ).get();
 
         this.version = modContainer.getMetadata().getVersion().getFriendlyString();
-    }
+    }*/
 
 
 
