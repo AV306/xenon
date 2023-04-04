@@ -80,7 +80,7 @@ public enum Xenon
     public void initialise()
     {
         // Read our version data
-        readVersionData();
+        //readVersionData();
 		
         // set client and its accessor
         this.client = MinecraftClient.getInstance();
@@ -130,7 +130,7 @@ public enum Xenon
             feature.disable();
 
         // Remove restrictions
-        for ( IFeature feature : this.featureRegistry )
+        for ( IFeature feature : this.featureRegistry.values() )
             feature.setForceDisabled( false );
     }
 
@@ -159,6 +159,17 @@ public enum Xenon
     {
         Text finalText = namePrefix.copy()
                 .append( TextFactory.createTranslatable( key ) );
+        try
+        {
+            this.client.player.sendMessage( finalText, false );
+        }
+        catch ( NullPointerException ignored ) {}
+    }
+
+    public void sendInfoMessage( String key, Object... args )
+    {
+        Text finalText = namePrefix.copy()
+                .append( TextFactory.createTranslatable( key, args ) );
         try
         {
             this.client.player.sendMessage( finalText, false );
