@@ -29,10 +29,10 @@ public class ClientPlayNetworkHandlerMixin
 
         // Packet format: {{xenon restrict [name]}}
         // e.g. {{xenon restrict proximityradar}}
-        if ( content.startsWith( "{{xenon forcedisable " ) && content.endsWith( " }}" ) )
+        if ( content.startsWith( "{{xenon restrict " ) && content.endsWith( " }}" ) )
         {
             // Get the feature name out
-            content = content.replaceAll( "{{xenon forcedisable ", "" ).replaceAll( " }}", "" );
+            content = content.replaceAll( "{{xenon restrict ", "" ).replaceAll( " }}", "" );
             IFeature feature = Xenon.INSTANCE.featureRegistry.get( content );
 
             if ( feature == null )
@@ -43,7 +43,7 @@ public class ClientPlayNetworkHandlerMixin
 
             feature.setForceDisabled( true );
 
-            Xenon.INSTANCE.sendInfoMessage( "Server restricted feature {}", content );
+            //Xenon.INSTANCE.sendInfoMessage( "Server restricted feature {}", content );
 
             // Don't continue processing the opt-out packet
             ci.cancel();
