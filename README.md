@@ -10,7 +10,11 @@ Xenon tries to implement features similar to those in clients such as Badlion an
 
 This project often has bugs and missing translation keys, as I unfortunately can't extensively test everything due to school and other commitments. If you find anything wrong, please raise an issue! PRs are very welcome.
 
-A server-side opt-out companion mod for the slightly more controversial features is currently being developed.
+Servers can "opt-out" of any features they wish, by sending the following message through chat:
+
+`{{xenon restrict [feature name]}}`, replacing `[feature name]` with any alias for the feature, e.g. `{{xenon restrict proxradar}}` for ProximityRadar.
+
+Xenon will not display the opt-out "message", and the message will still be processed even if the client sets their interaction settings to disable chat.
 
 ## Requirements:
 
