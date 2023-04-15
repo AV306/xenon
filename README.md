@@ -4,6 +4,8 @@
 [![CodeQL](https://github.com/AV306/xenon/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/AV306/xenon/actions/workflows/codeql-analysis.yml)
 [![Custom badge](https://img.shields.io/endpoint?color=3fcc98&url=https%3A%2F%2Fhits.dwyl.com%2FAV306%2Fxenon.json%3Fshow%3Dunique)]()
 
+**[Xenon is on Modrinth!](https://modrinth.com/mod/xenon)**
+
 Hello! This is Xenon, a Minecraft utility mod that adds stuff that aims to make Minecraft more pleasant and convenient.
 
 Xenon tries to implement features similar to those in clients such as Badlion and Lunar, while maintaining compatibility with other mods. 
