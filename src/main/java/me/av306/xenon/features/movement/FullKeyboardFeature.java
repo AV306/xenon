@@ -104,7 +104,12 @@ public final class FullKeyboardFeature extends IToggleableFeature
         if ( Xenon.INSTANCE.client.options.sprintKey.isPressed() )
         {
             // FLick view
-            // TODO
+            // TODO: How does vanilla rotate the player?
+            //if ( this.upKey.wasPressed() ) 
+            //if ( this.downKey.wasPressed() ) 
+            //if ( this.leftKey.wasPressed() )
+            //Xenon.INSTANCE.client.player.sendMessage( me.av306.xenon.util.text.TextFactory.createLiteral( String.valueOf( this.rightKey.wasPressed() ) ) );
+            //if ( this.rightKey.wasPressed() ) ((MouseAccessor) Xenon.INSTANCE.client.mouse).setCursorDeltaX( 100 );
         }
         else if ( !accelerate )
         {
