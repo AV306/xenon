@@ -80,7 +80,7 @@ public enum Xenon
     public void initialise()
     {
         // Read our version data
-        //readVersionData();
+        readVersionData();
 		
         // set client and its accessor
         this.client = MinecraftClient.getInstance();
@@ -135,7 +135,7 @@ public enum Xenon
     }
 
     // TODO: With the Modrinth API this can finally be implemented
-    /*private void readVersionData()
+    private void readVersionData()
     {
         // set version
 
@@ -145,7 +145,7 @@ public enum Xenon
         this.modContainer = FabricLoader.getInstance().getModContainer( "xenon" ).get();
 
         this.version = modContainer.getMetadata().getVersion().getFriendlyString();
-    }*/
+    }
 
 
 
