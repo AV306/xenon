@@ -2,6 +2,7 @@ package me.av306.xenon.mixin;
 
 import me.av306.xenon.Xenon;
 import me.av306.xenon.feature.IFeature;
+import me.av306.xenon.util.render.RotationUtil;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.network.packet.s2c.play.ChatMessageS2CPacket;
 import net.minecraft.network.packet.s2c.play.EntityDamageS2CPacket;
@@ -56,13 +57,29 @@ public class ClientPlayNetworkHandlerMixin
 
     @Inject(
         at = @At( "HEAD" ),
-        method = "onEntityDamage(Lnet/minecraft/network/packet/s2c/play/EntityDamageS2CPacket;)V"
+        method = "onEntityDamage(Lnet/minecraft/network/packet/s2c/play/EntityDamageS2CPacket;)V",
         cancellable = true
     )
     private void onOnEntityDamage( EntityDamageS2CPacket packet, CallbackInfo ci )
     {
-        // TODO: Does this trigger when we attac, or when something attacks us?
-        Xenon.INSTANCE.LOGGER.info( "EntityDamageS2CPacket: {}", packet.toString() );
-        Xenon.INSTANCE.LOGGER.info( "EntityDamageS2CPacket.createDamageSource(): {}", packet.createDamageSource( Xenon.INSTANCE.client.world ).toString() );
+        // This works! Only fires when the player is damaged.
+        //Xenon.INSTANCE.LOGGER.info( "EntityDamageS2CPacket: {}", packet.toString() );
+        //Xenon.INSTANCE.LOGGER.info( "EntityDamageS2CPacket.createDamageSource(): {}", packet.createDamageSource( Xenon.INSTANCE.client.world ).toString() );
+        Vec3d sourcePosition = packet.createDamageSource( Xenon.INSTANCE.client.world ).getPosition();
+        Vec3d playerPosition = Xenon.INSTANCE.client.player.getPos();
+        Vec3d damageVec = sourcePosition.subtract( playerPosition );
+
+        // Find direction: Left, right, above, or behind?
+
+        // Get direction player is facing
+        Vec3d lookVec = RotationUtil.getClientLookVec();
+
+        // Get pitch angle
+        double pitchAngle = Math.asin(
+            sourcePosition.getY() - playerPosition.getY() / damageVec.length()
+        );
+
+        // Get yaw angle
+        
     }
 }

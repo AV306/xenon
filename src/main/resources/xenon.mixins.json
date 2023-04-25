@@ -13,6 +13,7 @@
     "ClientPlayerEntityMixin",
     "ClientPlayerInteractionManagerAccessor",
     "ClientPlayerInteractionManagerMixin",
+    "ClientPlayNetworkHandlerMixin",
     "ClientWorldMixin",
     "GameOptionsAccessor",
     "GameRendererAccessor",

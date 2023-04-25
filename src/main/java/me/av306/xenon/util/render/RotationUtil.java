@@ -8,7 +8,7 @@ import net.minecraft.util.math.Vec3d;
 
 public class RotationUtil
 {
-	public static Vec3d getEyesPos()
+	public static Vec3d getEyesPos() // TODO: Rename to "getEyePos"
 	{
 		ClientPlayerEntity player = Xenon.INSTANCE.client.player;
 
