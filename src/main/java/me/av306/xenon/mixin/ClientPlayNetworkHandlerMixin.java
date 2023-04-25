@@ -4,6 +4,7 @@ import me.av306.xenon.Xenon;
 import me.av306.xenon.feature.IFeature;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.network.packet.s2c.play.ChatMessageS2CPacket;
+import net.minecraft.network.packet.s2c.play.EntityDamageS2CPacket;
 import net.minecraft.util.ActionResult;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -22,7 +23,8 @@ public class ClientPlayNetworkHandlerMixin
     {
         // FIXME: Need to test
         // Hook into this method to ensure that the packet is always received and processed
-        // Otherwise people could just disable chat messages
+        // Otherwise people could just disable chat messages.
+        // This is about as early as we can hook
 
         // Grab the packet content
         String content = packet.body().content();
@@ -50,5 +52,17 @@ public class ClientPlayNetworkHandlerMixin
         }
         
         // Not an opt-out packet; continue as per normal
+    }
+
+    @Inject(
+        at = @At( "HEAD" ),
+        method = "onEntityDamage(Lnet/minecraft/network/packet/s2c/play/EntityDamageS2CPacket;)V"
+        cancellable = true
+    )
+    private void onOnEntityDamage( EntityDamageS2CPacket packet, CallbackInfo ci )
+    {
+        // TODO: Does this trigger when we attac, or when something attacks us?
+        Xenon.INSTANCE.LOGGER.info( "EntityDamageS2CPacket: {}", packet.toString() );
+        Xenon.INSTANCE.LOGGER.info( "EntityDamageS2CPacket.createDamageSource(): {}", packet.createDamageSource( Xenon.INSTANCE.client.world ).toString() );
     }
 }

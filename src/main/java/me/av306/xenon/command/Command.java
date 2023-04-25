@@ -22,7 +22,7 @@ public abstract class Command
 	}
 
 	/**
-	 * Implementations miust handle a blank case
+	 * Implementations must handle empty arguments
 	 */
 	public abstract void execute( String[] args );
 }
