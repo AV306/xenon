@@ -89,11 +89,11 @@ public enum Xenon
         // register features
         initCommands();
         initFeatures();
-
     }
 
     private void initCommands()
     {
+        new DebugCrashCommand();
         new HelpCommand();
     }
 
@@ -155,6 +155,7 @@ public enum Xenon
      * | Utility methods |
      * +-----------------+
      */
+    
     public void sendInfoMessage( String key )
     {
         Text finalText = namePrefix.copy()
