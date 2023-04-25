@@ -1,7 +1,7 @@
 package me.av306.xenon;
 
 import me.av306.xenon.command.Command;
-import me.av306.xenon.commands.HelpCommand;
+import me.av306.xenon.commands.*;
 import me.av306.xenon.config.FeatureConfigGroup;
 import me.av306.xenon.config.GeneralConfigGroup;
 import me.av306.xenon.feature.*;

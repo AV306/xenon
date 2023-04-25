@@ -66,7 +66,6 @@ public final class FullKeyboardFeature extends IToggleableFeature
             this.category
         );
         
-
         // Register double-bindings
         ClientTickEvents.START_CLIENT_TICK.register( (client) -> this.onEndTick() );
     }
@@ -74,23 +73,23 @@ public final class FullKeyboardFeature extends IToggleableFeature
     private void onEndTick()
     {
         if ( !this.isEnabled ) return;
+
+        // FIXME: virtual attack key only works for block breaking, not attacking
+        // Best guess is attack is a wasPressed() call, but block breaking is an isPressed()
+        Xenon.INSTANCE.client.options.attackKey.setPressed( this.virtualLeftMouseKey.isPressed() );
+        Xenon.INSTANCE.client.options.useKey.setPressed( this.virtualRightMouseKey.isPressed() );
         
         double fac = Xenon.INSTANCE.client.options.getMouseSensitivity().getValue() * FullKeyboardGroup.sensitivity;
 
         // The cursor will be unlocked when in a GUI or chat, so when this happens
         // we need to modify the cursor position directly
-        boolean mouseLocked = Xenon.INSTANCE.client.mouse.isCursorLocked();
-
         // Movement stuff
-        if ( mouseLocked )
+        if ( Xenon.INSTANCE.client.mouse.isCursorLocked() )
             // Gameplay; use deltas
             this.modifyMouseDelta( fac, FullKeyboardGroup.acceleration );
         else
             // This works, but doesn't update the actual cursor position
             this.modifyMousePos( fac );
-
-        Xenon.INSTANCE.client.options.attackKey.setPressed( this.virtualLeftMouseKey.isPressed() );
-        Xenon.INSTANCE.client.options.useKey.setPressed( this.virtualRightMouseKey.isPressed() );
     }
 
     /**
