@@ -65,21 +65,24 @@ public class ClientPlayNetworkHandlerMixin
     {
         Vec3d sourcePosition = packet.createDamageSource( Xenon.INSTANCE.client.world ).getPosition();
         if ( sourcePosition == null ) return;
+
         
         Vec3d playerPosition = Xenon.INSTANCE.client.player.getPos();
         Vec3d damageVec = sourcePosition.subtract( playerPosition );
 
+        Xenon.INSTANCE.LOGGER.info( "playerPosition: {}; sourcePosition: {}", playerPosition, sourcePosition );
+
         // Find direction: Left, right, above, or behind?
-        // TODO: does Entity.getPitch() return radians?
 
         // Get pitch angle (radians) of damage vector from look vector
         // +ve for up, -ve for down
-        // FIXME: This seems to have the wrong sign
+        // This works!
         double pitch = Math.asin( damageVec.y / damageVec.length() ) - Xenon.INSTANCE.client.player.getPitch();
 
         // Get yaw angle of damage vector from look vector
         // +ve for right, -ve for left
         // FIXME: Is yaw relative to north (-Z)?
+        // Offset by like 90deg
         double yaw = Math.asin(
                 damageVec.x /
                 new Vec3d( damageVec.x, 0, damageVec.z ).length() // Length of shadow of damage vector in the XZ plane
