@@ -24,4 +24,11 @@ public class TextFactory
     {
         return Text.literal( content );
     }
+
+    public static MutableText createLiteral( String content, String... args )
+    {
+        MutableText t = Text.literal( content );
+        for ( String s : args ) t.append( s );
+        return t;
+    }
 }
