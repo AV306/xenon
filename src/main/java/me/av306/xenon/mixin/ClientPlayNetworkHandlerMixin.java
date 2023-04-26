@@ -63,9 +63,6 @@ public class ClientPlayNetworkHandlerMixin
     )
     private void onOnEntityDamage( EntityDamageS2CPacket packet, CallbackInfo ci )
     {
-        // This works! Only fires when the player is damaged.
-        //Xenon.INSTANCE.LOGGER.info( "EntityDamageS2CPacket: {}", packet.toString() );
-        //Xenon.INSTANCE.LOGGER.info( "EntityDamageS2CPacket.createDamageSource(): {}", packet.createDamageSource( Xenon.INSTANCE.client.world ).toString() );
         Vec3d sourcePosition = packet.createDamageSource( Xenon.INSTANCE.client.world ).getPosition();
         if ( sourcePosition == null ) return;
         
@@ -73,18 +70,19 @@ public class ClientPlayNetworkHandlerMixin
         Vec3d damageVec = sourcePosition.subtract( playerPosition );
 
         // Find direction: Left, right, above, or behind?
+        // TODO: does Entity.getPitch() return radians?
 
-        // Get pitch angle of damage vector from look vector
+        // Get pitch angle (radians) of damage vector from look vector
         // +ve for up, -ve for down
-        // `pitch` is the pitch of the damage vec minus pitch of the look vec
         // FIXME: This seems to have the wrong sign
         double pitch = Math.asin( damageVec.y / damageVec.length() ) - Xenon.INSTANCE.client.player.getPitch();
 
-        // Get yaw angle
+        // Get yaw angle of damage vector from look vector
+        // +ve for right, -ve for left
         // FIXME: Is yaw relative to north (-Z)?
         double yaw = Math.asin(
-                new Vec3d( damageVec.x, 0, damageVec.z ).length() / // Shadow of damage vector in the XZ plane
-                -damageVec.x
+                damageVec.x /
+                new Vec3d( damageVec.x, 0, damageVec.z ).length() // Length of shadow of damage vector in the XZ plane
         ) - Xenon.INSTANCE.client.player.getYaw();
 
         /*if ( pitch >= 0 )

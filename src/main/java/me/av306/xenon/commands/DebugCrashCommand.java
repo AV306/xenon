@@ -12,6 +12,8 @@ public class DebugCrashCommand extends Command
 	@Override
 	public void execute( String[] args )
 	{
-		GlfwUtil.makeJvmCrash();
+		if ( args[0].equals( "confirm" ) )
+			GlfwUtil.makeJvmCrash();
+		else Xenon.INSTANCE.sendWarningMessage( "text.xenon.command.debugcrash.warning" );
 	}
 }
