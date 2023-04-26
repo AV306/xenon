@@ -71,15 +71,40 @@ public class ClientPlayNetworkHandlerMixin
 
         // Find direction: Left, right, above, or behind?
 
-        // Get direction player is facing
-        Vec3d lookVec = RotationUtil.getClientLookVec();
-
-        // Get pitch angle
-        double pitchAngle = Math.asin(
-            sourcePosition.getY() - playerPosition.getY() / damageVec.length()
-        );
+        // Get pitch angle of damage vector from look vector
+        // +ve for up, -ve for down
+        // `pitch` is the pitch of the damage vec minus pitch of the look vec
+        double pitch = Math.asin( damageVec.y / damageVec.length() ) - Xenon.INSTANCE.client.player.getPitch();
 
         // Get yaw angle
-        
+        // FIXME: Is yaw relative to north (-Z)?
+        double yaw = Math.asin(
+                new Vec3d( damageVec.x, 0, damageVec.z ).length() / // Shadow of damage vector in the XZ plane
+                -damageVec.z
+        ) - Xenon.INSTANCE.client.player.getYaw();
+
+        if ( pitch >= 0 )
+        {
+            // Damage from above
+            Xenon.INSTANCE.sendInfoMessage( "above" );
+        }
+        else
+        {
+            // Damage from below
+            Xenon.INSTANCE.sendInfoMessage( "below" );
+        }
+
+        if ( yaw > 0 )
+        {
+            // Damage from right
+            // TODO: Verify
+            Xenon.INSTANCE.sendInfoMessage( "right" );
+        }
+        else if ( yaw < 0 )
+        {
+            // Damage from right
+        }
+        // Ignore damage from straight ahead
+        Xenon.INSTANCE.sendInfoMessage( "left" );
     }
 }
