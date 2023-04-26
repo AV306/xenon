@@ -178,6 +178,12 @@ public enum Xenon
         catch ( NullPointerException ignored ) {}
     }
 
+    /*public void sendLiteralInfoMessage( String literal, Object... args )
+    {
+        Text finalText = namePrefix.copy()
+                .append( TextFactory.createLiteral( literal, args))
+    }*/
+
     public void sendInfoMessage( Text text )
     {
         Text finalText = namePrefix.copy()

@@ -7,6 +7,7 @@ import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.network.packet.s2c.play.ChatMessageS2CPacket;
 import net.minecraft.network.packet.s2c.play.EntityDamageS2CPacket;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -66,6 +67,8 @@ public class ClientPlayNetworkHandlerMixin
         //Xenon.INSTANCE.LOGGER.info( "EntityDamageS2CPacket: {}", packet.toString() );
         //Xenon.INSTANCE.LOGGER.info( "EntityDamageS2CPacket.createDamageSource(): {}", packet.createDamageSource( Xenon.INSTANCE.client.world ).toString() );
         Vec3d sourcePosition = packet.createDamageSource( Xenon.INSTANCE.client.world ).getPosition();
+        if ( sourcePosition == null ) return;
+        
         Vec3d playerPosition = Xenon.INSTANCE.client.player.getPos();
         Vec3d damageVec = sourcePosition.subtract( playerPosition );
 
@@ -74,16 +77,17 @@ public class ClientPlayNetworkHandlerMixin
         // Get pitch angle of damage vector from look vector
         // +ve for up, -ve for down
         // `pitch` is the pitch of the damage vec minus pitch of the look vec
+        // FIXME: This seems to have the wrong sign
         double pitch = Math.asin( damageVec.y / damageVec.length() ) - Xenon.INSTANCE.client.player.getPitch();
 
         // Get yaw angle
         // FIXME: Is yaw relative to north (-Z)?
         double yaw = Math.asin(
                 new Vec3d( damageVec.x, 0, damageVec.z ).length() / // Shadow of damage vector in the XZ plane
-                -damageVec.z
+                -damageVec.x
         ) - Xenon.INSTANCE.client.player.getYaw();
 
-        if ( pitch >= 0 )
+        /*if ( pitch >= 0 )
         {
             // Damage from above
             Xenon.INSTANCE.sendInfoMessage( "above" );
@@ -103,8 +107,10 @@ public class ClientPlayNetworkHandlerMixin
         else if ( yaw < 0 )
         {
             // Damage from right
-        }
+            Xenon.INSTANCE.sendInfoMessage( "left" );
+        }*/
         // Ignore damage from straight ahead
-        Xenon.INSTANCE.sendInfoMessage( "left" );
+
+        Xenon.INSTANCE.LOGGER.info( "pitch: {}; yaw: {}", pitch, yaw );
     }
 }
