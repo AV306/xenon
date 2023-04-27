@@ -11,7 +11,7 @@ import net.minecraft.util.math.Vec3d;
 
 public class DamageIndicatorFeature extends IToggleableFeature
 {
-    private float indicatorTicks = 0f;
+    private float indicatorProgress = 0f;
 
     // Damage indicator flagss
     private boolean upIndicator = false;
@@ -24,6 +24,7 @@ public class DamageIndicatorFeature extends IToggleableFeature
         super( "DamageIndicator", "indicator", "dmgindicator", "dmghud" );
 
         EntityDamageEvent.EVENT.register( this::onEntityDamage );
+        RenderInGameHudEvent.AFTER_VIGNETTE.register( this::onInGameHudRender );
     }
 
     private ActionResult onEntityDamage( EntityDamageS2CPacket packet )
@@ -80,6 +81,11 @@ public class DamageIndicatorFeature extends IToggleableFeature
         Xenon.INSTANCE.LOGGER.info( "pitch: {}; yaw: {}", pitch, yaw );
     
         return ActionResult.PASS;
+    }
+
+    private ActionResult onInGameHudRender( MatrixStack matrices, float tickDelta )
+    {
+        float deltaTime = Xenon.INSTANCE.client.getLastFrameDuration();
     }
 
     @Override

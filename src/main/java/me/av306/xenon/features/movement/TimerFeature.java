@@ -10,8 +10,6 @@ import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.util.ActionResult;
 
 /**
- * Our first "grey" feature!
- *
  * A client-sided TPS booster to speed up basically everything.
  */
 public class TimerFeature extends IToggleableFeature

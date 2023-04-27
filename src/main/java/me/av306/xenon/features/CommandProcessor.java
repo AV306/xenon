@@ -155,7 +155,7 @@ public class CommandProcessor extends IToggleableFeature
                 target.requestConfigChange( cmd[1], cmd[2] );
             }
 
-            case "execute", "exec", "ex" ->
+            /*case "execute", "exec", "ex" ->
             {
                 if ( cmd.length < 3 )
                 {
@@ -164,13 +164,21 @@ public class CommandProcessor extends IToggleableFeature
                 }
 
                 target.requestExecuteAction( Arrays.copyOfRange( cmd, 2, cmd.length ) );
-            }
+            }*/
 
+            // Java 20 only
             //case null -> Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocesor.missing.action" );
 
-            default -> Xenon.INSTANCE.sendErrorMessage(
+            /*default -> Xenon.INSTANCE.sendErrorMessage(
                     "text.xenon.commandprocesor.unknown", "action", cmd[0]
-            );
+            );*/
+            
+            // Pass unknown action to feature
+            default ->
+            {
+                if ( cmd[0] != null ) target.requestExecuteAction( cmd );
+                else Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocesor.missing.action" );
+            }
         }
 
         return true;
