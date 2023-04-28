@@ -7,15 +7,23 @@ import me.av306.xenon.event.RenderInGameHudEvent;
 import me.av306.xenon.feature.IToggleableFeature;
 import me.av306.xenon.util.render.RotationUtil;
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.Camera;
+import net.minecraft.client.render.GameRenderer;
+import net.minecraft.client.render.Tessellator;
+import net.minecraft.client.render.VertexFormat;
+import net.minecraft.client.render.VertexFormats;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.network.packet.s2c.play.EntityDamageS2CPacket;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
+import org.joml.Matrix4f;
 
 public class DamageIndicatorFeature extends IToggleableFeature
 {
-    private final Identifier upIndicatorId = new Identifier( "xenon", "textures/damageindicator/upIndicator.png" );
-    private final Identifier leftIndicatorId = new Identifier( "xenon", "textures/damageindicator/leftIndicator.png" );
+    private final Identifier upIndicatorId = new Identifier( "xenon", "textures/damageindicator/up_indicator.png" );
+    private final Identifier leftIndicatorId = new Identifier( "xenon", "textures/damageindicator/left_indicator.png" );
 
     private float indicatorProgress = 0f;
 
@@ -36,7 +44,7 @@ public class DamageIndicatorFeature extends IToggleableFeature
     private ActionResult onEntityDamage( EntityDamageS2CPacket packet )
     {   
         Vec3d sourcePosition = packet.createDamageSource( Xenon.INSTANCE.client.world ).getPosition();
-        if ( sourcePosition == null ) return;
+        if ( sourcePosition == null ) return ActionResult.PASS;
 
         
         Vec3d playerPosition = Xenon.INSTANCE.client.player.getPos();
@@ -106,7 +114,7 @@ public class DamageIndicatorFeature extends IToggleableFeature
                 downIndicator = false;
                 leftIndicator = false;
                 rightIndicator = false;
-                this.indicatorDurationMillis = 0f;
+                this.indicatorProgress = 0f;
                 return ActionResult.PASS;
             }
             
