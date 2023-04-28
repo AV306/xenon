@@ -22,9 +22,6 @@ import org.joml.Matrix4f;
 
 public class DamageIndicatorFeature extends IToggleableFeature
 {
-    private final Identifier upIndicatorId = new Identifier( "xenon", "textures/damageindicator/up_indicator.png" );
-    private final Identifier leftIndicatorId = new Identifier( "xenon", "textures/damageindicator/left_indicator.png" );
-
     private float indicatorProgress = 0f;
 
     // Damage indicator flagss
@@ -50,14 +47,14 @@ public class DamageIndicatorFeature extends IToggleableFeature
         Vec3d playerPosition = Xenon.INSTANCE.client.player.getPos();
         Vec3d damageVec = sourcePosition.subtract( playerPosition );
 
-        Xenon.INSTANCE.LOGGER.info( "playerPosition: {}; sourcePosition: {}", playerPosition, sourcePosition );
+        //Xenon.INSTANCE.LOGGER.info( "playerPosition: {}; sourcePosition: {}", playerPosition, sourcePosition );
 
         // Find direction: Left, right, above, or behind?
 
         // Get pitch angle (radians) of damage vector from look vector
         // +ve for up, -ve for down
-        // This works!
-        double pitch = Math.asin( damageVec.y / damageVec.length() ) - Xenon.INSTANCE.client.player.getPitch();
+        // I have no damn clue why the sign is flipped, but this makes it work
+        double pitch = Xenon.INSTANCE.client.player.getPitch() - Math.asin( damageVec.y / damageVec.length() );
 
         // Get yaw angle of damage vector from look vector
         // +ve for right, -ve for left
@@ -95,7 +92,7 @@ public class DamageIndicatorFeature extends IToggleableFeature
             Xenon.INSTANCE.sendInfoMessage( "left" );
         }
 
-        //Xenon.INSTANCE.LOGGER.info( "pitch: {}; yaw: {}", pitch, yaw );
+        Xenon.INSTANCE.LOGGER.info( "pitch: {}; yaw: {}", pitch, yaw );
     
         return ActionResult.PASS;
     }
@@ -104,6 +101,7 @@ public class DamageIndicatorFeature extends IToggleableFeature
     {
         float deltaTime = Xenon.INSTANCE.client.getLastFrameDuration(); // FIXME: is this millis?
 
+        // FIXME: not working :(
         if ( upIndicator || downIndicator || leftIndicator || rightIndicator )
         {
             // Skip the update and reset the flags if the duration is past
@@ -121,7 +119,7 @@ public class DamageIndicatorFeature extends IToggleableFeature
             // At least one indicator needs to be displayed and the duration isn't past
 
             // Increment progress
-            this.indicatorProgress += deltaTime;
+            //this.indicatorProgress += deltaTime;
 
             // Clamp
             //if ( this.indicatorDurationMillis > 1f ) indicatorDurationMillis = 1f;
@@ -136,7 +134,7 @@ public class DamageIndicatorFeature extends IToggleableFeature
 		    Tessellator tessellator = RenderSystem.renderThreadTesselator();
 		    BufferBuilder bufferBuilder = tessellator.getBuffer();
 		    RenderSystem.setShader( GameRenderer::getPositionProgram );
-            RenderSystem.setShaderColor( 1f, 0f, 0f, 0f );
+            RenderSystem.setShaderColor( 1f, 0f, 0f, 1f );
             bufferBuilder.begin( VertexFormat.DrawMode.TRIANGLES, VertexFormats.POSITION );
 
                 // FIXME: Reduc calculations with cache?
@@ -249,6 +247,7 @@ public class DamageIndicatorFeature extends IToggleableFeature
             }
 
             tessellator.draw();
+            RenderSystem.setShaderColor( 1f, 1f, 1f, 1f );
             matrices.pop();
         }
         return ActionResult.PASS;
