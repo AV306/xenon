@@ -17,6 +17,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.network.packet.s2c.play.EntityDamageS2CPacket;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import org.joml.Matrix4f;
 
@@ -35,7 +36,7 @@ public class DamageIndicatorFeature extends IToggleableFeature
         super( "DamageIndicator", "indicator", "dmgindicator", "dmghud" );
 
         EntityDamageEvent.EVENT.register( this::onEntityDamage );
-        RenderInGameHudEvent.AFTER_VIGNETTE.register( this::onInGameHudRender );
+        //RenderInGameHudEvent.AFTER_VIGNETTE.register( this::onInGameHudRender );
     }
 
     private ActionResult onEntityDamage( EntityDamageS2CPacket packet )
@@ -53,17 +54,18 @@ public class DamageIndicatorFeature extends IToggleableFeature
 
         // Get pitch angle (radians) of damage vector from look vector
         // +ve for up, -ve for down
-        // I have no damn clue why the sign is flipped, but this makes it work
-        double pitch = Xenon.INSTANCE.client.player.getPitch() - Math.asin( damageVec.y / damageVec.length() );
+        // We add the pitch instead of subtracting because player pitch direction is opposite of ours
+        double pitch = MathHelper.wrapDegrees( Math.toDegrees( Math.asin( damageVec.y / damageVec.length() ) ) + Xenon.INSTANCE.client.player.getPitch() );
 
         // Get yaw angle of damage vector from look vector
         // +ve for right, -ve for left
-        // FIXME: Is yaw relative to north (-Z)?
+        // Yaw is relative to Z+
         // Offset by like -90deg
-        double yaw = Math.asin(
+        // Works!
+        double yaw = MathHelper.wrapDegrees( Math.toDegrees( Math.asin(
                 -damageVec.x /
                 new Vec3d( damageVec.x, 0, damageVec.z ).length() // Length of shadow of damage vector in the XZ plane
-        ) - Xenon.INSTANCE.client.player.getYaw();
+        ) ) - Xenon.INSTANCE.client.player.getYaw() );
 
         if ( pitch >= 0 )
         {

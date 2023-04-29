@@ -1,4 +1,4 @@
-#!/bin/sh
+# #!/bin/sh
 
 # Small script to quickly install optimisation / QoL mods
 # QoL mods are not downloaded by default
