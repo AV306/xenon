@@ -176,8 +176,7 @@ public class CommandProcessor extends IToggleableFeature
             // Pass unknown action to feature
             default ->
             {
-                if ( cmd[0] != null ) target.requestExecuteAction( cmd );
-                else Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocesor.missing.action" );
+                target.requestExecuteAction( cmd );
             }
         }
 
