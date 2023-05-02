@@ -14,4 +14,10 @@ public interface RenderTickCounterAccessor
 
     @Accessor( "lastFrameDuration" )
     void setLastFrameDuration( float duration );
+
+    @Accessor
+    long getPrevTimeMillis();
+    
+    @Accessor( "prevTimeMillis" )
+    void setPrevTimeMillis( long timeMillis );
 }

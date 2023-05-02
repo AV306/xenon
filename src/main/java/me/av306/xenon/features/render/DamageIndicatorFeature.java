@@ -5,6 +5,8 @@ import me.av306.xenon.config.feature.DamageIndicatorGroup;
 import me.av306.xenon.event.EntityDamageEvent;
 import me.av306.xenon.event.RenderInGameHudEvent;
 import me.av306.xenon.feature.IToggleableFeature;
+import me.av306.xenon.mixin.MinecraftClientAccessor;
+import me.av306.xenon.mixin.RenderTickCounterAccessor;
 import me.av306.xenon.util.render.RotationUtil;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.render.BufferBuilder;
@@ -123,9 +125,10 @@ public class DamageIndicatorFeature extends IToggleableFeature
             no -> 
                 Return (nothing for us to do here)
         */
-        if ( !this.isEnabled ) return ActionResult.PASS;
+        //if ( !this.isEnabled ) return ActionResult.PASS;
 
-        float deltaTime = Xenon.INSTANCE.client.getLastFrameDuration(); // FIXME: is this millis?
+        //float deltaTime = Xenon.INSTANCE.client.getLastFrameDuration() / 1000f;
+        float deltaTime = Xenon.INSTANCE.client.getRenderTime();
         Xenon.INSTANCE.LOGGER.info( "dt: {}", deltaTime );
         float alpha = 1f;
 
@@ -163,10 +166,10 @@ public class DamageIndicatorFeature extends IToggleableFeature
             bufferBuilder.begin( VertexFormat.DrawMode.TRIANGLES, VertexFormats.POSITION );
 
             // Why not rendering :(
-            bufferBuilder.vertex( matrix, 0, 0, 0 ).next();
+            /*bufferBuilder.vertex( matrix, 0, 0, 0 ).next();
             bufferBuilder.vertex( matrix, 1f, 0, 0 ).next();
             bufferBuilder.vertex( matrix, 1f, 1f, 0 ).next();
-            bufferBuilder.vertex( matrix, 0, 1f, 0 ).next();
+            bufferBuilder.vertex( matrix, 0, 1f, 0 ).next();*/
 
                 // FIXME: Reduc calculations with cache?
             if ( this.upIndicator )

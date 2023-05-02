@@ -10,8 +10,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin( RenderTickCounter.class )
-public abstract class RenderTickCounterMixin //implements RenderTickCounterAccessor
-// i think the original duck-typing way only works in forge?
+public abstract class RenderTickCounterMixin
 {
     @Shadow
     private float lastFrameDuration;

@@ -39,8 +39,7 @@ public class TimerFeature extends IToggleableFeature
             // Get the duration of the last frame
             float lastFrameDurationLocal = ((RenderTickCounterAccessor) renderTickCounter).getLastFrameDuration();
 
-            // Make it seem longer than it was,
-            // to force Minecraft to try to run everything faster
+            // Make it seem longer than it was to force Minecraft to try to run everything faster
             lastFrameDurationLocal *= TimerGroup.timerSpeed;
             ((RenderTickCounterAccessor) renderTickCounter).setLastFrameDuration( lastFrameDurationLocal );
         }
