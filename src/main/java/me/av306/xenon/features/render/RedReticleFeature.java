@@ -54,7 +54,7 @@ public class RedReticleFeature extends IToggleableFeature
         return ActionResult.PASS;
     }
 
-    private ActionResult onEndRenderCrosshair(MatrixStack matrixStack)
+    private ActionResult onEndRenderCrosshair( MatrixStack matrixStack )
     {
         if ( this.isEnabled ) RenderSystem.enableBlend();
         return ActionResult.PASS;

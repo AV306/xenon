@@ -36,7 +36,7 @@ public class DamageIndicatorFeature extends IToggleableFeature
         super( "DamageIndicator", "indicator", "dmgindicator", "dmghud" );
 
         EntityDamageEvent.EVENT.register( this::onEntityDamage );
-        //RenderInGameHudEvent.AFTER_VIGNETTE.register( this::onInGameHudRender );
+        RenderInGameHudEvent.AFTER_VIGNETTE.register( this::onInGameHudRender );
     }
 
     private ActionResult onEntityDamage( EntityDamageS2CPacket packet )
@@ -123,9 +123,10 @@ public class DamageIndicatorFeature extends IToggleableFeature
             no -> 
                 Return (nothing for us to do here)
         */
-
+        if ( !this.isEnabled ) return ActionResult.PASS;
 
         float deltaTime = Xenon.INSTANCE.client.getLastFrameDuration(); // FIXME: is this millis?
+        Xenon.INSTANCE.LOGGER.info( "dt: {}", deltaTime );
         float alpha = 1f;
 
         // FIXME: not working :(
@@ -139,20 +140,14 @@ public class DamageIndicatorFeature extends IToggleableFeature
             }
             else if ( this.progress > 1 && this.progress <= 2 )
             {
-                // Smoothed alpha (1-0)
+                // Smoothed alpha [1-0]
                 // Test: Sine easing
                 alpha = (float) -(Math.cos( Math.PI * (this.progress - 1) ) - 1) / 2f;
+                if ( alpha < 0 ) alpha = 0;
                 this.progress += DamageIndicatorGroup.indicatorFadeDurationMillis / deltaTime;
             }
-            // Garbage value
-            
-            // At least one indicator needs to be displayed and the duration isn't past
-
-            // Increment progress
-            //this.indicatorProgress += deltaTime;
-
-            // Clamp
-            //if ( this.indicatorDurationMillis > 1f ) indicatorDurationMillis = 1f;
+            else return ActionResult.PASS; // Garbage value, return
+             
 
             // Render
             // Don't use scaled width/height
