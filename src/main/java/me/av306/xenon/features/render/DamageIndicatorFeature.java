@@ -23,7 +23,7 @@ import org.joml.Matrix4f;
 
 public class DamageIndicatorFeature extends IToggleableFeature
 {
-    private float indicatorProgress = 0f;
+    private float progress = 0f;
 
     // Damage indicator flagss
     private boolean upIndicator = false;
@@ -40,7 +40,9 @@ public class DamageIndicatorFeature extends IToggleableFeature
     }
 
     private ActionResult onEntityDamage( EntityDamageS2CPacket packet )
-    {   
+    {
+        if ( !this.isEnabled ) return ActionResult.PASS;
+
         Vec3d sourcePosition = packet.createDamageSource( Xenon.INSTANCE.client.world ).getPosition();
         if ( sourcePosition == null ) return ActionResult.PASS;
 
@@ -71,13 +73,13 @@ public class DamageIndicatorFeature extends IToggleableFeature
         {
             // Damage from above
             this.upIndicator = true;
-            Xenon.INSTANCE.sendInfoMessage( "above" );
+            //Xenon.INSTANCE.sendInfoMessage( "above" );
         }
         else
         {
             // Damage from below
             this.downIndicator = true;
-            Xenon.INSTANCE.sendInfoMessage( "below" );
+            //Xenon.INSTANCE.sendInfoMessage( "below" );
         }
 
         if ( yaw > 0 )
@@ -85,38 +87,64 @@ public class DamageIndicatorFeature extends IToggleableFeature
             // Damage from right
             // TODO: Verify
             this.rightIndicator = true;
-            Xenon.INSTANCE.sendInfoMessage( "right" );
+            //Xenon.INSTANCE.sendInfoMessage( "right" );
         }
         else if ( yaw < 0 )
         {
             // Damage from left
             this.rightIndicator = true;
-            Xenon.INSTANCE.sendInfoMessage( "left" );
+            //Xenon.INSTANCE.sendInfoMessage( "left" );
         }
 
-        Xenon.INSTANCE.LOGGER.info( "pitch: {}; yaw: {}", pitch, yaw );
+        // Set progress to a valid state
+        this.progress = 0f;
+
+        //Xenon.INSTANCE.LOGGER.info( "pitch: {}; yaw: {}", pitch, yaw );
     
         return ActionResult.PASS;
     }
 
     private ActionResult onInGameHudRender( MatrixStack matrices, float tickDelta )
     {
+        /* Flowchart
+            (start) ->
+            Are any indicators on?
+            yes ->
+                Which phase is the progress counter in?
+                0-1 ->
+                    Render the indicators with full opacity
+                    Increment progress counter by duration/deltaTime
+                1-2 -> 
+                    Calculate smoothed alpha
+                    Render indicators with smoothed alpha
+                   Increment progress counter like anove
+                any other value ->
+                    Return (damage packet handler will reset to a valid state)
+            no -> 
+                Return (nothing for us to do here)
+        */
+
+
         float deltaTime = Xenon.INSTANCE.client.getLastFrameDuration(); // FIXME: is this millis?
+        float alpha = 1f;
 
         // FIXME: not working :(
         if ( upIndicator || downIndicator || leftIndicator || rightIndicator )
         {
-            // Skip the update and reset the flags if the duration is past
-            if ( this.indicatorProgress < DamageIndicatorGroup.indicatorDurationMillis )
+            // What phase is the progress counter in?
+            if ( this.progress >= 0 && this.progress <= 1 )
             {
-                // TODO: Implement fade
-                upIndicator = false;
-                downIndicator = false;
-                leftIndicator = false;
-                rightIndicator = false;
-                this.indicatorProgress = 0f;
-                return ActionResult.PASS;
+                // Full opacity (alpha 1)
+                this.progress += DamageIndicatorGroup.indicatorDurationMillis / deltaTime;
             }
+            else if ( this.progress > 1 && this.progress <= 2 )
+            {
+                // Smoothed alpha (1-0)
+                // Test: Sine easing
+                alpha = -(Math.cos( Math.PI * (this.progress - 1) ) - 1) / 2;
+                this.progress += DamageIndicatorGroup.indicatorFadeDurationMillis / deltaTime;
+            }
+            // Garbage value
             
             // At least one indicator needs to be displayed and the duration isn't past
 
@@ -136,8 +164,14 @@ public class DamageIndicatorFeature extends IToggleableFeature
 		    Tessellator tessellator = RenderSystem.renderThreadTesselator();
 		    BufferBuilder bufferBuilder = tessellator.getBuffer();
 		    RenderSystem.setShader( GameRenderer::getPositionProgram );
-            RenderSystem.setShaderColor( 1f, 0f, 0f, 1f );
+            RenderSystem.setShaderColor( 1f, 0f, 0f, alpha );
             bufferBuilder.begin( VertexFormat.DrawMode.TRIANGLES, VertexFormats.POSITION );
+
+            // Why not rendering :(
+            bufferBuilder.vertex( matrix, 0, 0, 0 ).next();
+            bufferBuilder.vertex( matrix, 1f, 0, 0 ).next();
+            bufferBuilder.vertex( matrix, 1f, 1f, 0 ).next();
+            bufferBuilder.vertex( matrix, 0, 1f, 0 ).next();
 
                 // FIXME: Reduc calculations with cache?
             if ( this.upIndicator )
