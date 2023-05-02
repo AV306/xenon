@@ -141,7 +141,7 @@ public class DamageIndicatorFeature extends IToggleableFeature
             {
                 // Smoothed alpha (1-0)
                 // Test: Sine easing
-                alpha = -(Math.cos( Math.PI * (this.progress - 1) ) - 1) / 2;
+                alpha = (float) -(Math.cos( Math.PI * (this.progress - 1) ) - 1) / 2f;
                 this.progress += DamageIndicatorGroup.indicatorFadeDurationMillis / deltaTime;
             }
             // Garbage value
