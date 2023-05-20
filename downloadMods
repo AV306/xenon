@@ -47,6 +47,12 @@ case "$1" in
         # Xaero's Minimap
 
         # Xaero's World Map
+
+        # Real Camera
+        wget -nc https://cdn.modrinth.com/data/fYYSAh4R/versions/Nu0fLX3z/realcamera-1.19.4-fabric-0.4.3-alpha.jar
+
+        # Cloth Config (Real Camera dep)
+        wget -nc https://cdn.modrinth.com/data/9s6osm5g/versions/6XGTNEII/cloth-config-10.0.96-fabric.jar
         ;;
 
     clean)

@@ -93,7 +93,7 @@ public class RenderUtil
 
 	public static void drawSolidBox( MatrixStack matrixStack )
 	{
-		drawSolidBox (ZERO_SIZE_BOX, matrixStack );
+		drawSolidBox( ZERO_SIZE_BOX, matrixStack );
 	}
 
 	public static void drawSolidBox( Box b, MatrixStack matrixStack )
@@ -190,7 +190,7 @@ public class RenderUtil
 		bufferBuilder.vertex( b.minX, b.maxY, b.minZ ).next();
 	}
 
-	public static void drawOutlinedBox(MatrixStack matrixStack)
+	public static void drawOutlinedBox( MatrixStack matrixStack )
 	{
 		drawOutlinedBox( ZERO_SIZE_BOX, matrixStack );
 	}

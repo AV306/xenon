@@ -22,6 +22,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import org.joml.Matrix4f;
+import org.lwjgl.opengl.GL11;
 
 public class DamageIndicatorFeature extends IToggleableFeature
 {
@@ -41,6 +42,9 @@ public class DamageIndicatorFeature extends IToggleableFeature
         RenderInGameHudEvent.AFTER_VIGNETTE.register( this::onInGameHudRender );
     }
 
+    // FIXME: I think we ccan remove the pitch and yaw calculations with just the length of the side
+    // like for pitch, instead of acrsining, just use the sign of the delta height
+    // same for yae
     private ActionResult onEntityDamage( EntityDamageS2CPacket packet )
     {
         if ( !this.isEnabled ) return ActionResult.PASS;
@@ -125,18 +129,21 @@ public class DamageIndicatorFeature extends IToggleableFeature
             no -> 
                 Return (nothing for us to do here)
         */
-        //if ( !this.isEnabled ) return ActionResult.PASS;
+       
+        if ( !this.isEnabled ) return ActionResult.PASS;
 
         //float deltaTime = Xenon.INSTANCE.client.getLastFrameDuration() / 1000f;
-        float deltaTime = Xenon.INSTANCE.client.getRenderTime();
-        Xenon.INSTANCE.LOGGER.info( "dt: {}", deltaTime );
+        //float deltaTime = Xenon.INSTANCE.client.getRenderTime();
+        //Xenon.INSTANCE.LOGGER.info( "dt: {}", deltaTime );
         float alpha = 1f;
 
+        matrices.push();
+    
         // FIXME: not working :(
-        if ( upIndicator || downIndicator || leftIndicator || rightIndicator )
-        {
+        //if ( upIndicator || downIndicator || leftIndicator || rightIndicator )
+        //{
             // What phase is the progress counter in?
-            if ( this.progress >= 0 && this.progress <= 1 )
+            /*if ( this.progress >= 0 && this.progress <= 1 )
             {
                 // Full opacity (alpha 1)
                 this.progress += DamageIndicatorGroup.indicatorDurationMillis / deltaTime;
@@ -149,7 +156,7 @@ public class DamageIndicatorFeature extends IToggleableFeature
                 if ( alpha < 0 ) alpha = 0;
                 this.progress += DamageIndicatorGroup.indicatorFadeDurationMillis / deltaTime;
             }
-            else return ActionResult.PASS; // Garbage value, return
+            else return ActionResult.PASS;*/ // Garbage value, return
              
 
             // Render
@@ -161,18 +168,22 @@ public class DamageIndicatorFeature extends IToggleableFeature
             Matrix4f matrix = matrices.peek().getPositionMatrix();
 		    Tessellator tessellator = RenderSystem.renderThreadTesselator();
 		    BufferBuilder bufferBuilder = tessellator.getBuffer();
+            GL11.glClear( GL11.GL_DEPTH_BUFFER_BIT );
+
 		    RenderSystem.setShader( GameRenderer::getPositionProgram );
-            RenderSystem.setShaderColor( 1f, 0f, 0f, alpha );
-            bufferBuilder.begin( VertexFormat.DrawMode.TRIANGLES, VertexFormats.POSITION );
+            RenderSystem.setShaderColor( 1f, 0f, 0f, 1f );
 
+            bufferBuilder.begin( VertexFormat.DrawMode.QUADS, VertexFormats.POSITION );
+
+            Xenon.INSTANCE.sendInfoMessage( "render " );
+            bufferBuilder.vertex( matrix, 0, 0, 0 ).next();
+            bufferBuilder.vertex( matrix, 10000f, 0, 0 ).next();
+            bufferBuilder.vertex( matrix, 10000f, 10000f, 0 ).next();
+            bufferBuilder.vertex( matrix, 0, 10000f, 0 ).next();
             // Why not rendering :(
-            /*bufferBuilder.vertex( matrix, 0, 0, 0 ).next();
-            bufferBuilder.vertex( matrix, 1f, 0, 0 ).next();
-            bufferBuilder.vertex( matrix, 1f, 1f, 0 ).next();
-            bufferBuilder.vertex( matrix, 0, 1f, 0 ).next();*/
 
-                // FIXME: Reduc calculations with cache?
-            if ( this.upIndicator )
+            // FIXME: Reduc calculations with cache?
+            /*if ( this.upIndicator )
             {
                 // Left corner of the arrow
 		        bufferBuilder.vertex(
@@ -278,12 +289,12 @@ public class DamageIndicatorFeature extends IToggleableFeature
                     windowHeight - 5f, // Bottom padding
                     0f // Z0 plane
                 ).next();		        
-            }
+            }*/
 
             tessellator.draw();
             RenderSystem.setShaderColor( 1f, 1f, 1f, 1f );
-            matrices.pop();
-        }
+            matrices.pop(); // Spent so long trying to find the double pop()
+        //}
         return ActionResult.PASS;
     }
 
