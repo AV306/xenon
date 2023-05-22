@@ -31,6 +31,7 @@ public class ConfigMenu extends IFeature
     {
         // Catch any exception when initialising the config menu
         // because it's annoying when I test stuff and the game just crashes
+        // Configs are saved automatically :D
         try
         {
             // build a new one every time we open
