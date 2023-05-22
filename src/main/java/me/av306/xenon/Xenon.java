@@ -102,7 +102,7 @@ public enum Xenon
         new AustralianModeFeature();
         new CommandProcessor();
         new ConfigMenu();
-        new DamageIndicatorFeature();
+        //new DamageIndicatorFeature();
         new FeatureList();
         new FullBrightFeature();
         new FullKeyboardFeature();

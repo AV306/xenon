@@ -49,48 +49,23 @@ public class CommandProcessor extends IToggleableFeature
             else return ActionResult.PASS;
         }
 
-        // Reject if it doesn't start with the prefix or is just the prefix character alone
-        if ( !text.startsWith( CommandProcessorGroup.prefix ) &&
-                !text.equalsIgnoreCase( CommandProcessorGroup.prefix )
-        ) return ActionResult.PASS;
+        // Check if message starts with prefix
+        if ( !text.startsWith( CommandProcessorGroup.prefix ) ) return ActionResult.PASS;
 
-        // Possible command, process :D
+        // Remove prefix
+        String[] cmd = deserialiseCommand( CommandProcessorGroup.prefix, text );
 
-        // Process command into array
-        // Ok the code here is all kinds of messed up
-        String[] cmd = text.replaceAll( CommandProcessorGroup.prefix, "" ).split( " " );
+        // Long enough?
+        if ( cmd.length < 1 ) return ActionResult.PASS;
 
-        String target = cmd[0]; // Target will always be removed from command
-        try
-        {
-            cmd = Arrays.copyOfRange( cmd, 1, cmd.length ); // Remove target by copying everything after it
-        }
-        catch ( ArrayIndexOutOfBoundsException | IllegalArgumentException e )
-        {
-            // These exceptions are thrown if the command only has length 1; i.e. missing action
-            cmd = new String[]{ "" };
-        }
+        // Command probably valid, sort its components out
 
-        /*
-            [ Command format specification ]
-            length: 1+
-            elements:
-            0.  Target ID
-            1.  Action keyword (FC), arg (SC)
-            2.  Config name (FC, if action is "set"), arg (SC / FC if action is "exec")
-            3.  Config value (FC, if action is "set"), arg (SC / FC if action is "exec")
-            4+. Argumants (SC / FC if action is "exec")
-        */
+        String name = cmd[0];
 
+        String[] args = Arrays.copyOfRange( cmd, 1, cmd.length );
 
-        if ( !handleStandaloneCommand( target, cmd ) )
-        {
-            // Not an SC
-            // Pad argument array to be at least long enough for a config change (3)
-            if ( cmd.length < 3 ) cmd = Arrays.copyOfRange( cmd, 0, 3 );
-            if ( !handleFeatureCommand( target, cmd ) ) // Not an FC either
-                Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocesor.unresolvable", target );
-        }
+        if ( !this.handleStandaloneCommand( name, args ) && !this.handleFeatureCommand( name, args ) )
+            Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocesor.unresolvable" );
 
         return ActionResult.FAIL;
     }
@@ -104,16 +79,9 @@ public class CommandProcessor extends IToggleableFeature
      */
     private boolean handleStandaloneCommand( String targetId, String[] args )
     {
-        try
-        {
-            Command target = Xenon.INSTANCE.commandRegistry.get( targetId );
-            target.execute( args );
-        }
-        catch ( NullPointerException npe )
-        {
-            return false;
-        }
-
+        Command cmd = Xenon.INSTANCE.commandRegistry.get( targetId );
+        if ( cmd == null ) return false;
+        cmd.execute( args );
         return true;
     }
 
@@ -123,61 +91,41 @@ public class CommandProcessor extends IToggleableFeature
      * @param args: Command keyword + args
      * @return False ONLY if the target could not be resolved
      */
-    private boolean handleFeatureCommand( String targetId, String[] cmd )
+    private boolean handleFeatureCommand( String targetId, String[] args )
     {
-        // FC handling has *many* error messages,
-        // so the `return false` is only used for the "cannot resolve target" scenario
-        if ( !Xenon.INSTANCE.featureRegistry.containsKey( targetId ) ) return false;
+        IFeature feature = Xenon.INSTANCE.featureRegistry.get( targetId );
+        if ( feature == null ) return false;
 
-        IFeature target = Xenon.INSTANCE.featureRegistry.get( targetId );
-
-        if ( cmd[0] == null ) Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocesor.missing.action" );
-        else switch ( cmd[0] /* action keyword */ )
+        if ( args.length < 1 )
         {
-            case "e", "enable", "on" -> target.enable();
+            Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocesor.missing.action" );
+            return true;
+        }
+
+        switch( args[0] )
+        {
+            case "e", "enable", "on" -> feature.enable();
 
             case "d", "disable", "off" ->
             {
                 try
-                { ((IToggleableFeature) target).disable(); }
+                {
+                    IToggleableFeature itf = (IToggleableFeature) feature;
+                    itf.disable();
+                }
                 catch ( ClassCastException cce )
-                { Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocesor.invalid.command.featurenottoggleable" ); }
+                {
+                    Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocessor.invalid.command.featurenottoggleable" );
+                }
             }
 
             case "set" ->
             {
-                if ( cmd[1] == null || cmd[2] == null )
-                {
-                    Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocessor.missing.args.null" );
-                    return true;
-                }
-
-                target.requestConfigChange( cmd[1], cmd[2] );
+                if ( args.length < 3 ) Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocessor.missing.args", 3, args.length );
+                else feature.requestConfigChange( args[1], args[2] );
             }
 
-            /*case "execute", "exec", "ex" ->
-            {
-                if ( cmd.length < 3 )
-                {
-                    Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocessor.missing.args", cmd.length - 1, 2 );
-                    return true;
-                }
-
-                target.requestExecuteAction( Arrays.copyOfRange( cmd, 2, cmd.length ) );
-            }*/
-
-            // Java 20 only
-            //case null -> Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocesor.missing.action" );
-
-            /*default -> Xenon.INSTANCE.sendErrorMessage(
-                    "text.xenon.commandprocesor.unknown", "action", cmd[0]
-            );*/
-            
-            // Pass unknown action to feature
-            default ->
-            {
-                target.requestExecuteAction( cmd );
-            }
+            default -> feature.requestExecuteAction( args );
         }
 
         return true;
