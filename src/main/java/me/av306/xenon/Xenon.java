@@ -12,6 +12,7 @@ import me.av306.xenon.features.render.*;
 import me.av306.xenon.mixin.MinecraftClientAccessor;
 import me.av306.xenon.util.text.TextFactory;
 import me.lortseam.completeconfig.data.Config;
+import me.lortseam.completeconfig.gui.cloth.ClothConfigScreenBuilder;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.minecraft.client.MinecraftClient;
@@ -89,6 +90,13 @@ public enum Xenon
         // register features
         initCommands();
         initFeatures();
+
+        // Register config screen with ModMenu if present
+        if ( FabricLoader.getInstance().isModLoaded( "cloth-config" ) )
+        {
+            ConfigScreenBuilder.setMain( this.MODID, new ClothConfigScreenBuilder() );
+        }
+
     }
 
     private void initCommands()
