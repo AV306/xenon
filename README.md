@@ -1,10 +1,8 @@
 # Xenon: A lightweight Fabric utility client
 
 [![Gradle CI](https://github.com/AV306/xenon/actions/workflows/gradle_ci.yml/badge.svg?branch=1.19-DEV)](https://github.com/AV306/xenon/actions/workflows/gradle_ci.yml)
-[![CodeQL](https://github.com/AV306/xenon/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/AV306/xenon/actions/workflows/codeql-analysis.yml)
-[![Custom badge](https://img.shields.io/endpoint?color=3fcc98&url=https%3A%2F%2Fhits.dwyl.com%2FAV306%2Fxenon.json%3Fshow%3Dunique)]()
+[![Custom badge](https://img.shields.io/endpoint?color=3fcc98&url=https://hits.dwyl.com/AV306/xenon.json?show=unique)]()
 
-**[Xenon is on Modrinth!](https://modrinth.com/mod/xenon)**
 
 Hello! This is Xenon, a Minecraft utility mod that adds stuff that aims to make Minecraft more pleasant and convenient.
 
@@ -24,8 +22,21 @@ Xenon will not display the opt-out "message", and the message will still be proc
 
 - Latest Fabric API (may not work with older ones, not really tested)
 - Fabric Loader >=0.14.7
+- CompleteConfig 2.x.x
 
-## Known incompatabilities:
+Version numbers are fairly strict, if it says "1.19.4" that means it's only been tested on 1.19.4, but it will probably work on other 1.19.*x* versions, and the `fabric.mod.json` won't stop you.
+
+You can even use Xenon without CompleteConfig, but configs won't be saved.
+
+## Known Issues:
+
+- Damage Indicator keybind translation key is missing (I accidentally left it in, will remove in this week's patch and add back when it's finished)
+- CommandProcessor doesn't report the command back
+- Panorama Generator generates solid-color images (this seems to be a compatibility issue with Sodium or Iris)
+- FullKeyboard attack/break key double-binding does not work for attacking
+- Help command doesn't do anything
+
+## Known incompatibilities:
 
 - WI-Zoom (breaks Xenon's FOV-related features)
 - Wurst Client (will almost definitely break, not fully tested)
@@ -35,7 +46,7 @@ Xenon will not display the opt-out "message", and the message will still be proc
 
 ## Features:
 
-Full documentation [here](https://github.com/AV306/xenon/blob/1.19-DEV/FEATURES.md)
+Full documentation [here](FEATURES.md)
 
 (Most features are unbound by default)
 
@@ -43,13 +54,13 @@ Full documentation [here](https://github.com/AV306/xenon/blob/1.19-DEV/FEATURES.
 - FullKeyboard (Move around without a mouse! Touchscreen / mouse still needed for UI interaction)
 - QuickChat (send a preset message with one button, commands WIP)
 - MultiQuickChat (QuickChat, but with up to 10 messages)
-- Panorama Generator (generate title screen panoramas that can be used in a resource pack! Note: broken)
+- Panorama Generator (generate title screen panoramas that can be used in a resource pack!)
 - ShareLocation (share your location and dimension, not recommended for public survival servers, security WIP)
 - Australian Mode (Aussie Minecraft, approved by an actual Australian)
 - Zoom (Adjustable zoom)
 - Halo "Red Reticle" (Makes your crosshair change color when pointing at hostile mobs, like its namesake in Halo games)
 - Debug crosshair size modification (Make the axes easier to see!)
-- Command processor ([guide](https://github.com/AV306/xenon/blob/1.19-DEV/CMD.md))
+- Command processor ([guide](CMD.md))
 
 ## Licensed under the MIT license
 
