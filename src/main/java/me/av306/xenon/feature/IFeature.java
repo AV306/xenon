@@ -1,11 +1,13 @@
 package me.av306.xenon.feature;
 
 import me.av306.xenon.Xenon;
+import me.av306.xenon.event.MinecraftClientEvents;
 import me.av306.xenon.util.text.TextFactory;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
+import net.minecraft.util.ActionResult;
 import net.minecraft.text.Text;
 import org.lwjgl.glfw.GLFW;
 
@@ -54,6 +56,13 @@ public abstract class IFeature
 	private boolean hide = false;
 	public void setShouldHide( boolean shouldHide ) { this.hide = shouldHide; }
 	public boolean getShouldHide() { return this.hide; }
+
+	/**
+	 * Sets whether this feature should be disabled on exit, and not re-enabled
+	 */
+	private boolean persistent = false;
+	public void setPersistent( boolean persistent ) { this.persistent = persistent; }
+	public boolean getPersistent() { return this.persistent; }
 
 	/**
 	 * Recommended constructor to call in a subclass.
@@ -124,6 +133,7 @@ public abstract class IFeature
 				name.replaceAll( " ", "" ).toLowerCase(),
 				this
 		);
+
 	}
 
 	/*protected ActionResult onKeyboardKey( long window, int key, int scanCode, int action, int modifiers )

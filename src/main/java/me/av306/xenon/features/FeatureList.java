@@ -28,6 +28,7 @@ public final class FeatureList extends IToggleableFeature
 
         // Hide FL from the list
         this.setShouldHide( true );
+        this.setPersistent( true );
 
 		// start enabled by default
         this.enable();
