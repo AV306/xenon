@@ -12,9 +12,11 @@ import me.av306.xenon.features.render.*;
 import me.av306.xenon.mixin.MinecraftClientAccessor;
 import me.av306.xenon.util.text.TextFactory;
 import me.lortseam.completeconfig.data.Config;
+import me.lortseam.completeconfig.gui.ConfigScreenBuilder;
 import me.lortseam.completeconfig.gui.cloth.ClothConfigScreenBuilder;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
+import net.fabricmc.loader.api.Version;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.vehicle.MinecartEntity;
 import net.minecraft.text.MutableText;
@@ -23,6 +25,9 @@ import net.minecraft.util.Formatting;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -54,8 +59,8 @@ public enum Xenon
 
     public HashMap<String, Command> commandRegistry = new HashMap<>();
 
-    private String version;
-    public String getVersion() { return version; }
+    private String versionString; // 
+    public String getVersion() { return versionString; }
     
     public ModContainer modContainer;
 
@@ -146,14 +151,71 @@ public enum Xenon
     // TODO: With the Modrinth API this can finally be implemented
     private void readVersionData()
     {
-        // set version
-
         // assert that we're actually loaded
         // If this ever fails, please, send me the logs.
         assert FabricLoader.getInstance().getModContainer( "xenon" ).isPresent();
         this.modContainer = FabricLoader.getInstance().getModContainer( "xenon" ).get();
+        // Get version string
+        Version ver = modContainer.getMetadata().getVersion();
+        this.versionString = ver.getFriendlyString();
+        
+        // TODO: finish this for 3.2.0
 
-        this.version = modContainer.getMetadata().getVersion().getFriendlyString();
+        // Return early if we don't need to check for updates
+        /*if ( !GeneralConfigGroup.checkForUpdates ) return;
+
+        // Get latest version from Modrinth API
+        
+        // Build HTTP request
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri( java.net.URI.create( "http://api.modrinth.com/v2/project/BsmAXLQn/version" ) )
+                .build();
+
+        HttpClient client = HttpClient.newBuilder()
+                .version( HttpClient.Version.HTTP_2 )
+                .followRedirects( HttpClient.Redirect.NORMAL )
+                .connectTimeout( Duration.ofSeconds( 30 ) )
+                .build();
+
+        // Send request
+        HttpResponse<String> response;
+        try
+        {
+            response = client.send( request, HttpResponse.BodyHandlers.ofString() );
+        }
+        catch ( IOException io )
+        {
+            Xenon.INSTANCE.LOGGER.error( "IOException thrown while fetching latest version!" );
+            io.printStackTrace();
+            return;
+        }
+
+        // Error handling
+        if ( response.statusCode() != 200 )
+        {
+            Xenon.INSTANCE.LOGGER.error( "Failed to GET latest version from Modrinth: {}", response.statusCode() );
+            return;
+        }
+
+        // Received response as string, extract version id
+        // FIXME: I feel like we're underusing JSON.simple
+        // Response is an array of objects
+        String latestVersionString = JsonParser.parseString( response.body() )
+                .getAsJsonArray()
+                .getAsJsonObject() // List only contains one object
+                .get( "version_number" ) // Extract version string
+                .getAsString();
+
+        Xenon.INSTANCE.LOGGER.info( "Found version {} from Modrinth" latestVersionString );
+
+        // Compare versions
+        boolean newVersionAvailable = ver.compareTo( Version.parse( latestVersionString ) ) < 0;
+
+        if ( newVersionAvailable ) Xenon.INSTANCE.LOGGER.info( "Update available!" );
+
+        // TODO: implement update available message
+        // TODO: try/catch everything
+        */
     }
 
 
