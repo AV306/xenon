@@ -6,6 +6,9 @@ import me.lortseam.completeconfig.api.ConfigEntry;
 @ConfigEntries( includeAll = true )
 public class GeneralConfigGroup implements XenonConfigGroup
 {
+    //@ConfigEntry.Boolean
+    //public static boolean checkForUpdates = true;
+    
     @ConfigEntry.Boolean
     public static boolean lazyDfu = true;
 

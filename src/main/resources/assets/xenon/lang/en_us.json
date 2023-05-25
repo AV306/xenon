@@ -106,6 +106,7 @@
   "key.xenon.waila": "WAILA (What Am I Looking At)",
   "key.xenon.zoom": "Zoom",
   "text.xenon.command.debugcrash.warning": "WARNING: This action will not save the world and may corrupt it. Pass the argument \"confirm\" to continue.",
+  "text.xenon.commandprocessor.report": "> %s",
   "text.xenon.commandprocessor.disabled": "CommandProcessor is disabled! Please enable it to use commands.",
   "text.xenon.commandprocessor.exception": "[CommandProcessor] Oh no! An unexpected exception ocurred and this is very bad!!!",
   "text.xenon.commandprocessor.invalid.command.featurenottoggleable": "[CommandProcessor] Invalid command: Feature not toggleable!",

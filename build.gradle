@@ -17,6 +17,8 @@ repositories {
 		url = "https://server.bbkr.space/artifactory/libs-release"
 	}*/
 
+	mavenCentral()
+
 	maven {
     	url "https://jitpack.io"
   	}
@@ -57,8 +59,8 @@ dependencies {
 	// apache commons-io
 	//compileOnly 'commons-io:commons-io:2.11.0'
 
-	// JSON.simple
-	//implementation 'com.googlecode.json-simple:json-simple:1.1.1'
+	// GSON
+	//implementation "com.google.comde.gson:gson:${project.gson_version}"
 }
 
 processResources {

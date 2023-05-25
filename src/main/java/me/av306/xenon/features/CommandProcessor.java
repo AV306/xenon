@@ -36,6 +36,9 @@ public class CommandProcessor extends IToggleableFeature
     // TODO: make QuickChat and MQC messages pass through this
     private ActionResult onChatHudAddMessage( String text )
     {
+        // Check if message starts with prefix
+        if ( !text.startsWith( CommandProcessorGroup.prefix ) ) return ActionResult.PASS;
+
         // Check if CP is enabled
         if ( !this.isEnabled )
         {
@@ -49,11 +52,12 @@ public class CommandProcessor extends IToggleableFeature
             else return ActionResult.PASS;
         }
 
-        // Check if message starts with prefix
-        if ( !text.startsWith( CommandProcessorGroup.prefix ) ) return ActionResult.PASS;
+        // Report command
+        Xenon.INSTANCE.sendInfoMessage( "text.xenon.commandprocessor.report", text );
 
         // Remove prefix
         String[] cmd = deserialiseCommand( CommandProcessorGroup.prefix, text );
+
 
         // Long enough?
         if ( cmd.length < 1 ) return ActionResult.PASS;
