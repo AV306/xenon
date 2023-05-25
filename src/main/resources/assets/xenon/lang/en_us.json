@@ -2,6 +2,7 @@
   "category.xenon.features": "Xenon Features",
   "config.xenon.featureconfiggroup": "Feature Configurations",
   "config.xenon.featureconfiggroup.commandprocessorgroup": "CommandProcessor Settings",
+  "config.xenon.featureconfiggroup.commandprocessorgroup.reEnableOnWorldEnter": "Re-enable on joining world",
   "config.xenon.featureconfiggroup.commandprocessorgroup.prefix": "Prefix",
   "config.xenon.featureconfiggroup.commandprocessorgroup.warn": "Warn if disabled (Recommended)",
   "config.xenon.featureconfiggroup.creativeflightgroup": "CreativeFlight Settings",

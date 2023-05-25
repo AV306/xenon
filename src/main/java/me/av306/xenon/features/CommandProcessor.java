@@ -5,6 +5,7 @@ import me.av306.xenon.Xenon;
 import me.av306.xenon.command.Command;
 import me.av306.xenon.config.feature.CommandProcessorGroup;
 import me.av306.xenon.event.ChatOutputEvent;
+import me.av306.xenon.event.MinecraftClientEvents;
 import me.av306.xenon.feature.IFeature;
 import me.av306.xenon.feature.IToggleableFeature;
 import me.av306.xenon.util.text.TextFactory;
@@ -22,8 +23,10 @@ public class CommandProcessor extends IToggleableFeature
         super( "CommandProcessor", "cp", "cmd" );
 
         this.setShouldHide( true );
+        this.setPersistent( true ); // Don't disable on world exit
 
         ChatOutputEvent.EVENT.register( this::onChatHudAddMessage );
+        MinecraftClientEvents.JOIN_WORLD.register( world -> { this.enable(); return ActionResult.PASS; } );
 
         this.enable();
     }

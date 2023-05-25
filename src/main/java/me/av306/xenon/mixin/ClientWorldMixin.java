@@ -18,6 +18,7 @@ public class ClientWorldMixin
 	)
 	private void onDisconnect( CallbackInfo ci )
 	{
+		// MinecraftClient#disconnect() is less reliable for this
 		Xenon.INSTANCE.LOGGER.info( "Exiting world, disabling all features" );
 		Xenon.INSTANCE.disableAllFeatures();
 	}

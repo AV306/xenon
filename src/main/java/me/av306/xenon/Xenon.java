@@ -141,7 +141,7 @@ public enum Xenon
         // FIXME: This feels very inefficient
         ArrayList<IToggleableFeature> enabledFeatures_copy = new ArrayList<>( this.enabledFeatures );
         for ( IToggleableFeature feature : enabledFeatures_copy )
-            feature.disable();
+            if ( !feature.getPersistent() ) feature.disable(); // Don't disable if it's persistent (like CP)
 
         // Remove restrictions
         for ( IFeature feature : this.featureRegistry.values() )

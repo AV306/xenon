@@ -56,22 +56,19 @@ dependencies {
 
 	implementation "org.slf4j:slf4j-api:${project.slf4j_version}"
 
-	// apache commons-io
-	//compileOnly 'commons-io:commons-io:2.11.0'
-
 	// GSON
-	//implementation "com.google.comde.gson:gson:${project.gson_version}"
+	implementation "com.google.code.gson:gson:${project.gson_version}"
 }
 
 processResources {
 	inputs.property "version", project.version
 
-	filesMatching("fabric.mod.json") {
+	filesMatching( "fabric.mod.json" ) {
 		expand "version": project.version
 	}
 }
 
-tasks.withType(JavaCompile).configureEach {
+tasks.withType( JavaCompile ).configureEach {
 	// Minecraft 1.18 (1.18-pre2) upwards uses Java 17.
 	it.options.release = 17
 	
