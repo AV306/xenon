@@ -58,13 +58,6 @@ public abstract class IFeature
 	public boolean getShouldHide() { return this.hide; }
 
 	/**
-	 * Sets whether this feature should be disabled on exit, and not re-enabled
-	 */
-	private boolean persistent = false;
-	public void setPersistent( boolean persistent ) { this.persistent = persistent; }
-	public boolean getPersistent() { return this.persistent; }
-
-	/**
 	 * Recommended constructor to call in a subclass.
 	 * @param name: The Feature's display name
 	 * @param aliases: Aliases for the feature in CP. Should not contain the original name
@@ -133,7 +126,6 @@ public abstract class IFeature
 				name.replaceAll( " ", "" ).toLowerCase(),
 				this
 		);
-
 	}
 
 	/*protected ActionResult onKeyboardKey( long window, int key, int scanCode, int action, int modifiers )

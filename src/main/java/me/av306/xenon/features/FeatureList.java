@@ -26,7 +26,7 @@ public final class FeatureList extends IToggleableFeature
         // set name
         super( "FeatureList" );
 
-        // Hide FL from the list
+        // Hide FL from the list and don't disable it on exit
         this.setShouldHide( true );
         this.setPersistent( true );
 

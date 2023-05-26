@@ -4,12 +4,12 @@
   "version": "${version}",
 
   "name": "Xenon",
-  "description": "Minecraft utility mod",
+  "description": "Minecraft utility mod!",
   "authors": [
     "AV3_08"
   ],
   "contact": {
-    "homepage": "https://github.com/AV306",
+    "homepage": "https://modrinth.com/mod/xenon",
     "sources": "https://github.com/AV306/xenon"
   },
 
@@ -30,10 +30,10 @@
     "minecraft": "1.19.x",
     "java": ">=17"
   },
-  "suggests": {
-    "another-mod": "https://github.com/nianny/minecraft-mod-1"
+  "recommends": {
+    "completeconfig": "https://github.com/Lortseam/completeconfig"
   },
-  "breaks": {
+  "conflicts": {
     "wurst-client": "*",
     "wi-zoom": "*"
   }

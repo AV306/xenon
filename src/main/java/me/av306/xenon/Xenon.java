@@ -87,6 +87,12 @@ public enum Xenon
     {
         // Read our version data
         readVersionData();
+
+        FabricLoader loader = FabricLoader.getInstance();
+
+        // Check for CompleteConfig
+        if ( loader.isModLoaded( "completeconfig-base" ) )
+            Xenon.INSTANCE.LOGGER.warn( "CompleteConfig not detected! Some features will not work properly." );
 		
         // set client and its accessor
         this.client = MinecraftClient.getInstance();
@@ -98,10 +104,7 @@ public enum Xenon
 
         // Register config screen with ModMenu if present
         if ( FabricLoader.getInstance().isModLoaded( "cloth-config" ) )
-        {
             ConfigScreenBuilder.setMain( this.MODID, new ClothConfigScreenBuilder() );
-        }
-
     }
 
     private void initCommands()
@@ -141,7 +144,7 @@ public enum Xenon
         // FIXME: This feels very inefficient
         ArrayList<IToggleableFeature> enabledFeatures_copy = new ArrayList<>( this.enabledFeatures );
         for ( IToggleableFeature feature : enabledFeatures_copy )
-            if ( !feature.getPersistent() ) feature.disable(); // Don't disable if it's persistent (like CP)
+            if ( !feature.isPersistent() ) feature.disable(); // Don't disable if it's persistent (like CP)
 
         // Remove restrictions
         for ( IFeature feature : this.featureRegistry.values() )

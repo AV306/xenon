@@ -26,7 +26,14 @@ public class CommandProcessor extends IToggleableFeature
         this.setPersistent( true ); // Don't disable on world exit
 
         ChatOutputEvent.EVENT.register( this::onChatHudAddMessage );
-        MinecraftClientEvents.JOIN_WORLD.register( world -> { this.enable(); return ActionResult.PASS; } );
+
+        // Re-enable on entering world
+        MinecraftClientEvents.JOIN_WORLD.register( world ->
+        {
+            if ( CommandProcessorGroup.reEnableOnWorldEnter )
+                this.enable();
+            return ActionResult.PASS;
+        } );
 
         this.enable();
     }
