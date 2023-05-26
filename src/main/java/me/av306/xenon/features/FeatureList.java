@@ -3,6 +3,7 @@ package me.av306.xenon.features;
 import me.av306.xenon.Xenon;
 import me.av306.xenon.config.feature.FeatureListGroup;
 import me.av306.xenon.event.RenderInGameHudEvent;
+import me.av306.xenon.event.MinecraftClientEvents;
 import me.av306.xenon.feature.IFeature;
 import me.av306.xenon.feature.IToggleableFeature;
 import me.av306.xenon.util.render.ScreenPosition;
@@ -40,6 +41,13 @@ public final class FeatureList extends IToggleableFeature
 
         // register render listener
         RenderInGameHudEvent.AFTER_VIGNETTE.register( this::onInGameHudRender );
+
+        MinecraftClientEvents.JOIN_WORLD.register( world ->
+        {
+            if ( FeatureListGroup.reEnableOnWorldEnter )
+                this.enable();
+            return ActionResult.PASS;
+        } );
     }
 
     private ActionResult onInGameHudRender( MatrixStack matrices, float tickDelta )
