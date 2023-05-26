@@ -22,6 +22,9 @@ public class FeatureConfigGroup implements XenonConfigGroup
 	private final FeatureListGroup featureListGroup = new FeatureListGroup();
 
 	@Transitive
+	private final FullKeyboardGroup fullKeyboardGroup = new FullKeyboardGroup();
+
+	@Transitive
 	private final TakePanoramaGroup takePanoramaGroup = new TakePanoramaGroup();
 
 	@Transitive

@@ -14,7 +14,7 @@ public class ConfigMenu extends IFeature
 {
     public ConfigMenu()
     {
-        super( "ConfigMenu", GLFW.GLFW_KEY_RIGHT_SHIFT );
+        super( "ConfigMenu", "config", "cm" );
 
         //KeyEvent.AFTER_VIGNETTE.register( this::onKey );
     }
