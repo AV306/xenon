@@ -4,6 +4,7 @@ import me.av306.xenon.command.Command;
 import me.av306.xenon.commands.*;
 import me.av306.xenon.config.FeatureConfigGroup;
 import me.av306.xenon.config.GeneralConfigGroup;
+import me.av306.xenon.config.feature.FullKeyboardGroup;
 import me.av306.xenon.feature.*;
 import me.av306.xenon.features.*;
 import me.av306.xenon.features.chat.*;
@@ -121,7 +122,7 @@ public enum Xenon
         //new DamageIndicatorFeature();
         new FeatureList();
         new FullBrightFeature();
-        new FullKeyboardFeature();
+        if ( FullKeyboardGroup.enable ) new FullKeyboardFeature();
         new MultiQuickChatFeature();
         new ProximityRadarFeature();
         new QuickChatFeature();
