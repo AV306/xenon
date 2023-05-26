@@ -10,6 +10,7 @@
   "config.xenon.featureconfiggroup.fastbreakgroup": "FastBreak Settings",
   "config.xenon.featureconfiggroup.fastbreakgroup.onlyRemoveCooldown": "Only remove block-break cooldown",
   "config.xenon.featureconfiggroup.featurelistgroup": "FeatureList Settings",
+  "config.xenon.featureconfiggroup.featurelistgroup.reEnableOnWorldEnter": "Re-enable on joining world",
   "config.xenon.featureconfiggroup.featurelistgroup.position": "Position",
   "config.xenon.featureconfiggroup.featurelistgroup.position.bottomCenter": "Bottom Center",
   "config.xenon.featureconfiggroup.featurelistgroup.position.bottomLeft": "Bottom Left",

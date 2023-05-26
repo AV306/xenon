@@ -8,6 +8,9 @@ import me.lortseam.completeconfig.api.ConfigEntry;
 @ConfigEntries( includeAll = true )
 public class FeatureListGroup implements XenonConfigGroup
 {
+	@ConfigEntry.Boolean
+    public static boolean reEnableOnWorldEnter = true;
+	
 	public static boolean showVersion = true;
 
 	public static boolean shadow = false;
