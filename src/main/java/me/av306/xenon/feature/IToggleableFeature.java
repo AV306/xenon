@@ -11,6 +11,13 @@ public abstract class IToggleableFeature extends IFeature
 
     protected boolean isEnabled = false;
 
+    /**
+	 * Sets whether this feature should be disabled on exit
+	 */
+	private boolean persistent = false;
+	public void setPersistent( boolean persistent ) { this.persistent = persistent; }
+	public boolean isPersistent() { return this.persistent; }
+
     //protected int key = GLFW.GLFW_KEY_UNKNOWN;
 
     //protected static IToggleableFeature instance;

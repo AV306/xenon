@@ -25,6 +25,7 @@ public abstract class MinecraftClientMixin extends ReentrantThreadExecutor<Runna
     {
         // This happens really early, right after the "logged in at position" message
         // So chat messages won't show
+        //Xenon.INSTANCE.LOGGER.info( "client join world" );
         MinecraftClientEvents.JOIN_WORLD.invoker().onJoinWorld( world );
     }
 
@@ -43,7 +44,11 @@ public abstract class MinecraftClientMixin extends ReentrantThreadExecutor<Runna
     )
     private void onDisconnect( CallbackInfo ci )
     {
+        Xenon.INSTANCE.LOGGER.info( "client disconnect" );
         MinecraftClientEvents.DISCONNECT.invoker().onDisconnect();
-        // This is different from ClientWorld#disconnect(), this is less reliable
+        // This happens much later than ClientWorld#disconnect()
+        // The former happens immediately after hitting "disconnect", but the former
+        // fires after everything else shuts down and also when the client closes
+        // And after any disconnection, whether from a failed connection or intended disconnection
     }
 }
