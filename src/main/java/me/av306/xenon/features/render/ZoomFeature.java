@@ -1,7 +1,7 @@
 package me.av306.xenon.features.render;
 
 import me.av306.xenon.Xenon;
-import me.av306.xenon.config.feature.ZoomGroup;
+import me.av306.xenon.config.feature.render.ZoomGroup;
 import me.av306.xenon.event.EventFields;
 import me.av306.xenon.event.GetFovEvent;
 import me.av306.xenon.event.MouseEvents;

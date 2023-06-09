@@ -1,4 +1,4 @@
-package me.av306.xenon.config.feature;
+package me.av306.xenon.config.feature.chat;
 
 import me.av306.xenon.config.XenonConfigGroup;
 import me.lortseam.completeconfig.api.*;
