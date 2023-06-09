@@ -1,4 +1,4 @@
-package me.av306.xenon.config.feature;
+package me.av306.xenon.config.feature.movement;
 
 import me.av306.xenon.config.XenonConfigGroup;
 import me.lortseam.completeconfig.api.ConfigEntries;

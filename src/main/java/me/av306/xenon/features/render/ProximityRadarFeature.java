@@ -2,28 +2,23 @@ package me.av306.xenon.features.render;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import me.av306.xenon.Xenon;
-import me.av306.xenon.config.feature.ProximityRadarGroup;
+import me.av306.xenon.config.feature.render.ProximityRadarGroup;
 import me.av306.xenon.event.GameRenderEvents;
-import me.av306.xenon.event.RenderInGameHudEvent;
 import me.av306.xenon.feature.IToggleableFeature;
 import me.av306.xenon.util.render.RenderUtil;
 import me.av306.xenon.util.render.RotationUtil;
 import me.av306.xenon.util.text.TextFactory;
 import me.shedaniel.math.Color;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
-
-import java.util.Arrays;
 
 
 public class ProximityRadarFeature extends IToggleableFeature
@@ -118,7 +113,7 @@ public class ProximityRadarFeature extends IToggleableFeature
                 if ( ProximityRadarGroup.showTracer )
                     drawEntityTracer( entity, matrices, ProximityRadarGroup.hostileBoxColor );
             }
-            else if ( entity instanceof PlayerEntity && entity != Xenon.INSTANCE.client.player )
+            else if ( entity instanceof PlayerEntity && ProximityRadarGroup.detectPlayers && entity != Xenon.INSTANCE.client.player )
             {
                 Text text = TextFactory.createTranslatable(
                         "text.xenon.proximityradar.player",
@@ -132,6 +127,21 @@ public class ProximityRadarFeature extends IToggleableFeature
 
                 if ( ProximityRadarGroup.showTracer )
                     drawEntityTracer( entity, matrices, ProximityRadarGroup.playerBoxColor );
+            }
+            else if ( entity instanceof ItemEntity && ProximityRadarGroup.detectItems )
+            {
+                /*Text text = TextFactory.createTranslatable(
+                        "text.xenon.proximityradar.item",
+                        Double.toString( distance ).substring( 0, 3 )
+                ).formatted( Formatting.RED, Formatting.BOLD );*/
+
+                //Xenon.INSTANCE.client.player.sendMessage( text,  true );
+
+                if ( ProximityRadarGroup.showBox )
+                    this.drawEntityBox( entity, matrices, ProximityRadarGroup.itemBoxColor );
+
+                if ( ProximityRadarGroup.showTracer )
+                    drawEntityTracer( entity, matrices, ProximityRadarGroup.itemBoxColor );
             }
         }
     }

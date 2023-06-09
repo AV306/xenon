@@ -4,7 +4,7 @@ import me.av306.xenon.command.Command;
 import me.av306.xenon.commands.*;
 import me.av306.xenon.config.FeatureConfigGroup;
 import me.av306.xenon.config.GeneralConfigGroup;
-import me.av306.xenon.config.feature.FullKeyboardGroup;
+import me.av306.xenon.config.feature.movement.FullKeyboardGroup;
 import me.av306.xenon.feature.*;
 import me.av306.xenon.features.*;
 import me.av306.xenon.features.chat.*;
@@ -19,16 +19,11 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.fabricmc.loader.api.Version;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.entity.vehicle.MinecartEntity;
-import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
 

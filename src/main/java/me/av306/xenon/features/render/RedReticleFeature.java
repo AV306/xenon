@@ -2,7 +2,7 @@ package me.av306.xenon.features.render;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import me.av306.xenon.Xenon;
-import me.av306.xenon.config.feature.RedReticleGroup;
+import me.av306.xenon.config.feature.render.RedReticleGroup;
 import me.av306.xenon.event.RenderCrosshairEvent;
 import me.av306.xenon.feature.IToggleableFeature;
 import net.minecraft.client.util.math.MatrixStack;

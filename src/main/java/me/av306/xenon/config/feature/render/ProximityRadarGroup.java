@@ -1,4 +1,4 @@
-package me.av306.xenon.config.feature;
+package me.av306.xenon.config.feature.render;
 
 import me.av306.xenon.config.XenonConfigGroup;
 import me.lortseam.completeconfig.api.ConfigEntries;
@@ -21,10 +21,19 @@ public class ProximityRadarGroup implements XenonConfigGroup
     @ConfigEntry.Boolean
     public static boolean showTracer = true;
 
+    @ConfigEntry.Boolean
+    public static boolean detectItems = true;
+
+    @ConfigEntry.Boolean
+    public static boolean detectPlayers = true;
+
     @ConfigEntry.Color( alphaMode = false )
     public static Color playerBoxColor = Color.ofRGB( 255, 255, 255 );
 
     @ConfigEntry.Color( alphaMode = false )
     public static Color hostileBoxColor = Color.ofRGB( 255, 0, 0 );
+
+    @ConfigEntry.Color( alphaMode = false )
+    public static Color itemBoxColor = Color.ofRGB( 116, 190, 207 );
 
 }

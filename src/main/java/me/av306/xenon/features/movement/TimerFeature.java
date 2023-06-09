@@ -1,7 +1,7 @@
 package me.av306.xenon.features.movement;
 
 import me.av306.xenon.Xenon;
-import me.av306.xenon.config.feature.TimerGroup;
+import me.av306.xenon.config.feature.movement.TimerGroup;
 import me.av306.xenon.event.BeginRenderTickEvent;
 import me.av306.xenon.feature.IToggleableFeature;
 import me.av306.xenon.mixin.MinecraftClientAccessor;

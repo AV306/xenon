@@ -1,9 +1,8 @@
 package me.av306.xenon.features.chat;
 
 import me.av306.xenon.Xenon;
-import me.av306.xenon.config.feature.QuickChatGroup;
+import me.av306.xenon.config.feature.chat.QuickChatGroup;
 import me.av306.xenon.feature.IFeature;
-import me.av306.xenon.util.text.TextFactory;
 
 public class QuickChatFeature extends IFeature
 {

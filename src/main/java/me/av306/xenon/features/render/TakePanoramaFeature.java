@@ -1,7 +1,7 @@
 package me.av306.xenon.features.render;
 
 import me.av306.xenon.Xenon;
-import me.av306.xenon.config.feature.TakePanoramaGroup;
+import me.av306.xenon.config.feature.render.TakePanoramaGroup;
 import me.av306.xenon.feature.IFeature;
 import me.av306.xenon.util.text.TextFactory;
 import net.minecraft.text.ClickEvent;

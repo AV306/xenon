@@ -1,20 +1,14 @@
 package me.av306.xenon.features.movement;
 
 import me.av306.xenon.Xenon;
-import me.av306.xenon.config.feature.FullKeyboardGroup;
-import me.av306.xenon.event.KeyEvent;
-import me.av306.xenon.event.MouseEvents;
+import me.av306.xenon.config.feature.movement.FullKeyboardGroup;
 import me.av306.xenon.feature.IToggleableFeature;
 import me.av306.xenon.mixin.MouseAccessor;
 import me.av306.xenon.mixinterface.IMouse;
 import me.av306.xenon.util.KeybindUtil;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.option.KeyBinding;
-import net.minecraft.client.util.InputUtil;
-import net.minecraft.client.world.ClientWorld;
 import org.lwjgl.glfw.GLFW;
-
-import net.minecraft.util.ActionResult;
 
 public final class FullKeyboardFeature extends IToggleableFeature
 {

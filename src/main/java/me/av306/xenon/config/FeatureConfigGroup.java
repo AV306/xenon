@@ -1,6 +1,11 @@
 package me.av306.xenon.config;
 
 import me.av306.xenon.config.feature.*;
+import me.av306.xenon.config.feature.chat.MultiQuickChatGroup;
+import me.av306.xenon.config.feature.chat.QuickChatGroup;
+import me.av306.xenon.config.feature.movement.FullKeyboardGroup;
+import me.av306.xenon.config.feature.movement.TimerGroup;
+import me.av306.xenon.config.feature.render.*;
 import me.lortseam.completeconfig.api.*;
 
 @ConfigEntries( includeAll = true )

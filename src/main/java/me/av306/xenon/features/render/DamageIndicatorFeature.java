@@ -1,16 +1,11 @@
 package me.av306.xenon.features.render;
 
 import me.av306.xenon.Xenon;
-import me.av306.xenon.config.feature.DamageIndicatorGroup;
 import me.av306.xenon.event.EntityDamageEvent;
 import me.av306.xenon.event.RenderInGameHudEvent;
 import me.av306.xenon.feature.IToggleableFeature;
-import me.av306.xenon.mixin.MinecraftClientAccessor;
-import me.av306.xenon.mixin.RenderTickCounterAccessor;
-import me.av306.xenon.util.render.RotationUtil;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.render.BufferBuilder;
-import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.VertexFormat;
@@ -18,7 +13,6 @@ import net.minecraft.client.render.VertexFormats;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.network.packet.s2c.play.EntityDamageS2CPacket;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import org.joml.Matrix4f;

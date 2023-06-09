@@ -1,7 +1,7 @@
 package me.av306.xenon.features.render;
 
 import me.av306.xenon.Xenon;
-import me.av306.xenon.config.feature.WailaGroup;
+import me.av306.xenon.config.feature.render.WailaGroup;
 import me.av306.xenon.event.RenderInGameHudEvent;
 import me.av306.xenon.feature.IToggleableFeature;
 import me.av306.xenon.util.color.ColorUtil;

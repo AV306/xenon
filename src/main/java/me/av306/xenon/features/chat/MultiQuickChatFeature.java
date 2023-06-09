@@ -1,10 +1,9 @@
 package me.av306.xenon.features.chat;
 
 import me.av306.xenon.Xenon;
-import me.av306.xenon.config.feature.MultiQuickChatGroup;
+import me.av306.xenon.config.feature.chat.MultiQuickChatGroup;
 import me.av306.xenon.event.KeyEvent;
 import me.av306.xenon.feature.IFeature;
-import me.av306.xenon.util.text.TextFactory;
 import net.minecraft.util.ActionResult;
 import org.lwjgl.glfw.GLFW;
 
