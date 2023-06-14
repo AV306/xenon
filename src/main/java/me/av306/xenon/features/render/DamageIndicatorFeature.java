@@ -5,6 +5,7 @@ import me.av306.xenon.event.EntityDamageEvent;
 import me.av306.xenon.event.RenderInGameHudEvent;
 import me.av306.xenon.feature.IToggleableFeature;
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.Tessellator;
@@ -33,7 +34,7 @@ public class DamageIndicatorFeature extends IToggleableFeature
         super( "DamageIndicator", "indicator", "dmgindicator", "dmghud" );
 
         EntityDamageEvent.EVENT.register( this::onEntityDamage );
-        RenderInGameHudEvent.AFTER_VIGNETTE.register( this::onInGameHudRender );
+        WorldRenderEvents.LAST.register( (context) -> this.onInGameHudRender( context.matrixStack(), context.tickDelta() ) );
     }
 
     // FIXME: I think we ccan remove the pitch and yaw calculations with just the length of the side

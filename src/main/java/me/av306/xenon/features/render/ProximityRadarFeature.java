@@ -25,6 +25,9 @@ public class ProximityRadarFeature extends IToggleableFeature
 {
     private int ticks = 0;
 
+    private double closestDistance = ProximityRadarGroup.range;
+    private boolean type = false; // True for hostile, false for player
+
     public ProximityRadarFeature()
     {
         super( "ProximityRadar", "proxradar", "pr" );
@@ -73,6 +76,30 @@ public class ProximityRadarFeature extends IToggleableFeature
             Xenon.INSTANCE.client.world.getEntities()
                     .forEach( (entity) -> this.scanEntity( matrices, entity ) );
 
+            // Process the data and send the appropriate message
+            Text text;
+            if ( type )
+            {
+                text = TextFactory.createTranslatable(
+                        "text.xenon.proximityradar.player",
+                        Double.toString( closestDistance ).substring( 0, 3 )
+                ).formatted(Formatting.RED, Formatting.BOLD);
+
+            }
+            else
+            {
+                text = TextFactory.createTranslatable(
+                        "text.xenon.proximityradar.hostile",
+                        Double.toString( closestDistance ).substring( 0, 3 )
+                ).formatted(Formatting.RED, Formatting.BOLD);
+
+            }
+            Xenon.INSTANCE.client.player.sendMessage( text,  true );
+
+            // Reset the closest detected distance
+            // I want static method variables :(
+            this.closestDistance = ProximityRadarGroup.range;
+
             matrices.pop();
 
             GL11.glDisable( GL11.GL_BLEND );
@@ -85,6 +112,12 @@ public class ProximityRadarFeature extends IToggleableFeature
         return ActionResult.PASS;
     }
 
+
+    /**
+     * Scans an entity to check its type and distance from the player.
+     * @param matrices
+     * @param entity
+     */
     private void scanEntity( MatrixStack matrices, Entity entity )
     {
         final int range = ProximityRadarGroup.range;
@@ -97,14 +130,18 @@ public class ProximityRadarFeature extends IToggleableFeature
         {
             if ( entity instanceof HostileEntity )
             {
-                // These math ops might be expensive, so we sacrifice code neatness
-                // for runtime speed by duplicating it across the if statements.
-                Text text = TextFactory.createTranslatable(
+                if ( distance < closestDistance )
+                {
+                    closestDistance = distance;
+                    type = false;
+                }
+
+                /*Text text = TextFactory.createTranslatable(
                         "text.xenon.proximityradar.hostile",
                         Double.toString( distance ).substring( 0, 3 )
                 ).formatted( Formatting.RED, Formatting.BOLD );
 
-                Xenon.INSTANCE.client.player.sendMessage( text,  true );
+                Xenon.INSTANCE.client.player.sendMessage( text,  true );*/
 
 
                 if ( ProximityRadarGroup.showBox )
@@ -115,12 +152,19 @@ public class ProximityRadarFeature extends IToggleableFeature
             }
             else if ( entity instanceof PlayerEntity && ProximityRadarGroup.detectPlayers && entity != Xenon.INSTANCE.client.player )
             {
-                Text text = TextFactory.createTranslatable(
+                if ( distance < closestDistance )
+                {
+                    closestDistance = distance;
+                    type = true;
+                }
+
+                /*Text text = TextFactory.createTranslatable(
                         "text.xenon.proximityradar.player",
                         Double.toString( distance ).substring( 0, 3 )
                 ).formatted( Formatting.RED, Formatting.BOLD );
 
-                Xenon.INSTANCE.client.player.sendMessage( text,  true );
+                Xenon.INSTANCE.client.player.sendMessage( text,  true );*/
+
 
                 if ( ProximityRadarGroup.showBox )
                     this.drawEntityBox( entity, matrices, ProximityRadarGroup.playerBoxColor );
