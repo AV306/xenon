@@ -74,7 +74,7 @@ public class ProximityRadarFeature extends IToggleableFeature
 
             // Scan each entity
             Xenon.INSTANCE.client.world.getEntities()
-                    .forEach( (entity) -> this.scanEntity( matrices, entity ) );
+                    .forEach( (entity) -> this.scanEntityAndRenderHighlight( matrices, entity ) );
 
             // Process the data and send the appropriate message
             Text text;
@@ -114,11 +114,11 @@ public class ProximityRadarFeature extends IToggleableFeature
 
 
     /**
-     * Scans an entity to check its type and distance from the player.
+     * Scans an entity to check its type and distance from the player, and render the box and tracer.
      * @param matrices
      * @param entity
      */
-    private void scanEntity( MatrixStack matrices, Entity entity )
+    private void scanEntityAndRenderHighlight(MatrixStack matrices, Entity entity )
     {
         final int range = ProximityRadarGroup.range;
 
