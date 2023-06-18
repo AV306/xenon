@@ -49,10 +49,10 @@ public abstract class GameRendererMixin implements AutoCloseable, SynchronousRes
            method = "renderWorld(FJLnet/minecraft/client/util/math/MatrixStack;)V",
            cancellable = true
    )
-    private void onRenderWorld( float tickDelta, long limitTime, MatrixStack matrices, CallbackInfo ci )
+    private void onRenderWorld( float tickDelta, long finishTimeNanos, MatrixStack matrices, CallbackInfo ci )
     {
         ActionResult result = GameRenderEvents.RENDER_WORLD.invoker()
-                .onRenderWorld( tickDelta, limitTime, matrices );
+                .onRenderWorld( tickDelta, finishTimeNanos, matrices );
 
         if ( result == ActionResult.FAIL ) ci.cancel();
     }
