@@ -5,6 +5,7 @@ import me.av306.xenon.Xenon;
 
 import me.av306.xenon.util.color.ColorUtil;
 import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -20,7 +21,7 @@ import net.minecraft.util.Formatting;
 public class TextUtil
 {
 	public static void drawPositionedText(
-			MatrixStack matrices,
+			DrawContext context,
 			Text text,
 			ScreenPosition position,
 			int xOffset,
@@ -64,12 +65,11 @@ public class TextUtil
 				break;
 		}
 
-		if ( shadow ) textRenderer.drawWithShadow( matrices, text, x, y, color );
-		else textRenderer.draw( matrices, text, x, y, color );
+		context.drawText( textRenderer, text, x, y, color, shadow );
 	}
 
 	public static void drawPositionedText(
-			MatrixStack matrices,
+			DrawContext context,
 			Text text,
 			ScreenPosition position,
 			int xOffset,
@@ -90,7 +90,7 @@ public class TextUtil
 		}
 
 		TextUtil.drawPositionedText(
-				matrices,
+				context,
 				text,
 				position,
 				xOffset, yOffset,
@@ -100,7 +100,7 @@ public class TextUtil
 	}
 
 	public static void drawPositionedMultiLineText(
-			MatrixStack matrices,
+			DrawContext context,
 			Text[] texts,
 			ScreenPosition position,
 			int xOffset, int yOffset,
@@ -123,9 +123,7 @@ public class TextUtil
 			case TOP_LEFT:
 				for ( Text text : texts )
 				{
-          			if ( shadow ) textRenderer.drawWithShadow( matrices, text, x, y, color );
-          			else textRenderer.draw( matrices, text, x, y, color );
-
+					context.drawText( textRenderer, text, x, y, color, shadow );
           			y += 12;
 			  	}
 				break;
@@ -135,8 +133,7 @@ public class TextUtil
         		{
 					x = (scaledWidth - textRenderer.getWidth( text )) / 2;
 
-					if ( shadow ) textRenderer.drawWithShadow( matrices, text, x, y, color );
-					else textRenderer.draw( matrices, text, x, y, color );
+			        context.drawText( textRenderer, text, x, y, color, shadow );
 
 					y += 12;
         		}
@@ -147,8 +144,7 @@ public class TextUtil
         		{
 					x = scaledWidth - textRenderer.getWidth( text ) - 5 - xOffset;
 
-					if ( shadow ) textRenderer.drawWithShadow( matrices, text, x, y, color );
-					else textRenderer.draw( matrices, text, x, y, color );
+			        context.drawText( textRenderer, text, x, y, color, shadow );
 
 					y += 12;
 			  	}
@@ -158,8 +154,7 @@ public class TextUtil
 				y = scaledHeight - 10 - yOffset;
 				for ( Text text : texts )
 				{
-					if ( shadow ) textRenderer.drawWithShadow( matrices, text, x, y, color );
-					else textRenderer.draw( matrices, text, x, y, color );
+					context.drawText( textRenderer, text, x, y, color, shadow );
 
 					y -= 12;
 				}
@@ -171,8 +166,7 @@ public class TextUtil
 				{
 					x = (scaledWidth - textRenderer.getWidth( text )) / 2;
 
-					if ( shadow ) textRenderer.drawWithShadow( matrices, text, x, y, color );
-					else textRenderer.draw( matrices, text, x, y, color );
+					context.drawText( textRenderer, text, x, y, color, shadow );
 
 					y -= 12;
 				}
@@ -182,8 +176,7 @@ public class TextUtil
 				{
 					x = scaledWidth - textRenderer.getWidth( text ) - 5 - xOffset;
 
-					if ( shadow ) textRenderer.drawWithShadow( matrices, text, x, y, color );
-					else textRenderer.draw( matrices, text, x, y, color );
+					context.drawText( textRenderer, text, x, y, color, shadow );
 
 					y -= 12;
 				}
@@ -192,7 +185,7 @@ public class TextUtil
 	}
 
 	public static void drawPositionedMultiLineText(
-			MatrixStack matrices,
+			DrawContext context,
 			Text[] texts,
 			ScreenPosition position,
 			int xOffset, int yOffset,
@@ -212,7 +205,7 @@ public class TextUtil
 		}
 
 		TextUtil.drawPositionedMultiLineText(
-				matrices,
+				context,
 				texts,
 				position,
 				xOffset, yOffset,

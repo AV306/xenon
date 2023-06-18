@@ -6,6 +6,7 @@ import me.av306.xenon.config.GeneralConfigGroup;
 import me.av306.xenon.event.RenderCrosshairEvent;
 import me.av306.xenon.event.RenderInGameHudEvent;
 
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.ActionResult;
@@ -22,15 +23,15 @@ public class InGameHudMixin
     @Inject(
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/client/gui/hud/InGameHud;renderStatusEffectOverlay(Lnet/minecraft/client/util/math/MatrixStack;)V", // render AFTER vignette without doing shit to the portal overlay
+                    target = "Lnet/minecraft/client/gui/hud/InGameHud;renderStatusEffectOverlay(Lnet/minecraft/client/gui/DrawContext;)V", // render AFTER vignette without doing shit to the portal overlay
                     shift = At.Shift.AFTER
             ),
-            method = "render(Lnet/minecraft/client/util/math/MatrixStack;F)V",
+            method = "render(Lnet/minecraft/client/gui/DrawContext;F)V",
             cancellable = true
     )
-    private void onRenderAfterVignette( MatrixStack matrices, float tickDelta, CallbackInfo ci )
+    private void onRenderAfterVignette( DrawContext context, float tickDelta, CallbackInfo ci )
     {
-        ActionResult result = RenderInGameHudEvent.AFTER_VIGNETTE.invoker().onAfterVignette( matrices, tickDelta );
+        ActionResult result = RenderInGameHudEvent.AFTER_VIGNETTE.invoker().onAfterVignette( context, tickDelta );
 
         // cancel if fail
         if ( result == ActionResult.FAIL )
@@ -44,13 +45,13 @@ public class InGameHudMixin
                     opcode = Opcodes.PUTFIELD,
                     ordinal = 0
             ),
-            method = "render(Lnet/minecraft/client/util/math/MatrixStack;F)V",
+            method = "render(Lnet/minecraft/client/gui/DrawContext;F)V",
             cancellable = true
     ) // Inject right AFTER scaledHeight is set, because we use it a lot
-    private void onStartRender( MatrixStack matrices, float tickDelta, CallbackInfo ci )
+    private void onStartRender( DrawContext drawContext, float tickDelta, CallbackInfo ci )
     {
         ActionResult result = RenderInGameHudEvent.START.invoker()
-                .onStartRender( matrices, tickDelta );
+                .onStartRender( drawContext, tickDelta );
 
         // cancel if fail
         if ( result == ActionResult.FAIL )
@@ -69,27 +70,26 @@ public class InGameHudMixin
 
     @Inject(
             at = @At( "HEAD" ),
-            method = "renderCrosshair(Lnet/minecraft/client/util/math/MatrixStack;)V",
+            method = "renderCrosshair(Lnet/minecraft/client/gui/DrawContext;)V",
             cancellable = true
     )
-    private void onRenderCrosshair( MatrixStack matrixStack, CallbackInfo ci )
+    private void onRenderCrosshair( DrawContext drawContext, CallbackInfo ci )
     {
-
         if ( RenderCrosshairEvent.START_RENDER.invoker()
-                .onStartRenderCrosshair( matrixStack ) == ActionResult.FAIL )
+                .onStartRenderCrosshair( drawContext ) == ActionResult.FAIL )
             ci.cancel();
     }
 
     @Inject(
             at = @At( "TAIL" ),
-            method = "renderCrosshair(Lnet/minecraft/client/util/math/MatrixStack;)V",
+            method = "renderCrosshair(Lnet/minecraft/client/gui/DrawContext;)V",
             cancellable = true
     )
-    private void onEndRenderCrosshair( MatrixStack matrixStack, CallbackInfo ci )
+    private void onEndRenderCrosshair( DrawContext drawContext, CallbackInfo ci )
     {
 
         if ( RenderCrosshairEvent.END_RENDER.invoker()
-                .onEndRenderCrosshair( matrixStack ) == ActionResult.FAIL )
+                .onEndRenderCrosshair( drawContext ) == ActionResult.FAIL )
             ci.cancel();
     }
 }
