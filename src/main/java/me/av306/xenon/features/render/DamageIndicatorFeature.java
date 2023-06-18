@@ -2,10 +2,15 @@ package me.av306.xenon.features.render;
 
 import me.av306.xenon.Xenon;
 import me.av306.xenon.event.EntityDamageEvent;
+import me.av306.xenon.event.GameRenderEvents;
 import me.av306.xenon.event.RenderInGameHudEvent;
 import me.av306.xenon.feature.IToggleableFeature;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.DrawableHelper;
+import net.minecraft.client.gui.hud.DebugHud;
+import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.Tessellator;
@@ -23,7 +28,7 @@ public class DamageIndicatorFeature extends IToggleableFeature
 {
     private float progress = 0f;
 
-    // Damage indicator flagss
+    // Damage indicator flags
     private boolean upIndicator = false;
     private boolean downIndicator = false;
     private boolean leftIndicator = false;
@@ -34,12 +39,16 @@ public class DamageIndicatorFeature extends IToggleableFeature
         super( "DamageIndicator", "indicator", "dmgindicator", "dmghud" );
 
         EntityDamageEvent.EVENT.register( this::onEntityDamage );
-        WorldRenderEvents.LAST.register( (context) -> this.onInGameHudRender( context.matrixStack(), context.tickDelta() ) );
+        // I really need help here. If anyone out there is looking at this,
+        // info on where I can draw polygons to screen space would be GREATLY appreciated.
+        //WorldRenderEvents.LAST.register( (context) -> this.onInGameHudRender( context.matrixStack(), context.tickDelta() ) );
+        //GameRenderEvents.RENDER_WORLD.register( (tickDelta, limitTime, matrices) -> this.onInGameHudRender( matrices, tickDelta ) );
     }
 
-    // FIXME: I think we ccan remove the pitch and yaw calculations with just the length of the side
-    // like for pitch, instead of acrsining, just use the sign of the delta height
-    // same for yae
+    /**
+     * Calculate the damage pitch and yaw when the player is attacked.
+     * @param packet: The damage packet
+     */
     private ActionResult onEntityDamage( EntityDamageS2CPacket packet )
     {
         if ( !this.isEnabled ) return ActionResult.PASS;
@@ -152,7 +161,9 @@ public class DamageIndicatorFeature extends IToggleableFeature
                 this.progress += DamageIndicatorGroup.indicatorFadeDurationMillis / deltaTime;
             }
             else return ActionResult.PASS;*/ // Garbage value, return
-             
+
+
+
 
             // Render
             // Don't use scaled width/height
@@ -164,20 +175,17 @@ public class DamageIndicatorFeature extends IToggleableFeature
 		    Tessellator tessellator = RenderSystem.renderThreadTesselator();
 		    BufferBuilder bufferBuilder = tessellator.getBuffer();
             GL11.glClear( GL11.GL_DEPTH_BUFFER_BIT );
-
 		    RenderSystem.setShader( GameRenderer::getPositionProgram );
             RenderSystem.setShaderColor( 1f, 0f, 0f, 1f );
 
             bufferBuilder.begin( VertexFormat.DrawMode.QUADS, VertexFormats.POSITION );
-
-            Xenon.INSTANCE.sendInfoMessage( "render " );
             bufferBuilder.vertex( matrix, 0, 0, 0 ).next();
-            bufferBuilder.vertex( matrix, 10000f, 0, 0 ).next();
-            bufferBuilder.vertex( matrix, 10000f, 10000f, 0 ).next();
-            bufferBuilder.vertex( matrix, 0, 10000f, 0 ).next();
+            bufferBuilder.vertex( matrix, 0, 50, 0 ).next();
+            bufferBuilder.vertex( matrix, 50, 50, 0 ).next();
+            bufferBuilder.vertex( matrix, 0, 50, 0 ).next();
             // Why not rendering :(
 
-            // FIXME: Reduc calculations with cache?
+            // FIXME: Reduce calculations with cache?
             /*if ( this.upIndicator )
             {
                 // Left corner of the arrow
@@ -285,9 +293,9 @@ public class DamageIndicatorFeature extends IToggleableFeature
                     0f // Z0 plane
                 ).next();		        
             }*/
-
             tessellator.draw();
             RenderSystem.setShaderColor( 1f, 1f, 1f, 1f );
+            GL11.glEnable( GL11.GL_CULL_FACE );
             matrices.pop(); // Spent so long trying to find the double pop()
         //}
         return ActionResult.PASS;
