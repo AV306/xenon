@@ -6,6 +6,7 @@ import me.av306.xenon.config.feature.render.RedReticleGroup;
 import me.av306.xenon.event.RenderCrosshairEvent;
 import me.av306.xenon.feature.IToggleableFeature;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.util.ActionResult;
@@ -22,7 +23,7 @@ public class RedReticleFeature extends IToggleableFeature
         RenderCrosshairEvent.END_RENDER.register( this::onEndRenderCrosshair );
     }
 
-    private ActionResult onStartRenderCrosshair( MatrixStack matrixStack )
+    private ActionResult onStartRenderCrosshair( DrawContext drawContext )
     {
         if ( this.isEnabled )
         {
@@ -39,22 +40,22 @@ public class RedReticleFeature extends IToggleableFeature
                 {
                     // Friendly!
                     // Green crosshair
-                    RenderSystem.setShaderColor( 0f, 1f, 0f, 1f );
+                    drawContext.setShaderColor( 0f, 1f, 0f, 1f );
                 } else if ( entity instanceof HostileEntity )
                 {
                     // Hostile and enemy!
                     // Red crosshair
-                    RenderSystem.setShaderColor( 1f, 0f, 0f, 1f );
+                    drawContext.setShaderColor( 1f, 0f, 0f, 1f );
                 }
             }
 
-            RenderSystem.setShaderColor( 1f, 1f, 1f, 1f );
+            drawContext.setShaderColor( 1f, 1f, 1f, 1f );
         }
 
         return ActionResult.PASS;
     }
 
-    private ActionResult onEndRenderCrosshair( MatrixStack matrixStack )
+    private ActionResult onEndRenderCrosshair( DrawContext drawContext )
     {
         if ( this.isEnabled ) RenderSystem.enableBlend();
         return ActionResult.PASS;

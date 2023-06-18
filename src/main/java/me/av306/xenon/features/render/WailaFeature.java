@@ -9,6 +9,7 @@ import me.av306.xenon.util.text.TextFactory;
 import me.av306.xenon.util.text.TextUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -41,7 +42,7 @@ public class WailaFeature extends IToggleableFeature
 		RenderInGameHudEvent.AFTER_VIGNETTE.register( this::onInGameHudRender );
 	}	
 
-	private ActionResult onInGameHudRender( MatrixStack matrices, float tickDelta )
+	private ActionResult onInGameHudRender( DrawContext drawContext, float tickDelta )
 	{
 		if ( !this.isEnabled ) return ActionResult.PASS;
 
@@ -61,7 +62,7 @@ public class WailaFeature extends IToggleableFeature
 		}
 
 		// display block data (should go e ery frame otherwise it will flash)
-		this.drawDataText( matrices, dataText );
+		this.drawDataText( drawContext, dataText );
 
 		return ActionResult.PASS;
 	}
@@ -127,9 +128,9 @@ public class WailaFeature extends IToggleableFeature
 		}
 	}
 
-	private void drawDataText( MatrixStack matrices, Text text )
+	private void drawDataText( DrawContext drawContext, Text text )
 	{
-		TextUtil.drawPositionedText( matrices, text, WailaGroup.position, 0, 0, false, ColorUtil.RED );
+		TextUtil.drawPositionedText( drawContext, text, WailaGroup.position, 0, 0, false, ColorUtil.RED );
 	}
 	
 	@Override
