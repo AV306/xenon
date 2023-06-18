@@ -11,6 +11,7 @@ import me.av306.xenon.util.color.ColorUtil;
 import me.av306.xenon.util.text.TextFactory;
 import me.av306.xenon.util.text.TextUtil;
 import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.util.Window;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
@@ -50,15 +51,12 @@ public final class FeatureList extends IToggleableFeature
         } );
     }
 
-    private ActionResult onInGameHudRender( MatrixStack matrices, float tickDelta )
+    private ActionResult onInGameHudRender( DrawContext drawContext, float tickDelta )
     {
         if ( !this.isEnabled ) return ActionResult.PASS;
 
         final boolean shouldShowVersion = FeatureListGroup.showVersion;
         final ScreenPosition position = FeatureListGroup.position;
-
-        TextRenderer textRenderer = Xenon.INSTANCE.client.inGameHud.getTextRenderer();
-        Window window = Xenon.INSTANCE.client.getWindow();
 
         // Initialise an empty AL that will contain the feature names
         ArrayList<Text> nameTexts = new ArrayList<>();
@@ -68,7 +66,7 @@ public final class FeatureList extends IToggleableFeature
         // should we draw the version name?
         if ( shouldShowVersion )
             TextUtil.drawPositionedText(
-                    matrices,
+                    drawContext,
                     this.versionText,
                     position,
                     0, 0,
@@ -95,7 +93,7 @@ public final class FeatureList extends IToggleableFeature
         // Begin drawing the feature names from the array.
         // remember to leave space for the version text!
         TextUtil.drawPositionedMultiLineText(
-                matrices,
+                drawContext,
                 nameTexts.toArray( Text[]::new ),
                 position,
                 0, 12,

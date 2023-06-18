@@ -3,17 +3,18 @@ package me.av306.xenon.event;
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.util.ActionResult;
 
 public class RenderCrosshairEvent
 {
     public static final Event<StartRender> START_RENDER = EventFactory.createArrayBacked(
             StartRender.class,
-            (listeners) -> (matrixStack) ->
+            (listeners) -> (drawContext) ->
             {
                 for ( StartRender listener : listeners )
                 {
-                    ActionResult result = listener.onStartRenderCrosshair( matrixStack );
+                    ActionResult result = listener.onStartRenderCrosshair( drawContext );
 
                     if ( result != ActionResult.PASS ) return result;
                 }
@@ -24,11 +25,11 @@ public class RenderCrosshairEvent
 
     public static final Event<EndRender> END_RENDER = EventFactory.createArrayBacked(
             EndRender.class,
-            (listeners) -> (matrixStack) ->
+            (listeners) -> (drawContext) ->
             {
                 for ( EndRender listener : listeners )
                 {
-                    ActionResult result = listener.onEndRenderCrosshair( matrixStack );
+                    ActionResult result = listener.onEndRenderCrosshair( drawContext );
 
                     if ( result != ActionResult.PASS ) return result;
                 }
@@ -40,12 +41,12 @@ public class RenderCrosshairEvent
     @FunctionalInterface
     public interface StartRender
     {
-        ActionResult onStartRenderCrosshair( MatrixStack matrixStack );
+        ActionResult onStartRenderCrosshair( DrawContext drawContext );
     }
 
     @FunctionalInterface
     public interface EndRender
     {
-        ActionResult onEndRenderCrosshair( MatrixStack matrixStack );
+        ActionResult onEndRenderCrosshair( DrawContext drawContext );
     }
 }
