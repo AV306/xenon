@@ -11,9 +11,9 @@ public class ProximityRadarGroup implements XenonConfigGroup
     @ConfigEntry.BoundedInteger( min = 1, max = 100 )
     public static int range = 3;
 
-    /*@ConfigEntry.BoundedInteger( min = 1, max = 100 )
+    /*@ConfigEntry.BoundedInteger( min = 1, max = 10 )
     @ConfigEntry.Slider
-    public static int interval = 5;*/
+    public static int lineThickness = 2;*/
 
     @ConfigEntry.Boolean
     public static boolean showBox = true;

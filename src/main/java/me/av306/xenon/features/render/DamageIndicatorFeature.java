@@ -6,6 +6,7 @@ import me.av306.xenon.event.GameRenderEvents;
 import me.av306.xenon.event.RenderInGameHudEvent;
 import me.av306.xenon.feature.IToggleableFeature;
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
@@ -19,6 +20,7 @@ import net.minecraft.client.render.VertexFormats;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.network.packet.s2c.play.EntityDamageS2CPacket;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import org.joml.Matrix4f;
@@ -39,10 +41,8 @@ public class DamageIndicatorFeature extends IToggleableFeature
         super( "DamageIndicator", "indicator", "dmgindicator", "dmghud" );
 
         EntityDamageEvent.EVENT.register( this::onEntityDamage );
-        // I really need help here. If anyone out there is looking at this,
-        // info on where I can draw polygons to screen space would be GREATLY appreciated.
-        //WorldRenderEvents.LAST.register( (context) -> this.onInGameHudRender( context.matrixStack(), context.tickDelta() ) );
-        //GameRenderEvents.RENDER_WORLD.register( (tickDelta, limitTime, matrices) -> this.onInGameHudRender( matrices, tickDelta ) );
+        //HudRenderCallback.EVENT.register( this::onInGameHudRender );
+        HudRenderCallback.EVENT.register( this::onInGameHudRender );
     }
 
     /**
@@ -114,7 +114,37 @@ public class DamageIndicatorFeature extends IToggleableFeature
         return ActionResult.PASS;
     }
 
-    private ActionResult onInGameHudRender( MatrixStack matrices, float tickDelta )
+    private void onInGameHudRender( MatrixStack matrices, float tickDelta )
+    {
+        int width = Xenon.INSTANCE.client.getWindow().getScaledWidth();
+        int height = Xenon.INSTANCE.client.getWindow().getScaledHeight();
+
+        GL11.glEnable( GL11.GL_BLEND );
+        GL11.glBlendFunc( GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA );
+
+        Matrix4f positionMatrix = matrices.peek().getPositionMatrix();
+        Tessellator tessellator = RenderSystem.renderThreadTesselator();
+        BufferBuilder buffer = tessellator.getBuffer();
+
+        RenderSystem.setShader( GameRenderer::getPositionProgram );
+        RenderSystem.setShaderColor( 1f, 0, 0, 0.5f );
+
+        buffer.begin( VertexFormat.DrawMode.TRIANGLES, VertexFormats.POSITION );
+        buffer.vertex( positionMatrix, width / 2f, 20, 0 ).next(); // Top corner
+        buffer.vertex( positionMatrix, 20, 50 + 20, 0 ).next();
+        buffer.vertex( positionMatrix, width - 20, 50 + 20, 0 ).next();
+
+        buffer.vertex( positionMatrix, width / 2f, 20, 0 ).next();
+        buffer.vertex( positionMatrix, 20, height + 5, 0 ).next();
+        buffer.vertex( positionMatrix, width - 20, 50 + 20, 0 ).next();
+
+
+        tessellator.draw();
+
+        RenderSystem.setShaderColor( 1f, 1f, 1f, 1f );
+    }
+
+    private ActionResult onInGameHudRenderOld( MatrixStack matrices, float tickDelta )
     {
         /* Flowchart
             (start) ->
@@ -140,8 +170,6 @@ public class DamageIndicatorFeature extends IToggleableFeature
         //float deltaTime = Xenon.INSTANCE.client.getRenderTime();
         //Xenon.INSTANCE.LOGGER.info( "dt: {}", deltaTime );
         float alpha = 1f;
-
-        matrices.push();
     
         // FIXME: not working :(
         //if ( upIndicator || downIndicator || leftIndicator || rightIndicator )
@@ -163,141 +191,23 @@ public class DamageIndicatorFeature extends IToggleableFeature
             else return ActionResult.PASS;*/ // Garbage value, return
 
 
-
-
             // Render
             // Don't use scaled width/height
-            matrices.push();
-            int windowWidth = Xenon.INSTANCE.client.getWindow().getWidth();
-            int windowHeight = Xenon.INSTANCE.client.getWindow().getHeight();
+        Matrix4f positionMatrix = matrices.peek().getPositionMatrix();
+        Tessellator tessellator = Tessellator.getInstance();
+        BufferBuilder buffer  = tessellator.getBuffer();
 
-            Matrix4f matrix = matrices.peek().getPositionMatrix();
-		    Tessellator tessellator = RenderSystem.renderThreadTesselator();
-		    BufferBuilder bufferBuilder = tessellator.getBuffer();
-            GL11.glClear( GL11.GL_DEPTH_BUFFER_BIT );
-		    RenderSystem.setShader( GameRenderer::getPositionProgram );
-            RenderSystem.setShaderColor( 1f, 0f, 0f, 1f );
+        RenderSystem.setShader( GameRenderer::getPositionColorTexProgram );
+        RenderSystem.setShaderColor( 1f, 1f, 1f, 1f );
 
-            bufferBuilder.begin( VertexFormat.DrawMode.QUADS, VertexFormats.POSITION );
-            bufferBuilder.vertex( matrix, 0, 0, 0 ).next();
-            bufferBuilder.vertex( matrix, 0, 50, 0 ).next();
-            bufferBuilder.vertex( matrix, 50, 50, 0 ).next();
-            bufferBuilder.vertex( matrix, 0, 50, 0 ).next();
-            // Why not rendering :(
+        buffer.begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_COLOR_TEXTURE);
+        buffer.vertex(positionMatrix, 20, 20, 0).color(1f, 1f, 1f, 1f).texture(0f, 0f).next();
+        buffer.vertex(positionMatrix, 20, 60, 0).color(1f, 0f, 0f, 1f).texture(0f, 1f).next();
+        buffer.vertex(positionMatrix, 60, 60, 0).color(0f, 1f, 0f, 1f).texture(1f, 1f).next();
+        buffer.vertex(positionMatrix, 60, 20, 0).color(0f, 0f, 1f, 1f).texture(1f, 0f).next();
 
-            // FIXME: Reduce calculations with cache?
-            /*if ( this.upIndicator )
-            {
-                // Left corner of the arrow
-		        bufferBuilder.vertex(
-                    matrix,
-                    16f, // Left padding
-                    64f + 5f, // height of arrow + offset
-                    0f // Z0 plane
-                ).next();
+        tessellator.draw();
 
-                // Top corner
-                bufferBuilder.vertex(
-                    matrix,
-                    windowWidth/2f, // Middle of the screen
-                    5f, // Offset
-                    0f // Z0 plane
-                ).next();
-
-                // Right corner
-                bufferBuilder.vertex(
-                    matrix,
-                    windowWidth - 16f, // Left padding
-                    64f + 5f, // height of arrow + offset
-                    0f // Z0 plane
-                ).next();		        
-            }
-
-            if ( this.downIndicator )
-            {
-                // Left corner of the arrow
-		        bufferBuilder.vertex(
-                    matrix,
-                    16f, // Left padding
-                    windowWidth - (64f + 5f), // height of arrow + offset
-                    0f // Z0 plane
-                ).next();
-
-                // Top corner
-                bufferBuilder.vertex(
-                    matrix,
-                    windowWidth/2f, // Middle of the screen
-                    windowHeight - 5f, // Offset
-                    0f // Z0 plane
-                ).next();
-
-                // Right corner
-                bufferBuilder.vertex(
-                    matrix,
-                    windowWidth - 16f, // Left padding
-                    windowHeight - (64f + 5f), // height of arrow + offset
-                    0f // Z0 plane
-                ).next();		        
-            }
-
-            if ( this.leftIndicator )
-            {
-                // Top corner of the arrow
-		        bufferBuilder.vertex(
-                    matrix,
-                    64f + 5f, // Width of arrow + padding
-                    16f, // Top padding
-                    0f // Z0 plane
-                ).next();
-
-                // Left corner
-                bufferBuilder.vertex(
-                    matrix,
-                    5f, // Offset
-                    windowHeight/2f, // Middle of screen
-                    0f // Z0 plane
-                ).next();
-
-                // Right corner
-                bufferBuilder.vertex(
-                    matrix,
-                    64f + 5f, // Width of arrow + padding
-                    windowHeight - 5f, // Bottom padding
-                    0f // Z0 plane
-                ).next();
-            }
-
-            if ( this.rightIndicator )
-            {
-                // Top corner of the arrow
-		        bufferBuilder.vertex(
-                    matrix,
-                    windowWidth - (64f + 5f), // Width of arrow + padding
-                    16f, // Top padding
-                    0f // Z0 plane
-                ).next();
-
-                // Left corner
-                bufferBuilder.vertex(
-                    matrix,
-                    windowWidth - 5f, // Offset
-                    windowHeight/2f, // Middle of screen
-                    0f // Z0 plane
-                ).next();
-
-                // Right corner
-                bufferBuilder.vertex(
-                    matrix,
-                    windowWidth - (64f + 5f), // Width of arrow + padding
-                    windowHeight - 5f, // Bottom padding
-                    0f // Z0 plane
-                ).next();		        
-            }*/
-            tessellator.draw();
-            RenderSystem.setShaderColor( 1f, 1f, 1f, 1f );
-            GL11.glEnable( GL11.GL_CULL_FACE );
-            matrices.pop(); // Spent so long trying to find the double pop()
-        //}
         return ActionResult.PASS;
     }
 
