@@ -24,6 +24,9 @@ public class FeatureConfigGroup implements XenonConfigGroup
 	private final QuickChatGroup quickChatGroup = new QuickChatGroup();
 
 	@Transitive
+	private final DamageIndicatorGroup damageIndicatorGroup = new DamageIndicatorGroup();
+
+	@Transitive
 	private final FeatureListGroup featureListGroup = new FeatureListGroup();
 
 	@Transitive

@@ -1,17 +1,11 @@
 package me.av306.xenon.features.render;
 
 import me.av306.xenon.Xenon;
+import me.av306.xenon.config.feature.render.DamageIndicatorGroup;
 import me.av306.xenon.event.EntityDamageEvent;
-import me.av306.xenon.event.GameRenderEvents;
-import me.av306.xenon.event.RenderInGameHudEvent;
 import me.av306.xenon.feature.IToggleableFeature;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
-import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawableHelper;
-import net.minecraft.client.gui.hud.DebugHud;
-import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.render.BufferBuilder;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.Tessellator;
@@ -20,7 +14,6 @@ import net.minecraft.client.render.VertexFormats;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.network.packet.s2c.play.EntityDamageS2CPacket;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import org.joml.Matrix4f;
@@ -116,10 +109,15 @@ public class DamageIndicatorFeature extends IToggleableFeature
 
     private void onInGameHudRender( MatrixStack matrices, float tickDelta )
     {
+        // Return if no indicators needed
+        if ( !(upIndicator || downIndicator || leftIndicator || rightIndicator) || !this.isEnabled ) return;
+
+
         int width = Xenon.INSTANCE.client.getWindow().getScaledWidth();
         int height = Xenon.INSTANCE.client.getWindow().getScaledHeight();
 
-        GL11.glEnable( GL11.GL_BLEND );
+        RenderSystem.enableBlend();
+        //GL11.glEnable( GL11.GL_BLEND );
         GL11.glBlendFunc( GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA );
 
         Matrix4f positionMatrix = matrices.peek().getPositionMatrix();
@@ -130,13 +128,42 @@ public class DamageIndicatorFeature extends IToggleableFeature
         RenderSystem.setShaderColor( 1f, 0, 0, 0.5f );
 
         buffer.begin( VertexFormat.DrawMode.TRIANGLES, VertexFormats.POSITION );
-        buffer.vertex( positionMatrix, width / 2f, 20, 0 ).next(); // Top corner
+        /*buffer.vertex( positionMatrix, width / 2f, 20, 0 ).next(); // Top corner
         buffer.vertex( positionMatrix, 20, 50 + 20, 0 ).next();
-        buffer.vertex( positionMatrix, width - 20, 50 + 20, 0 ).next();
+        buffer.vertex( positionMatrix, width - 20, 50 + 20, 0 ).next();*/
 
-        buffer.vertex( positionMatrix, width / 2f, 20, 0 ).next();
-        buffer.vertex( positionMatrix, 20, height + 5, 0 ).next();
-        buffer.vertex( positionMatrix, width - 20, 50 + 20, 0 ).next();
+        float xOffset = (width - (DamageIndicatorGroup.indicatorSizeFactor * width)) / 2;
+        float yOffset = (height - (DamageIndicatorGroup.indicatorSizeFactor * height)) / 2;
+
+        if ( upIndicator )
+        {
+
+            buffer.vertex( positionMatrix, width / 2f, DamageIndicatorGroup.indicatorOffset, 0 ).next(); // Top corner
+            buffer.vertex( positionMatrix, xOffset, DamageIndicatorGroup.indicatorOffset + DamageIndicatorGroup.indicatorHeight, 0 ).next(); // Bottom left corner
+            buffer.vertex( positionMatrix, width - xOffset, DamageIndicatorGroup.indicatorOffset + DamageIndicatorGroup.indicatorHeight, 0 ).next(); // Bottom right corner
+        }
+
+        if ( downIndicator )
+        {
+            buffer.vertex( positionMatrix, width / 2f, height - DamageIndicatorGroup.indicatorOffset, 0 ).next(); // Bottom corner
+            buffer.vertex( positionMatrix, xOffset, height - DamageIndicatorGroup.indicatorOffset - DamageIndicatorGroup.indicatorHeight, 0 ).next(); // Top left corner
+            buffer.vertex( positionMatrix, width - xOffset, height - DamageIndicatorGroup.indicatorOffset - DamageIndicatorGroup.indicatorHeight, 0 ).next(); // Bottom right corner
+        }
+
+        if ( leftIndicator )
+        {
+            buffer.vertex( positionMatrix, DamageIndicatorGroup.indicatorOffset, height / 2f, 0 ).next(); // Leftmost corner (middle)
+            buffer.vertex( positionMatrix, DamageIndicatorGroup.indicatorOffset + DamageIndicatorGroup.indicatorHeight, yOffset, 0 ).next(); // Upper corner
+            buffer.vertex( positionMatrix, DamageIndicatorGroup.indicatorOffset + DamageIndicatorGroup.indicatorHeight, height - yOffset, 0 ).next(); // Bottom corner
+        }
+
+        if ( rightIndicator )
+        {
+            buffer.vertex( positionMatrix, width - DamageIndicatorGroup.indicatorOffset, height / 2f, 0 ).next(); // Rightmost corner (middle)
+            buffer.vertex( positionMatrix, width - DamageIndicatorGroup.indicatorOffset + DamageIndicatorGroup.indicatorHeight, yOffset, 0 ).next(); // Upper corner
+            buffer.vertex( positionMatrix, width - DamageIndicatorGroup.indicatorOffset + DamageIndicatorGroup.indicatorHeight, height - yOffset, 0 ).next(); // Bottom corner
+        }
+
 
 
         tessellator.draw();
