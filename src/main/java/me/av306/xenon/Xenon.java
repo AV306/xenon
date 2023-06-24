@@ -127,6 +127,7 @@ public enum Xenon
         if ( GeneralConfigGroup.enableTimer ) new TimerFeature();
         new WailaFeature();
         new ZoomFeature();
+        new BlackBox();
     }
 
 
