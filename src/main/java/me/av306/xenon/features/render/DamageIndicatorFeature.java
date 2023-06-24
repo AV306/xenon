@@ -33,7 +33,8 @@ public class DamageIndicatorFeature extends IToggleableFeature
     {
         super( "DamageIndicator", "indicator", "dmgindicator", "dmghud" );
 
-        EntityDamageEvent.EVENT.register( this::onEntityDamage );
+        //EntityDamageEvent.EVENT.register( this::onEntityDamage );
+        upIndicator = true; downIndicator = true; leftIndicator = true; rightIndicator = true;
         //HudRenderCallback.EVENT.register( this::onInGameHudRender );
         HudRenderCallback.EVENT.register( this::onInGameHudRender );
     }
@@ -114,10 +115,11 @@ public class DamageIndicatorFeature extends IToggleableFeature
 
 
         int width = Xenon.INSTANCE.client.getWindow().getScaledWidth();
+        float halfWidth = width / 2f;
         int height = Xenon.INSTANCE.client.getWindow().getScaledHeight();
+        float halfHeight = height / 2f;
 
         RenderSystem.enableBlend();
-        //GL11.glEnable( GL11.GL_BLEND );
         GL11.glBlendFunc( GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA );
 
         Matrix4f positionMatrix = matrices.peek().getPositionMatrix();
@@ -138,28 +140,28 @@ public class DamageIndicatorFeature extends IToggleableFeature
         if ( upIndicator )
         {
 
-            buffer.vertex( positionMatrix, width / 2f, DamageIndicatorGroup.indicatorOffset, 0 ).next(); // Top corner
+            buffer.vertex( positionMatrix, halfWidth, DamageIndicatorGroup.indicatorOffset, 0 ).next(); // Top corner
             buffer.vertex( positionMatrix, xOffset, DamageIndicatorGroup.indicatorOffset + DamageIndicatorGroup.indicatorHeight, 0 ).next(); // Bottom left corner
             buffer.vertex( positionMatrix, width - xOffset, DamageIndicatorGroup.indicatorOffset + DamageIndicatorGroup.indicatorHeight, 0 ).next(); // Bottom right corner
         }
 
         if ( downIndicator )
         {
-            buffer.vertex( positionMatrix, width / 2f, height - DamageIndicatorGroup.indicatorOffset, 0 ).next(); // Bottom corner
+            buffer.vertex( positionMatrix, 480, height - DamageIndicatorGroup.indicatorOffset, 0 ).next(); // Bottom corner
             buffer.vertex( positionMatrix, xOffset, height - DamageIndicatorGroup.indicatorOffset - DamageIndicatorGroup.indicatorHeight, 0 ).next(); // Top left corner
             buffer.vertex( positionMatrix, width - xOffset, height - DamageIndicatorGroup.indicatorOffset - DamageIndicatorGroup.indicatorHeight, 0 ).next(); // Bottom right corner
         }
 
         if ( leftIndicator )
         {
-            buffer.vertex( positionMatrix, DamageIndicatorGroup.indicatorOffset, height / 2f, 0 ).next(); // Leftmost corner (middle)
             buffer.vertex( positionMatrix, DamageIndicatorGroup.indicatorOffset + DamageIndicatorGroup.indicatorHeight, yOffset, 0 ).next(); // Upper corner
             buffer.vertex( positionMatrix, DamageIndicatorGroup.indicatorOffset + DamageIndicatorGroup.indicatorHeight, height - yOffset, 0 ).next(); // Bottom corner
+            buffer.vertex( positionMatrix, DamageIndicatorGroup.indicatorOffset, halfHeight, 0 ).next(); // Leftmost corner (middle)
         }
 
         if ( rightIndicator )
         {
-            buffer.vertex( positionMatrix, width - DamageIndicatorGroup.indicatorOffset, height / 2f, 0 ).next(); // Rightmost corner (middle)
+            buffer.vertex( positionMatrix, width - DamageIndicatorGroup.indicatorOffset, halfHeight, 0 ).next(); // Rightmost corner (middle)
             buffer.vertex( positionMatrix, width - DamageIndicatorGroup.indicatorOffset + DamageIndicatorGroup.indicatorHeight, yOffset, 0 ).next(); // Upper corner
             buffer.vertex( positionMatrix, width - DamageIndicatorGroup.indicatorOffset + DamageIndicatorGroup.indicatorHeight, height - yOffset, 0 ).next(); // Bottom corner
         }
@@ -169,6 +171,7 @@ public class DamageIndicatorFeature extends IToggleableFeature
         tessellator.draw();
 
         RenderSystem.setShaderColor( 1f, 1f, 1f, 1f );
+        RenderSystem.disableBlend();
     }
 
     private ActionResult onInGameHudRenderOld( MatrixStack matrices, float tickDelta )
