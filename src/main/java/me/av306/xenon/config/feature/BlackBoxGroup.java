@@ -7,9 +7,10 @@ import me.lortseam.completeconfig.api.ConfigEntry;
 @ConfigEntries( includeAll = true )
 public class BlackBoxGroup implements XenonConfigGroup
 {
+
 	@ConfigEntry.Boolean
 	public static boolean showInFeatureList = true;
 
 	@ConfigEntry.Boolean
-	public static boolean enableOnWorldEnter = true;
+	public static boolean reEnableOnWorldEnter = true;
 }
