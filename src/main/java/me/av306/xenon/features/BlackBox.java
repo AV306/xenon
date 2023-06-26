@@ -12,8 +12,8 @@ import net.minecraft.util.ActionResult;
 
 import java.io.*;
 import java.nio.file.Files;
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class BlackBox extends IToggleableFeature
 {
@@ -21,55 +21,45 @@ public class BlackBox extends IToggleableFeature
 	private OutputStreamWriter logFileOutput = null;
 	private int index = 0;
 
-	private final Calendar calendar;
-
 	public BlackBox()
 	{
 		super( "BlackBox" );
 
 		//this.setShouldHide( BlackBoxGroup.showInFeatureList );
-		this.calendar = Calendar.getInstance();
 	}
 
 	@Override
 	protected void onEnable()
 	{
 		// Open a new log file and output stream
+		this.createNewFile();
+
+		// Write starting data
+	}
+
+	@Override
+	protected void onDisable()
+	{
+		this.cleanup();
+
+		//Xenon.INSTANCE.LOGGER.info( "index: {}", this.index );
+	}
+
+	private void createLogFile()
+	{
 		try
 		{
-			String timestamp = this.calendar.getTime()
-					.toString()
-					.replace( ':', '.' ); // Windows doesn't like colons
+			String datestamp = LocalDate.now().toString();
 			String gameDir = FabricLoader.getInstance().getGameDir().toString();
 
 			//Xenon.INSTANCE.LOGGER.info( gameDir + File.separator + timestamp + this.index + ".log" );
 
-			this.logFile = new File( gameDir + File.separator + timestamp + this.index + ".log" );
+			this.logFile = new File( gameDir + File.separator + datestamp + "-" + this.index + ".data" );
 			this.logFile.createNewFile();
 
 			this.logFileOutput = new OutputStreamWriter( new FileOutputStream( this.logFile ) );
-			this.logFileOutput.append( timestamp ).append( "BlackBox logging started. Stay safe!\n" );
+			this.logFileOutput.append( LocalTime.now().toString() ).append( "BlackBox logging started. Stay safe!\n" );
 
-			// Write world name/server ip
-			ServerInfo serverInfo = Xenon.INSTANCE.client.getNetworkHandler().getServerInfo();
-
-			// FIXME: everything is null somehow and idfk why
-
-			if ( serverInfo == null )
-			{
-				this.writeData( "Server info was null; something really bad happened and BlackBox can't continue logging. Sorry!" );
-				this.disable();
-			}
-
-			if ( !serverInfo.isLocal() )
-			{
-				this.writeData("Server address: ", serverInfo.address);
-				this.writeData("Number of players: ", String.valueOf(serverInfo.players.online()));
-			}
-			else this.writeData( "Local server" );
-
-			assert Xenon.INSTANCE.client.interactionManager != null;
-			this.writeData( "Gamemode: ", Xenon.INSTANCE.client.interactionManager.getCurrentGameMode().getName() );
 		}
 		catch ( IOException ioe )
 		{
@@ -77,41 +67,44 @@ public class BlackBox extends IToggleableFeature
 			ioe.printStackTrace();
 			this.logFile = null;
 			this.logFileOutput = null;
+			this.disable();
 		}
 	}
 
-	@Override
-	protected void onDisable()
+	private void writeData( String... datas )
 	{
-		this.cleanup( true );
+		try
+		{
+			this.logFileOutput.append( '[' )
+					.append( LocalTime.now().toString() )
+					.append( "] " );
 
-		//Xenon.INSTANCE.LOGGER.info( "index: {}", this.index );
-	}
+			for ( String data : datas ) this.logFileOutput.append( data );
 
-	private void writeData( String... datas ) throws IOException
-	{
-		if ( this.logFileOutput == null ) return;
-
-		this.logFileOutput.append( '[' )
-				.append( this.calendar.getTime().toString() )
-				.append( "] " );
-
-		for ( String data : datas ) this.logFileOutput.append( data );
-
-		this.logFileOutput.append( '\n' );
+			this.logFileOutput.append( '\n' );
+		}
+		catch ( IOException ioe )
+		{
+			ioe.printStackTrace();
+			Xenon.INSTANCE.sendErrorMessage( "text.xenon.blackbox.ioexception.write" );
+		}
+		catch ( NullPointerException npe )
+		{
+			Xenon.INSTANCE.LOGGER.warn( "BlackBox write attempted but logfile was null!" );
+		}
 	}
 
 	private void cleanup()
 	{
-		if ( this.logFile != null && this.logFileOutput != null )
-		{
-			// Clean up gracefully
-			try { logFileOutput.close(); }
-			catch ( IOException e ) { Xenon.INSTANCE.sendErrorMessage( "text.xenon.blackbox.ioexception.disposal" ); }
+		if ( this.logFile == null || this.logFileOutput == null ) return;
 
-			this.logFile = null;
-			this.logFileOutput = null;
-			index++;
-		}
+
+		// Clean up gracefully
+		try { this.writeData( "BlackBox logging stopped." ); logFileOutput.close(); }
+		catch ( IOException e ) { Xenon.INSTANCE.sendErrorMessage( "text.xenon.blackbox.ioexception.disposal" ); }
+
+		this.logFile = null;
+		this.logFileOutput = null;
+		index++;
 	}
 }
