@@ -13,4 +13,8 @@ public class BlackBoxGroup implements XenonConfigGroup
 
 	@ConfigEntry.Boolean
 	public static boolean reEnableOnWorldEnter = true;
+
+	@ConfigEntry.BoundedInteger( min = 1, max = 100 )
+	@ConfigEntry.Slider
+	public static int trackingLogInterval = 5;
 }
