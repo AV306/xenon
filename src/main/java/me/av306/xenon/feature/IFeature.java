@@ -1,6 +1,7 @@
 package me.av306.xenon.feature;
 
 import me.av306.xenon.Xenon;
+import me.av306.xenon.event.KeyEvent;
 import me.av306.xenon.event.MinecraftClientEvents;
 import me.av306.xenon.util.text.TextFactory;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;

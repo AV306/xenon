@@ -46,6 +46,7 @@ public class BlackBox extends IToggleableFeature
 	@Override
 	protected void onEnable()
 	{
+		this.setShouldHide( !BlackBoxGroup.showInFeatureList );
 		// Open a new log file and output stream
 		this.createLogFile();
 
@@ -86,10 +87,11 @@ public class BlackBox extends IToggleableFeature
 			this.logFileWriter.append( '\n' );
 
 			this.logFileWriter.append( "Spawn:\n" );
-			this.logFileWriter.append( "\tSpawn position: ()" )
+			this.logFileWriter.append( "\tSpawn position: (" )
 					.append( String.valueOf( props.getSpawnX() ) ).append( ", " )
 					.append( String.valueOf( props.getSpawnY() ) ).append( ", " )
-					.append( String.valueOf( props.getSpawnZ() ) ).append( ')' );
+					.append( String.valueOf( props.getSpawnZ() ) ).append( ')' )
+					.append( '\n' );
 
 			this.writeData( "END CONNECTION DATA BLOCK ====================" );
 		}

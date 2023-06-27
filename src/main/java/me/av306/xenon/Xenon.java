@@ -11,6 +11,7 @@ import me.av306.xenon.features.chat.*;
 import me.av306.xenon.features.movement.*;
 import me.av306.xenon.features.render.*;
 import me.av306.xenon.mixin.MinecraftClientAccessor;
+import me.av306.xenon.util.KeybindUtil;
 import me.av306.xenon.util.text.TextFactory;
 import me.lortseam.completeconfig.data.Config;
 import me.lortseam.completeconfig.gui.ConfigScreenBuilder;
@@ -19,8 +20,10 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.fabricmc.loader.api.Version;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.option.KeyBinding;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import org.lwjgl.glfw.GLFW;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 
@@ -55,11 +58,13 @@ public enum Xenon
 
     public HashMap<String, Command> commandRegistry = new HashMap<>();
 
-    private String versionString; // 
+    private String versionString; //
+
     public String getVersion() { return versionString; }
     
     public ModContainer modContainer;
 
+    public KeyBinding modifierKey;
     /**
      * This field `namePrefix` should contain "[Xenon] " (note whitespace),
      * and be formatted with Xenon's messsage format.
@@ -97,10 +102,6 @@ public enum Xenon
         // register features
         initCommands();
         initFeatures();
-
-        // Register config screen with ModMenu if present
-        if ( FabricLoader.getInstance().isModLoaded( "cloth-config" ) )
-            ConfigScreenBuilder.setMain( this.MODID, new ClothConfigScreenBuilder() );
     }
 
     private void initCommands()
@@ -111,10 +112,16 @@ public enum Xenon
 
     private void initFeatures()
     {
+        this.modifierKey = KeybindUtil.registerKeybind(
+                "key.xenon.modifier",
+                GLFW.GLFW_KEY_LEFT_ALT,
+                "features"
+        );
+
         new AustralianModeFeature();
         new CommandProcessor();
         new ConfigMenu();
-        new DamageIndicatorFeature();
+        //new DamageIndicatorFeature();
         new FeatureList();
         new FullBrightFeature();
         if ( FullKeyboardGroup.enable ) new FullKeyboardFeature();

@@ -1,6 +1,10 @@
 {
   "category.xenon.features": "Xenon Features",
   "config.xenon.featureconfiggroup": "Feature Configurations",
+  "config.xenon.featureconfiggroup.blackboxgroup": "BlackBox Settings",
+  "config.xenon.featureconfiggroup.blackboxgroup.showInFeatureList": "Show in FeatureList",
+  "config.xenon.featureconfiggroup.blackboxgroup.reEnableOnWorldEnter": "Automatically enable on joining world",
+  "config.xenon.featureconfiggroup.blackboxgroup.trackingLogInterval": "Tracking data logging interval (minutes)",
   "config.xenon.featureconfiggroup.commandprocessorgroup": "CommandProcessor Settings",
   "config.xenon.featureconfiggroup.commandprocessorgroup.reEnableOnWorldEnter": "Re-enable on joining world",
   "config.xenon.featureconfiggroup.commandprocessorgroup.prefix": "Prefix",
