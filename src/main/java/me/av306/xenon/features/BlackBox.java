@@ -2,18 +2,18 @@ package me.av306.xenon.features;
 
 import me.av306.xenon.Xenon;
 import me.av306.xenon.config.feature.BlackBoxGroup;
-import me.av306.xenon.config.feature.FeatureListGroup;
 import me.av306.xenon.event.MinecraftClientEvents;
 import me.av306.xenon.feature.IToggleableFeature;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.network.ServerInfo;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.util.ActionResult;
 
 import java.io.*;
-import java.nio.file.Files;
+import java.net.SocketAddress;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.concurrent.*;
@@ -23,6 +23,7 @@ public class BlackBox extends IToggleableFeature
 	private File logFile = null;
 	private OutputStreamWriter logFileWriter = null;
 	private int index = 0;
+	private boolean isGameThreadWriting = false;
 
 	private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool( 1 );
 	private ScheduledFuture<?> trackingLogTimerFuture = null;
@@ -49,12 +50,13 @@ public class BlackBox extends IToggleableFeature
 		this.createLogFile();
 
 		// Write starting data
+		this.writeWorldData();
 
 		// Register 5-minute tracking log timer (working!!!)
 		this.trackingLogTimerFuture = scheduler.scheduleAtFixedRate(
-			this::logTrackingData,
-			0, 30, //BlackBoxGroup.trackingLogInterval,
-			TimeUnit.SECONDS
+			this::writeTrackingData,
+			0, BlackBoxGroup.trackingLogInterval,
+			TimeUnit.MINUTES
 		);
 	}
 
@@ -62,12 +64,46 @@ public class BlackBox extends IToggleableFeature
 	protected void onDisable()
 	{
 		this.cleanup();
-
-		//Xenon.INSTANCE.LOGGER.info( "index: {}", this.index );
 	}
 
-	private void logTrackingData()
+	private void writeWorldData()
 	{
+		try
+		{
+			this.writeData( "BEGIN CONNECTION DATA BLOCK ====================" );
+
+			ClientWorld clientWorld = Xenon.INSTANCE.client.world;
+			ClientWorld.Properties props = clientWorld.getLevelProperties();
+
+			if ( clientWorld.isClient() )
+			{
+				this.logFileWriter.append( "Local server" ).append( '\n' );
+			}
+
+			this.logFileWriter.append( "Difficulty: " ).append( props.getDifficulty().getName() );
+			if ( props.isHardcore() ) this.logFileWriter.append( "(Hardcore)" );
+			if ( props.isDifficultyLocked() ) this.logFileWriter.append( "(Locked)" );
+			this.logFileWriter.append( '\n' );
+
+			this.logFileWriter.append( "Spawn:\n" );
+			this.logFileWriter.append( "\tSpawn position: ()" )
+					.append( String.valueOf( props.getSpawnX() ) ).append( ", " )
+					.append( String.valueOf( props.getSpawnY() ) ).append( ", " )
+					.append( String.valueOf( props.getSpawnZ() ) ).append( ')' );
+
+			this.writeData( "END CONNECTION DATA BLOCK ====================" );
+		}
+		catch ( IOException ioe )
+		{
+			ioe.printStackTrace();
+			Xenon.INSTANCE.sendErrorMessage( "text.xenon.blackbox.ioexception.write" );
+		}
+	}
+
+	private void writeTrackingData()
+	{	
+		// Spin until game thread is no longer writing
+		//while ( this.isGameThreadWriting ) {}
 		try
 		{
 			this.writeData( "BEGIN TRACKING DATA BLOCK ====================" );	
@@ -128,16 +164,18 @@ public class BlackBox extends IToggleableFeature
 			for ( ItemStack stack : Xenon.INSTANCE.client.player.getArmorItems() )
 			{
 				this.logFileWriter.append( "\tName: " ).append( stack.getName().getString() ).append( '\n' );
-				this.logFileWriter.append( "\tDamage: " ).append( String.valueOf( stack.getDamage() ) ).append( "\n\n" );
+				this.logFileWriter.append( "\tDamage: " ).append( String.valueOf( stack.getDamage() ) ).append( '\n' );
 			}	
 
-			this.logFileWriter.append( "\n\n" );	
+			this.logFileWriter.append( '\n' );
 
 			// Log item
 			this.logFileWriter.append( "Main hand item:\n" );
 			ItemStack mhs = Xenon.INSTANCE.client.player.getMainHandStack();
 			this.logFileWriter.append( "\tName: " ).append( mhs.getName().getString() ).append( '\n' );
-			this.logFileWriter.append( "\tDamage: " ).append( String.valueOf( mhs.getDamage() ) ).append( "\n\n" );
+			this.logFileWriter.append( "\tDamage: " ).append( String.valueOf( mhs.getDamage() ) ).append( '\n' );
+
+			this.logFileWriter.append( '\n' );
 
 			this.logFileWriter.append( "Off-hand item:\n" );
 			ItemStack ohs = Xenon.INSTANCE.client.player.getOffHandStack();
@@ -191,7 +229,7 @@ public class BlackBox extends IToggleableFeature
 		}
 	}
 
-	private void writeData( String... datas )
+	private void writeDataSafe( String... datas )
 	{
 		try
 		{
@@ -207,6 +245,24 @@ public class BlackBox extends IToggleableFeature
 		{
 			ioe.printStackTrace();
 			Xenon.INSTANCE.sendErrorMessage( "text.xenon.blackbox.ioexception.write" );
+		}
+		catch ( NullPointerException npe )
+		{
+			Xenon.INSTANCE.LOGGER.warn( "BlackBox write attempted but logfile was null!" );
+		}
+	}
+
+	private void writeData( String... datas ) throws IOException
+	{
+		try
+		{
+			this.logFileWriter.append( '[' )
+					.append( LocalTime.now().toString() )
+					.append( "] " );
+
+			for ( String data : datas ) this.logFileWriter.append( data );
+
+			this.logFileWriter.append( '\n' );
 		}
 		catch ( NullPointerException npe )
 		{
