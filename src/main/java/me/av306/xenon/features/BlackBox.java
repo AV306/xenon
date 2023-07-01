@@ -5,15 +5,12 @@ import me.av306.xenon.config.feature.BlackBoxGroup;
 import me.av306.xenon.event.MinecraftClientEvents;
 import me.av306.xenon.feature.IToggleableFeature;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.network.ClientPlayNetworkHandler;
-import net.minecraft.client.network.ServerInfo;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.util.ActionResult;
 
 import java.io.*;
-import java.net.SocketAddress;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.concurrent.*;
