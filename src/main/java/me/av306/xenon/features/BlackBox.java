@@ -6,8 +6,10 @@ import me.av306.xenon.event.MinecraftClientEvents;
 import me.av306.xenon.feature.IToggleableFeature;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.world.ClientWorld;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.dimension.DimensionType;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.ActionResult;
 
 import java.io.*;
@@ -22,8 +24,11 @@ public class BlackBox extends IToggleableFeature
 	private int index = 0;
 	private boolean isGameThreadWriting = false;
 
+	private ConcurrentLinkedQueue<LoggingData> dataQueue = new ConcurrentLinkedQueue<>();
+
 	private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool( 1 );
 	private ScheduledFuture<?> trackingLogTimerFuture = null;
+	private ScheduledFuture<?> dataWritierThread = null;
 
 	public BlackBox()
 	{
@@ -56,6 +61,32 @@ public class BlackBox extends IToggleableFeature
 			0, BlackBoxGroup.trackingLogInterval,
 			TimeUnit.MINUTES
 		);
+
+		this.dataWritierThread = scheduler.scheduleAtFixedRate(
+				this::writeDataToFile,
+				0, 5,
+				TimeUnit.MINUTES
+		);
+	}
+
+	private void writeDataToFile()
+	{
+		// ConcurrentLinkedQueue has a weakly consistent iterator
+		for ( LoggingData data : this.dataQueue )
+		{
+			if ( data instanceof PlayerStateData )
+			{
+
+			}
+			else if ( data instanceof EntityAttackPlayerData )
+			{
+
+			}
+			else
+			{
+
+			}
+		}
 	}
 
 	@Override
@@ -68,8 +99,6 @@ public class BlackBox extends IToggleableFeature
 	{
 		try
 		{
-			this.writeData( "BEGIN CONNECTION DATA BLOCK ====================" );
-
 			ClientWorld clientWorld = Xenon.INSTANCE.client.world;
 			ClientWorld.Properties props = clientWorld.getLevelProperties();
 
@@ -105,68 +134,31 @@ public class BlackBox extends IToggleableFeature
 		//while ( this.isGameThreadWriting ) {}
 		try
 		{
-			this.writeData( "BEGIN TRACKING DATA BLOCK ====================" );	
+			PlayerStateData data = new PlayerStateData();
 
 			// Log dimension name
-			DimensionType dim = Xenon.INSTANCE.client.world.getDimension();
-			// Heuristically determine the dimension (can't get name string :()
-			if ( dim.bedWorks() )
-			{
-				this.logFileWriter.append( "Bed works; probably Overworld" );
-			}
-			else if ( dim.hasCeiling() )
-			{
-				this.logFileWriter.append( "Bed explodes and has ceiling; probably Nether" );
-			}
-			else this.logFileWriter.append( "Bed explodes but no ceiling; probably the End" );	
-
-			this.logFileWriter.append( '\n' );	
+			data.setDimension( Xenon.INSTANCE.client.world.getDimensionKey().getValue() );
 
 			// Log position
-			this.logFileWriter.append( "Position: " )
-					.append( Xenon.INSTANCE.client.player.getPos().toString() )
-					.append( '\n' );	
+			data.setPosition( Xenon.INSTANCE.client.player.getPos() );
 
 			// Log velocity
-			this.logFileWriter.append( "Velocity: " )
-					.append( Xenon.INSTANCE.client.player.getVelocity().toString() )
-					.append( '\n' );	
+			data.setVelocity( Xenon.INSTANCE.client.player.getVelocity() );
 
 			// Log rotation
-			this.logFileWriter.append( "Rotation: " )
-					.append( Xenon.INSTANCE.client.player.getRotationVector().toString() )
-					.append( '\n' );	
+			data.setRotation( Xenon.INSTANCE.client.player.getRotationVector() );
 
 			// Log stats
-			this.logFileWriter.append( "Health: " )
-					.append( String.valueOf( Xenon.INSTANCE.client.player.getHealth() ) )
-					.append( '\n' );	
+			data.setHealth( Xenon.INSTANCE.client.player.getHealth() );
 
-			this.logFileWriter.append( "Position: " )
-					.append( Xenon.INSTANCE.client.player.getPos().toString() )
-					.append( '\n' );	
+			data.setHunger( Xenon.INSTANCE.client.player.getHungerManager().getFoodLevel() );
 
-			this.logFileWriter.append( "Hunger: " )
-					.append( String.valueOf( Xenon.INSTANCE.client.player.getHungerManager().getFoodLevel() ) )
-					.append( '\n' );	
+			data.setExhaustion( Xenon.INSTANCE.client.player.getHungerManager().getExhaustion() );
 
-			this.logFileWriter.append( "Exhaustion: " )
-					.append( String.valueOf( Xenon.INSTANCE.client.player.getHungerManager().getExhaustion() ) )
-					.append( '\n' );	
-
-			this.logFileWriter.append( "Saturation: " )
-					.append( String.valueOf( Xenon.INSTANCE.client.player.getHungerManager().getSaturationLevel() ) )
-					.append( '\n' );	
+			data.setSaturation( Xenon.INSTANCE.client.player.getHungerManager().getSaturationLevel() );
 
 			// Log armour
-			this.logFileWriter.append( "Equipped armour:\n" );
-			for ( ItemStack stack : Xenon.INSTANCE.client.player.getArmorItems() )
-			{
-				this.logFileWriter.append( "\tName: " ).append( stack.getName().getString() ).append( '\n' );
-				this.logFileWriter.append( "\tDamage: " ).append( String.valueOf( stack.getDamage() ) ).append( '\n' );
-			}	
-
-			this.logFileWriter.append( '\n' );
+			data.setArmour( Xenon.INSTANCE.client.player.getArmorItems() );
 
 			// Log item
 			this.logFileWriter.append( "Main hand item:\n" );
@@ -285,5 +277,164 @@ public class BlackBox extends IToggleableFeature
 		this.logFile = null;
 		this.logFileWriter = null;
 		index++;
+	}
+
+	private static interface LoggingData {}
+
+	private static class PlayerStateData implements LoggingData
+	{
+		private Identifier dimension;
+		private Vec3d position;
+		private Vec3d rotation;
+		private Vec3d velocity;
+		private float health;
+		private int hunger;
+		private float exhaustion;
+		private float saturation;
+		private ItemStack[] armour;
+		private ItemStack mainHandItem;
+		private ItemStack offHandItem;
+
+		/*public PlayerStateData(
+				Identifier dimension,
+				Vec3d position,
+				Vec3d rotation,
+				Vec3d velocity,
+				float health,
+				int hunger,
+				float exhaustion,
+				float saturation,
+				ItemStack[] armour,
+				ItemStack mainHandItem,
+				ItemStack offHandItem
+		)
+		{
+			this.dimension = dimension;
+			this.position = position;
+			this.rotation = rotation;
+			this.velocity = velocity;
+			this.health = health;
+			this.hunger = hunger;
+			this.exhaustion = exhaustion;
+			this.saturation = saturation;
+			this.armour = armour;
+			this.mainHandItem = mainHandItem;
+			this.offHandItem = offHandItem;
+		}*/
+
+		public Identifier getDimension() {
+			return dimension;
+		}
+
+		public void setDimension(Identifier dimension) {
+			this.dimension = dimension;
+		}
+
+		public Vec3d getPosition() {
+			return position;
+		}
+
+		public void setPosition(Vec3d position) {
+			this.position = position;
+		}
+
+		public Vec3d getRotation() {
+			return rotation;
+		}
+
+		public void setRotation(Vec3d rotation) {
+			this.rotation = rotation;
+		}
+
+		public Vec3d getVelocity() {
+			return velocity;
+		}
+
+		public void setVelocity(Vec3d velocity) {
+			this.velocity = velocity;
+		}
+
+		public float getHealth() {
+			return health;
+		}
+
+		public void setHealth(float health) {
+			this.health = health;
+		}
+
+		public int getHunger() {
+			return hunger;
+		}
+
+		public void setHunger(int hunger) {
+			this.hunger = hunger;
+		}
+
+		public float getExhaustion() {
+			return exhaustion;
+		}
+
+		public void setExhaustion(float exhaustion) {
+			this.exhaustion = exhaustion;
+		}
+
+		public float getSaturation() {
+			return saturation;
+		}
+
+		public void setSaturation(float saturation) {
+			this.saturation = saturation;
+		}
+
+		public ItemStack[] getArmour() {
+			return armour;
+		}
+
+		public void setArmour(Iterable<ItemStack> armour) {
+			this.armour = armour;
+		}
+
+		public ItemStack getMainHandItem() {
+			return mainHandItem;
+		}
+
+		public void setMainHandItem(ItemStack mainHandItem) {
+			this.mainHandItem = mainHandItem;
+		}
+
+		public ItemStack getOffHandItem() {
+			return offHandItem;
+		}
+
+		public void setOffHandItem(ItemStack offHandItem) {
+			this.offHandItem = offHandItem;
+		}
+	}
+
+	private static class PlayerAttackEntityData implements LoggingData
+	{
+		private PlayerStateData stateData;
+	}
+
+	private static class EntityAttackPlayerData implements LoggingData
+	{
+		private DamageSource source;
+		private PlayerStateData stateData;
+
+		public DamageSource getSource() {
+			return source;
+		}
+
+		public void setSource(DamageSource source) {
+			this.source = source;
+		}
+
+		public PlayerStateData getStateData() {
+			return stateData;
+		}
+
+		public void setStateData(PlayerStateData stateData) {
+			this.stateData = stateData;
+		}
 	}
 }
