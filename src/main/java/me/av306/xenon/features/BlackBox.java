@@ -10,7 +10,10 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.Difficulty;
+import net.minecraft.world.World;
 import net.minecraft.util.ActionResult;
+import org.joml.Vector3i;
 
 import java.io.*;
 import java.time.LocalDate;
@@ -22,13 +25,12 @@ public class BlackBox extends IToggleableFeature
 	private File logFile = null;
 	private OutputStreamWriter logFileWriter = null;
 	private int index = 0;
-	private boolean isGameThreadWriting = false;
 
 	private ConcurrentLinkedQueue<LoggingData> dataQueue = new ConcurrentLinkedQueue<>();
 
 	private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool( 1 );
 	private ScheduledFuture<?> trackingLogTimerFuture = null;
-	private ScheduledFuture<?> dataWritierThread = null;
+	private ScheduledFuture<?> dataWriterThread = null;
 
 	public BlackBox()
 	{
@@ -53,39 +55,48 @@ public class BlackBox extends IToggleableFeature
 		this.createLogFile();
 
 		// Write starting data
-		this.writeWorldData();
+		this.dataQueue.add( this.createWorldData() );
 
 		// Register 5-minute tracking log timer (working!!!)
 		this.trackingLogTimerFuture = scheduler.scheduleAtFixedRate(
-			this::writeTrackingData,
+			() -> this.dataQueue.add( this.createPlayerStateData() ),
 			0, BlackBoxGroup.trackingLogInterval,
 			TimeUnit.MINUTES
 		);
 
-		this.dataWritierThread = scheduler.scheduleAtFixedRate(
+		this.dataWriterThread = scheduler.scheduleAtFixedRate(
 				this::writeDataToFile,
-				0, 5,
+				0, BlackBoxGroup.writeInterval,
 				TimeUnit.MINUTES
 		);
 	}
 
 	private void writeDataToFile()
 	{
-		// ConcurrentLinkedQueue has a weakly consistent iterator
-		for ( LoggingData data : this.dataQueue )
+		try
 		{
-			if ( data instanceof PlayerStateData )
+			if ( BlackBoxGroup.writeEntireQueue )
 			{
-
-			}
-			else if ( data instanceof EntityAttackPlayerData )
-			{
-
+				// Write the entire queue
+					for ( LoggingData data : this.dataQueue )
+						this.logFileWriter.append( this.parseData( data ) );
 			}
 			else
 			{
+				// Write little bits
+				for ( var i = 0; i < BlackBoxGroup.bufferSize; i++ )
+				{
+					LoggingData data = this.dataQueue.poll();
+					if ( data == null ) break; // Break out if we've reached the end of the queue
 
+					this.logFileWriter.append( this.parseData( data ) );
+				}
 			}
+		}
+		catch ( IOException ioe )
+		{
+			Xenon.INSTANCE.sendErrorMessage( "text.xenon.blabkbox.ioexception.write" );
+			ioe.printStackTrace();
 		}
 	}
 
@@ -95,93 +106,70 @@ public class BlackBox extends IToggleableFeature
 		this.cleanup();
 	}
 
-	private void writeWorldData()
+	private String parseData( LoggingData data )
 	{
-		try
+		StringBuilder builder = new StringBuilder( data.getTime() ).append( '\n' );
+
+		if ( data instanceof PlayerStateData playerStateData )
 		{
-			ClientWorld clientWorld = Xenon.INSTANCE.client.world;
-			ClientWorld.Properties props = clientWorld.getLevelProperties();
-
-			if ( clientWorld.isClient() )
-			{
-				this.logFileWriter.append( "Local server" ).append( '\n' );
-			}
-
-			this.logFileWriter.append( "Difficulty: " ).append( props.getDifficulty().getName() );
-			if ( props.isHardcore() ) this.logFileWriter.append( "(Hardcore)" );
-			if ( props.isDifficultyLocked() ) this.logFileWriter.append( "(Locked)" );
-			this.logFileWriter.append( '\n' );
-
-			this.logFileWriter.append( "Spawn:\n" );
-			this.logFileWriter.append( "\tSpawn position: (" )
-					.append( String.valueOf( props.getSpawnX() ) ).append( ", " )
-					.append( String.valueOf( props.getSpawnY() ) ).append( ", " )
-					.append( String.valueOf( props.getSpawnZ() ) ).append( ')' )
-					.append( '\n' );
-
-			this.writeData( "END CONNECTION DATA BLOCK ====================" );
+			// TODO: Finish
+			builder.append( playerStateData.getDimension().toString() ).append( '\n' );
+			//builder.append( playerStateData.get)
 		}
-		catch ( IOException ioe )
+		else if ( data instanceof WorldData )
 		{
-			ioe.printStackTrace();
-			Xenon.INSTANCE.sendErrorMessage( "text.xenon.blackbox.ioexception.write" );
+
+		}// TODO: Implement other cases
+		else
+		{
+			return "Unknown data type";
 		}
+		return "todo";
 	}
 
-	private void writeTrackingData()
+
+	private WorldData createWorldData()
+	{
+		WorldData data = new WorldData();
+
+		ClientWorld clientWorld = Xenon.INSTANCE.client.world;
+		ClientWorld.Properties props = clientWorld.getLevelProperties();
+
+		data.isClient = clientWorld.isClient();
+		data.difficulty = props.getDifficulty();
+		data.isHardcore = props.isHardcore();
+		data.isDifficultyLocked = props.isDifficultyLocked();
+		data.spawnPos.set( props.getSpawnX(), props.getSpawnY(), props.getSpawnZ() );
+		data.spawnAngle = props.getSpawnAngle();
+		data.time = props.getTime();
+
+		return data;
+	}
+
+	private PlayerStateData createPlayerStateData()
 	{	
-		// Spin until game thread is no longer writing
-		//while ( this.isGameThreadWriting ) {}
-		try
-		{
-			PlayerStateData data = new PlayerStateData();
+		PlayerStateData data = new PlayerStateData();
 
-			// Log dimension name
-			data.setDimension( Xenon.INSTANCE.client.world.getDimensionKey().getValue() );
+		// Log dimension name
+		data.dimension = Xenon.INSTANCE.client.world.getDimensionKey().getValue();
+		// Log position
+		data.position = Xenon.INSTANCE.client.player.getPos();
+		// Log velocity
+		data.velocity = Xenon.INSTANCE.client.player.getVelocity();
+		// Log rotation
+		data.rotation = Xenon.INSTANCE.client.player.getRotationVector();
+		// Log stats
+		data.health = Xenon.INSTANCE.client.player.getHealth();
+		data.hunger = Xenon.INSTANCE.client.player.getHungerManager().getFoodLevel();
+		data.exhaustion = Xenon.INSTANCE.client.player.getHungerManager().getExhaustion();
+		data.saturation = Xenon.INSTANCE.client.player.getHungerManager().getSaturationLevel();
+		// Log armour
+		data.armour = Xenon.INSTANCE.client.player.getArmorItems();
+		// Log items
+		data.mainHandItem = Xenon.INSTANCE.client.player.getMainHandStack();
+		data.offHandItem = Xenon.INSTANCE.client.player.getOffHandStack();
 
-			// Log position
-			data.setPosition( Xenon.INSTANCE.client.player.getPos() );
-
-			// Log velocity
-			data.setVelocity( Xenon.INSTANCE.client.player.getVelocity() );
-
-			// Log rotation
-			data.setRotation( Xenon.INSTANCE.client.player.getRotationVector() );
-
-			// Log stats
-			data.setHealth( Xenon.INSTANCE.client.player.getHealth() );
-
-			data.setHunger( Xenon.INSTANCE.client.player.getHungerManager().getFoodLevel() );
-
-			data.setExhaustion( Xenon.INSTANCE.client.player.getHungerManager().getExhaustion() );
-
-			data.setSaturation( Xenon.INSTANCE.client.player.getHungerManager().getSaturationLevel() );
-
-			// Log armour
-			data.setArmour( Xenon.INSTANCE.client.player.getArmorItems() );
-
-			// Log item
-			this.logFileWriter.append( "Main hand item:\n" );
-			ItemStack mhs = Xenon.INSTANCE.client.player.getMainHandStack();
-			this.logFileWriter.append( "\tName: " ).append( mhs.getName().getString() ).append( '\n' );
-			this.logFileWriter.append( "\tDamage: " ).append( String.valueOf( mhs.getDamage() ) ).append( '\n' );
-
-			this.logFileWriter.append( '\n' );
-
-			this.logFileWriter.append( "Off-hand item:\n" );
-			ItemStack ohs = Xenon.INSTANCE.client.player.getOffHandStack();
-			this.logFileWriter.append( "\tName: " ).append( ohs.getName().getString() ).append( '\n' );
-			this.logFileWriter.append( "\tDamage: " ).append( String.valueOf( ohs.getDamage() ) ).append( "\n\n" );	
-
-			this.writeData( "END TRACKING DATA BLOCK ====================" );
-
-			this.logFileWriter.flush();
-		}
-		catch ( IOException ioe )
-		{
-			ioe.printStackTrace();
-			Xenon.INSTANCE.sendErrorMessage( "text.xenon.blackbox.ioexception.write" );
-		}
+		return data;
 	}
 
 	private void createLogFile()
@@ -270,6 +258,9 @@ public class BlackBox extends IToggleableFeature
 		this.trackingLogTimerFuture.cancel( false );
 		this.trackingLogTimerFuture = null;
 
+		// Cancel data writer
+		// TODO: How do we make it finish logging everything?
+
 		// Clean up files gracefully
 		try { this.writeData( "BlackBox logging stopped." ); logFileWriter.close(); }
 		catch ( IOException e ) { Xenon.INSTANCE.sendErrorMessage( "text.xenon.blackbox.ioexception.disposal" ); }
@@ -279,9 +270,43 @@ public class BlackBox extends IToggleableFeature
 		index++;
 	}
 
-	private static interface LoggingData {}
+	private static abstract class LoggingData
+	{
+		private String timestamp;
+		
+		protected LoggingData()
+		{
+			// Record the time of creation
+			this.timestamp = LocalTime.now().toString();
+		}
 
-	private static class PlayerStateData implements LoggingData
+		public String getTime() { return this.timestamp; }
+	}
+
+	private static class WorldData extends LoggingData
+	{
+		// TODO: Encapsulate
+		private boolean isClient;
+		private Difficulty difficulty;
+		private boolean isHardcore;
+		private boolean isDifficultyLocked;
+		private Vector3i spawnPos = new Vector3i();
+		private float spawnAngle;
+		private long time;
+
+
+		public WorldData()
+		{
+			super();
+		}
+	}
+
+	/**
+	 * Player state data (aka tracking data)
+	 * <br>
+	 * Records pretty much everything about the player at a given instant
+	 */
+	private static class PlayerStateData extends LoggingData
 	{
 		private Identifier dimension;
 		private Vec3d position;
@@ -291,7 +316,7 @@ public class BlackBox extends IToggleableFeature
 		private int hunger;
 		private float exhaustion;
 		private float saturation;
-		private ItemStack[] armour;
+		private Iterable<ItemStack> armour;
 		private ItemStack mainHandItem;
 		private ItemStack offHandItem;
 
@@ -321,6 +346,11 @@ public class BlackBox extends IToggleableFeature
 			this.mainHandItem = mainHandItem;
 			this.offHandItem = offHandItem;
 		}*/
+
+		public PlayerStateData()
+		{
+			super();
+		}
 
 		public Identifier getDimension() {
 			return dimension;
@@ -386,7 +416,7 @@ public class BlackBox extends IToggleableFeature
 			this.saturation = saturation;
 		}
 
-		public ItemStack[] getArmour() {
+		public Iterable<ItemStack> getArmour() {
 			return armour;
 		}
 
@@ -411,12 +441,12 @@ public class BlackBox extends IToggleableFeature
 		}
 	}
 
-	private static class PlayerAttackEntityData implements LoggingData
+	private static class PlayerAttackEntityData extends LoggingData
 	{
 		private PlayerStateData stateData;
 	}
 
-	private static class EntityAttackPlayerData implements LoggingData
+	private static class EntityAttackPlayerData extends LoggingData
 	{
 		private DamageSource source;
 		private PlayerStateData stateData;

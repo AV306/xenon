@@ -121,7 +121,6 @@ public enum Xenon
         new AustralianModeFeature();
         new CommandProcessor();
         new ConfigMenu();
-        //new DamageIndicatorFeature();
         new FeatureList();
         new FullBrightFeature();
         if ( FullKeyboardGroup.enable ) new FullKeyboardFeature();
@@ -134,7 +133,7 @@ public enum Xenon
         if ( GeneralConfigGroup.enableTimer ) new TimerFeature();
         new WailaFeature();
         new ZoomFeature();
-        new BlackBox();
+        //new BlackBox(); // BlackBox has been pushing 3.2.0 back for a long time :(
     }
 
 
@@ -150,7 +149,7 @@ public enum Xenon
             feature.setForceDisabled( false );
     }
 
-    // TODO: With the Modrinth API this can finally be implemented
+    // Mod Menu handles update checks for us :)
     private void readVersionData()
     {
         // assert that we're actually loaded
@@ -160,64 +159,6 @@ public enum Xenon
         // Get version string
         Version ver = modContainer.getMetadata().getVersion();
         this.versionString = ver.getFriendlyString();
-        
-        // TODO: finish this for 3.2.0
-
-        // Return early if we don't need to check for updates
-        /*if ( !GeneralConfigGroup.checkForUpdates ) return;
-
-        // Get latest version from Modrinth API
-        
-        // Build HTTP request
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri( java.net.URI.create( "http://api.modrinth.com/v2/project/BsmAXLQn/version" ) )
-                .build();
-
-        HttpClient client = HttpClient.newBuilder()
-                .version( HttpClient.Version.HTTP_2 )
-                .followRedirects( HttpClient.Redirect.NORMAL )
-                .connectTimeout( Duration.ofSeconds( 30 ) )
-                .build();
-
-        // Send request
-        HttpResponse<String> response;
-        try
-        {
-            response = client.send( request, HttpResponse.BodyHandlers.ofString() );
-        }
-        catch ( IOException io )
-        {
-            Xenon.INSTANCE.LOGGER.error( "IOException thrown while fetching latest version!" );
-            io.printStackTrace();
-            return;
-        }
-
-        // Error handling
-        if ( response.statusCode() != 200 )
-        {
-            Xenon.INSTANCE.LOGGER.error( "Failed to GET latest version from Modrinth: {}", response.statusCode() );
-            return;
-        }
-
-        // Received response as string, extract version id
-        // FIXME: I feel like we're underusing JSON.simple
-        // Response is an array of objects
-        String latestVersionString = JsonParser.parseString( response.body() )
-                .getAsJsonArray()
-                .getAsJsonObject() // List only contains one object
-                .get( "version_number" ) // Extract version string
-                .getAsString();
-
-        Xenon.INSTANCE.LOGGER.info( "Found version {} from Modrinth" latestVersionString );
-
-        // Compare versions
-        boolean newVersionAvailable = ver.compareTo( Version.parse( latestVersionString ) ) < 0;
-
-        if ( newVersionAvailable ) Xenon.INSTANCE.LOGGER.info( "Update available!" );
-
-        // TODO: implement update available message
-        // TODO: try/catch everything
-        */
     }
 
 
