@@ -133,7 +133,7 @@ public enum Xenon
         if ( GeneralConfigGroup.enableTimer ) new TimerFeature();
         new WailaFeature();
         new ZoomFeature();
-        //new BlackBox(); // BlackBox has been pushing 3.2.0 back for a long time :(
+        new BlackBox(); // BlackBox has been pushing 3.2.0 back for a long time :(
     }
 
 

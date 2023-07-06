@@ -24,7 +24,7 @@ public class BlackBoxGroup implements XenonConfigGroup
 
 	@ConfigEntry.Boolean
 	//@ConfigEntry.Checkbox
-	public static boolean writeEntireQueue = false;
+	public static boolean writeEntireQueue = true;
 
 	@ConfigEntry.BoundedInteger( min = 1, max = 100 )
 	@ConfigEntry.Slider
