@@ -5,7 +5,7 @@
 
 **Note: Xenon 4.0.0+1.20 will crash unless Cloth Config is installed as well**
 
-**Note 2: I'll be taking a break from working on Xenon to concentrate on my studies; updates will happen much less frequently (not like they happen often anyway. Sorry!**
+**Note 2: I'll be taking a break from working on Xenon to concentrate on my studies; updates will happen much less frequently (not like they happen often anyway) Sorry!**
 
 
 Hello! This is Xenon, a Minecraft utility mod that adds stuff that aims to make Minecraft more pleasant and convenient.
