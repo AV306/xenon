@@ -16,7 +16,7 @@ import net.minecraft.util.ActionResult;
 import org.joml.Vector3i;
 
 import java.io.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.concurrent.*;
 
@@ -239,35 +239,40 @@ public class BlackBox extends IToggleableFeature
 	{
 		try
 		{
-			String datestamp = LocalDate.now().toString();
-			String gameDir = FabricLoader.getInstance().getGameDir().toString();
+			String basePath = FabricLoader.getInstance().getGameDir().toString() + File.separator +
+			        LocalDateTime.now().toString().replace( ":", "." ) + "-";
 
 			//Xenon.INSTANCE.LOGGER.info( gameDir + File.separator + timestamp + this.index + ".log" );
 
-			this.logFile = new File( gameDir + File.separator + datestamp + "-" + this.index + ".data" );
-			this.logFile.createNewFile();
+			this.logFile = new File( basePath + this.index + ".data" );
+			while ( !this.logFile.createNewFile() )
+			{
+				this.index++;
+				this.logFile = new File( basePath + this.index + ".data" );
+			}
 
 			this.logFileWriter = new OutputStreamWriter( new FileOutputStream( this.logFile ) );
+
+			this.logFileWriter.append( '[' ).append( LocalTime.now().toString() ).append( "] " )
+					.append( "BlackBox logging started. Stay safe!\n" )
 		}
 		catch ( IOException ioe )
 		{
 			Xenon.INSTANCE.sendErrorMessage( "text.xenon.blackbox.exception.creation" );
 			ioe.printStackTrace();
+
+            // Try to clean up resources
+			try
+			{
+				this.logFile.delete();
+				this.logFileWriter.close();
+			}
+			// Will probably throw NPE if the IOE was thrown before the creation
+			// of either the file or the writer
+			catch ( NullPointerException npe ) {}
+				
 			this.logFile = null;
 			this.logFileWriter = null;
-			this.disable();
-		}
-
-		try
-		{
-			this.logFileWriter.append( '[' ).append( LocalTime.now().toString() ).append( "] " )
-					.append( "BlackBox logging started. Stay safe!\n" );
-		}
-		catch ( IOException ioe )
-		{
-			Xenon.INSTANCE.sendErrorMessage( "text.xenon.blackbox.exception.creation" );
-			ioe.printStackTrace();
-			this.disable();
 		}
 	}
 
@@ -326,6 +331,8 @@ public class BlackBox extends IToggleableFeature
 	private void cleanup()
 	{
 		Xenon.INSTANCE.LOGGER.info( "BlackBox beginning cleanup" );
+
+		// Return if anything is null (initialisation not complete)
 		if ( this.logFile == null || this.logFileWriter == null || this.trackingLogTimerFuture == null || this.dataWriterThread == null )
 			return;
 		
