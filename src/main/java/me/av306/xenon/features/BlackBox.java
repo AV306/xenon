@@ -254,7 +254,7 @@ public class BlackBox extends IToggleableFeature
 			this.logFileWriter = new OutputStreamWriter( new FileOutputStream( this.logFile ) );
 
 			this.logFileWriter.append( '[' ).append( LocalTime.now().toString() ).append( "] " )
-					.append( "BlackBox logging started. Stay safe!\n" )
+					.append( "BlackBox logging started. Stay safe!\n" );
 		}
 		catch ( IOException ioe )
 		{
