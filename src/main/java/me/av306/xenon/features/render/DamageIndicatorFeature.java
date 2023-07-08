@@ -2,7 +2,6 @@ package me.av306.xenon.features.render;
 
 import me.av306.xenon.Xenon;
 import me.av306.xenon.config.feature.render.DamageIndicatorGroup;
-import me.av306.xenon.event.EntityDamageEvent;
 import me.av306.xenon.feature.IToggleableFeature;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
