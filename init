@@ -1,0 +1,26 @@
+#! /usr/bin/sh 
+
+# Gitpod CDE init script
+
+# Aliases
+alias cl="clear && ls" # Clear and list
+
+# Functions
+bak() {
+    cp "$1" "$1.bak"
+}
+
+# APT updates
+sudo apt update
+sudo apt upgrade -y --fix-missing
+
+# Qt6 (Ubuntu Jammy ONLY)
+#sudo apt install qt6-base-dev -y
+#sudo apt install libqt6core5compat6 -y
+
+# Qt5 (Ubuntu Focal)
+sudo apt install qt5-default -y
+
+# Cleanup
+sudo apt autoremove
+
