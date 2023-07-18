@@ -2,13 +2,17 @@ package me.av306.xenon.features;
 
 import me.av306.xenon.Xenon;
 import me.av306.xenon.config.feature.BlackBoxGroup;
+import me.av306.xenon.event.EntityDamageEvent;
 import me.av306.xenon.event.MinecraftClientEvents;
 import me.av306.xenon.feature.IToggleableFeature;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.world.ClientWorld;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.packet.s2c.play.EntityDamageS2CPacket;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Difficulty;
@@ -45,6 +49,16 @@ public class BlackBox extends IToggleableFeature
 		} );
 
 		// Register logging hooks
+
+		// Player attack event hook
+		EntityDamageEvent.EVENT.register( this::onPlayerDamaged );
+	}
+
+	private ActionResult onPlayerDamaged( EntityDamageS2CPacket packet )
+	{
+		// Construct event data
+		this.dataQueue.add( new EntityAttackPlayerData( packet ) );
+		return ActionResult.PASS;
 	}
 
 	@Override
@@ -57,11 +71,11 @@ public class BlackBox extends IToggleableFeature
 		this.createLogFile();
 
 		// Write starting data
-		this.dataQueue.add( this.createWorldData() );
+		this.dataQueue.add( new WorldData() );
 
 		// Register 5-minute tracking log timer
 		this.trackingLogTimerFuture = scheduler.scheduleWithFixedDelay(
-				() -> this.dataQueue.add( this.createPlayerStateData() ),
+				() -> this.dataQueue.add( new PlayerStateData() ),
 				1, BlackBoxGroup.trackingLogInterval,
 				TimeUnit.MINUTES
 		);
@@ -86,7 +100,7 @@ public class BlackBox extends IToggleableFeature
 			Xenon.INSTANCE.LOGGER.info( "BlackBox writing entire data queue" );
 			for ( LoggingData data : this.dataQueue )
 			{
-				this.logFileWriter.append( this.parseData( data ) );
+				this.logFileWriter.append( data.toString() );
 				this.dataQueue.remove( data );
 			}
 
@@ -106,79 +120,10 @@ public class BlackBox extends IToggleableFeature
 	}
 
 	/**
-	 * Serialise the data contained in a data object into a string.
-	 * @param data: The data object
-	 * @return The serialised data
-	 */
-	private String parseData( LoggingData data )
-	{
-		// Begin string with timestamp
-		StringBuilder builder = new StringBuilder( "[" )
-				.append( data.getTime() ).append( "] " );
-
-		// TODO: Implement other data types
-		if ( data instanceof PlayerStateData playerStateData )
-		{
-			builder.append( "BEGIN PLAYER STATE DATA ====================\n" );
-
-			builder.append( "Dimension: " ) .append( playerStateData.dimension.toString() ).append( '\n' );
-			builder.append( "Position: " ).append( playerStateData.position.toString() ).append( '\n' );
-			builder.append( "Rotation: " ).append( playerStateData.rotation.toString() ).append( '\n' );
-			builder.append( "Velocity: " ).append( playerStateData.velocity.toString() ).append( '\n' );
-			builder.append( "Health: " ).append( playerStateData.health ).append( '\n' );
-			builder.append( "Hunger: " ).append( playerStateData.hunger ).append( '\n' );
-			builder.append( "Saturation: " ).append( playerStateData.saturation ).append( '\n' );
-			builder.append( "Exhaustion: " ).append( playerStateData.exhaustion ).append( '\n' );
-
-			builder.append( "Armour:\n" );
-			for ( ItemStack stack : playerStateData.armour )
-			{
-				builder.append( "\tName: " ).append( stack.getItem().toString() ).append( '\n' );
-				builder.append( "\tDamage: " ).append( stack.getDamage() ).append( '\n' );
-			}
-
-			builder.append( "Main hand item:\n" );
-			builder.append( "\tName: " ).append( playerStateData.mainHandItem.getName().toString() ).append( '\n' );
-			builder.append( "\tDamage: " ).append( playerStateData.mainHandItem.getDamage() ).append( '\n' );
-
-			builder.append( "Off hand item:\n" );
-			builder.append( "\tName: " ).append( playerStateData.offHandItem.getName().toString() ).append( '\n' );
-			builder.append( "\tDamage: " ).append( playerStateData.offHandItem.getDamage() ).append( '\n' );
-			
-			builder.append( "END PLAYER STATE DATA ====================\n" );
-
-			return builder.toString();
-		}
-		else if ( data instanceof WorldData worldData )
-		{
-			builder.append( "BEGIN WORLD DATA ====================\n" );
-
-			builder.append( "World type: " ).append( worldData.isClient ? "Local" : "Server" ).append( '\n' );
-			builder.append( "Difficulty: " ).append( worldData.difficulty.getName() );
-			if ( worldData.isDifficultyLocked ) builder.append( " (Hardcore) " );
-			if ( worldData.isDifficultyLocked ) builder.append( " (Locked)" );
-
-			builder.append( '\n' );
-
-			builder.append( "Spawn position: " ).append( worldData.spawnPos.toString() ).append( '\n' );
-			builder.append( "Spawn angle: " ).append( worldData.spawnAngle ).append( '\n' );
-			builder.append( "Spawn time: " ).append( worldData.time ).append( '\n' );
-
-			builder.append( "END WORLD DATA ====================\n" );
-
-			return builder.toString();
-		}
-		else
-		{
-			return "Unknown data type";
-		}
-	}
-
-	/**
-	 * Create world data
+	 * Create a world data object
 	 * @return The build WorldData object
 	 */
-	private WorldData createWorldData()
+	private WorldData _createWorldData()
 	{
 		WorldData data = new WorldData();
 
@@ -199,10 +144,10 @@ public class BlackBox extends IToggleableFeature
 	}
 
 	/**
-	 * Create player state data
+	 * Create player state data (not used directly, handles in constructor)
 	 * @return The built PlayerStateData object
 	 */
-	private PlayerStateData createPlayerStateData()
+	private PlayerStateData _createPlayerStateData()
 	{	
 		PlayerStateData data = new PlayerStateData();
 
@@ -269,7 +214,7 @@ public class BlackBox extends IToggleableFeature
 			}
 			// Will probably throw NPE if the IOE was thrown before the creation
 			// of either the file or the writer
-			catch ( NullPointerException npe ) {}
+			catch ( Exception npe ) {} // FIXME AAAAAAAAAAAA
 				
 			this.logFile = null;
 			this.logFileWriter = null;
@@ -382,10 +327,14 @@ public class BlackBox extends IToggleableFeature
 		}
 
 		public String getTime() { return this.timestamp; }
+
+		public abstract String toString();
 	}
 
 	/**
-	 * World data class
+	 * World data
+	 * <br>
+	 * Records stuff about the world/server
 	 */
 	private static class WorldData extends LoggingData
 	{
@@ -400,7 +349,45 @@ public class BlackBox extends IToggleableFeature
 
 		public WorldData()
 		{
+			// Rember time of creation
 			super();
+
+			ClientWorld clientWorld = Xenon.INSTANCE.client.world;
+			ClientWorld.Properties props = clientWorld.getLevelProperties();
+
+			this.isClient = clientWorld.isClient();
+			this.difficulty = props.getDifficulty();
+			this.isHardcore = props.isHardcore();
+			this.isDifficultyLocked = props.isDifficultyLocked();
+			this.spawnPos.set( props.getSpawnX(), props.getSpawnY(), props.getSpawnZ() );
+			this.spawnAngle = props.getSpawnAngle();
+			this.time = props.getTime();
+
+			Xenon.INSTANCE.LOGGER.info( "BlackBox created world data" );
+		}
+
+		@Override
+		public String toString()
+		{
+			StringBuilder builder = new StringBuilder( "[" )
+				.append( this.getTime() ).append( "] " );
+
+			builder.append( "BEGIN WORLD DATA ====================\n" );
+
+			builder.append( "World type: " ).append( this.isClient ? "Local" : "Server" ).append( '\n' );
+			builder.append( "Difficulty: " ).append( this.difficulty.getName() );
+			if ( this.isHardcore ) builder.append( " (Hardcore) " );
+			if ( this.isDifficultyLocked ) builder.append( " (Locked)" );
+
+			builder.append( '\n' );
+
+			builder.append( "Spawn position: " ).append( this.spawnPos.toString() ).append( '\n' );
+			builder.append( "Spawn angle: " ).append( this.spawnAngle ).append( '\n' );
+			builder.append( "Spawn time: " ).append( this.time ).append( '\n' );
+
+			builder.append( "END WORLD DATA ====================\n" );
+
+			return builder.toString();
 		}
 	}
 
@@ -423,131 +410,73 @@ public class BlackBox extends IToggleableFeature
 		private ItemStack mainHandItem;
 		private ItemStack offHandItem;
 
-		/*public PlayerStateData(
-				Identifier dimension,
-				Vec3d position,
-				Vec3d rotation,
-				Vec3d velocity,
-				float health,
-				int hunger,
-				float exhaustion,
-				float saturation,
-				ItemStack[] armour,
-				ItemStack mainHandItem,
-				ItemStack offHandItem
-		)
-		{
-			this.dimension = dimension;
-			this.position = position;
-			this.rotation = rotation;
-			this.velocity = velocity;
-			this.health = health;
-			this.hunger = hunger;
-			this.exhaustion = exhaustion;
-			this.saturation = saturation;
-			this.armour = armour;
-			this.mainHandItem = mainHandItem;
-			this.offHandItem = offHandItem;
-		}*/
-
 		public PlayerStateData()
 		{
+			// Remember time of creation
 			super();
-		}
-		/*
-		public Identifier getDimension() {
-			return dimension;
-		}
 
-		public void setDimension(Identifier dimension) {
-			this.dimension = dimension;
-		}
+			net.minecraft.client.network.ClientPlayerEntity player = Xenon.INSTANCE.client.player;
 
-		public Vec3d getPosition() {
-			return position;
-		}
+			// Log dimension name
+			this.dimension = Xenon.INSTANCE.client.world.getDimensionKey().getValue();
+			// Log position
+			this.position = player.getPos();
+			// Log velocity
+			this.velocity = player.getVelocity();
+			// Log rotation
+			this.rotation = player.getRotationVector();
+			// Log stats
+			this.health = player.getHealth();
+			this.hunger = player.getHungerManager().getFoodLevel();
+			this.exhaustion = player.getHungerManager().getExhaustion();
+			this.saturation = player.getHungerManager().getSaturationLevel();
+			// Log armour
+			this.armour = player.getArmorItems();
+			// Log items
+			this.mainHandItem = player.getMainHandStack();
+			this.offHandItem = player.getOffHandStack();
 
-		public void setPosition(Vec3d position) {
-			this.position = position;
+			Xenon.INSTANCE.LOGGER.info( "BlackBox created player state data" );
 		}
+		
+		@Override
+		public String toString()
+		{
+			StringBuilder builder = new StringBuilder( "[" )
+				.append( this.getTime() ).append( "] " );
 
-		public Vec3d getRotation() {
-			return rotation;
+			builder.append( "BEGIN PLAYER STATE DATA ====================\n" );
+			builder.append( "Dimension: " ) .append( this.dimension.toString() ).append( '\n' );
+			builder.append( "Position: " ).append( this.position.toString() ).append( '\n' );
+			builder.append( "Rotation: " ).append( this.rotation.toString() ).append( '\n' );
+			builder.append( "Velocity: " ).append( this.velocity.toString() ).append( '\n' );
+			builder.append( "Health: " ).append( this.health ).append( '\n' );
+			builder.append( "Hunger: " ).append( this.hunger ).append( '\n' );
+			builder.append( "Saturation: " ).append( this.saturation ).append( '\n' );
+			builder.append( "Exhaustion: " ).append( this.exhaustion ).append( '\n' );	
+			builder.append( "Armour:\n" );
+			for ( ItemStack stack : this.armour )
+			{
+				builder.append( "\tName: " ).append( stack.getItem().toString() ).append( '\n' );
+				builder.append( "\tDamage: " ).append( stack.getDamage() ).append( '\n' );
+			}	
+			builder.append( "Main hand item:\n" );
+			builder.append( "\tName: " ).append( this.mainHandItem.getName().toString() ).append( '\n' );
+			builder.append( "\tDamage: " ).append( this.mainHandItem.getDamage() ).append( '\n' );
+			builder.append( "Off hand item:\n" );
+			builder.append( "\tName: " ).append( this.offHandItem.getName().toString() ).append( '\n' );
+			builder.append( "\tDamage: " ).append( this.offHandItem.getDamage() ).append( '\n' );				
+			builder.append( "END PLAYER STATE DATA ====================\n" );	
+			return builder.toString();
 		}
-
-		public void setRotation(Vec3d rotation) {
-			this.rotation = rotation;
-		}
-
-		public Vec3d getVelocity() {
-			return velocity;
-		}
-
-		public void setVelocity(Vec3d velocity) {
-			this.velocity = velocity;
-		}
-
-		public float getHealth() {
-			return health;
-		}
-
-		public void setHealth(float health) {
-			this.health = health;
-		}
-
-		public int getHunger() {
-			return hunger;
-		}
-
-		public void setHunger(int hunger) {
-			this.hunger = hunger;
-		}
-
-		public float getExhaustion() {
-			return exhaustion;
-		}
-
-		public void setExhaustion(float exhaustion) {
-			this.exhaustion = exhaustion;
-		}
-
-		public float getSaturation() {
-			return saturation;
-		}
-
-		public void setSaturation(float saturation) {
-			this.saturation = saturation;
-		}
-
-		public Iterable<ItemStack> getArmour() {
-			return armour;
-		}
-
-		public void setArmour(Iterable<ItemStack> armour) {
-			this.armour = armour;
-		}
-
-		public ItemStack getMainHandItem() {
-			return mainHandItem;
-		}
-
-		public void setMainHandItem(ItemStack mainHandItem) {
-			this.mainHandItem = mainHandItem;
-		}
-
-		public ItemStack getOffHandItem() {
-			return offHandItem;
-		}
-
-		public void setOffHandItem(ItemStack offHandItem) {
-			this.offHandItem = offHandItem;
-		}
-	*/
 	}
 
 	private static class PlayerAttackEntityData extends LoggingData
 	{
 		private PlayerStateData stateData;
+
+		@Override
+		public String toString() { return ""; }
 	}
 
 	private static class EntityAttackPlayerData extends LoggingData
@@ -555,20 +484,42 @@ public class BlackBox extends IToggleableFeature
 		private DamageSource source;
 		private PlayerStateData stateData;
 
-		public DamageSource getSource() {
-			return source;
+		public EntityAttackPlayerData( EntityDamageS2CPacket packet )
+		{
+			// Remember time of creation
+			super();
+
+			// Grab tracking data
+			this.stateData = new PlayerStateData();
+
+			this.source = packet.createDamageSource( Xenon.INSTANCE.client.world );
 		}
 
-		public void setSource(DamageSource source) {
-			this.source = source;
-		}
+		@Override
+		public String toString()
+		{
+			StringBuilder builder = new StringBuilder( "[" )
+				.append( this.getTime() ).append( "] " );
 
-		public PlayerStateData getStateData() {
-			return stateData;
-		}
+			builder.append( "BEGIN ENTITY ATTACK PLAYER DATA ====================\n" );
 
-		public void setStateData(PlayerStateData stateData) {
-			this.stateData = stateData;
+			builder.append( this.stateData.toString() );
+
+			builder.append( this.source.getType().toString() );
+			net.minecraft.entity.Entity attacker = this.source.getAttacker();
+			builder.append( "Attacker:\n" );
+			builder.append( "\tName: " ).append( attacker.getDisplayName() );
+			if ( attacker != null && attacker instanceof LivingEntity livingAttacker )
+			{
+				// Is player?
+				if ( attacker instanceof PlayerEntity playerAttacker) builder.append( " (Player)\n" );
+
+				// Health
+				builder.append( "\tHealth: " ).append( livingAttacker.getHealth() );
+			}
+
+			builder.append( "END ENTITY ATTACK PLAYER DATA ====================\n" );
+			return builder.toString();
 		}
 	}
 }
