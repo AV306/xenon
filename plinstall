@@ -2,7 +2,10 @@
 
 source /etc/lsb-release
 
-sudo apt update
+if [ "$1" = "update" ]
+then
+    sudo apt update
+fi
 
 echo "Distribution: $DISTRIB_CODENAME"
 
@@ -15,8 +18,8 @@ then
 
     mkdir PrismLauncher && cd PrismLauncher
     wget https://github.com/PrismLauncher/PrismLauncher/releases/download/7.1/PrismLauncher-Linux-Qt6-portable-7.1.tar.gz
-    tar -xvf PrismLauncher-Linux-Qt6-Portable-7.1.tar.gz
-    chmod +x PrismLauncher
+    tar -xvf PrismLauncher-Linux-Qt6-portable-7.1.tar.gz
+    chmod +x ./PrismLauncher
 elif [ "$DISTRIB_CODENAME" = "focal" ]
 then
     # Focal: Use Qt5
