@@ -54,7 +54,8 @@ public class ConfigMenu extends IFeature
         }
         catch ( Error error )
         {
-
+            error.printStackTrace();
+            Xenon.INSTANCE.sendErrorMessage( "text.xenon.configmenu.unknownerror" );
         }
     }
 }

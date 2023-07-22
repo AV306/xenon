@@ -57,6 +57,8 @@ public class BlackBox extends IToggleableFeature
 	private ActionResult onPlayerDamaged( EntityDamageS2CPacket packet )
 	{
 		// Construct event data
+		if ( !this.isEnabled ) return ActionResult.PASS;
+		
 		this.dataQueue.add( new EntityAttackPlayerData( packet ) );
 		return ActionResult.PASS;
 	}
@@ -503,20 +505,29 @@ public class BlackBox extends IToggleableFeature
 
 			builder.append( "BEGIN ENTITY ATTACK PLAYER DATA ====================\n" );
 
-			builder.append( this.stateData.toString() );
 
-			builder.append( this.source.getType().toString() );
+			builder.append( this.source.getType().toString() ).append( '\n' );
+
 			net.minecraft.entity.Entity attacker = this.source.getAttacker();
-			builder.append( "Attacker:\n" );
-			builder.append( "\tName: " ).append( attacker.getDisplayName() );
-			if ( attacker != null && attacker instanceof LivingEntity livingAttacker )
+			if ( attacker != null )
 			{
-				// Is player?
-				if ( attacker instanceof PlayerEntity playerAttacker) builder.append( " (Player)\n" );
+				builder.append( "Attacker:\n" );
+				builder.append( "\tPosition: " ).append( this.source.getPosition().toString() ).append( '\n' );
+				builder.append( "\tName: " ).append( attacker.getDisplayName() );
 
-				// Health
-				builder.append( "\tHealth: " ).append( livingAttacker.getHealth() );
+				if ( attacker instanceof LivingEntity livingAttacker )
+				{
+					// Is player?
+					if ( attacker instanceof PlayerEntity playerAttacker) builder.append( " (Player)\n" );
+
+					// Health
+					builder.append( "\tHealth: " ).append( livingAttacker.getHealth() );
+				}
+
+				builder.append( '\n' );
 			}
+
+			builder.append( this.stateData.toString() );
 
 			builder.append( "END ENTITY ATTACK PLAYER DATA ====================\n" );
 			return builder.toString();
