@@ -124,6 +124,7 @@ public enum Xenon
         new FeatureList();
         new FullBrightFeature();
         if ( FullKeyboardGroup.enable ) new FullKeyboardFeature();
+        new HealthDisplayFeature();
         new MultiQuickChatFeature();
         new ProximityRadarFeature();
         new QuickChatFeature();

@@ -10,6 +10,7 @@ public abstract class IToggleableFeature extends IFeature
     protected Text disabledText;
 
     protected boolean isEnabled = false;
+    public boolean getIsEnabled() { return this.isEnabled; }
 
     /**
 	 * Sets whether this feature should be disabled on exit
