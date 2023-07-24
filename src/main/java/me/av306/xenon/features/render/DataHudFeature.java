@@ -3,6 +3,7 @@ package me.av306.xenon.features.render;
 import me.av306.xenon.Xenon;
 import me.av306.xenon.event.RenderInGameHudEvent;
 import me.av306.xenon.feature.IToggleableFeature;
+import net.minecraft.client.gui.DrawContext;
 import me.av306.xenon.util.render.ScreenPosition;
 import me.av306.xenon.util.color.ColorUtil;
 import me.av306.xenon.util.text.TextFactory;
@@ -19,12 +20,12 @@ public class DataHudFeature extends IToggleableFeature
         RenderInGameHudEvent.AFTER_VIGNETTE.register( this::onInGameHudRender );
     }
 
-    private ActionResult onInGameHudRender( MatrixStack matrixStack, float tickDelta )
+    private ActionResult onInGameHudRender( DrawContext drawContext, float tickDelta )
     {
         if ( this.isEnabled )
         {
             TextUtil.drawPositionedText(
-                    matrixStack,
+                    drawContext,
                     TextFactory.createLiteral( Xenon.INSTANCE.client.fpsDebugString ),
                     ScreenPosition.TOP_LEFT,
                     0, 0,
