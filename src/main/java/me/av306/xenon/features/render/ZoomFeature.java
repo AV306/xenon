@@ -43,8 +43,8 @@ public class ZoomFeature extends IFeature
                     this.originalMouseSensitivity = Xenon.INSTANCE.client.options.getMouseSensitivity().getValue();
 
                 // Clamp our zoom level
-                // It should be 1 by default (no zoom when just enabled)
-                // the clamp will boost it up to 2
+                // It should be 1 by default (when just enabled), the clamp
+                // will boost it up to 2
                 // eliminating the need for a local variable
                 EventFields.FOV_ZOOM_LEVEL = MathHelper.clamp(
                         EventFields.FOV_ZOOM_LEVEL,
@@ -56,9 +56,7 @@ public class ZoomFeature extends IFeature
                 Xenon.INSTANCE.client.options.getMouseSensitivity()
                         .setValue( this.originalMouseSensitivity / EventFields.FOV_ZOOM_LEVEL );
 
-            }
-            else
-            {
+            } else {
                 // Zoom not needed, reset zoom level
                 EventFields.FOV_ZOOM_LEVEL = 1d;
 
@@ -66,9 +64,10 @@ public class ZoomFeature extends IFeature
                 Xenon.INSTANCE.client.options.getMouseSensitivity()
                         .setValue( this.originalMouseSensitivity ); // npe
 
-                // Set original mouse sensitivity to null when zoom is disabled,
-                // so that the next time zoom is enabled, the original mouse sensitivity will be set
-                // and if we have already reset sensitivity, it will throw and we don't need to set again
+                // Set original mouse sensitivity
+                // to null when zoom is disabled,
+                // so that the next time zoom is enabled,
+                // the original mouse sensitivity will be set.
                 this.originalMouseSensitivity = null;
             }
         }
@@ -92,10 +91,11 @@ public class ZoomFeature extends IFeature
         {
             // Scrolling up zooms in,
             // scrolling down zooms out
-            if ( vertical > 0 ) EventFields.FOV_ZOOM_LEVEL *= (1 + ZoomGroup.scrollInterval);
-            else if ( vertical < 0 ) EventFields.FOV_ZOOM_LEVEL *= (1 - ZoomGroup.scrollInterval);
+            if ( vertical > 0 ) EventFields.FOV_ZOOM_LEVEL *= 1.1;
+            else if ( vertical < 0 ) EventFields.FOV_ZOOM_LEVEL *= 0.9;
         }
 
+        // pass
         return ActionResult.PASS;
     }
 

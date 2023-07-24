@@ -1,12 +1,10 @@
 ## CommandProcessor Documentation
 
-Documentation for Xenon's command processor!
-
-(I could have just used client-side commands with Bridgadier, but it's too late to change now. Ah well)
+Documentation for Xenon's command processor
 
 ### Basic command structure
 
-`<prefix character><feature / command name>[action (for feature), or argument, for command][more arguments...]`
+`[prefix character][feature / command name][action (for feature), or argument][more arguments...]`
 
 Example feature command: `!fullkeyboard enable`
 "!" - prefix
@@ -31,6 +29,4 @@ Example standalone command: `!help listf`
 
 ### Standalone command list
 
-- `crash`: Crashes Minecraft with an out-of-bounds array access
-- 
 `TODO`

@@ -7,6 +7,8 @@ import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.MovementType;
+import net.minecraft.network.encryption.PlayerPublicKey;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.Vec3d;
 
@@ -75,8 +77,6 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
         if ( result == ActionResult.FAIL )
             ci.cancel();
 	}
-
-    // Anyone remember what I was doing here? I sure don't.
 
     @Inject(
         at = @At( "HEAD" ),
