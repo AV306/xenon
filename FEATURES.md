@@ -14,6 +14,8 @@ All are open for suggestions and PRs!
 - Australian Mode - Simulate Australian Minecraft (upside down)
 - FullBright - Full gamma, making every surface clearly visible without lighting effects (incompatible with most shaders)
 - ProximityRadar - Outlines nearby players and hostile mobs, through walls (Server opt-out available)
+- WAILA - Sub-par WAILA implementation; you're better off using another mod like WTHIT. This is just here for fun.
+- HealthDisplay - Shows mobs' health in their nameplates (the name text above their head)
 - Take Panorama - Quickly generate panoramas that can be used in a custom title screen panorama resource pack
 - Zoom - Look at far-away objects, with adjustable zoom. Compatible with Australian Mode!
 
