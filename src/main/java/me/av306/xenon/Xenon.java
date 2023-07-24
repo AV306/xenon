@@ -5,24 +5,22 @@ import me.av306.xenon.commands.*;
 import me.av306.xenon.config.FeatureConfigGroup;
 import me.av306.xenon.config.GeneralConfigGroup;
 import me.av306.xenon.config.feature.movement.FullKeyboardGroup;
-import me.av306.xenon.event.ClientWorldEvents;
 import me.av306.xenon.feature.*;
 import me.av306.xenon.features.*;
 import me.av306.xenon.features.chat.*;
 import me.av306.xenon.features.movement.*;
 import me.av306.xenon.features.render.*;
 import me.av306.xenon.mixin.MinecraftClientAccessor;
-import me.av306.xenon.util.KeybindUtil;
 import me.av306.xenon.util.text.TextFactory;
 import me.lortseam.completeconfig.data.Config;
+import me.lortseam.completeconfig.gui.ConfigScreenBuilder;
+import me.lortseam.completeconfig.gui.cloth.ClothConfigScreenBuilder;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.fabricmc.loader.api.Version;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.option.KeyBinding;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-import org.lwjgl.glfw.GLFW;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 
@@ -57,13 +55,11 @@ public enum Xenon
 
     public HashMap<String, Command> commandRegistry = new HashMap<>();
 
-    private String versionString; //
-
+    private String versionString; // 
     public String getVersion() { return versionString; }
     
     public ModContainer modContainer;
 
-    public KeyBinding modifierKey;
     /**
      * This field `namePrefix` should contain "[Xenon] " (note whitespace),
      * and be formatted with Xenon's messsage format.
@@ -97,12 +93,14 @@ public enum Xenon
         // set client and its accessor
         this.client = MinecraftClient.getInstance();
         this.clientAccessor = (MinecraftClientAccessor) this.client;
-
-        ClientWorldEvents.DISCONNECT.register( this::disableAllFeatures );
 			
         // register features
         initCommands();
         initFeatures();
+
+        // Register config screen with ModMenu if present
+        /*if ( FabricLoader.getInstance().isModLoaded( "cloth-config" ) )
+            ConfigScreenBuilder.setMain( this.MODID, new ClothConfigScreenBuilder() );*/
     }
 
     private void initCommands()
@@ -113,19 +111,13 @@ public enum Xenon
 
     private void initFeatures()
     {
-        this.modifierKey = KeybindUtil.registerKeybind(
-                "modifier",
-                GLFW.GLFW_KEY_LEFT_ALT,
-                "features"
-        );
-
         new AustralianModeFeature();
         new CommandProcessor();
         new ConfigMenu();
+        //new DamageIndicatorFeature();
         new FeatureList();
         new FullBrightFeature();
         if ( FullKeyboardGroup.enable ) new FullKeyboardFeature();
-        new HealthDisplayFeature();
         new MultiQuickChatFeature();
         new ProximityRadarFeature();
         new QuickChatFeature();
@@ -135,14 +127,12 @@ public enum Xenon
         if ( GeneralConfigGroup.enableTimer ) new TimerFeature();
         new WailaFeature();
         new ZoomFeature();
-        new BlackBox();
     }
 
 
     public void disableAllFeatures()
     {
         // FIXME: This feels very inefficient
-        Xenon.INSTANCE.LOGGER.info( "Exiting world, disabling all features" );
         ArrayList<IToggleableFeature> enabledFeatures_copy = new ArrayList<>( this.enabledFeatures );
         for ( IToggleableFeature feature : enabledFeatures_copy )
             if ( !feature.isPersistent() ) feature.disable(); // Don't disable if it's persistent (like CP)
@@ -152,14 +142,74 @@ public enum Xenon
             feature.setForceDisabled( false );
     }
 
-    // Mod Menu handles update checks for us :)
+    // TODO: With the Modrinth API this can finally be implemented
     private void readVersionData()
     {
+        // assert that we're actually loaded
+        // If this ever fails, please, send me the logs.
         assert FabricLoader.getInstance().getModContainer( "xenon" ).isPresent();
         this.modContainer = FabricLoader.getInstance().getModContainer( "xenon" ).get();
         // Get version string
         Version ver = modContainer.getMetadata().getVersion();
         this.versionString = ver.getFriendlyString();
+        
+        // TODO: finish this for 3.2.0
+
+        // Return early if we don't need to check for updates
+        /*if ( !GeneralConfigGroup.checkForUpdates ) return;
+
+        // Get latest version from Modrinth API
+        
+        // Build HTTP request
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri( java.net.URI.create( "http://api.modrinth.com/v2/project/BsmAXLQn/version" ) )
+                .build();
+
+        HttpClient client = HttpClient.newBuilder()
+                .version( HttpClient.Version.HTTP_2 )
+                .followRedirects( HttpClient.Redirect.NORMAL )
+                .connectTimeout( Duration.ofSeconds( 30 ) )
+                .build();
+
+        // Send request
+        HttpResponse<String> response;
+        try
+        {
+            response = client.send( request, HttpResponse.BodyHandlers.ofString() );
+        }
+        catch ( IOException io )
+        {
+            Xenon.INSTANCE.LOGGER.error( "IOException thrown while fetching latest version!" );
+            io.printStackTrace();
+            return;
+        }
+
+        // Error handling
+        if ( response.statusCode() != 200 )
+        {
+            Xenon.INSTANCE.LOGGER.error( "Failed to GET latest version from Modrinth: {}", response.statusCode() );
+            return;
+        }
+
+        // Received response as string, extract version id
+        // FIXME: I feel like we're underusing JSON.simple
+        // Response is an array of objects
+        String latestVersionString = JsonParser.parseString( response.body() )
+                .getAsJsonArray()
+                .getAsJsonObject() // List only contains one object
+                .get( "version_number" ) // Extract version string
+                .getAsString();
+
+        Xenon.INSTANCE.LOGGER.info( "Found version {} from Modrinth" latestVersionString );
+
+        // Compare versions
+        boolean newVersionAvailable = ver.compareTo( Version.parse( latestVersionString ) ) < 0;
+
+        if ( newVersionAvailable ) Xenon.INSTANCE.LOGGER.info( "Update available!" );
+
+        // TODO: implement update available message
+        // TODO: try/catch everything
+        */
     }
 
 

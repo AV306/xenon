@@ -53,7 +53,6 @@ dependencies {
 	// why is there nothing in here
 	modImplementation "com.github.Lortseam.completeconfig:base:${project.complete_config_version}"
 	modImplementation "com.github.Lortseam.completeconfig:gui-cloth:${project.complete_config_version}"
-	//modImplementation "com.github.shedaniel:cloth-config:v10-SNAPSHOT"
 
 	implementation "org.slf4j:slf4j-api:${project.slf4j_version}"
 

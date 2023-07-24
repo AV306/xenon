@@ -15,9 +15,6 @@ public class FeatureConfigGroup implements XenonConfigGroup
 	private final GeneralConfigGroup generalConfigGroup = new GeneralConfigGroup();
 
 	@Transitive
-	private final BlackBoxGroup blackBoxGroup = new BlackBoxGroup();
-
-	@Transitive
 	private final RedReticleGroup redReticleGroup = new RedReticleGroup();
 
 	@Transitive
@@ -25,9 +22,6 @@ public class FeatureConfigGroup implements XenonConfigGroup
 
 	@Transitive
 	private final QuickChatGroup quickChatGroup = new QuickChatGroup();
-
-	//@Transitive
-	//private final DamageIndicatorGroup damageIndicatorGroup = new DamageIndicatorGroup();
 
 	@Transitive
 	private final FeatureListGroup featureListGroup = new FeatureListGroup();

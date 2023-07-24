@@ -5,6 +5,7 @@ import me.av306.xenon.event.ChatOutputEvent;
 import net.minecraft.client.gui.screen.ChatScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.TextFieldWidget;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import org.spongepowered.asm.mixin.Mixin;
@@ -23,7 +24,7 @@ public class ChatScreenMixin extends Screen
 	@Shadow
 	public String normalize( String t ) { return null; }
 
-	protected ChatScreenMixin( Text title )
+	protected ChatScreenMixin (Text title )
 	{
 		super( title );
 	}
@@ -45,7 +46,7 @@ public class ChatScreenMixin extends Screen
 	)
 	public void onSendMessage( String message, boolean addToHistory, CallbackInfoReturnable<Boolean> cir )
 	{
-		if ( (message = normalize(message)).isEmpty() ) return;
+		if( (message = normalize(message)).isEmpty() ) return;
 
 		ActionResult result = ChatOutputEvent.EVENT.invoker().interact( message );
 
@@ -55,7 +56,7 @@ public class ChatScreenMixin extends Screen
 			return;
 		}
 
-		// Unlike Wurst, this doesn't let you modify the message.
+		// Unlike Wurst, this doesn't let you change the message.
 		// You shouldn't need to do that anyway.
 	}
 }

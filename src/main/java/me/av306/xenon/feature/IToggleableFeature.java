@@ -64,7 +64,7 @@ public abstract class IToggleableFeature extends IFeature
     @Override
     protected void keyEvent()
     {
-        if ( this.keyBinding.wasPressed() && !Xenon.INSTANCE.modifierKey.isPressed() )
+        if ( this.keyBinding.wasPressed() )
             this.toggle();
     }
 

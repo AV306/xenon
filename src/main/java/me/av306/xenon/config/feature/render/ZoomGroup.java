@@ -16,9 +16,4 @@ public class ZoomGroup implements XenonConfigGroup
 	//@ConfigEntry.DoubleSliderInterval( 0.5d )
 	//@ConfigEntry.Slider
 	public static double maxZoom = 60d;
-
-	@ConfigEntry.BoundedDouble( min = 0.05d, max = 10d )
-	//@ConfigEntry.DoubleSliderInterval( 0.5d )
-	//@ConfigEntry.Slider
-	public static double scrollInterval = 0.1d;
 }

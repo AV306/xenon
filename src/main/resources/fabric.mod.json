@@ -31,11 +31,10 @@
     "java": ">=17"
   },
   "recommends": {
-    "completeconfig": "*"
+    "completeconfig": "https://github.com/Lortseam/completeconfig"
   },
   "conflicts": {
     "wurst-client": "*",
-    "wi-zoom": "*",
-    "zoomify": "*"
+    "wi-zoom": "*"
   }
 }
