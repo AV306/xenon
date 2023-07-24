@@ -103,6 +103,10 @@ public enum Xenon
         // register features
         initCommands();
         initFeatures();
+
+        // Register config screen with ModMenu if present
+        /*if ( FabricLoader.getInstance().isModLoaded( "cloth-config" ) )
+            ConfigScreenBuilder.setMain( this.MODID, new ClothConfigScreenBuilder() );*/
     }
 
     private void initCommands()
