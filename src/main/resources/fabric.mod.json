@@ -27,15 +27,14 @@
     "fabricloader": ">=0.14.7",
     "fabric-key-binding-api-v1": "*",
     "fabric": "*",
-    "minecraft": "1.19.x",
+    "minecraft": "1.20.x",
     "java": ">=17"
   },
   "recommends": {
-    "completeconfig": "*"
+    "completeconfig": "https://github.com/Lortseam/completeconfig"
   },
   "conflicts": {
     "wurst-client": "*",
-    "wi-zoom": "*",
-    "zoomify": "*"
+    "wi-zoom": "*"
   }
 }

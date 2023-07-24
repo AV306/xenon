@@ -3,10 +3,12 @@ package me.av306.xenon.mixin;
 import me.av306.xenon.Xenon;
 import me.av306.xenon.event.EntityDamageEvent;
 import me.av306.xenon.feature.IFeature;
+import me.av306.xenon.util.render.RotationUtil;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.network.packet.s2c.play.ChatMessageS2CPacket;
 import net.minecraft.network.packet.s2c.play.EntityDamageS2CPacket;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -23,7 +25,6 @@ public class ClientPlayNetworkHandlerMixin
     private void onOnChatMessage( ChatMessageS2CPacket packet, CallbackInfo ci )
     {
         // FIXME: Need to test
-        // FIXME: Seriously. It's been like 4 months... :/
         // Hook into this method to ensure that the packet is always received and processed
         // Otherwise people could just disable chat messages.
         // This is about as early as we can hook
