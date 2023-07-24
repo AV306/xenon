@@ -1,9 +1,7 @@
 package me.av306.xenon.mixin;
 
-import me.av306.xenon.Xenon;
-import me.shedaniel.math.Color;
+import me.av306.xenon.event.ClientWorldEvents;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.text.TextColor;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -19,7 +17,6 @@ public class ClientWorldMixin
 	private void onDisconnect( CallbackInfo ci )
 	{
 		// MinecraftClient#disconnect() is less reliable for this
-		Xenon.INSTANCE.LOGGER.info( "Exiting world, disabling all features" );
-		Xenon.INSTANCE.disableAllFeatures();
+		ClientWorldEvents.DISCONNECT.invoker().onDisconnect();
 	}
 }

@@ -1,11 +1,6 @@
 package me.av306.xenon.features.render;
 
-import me.av306.xenon.Xenon;
 import me.av306.xenon.feature.IToggleableFeature;
-import me.av306.xenon.util.text.TextFactory;
-import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
-import net.minecraft.client.render.entity.LivingEntityRenderer;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.text.Text;
@@ -35,5 +30,28 @@ public class HealthDisplayFeature extends IToggleableFeature
 	protected void onDisable()
 	{
 
+	}
+
+	// Used in `me.av306.xenon.mixin.EntityRendererMixin`
+	// Breaking conventions a bit since these mixins are used solely for this feature
+	public Text modifyEntityLabelText( Entity entity, Text text )
+	{
+		if ( !this.isEnabled ) return text;
+
+		try
+        {
+            LivingEntity livingEntity = (LivingEntity) entity;
+
+            text = text.copy().append( String.format( " §c(%f♥)§r", livingEntity.getHealth() ) );
+        }
+        catch ( ClassCastException ignored ) {}
+
+        return text;
+	}
+
+	// Used in `me.av306.xenon.mixin.MobEntityRendererMixin`
+	public boolean shouldForceEntityNameplate()
+	{
+		return this.isEnabled;
 	}
 }
