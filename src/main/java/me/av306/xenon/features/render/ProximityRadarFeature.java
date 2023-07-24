@@ -23,10 +23,8 @@ import org.lwjgl.opengl.GL11;
 
 public class ProximityRadarFeature extends IToggleableFeature
 {
-    private int ticks = 0;
-
     private double closestDistance = ProximityRadarGroup.range;
-    private boolean type = false; // True for hostile, false for player
+    private EntityScanResult type = EntityScanResult.NONE;
 
     public ProximityRadarFeature()
     {
@@ -52,16 +50,12 @@ public class ProximityRadarFeature extends IToggleableFeature
     private ActionResult scanEntities( MatrixStack matrices )
     {
         // FIXME: figure out how to optimise this
-        //final int interval = ProximityRadarGroup.interval;
-        //ticks++;
 
         if (
-                /*ticks >= interval &&*/ this.isEnabled
+                this.isEnabled
                 && Xenon.INSTANCE.client.world != null && Xenon.INSTANCE.client.player != null
         )
         {
-            ticks = 0; // Reset counter
-
             // GL stuff
             GL11.glEnable( GL11.GL_BLEND );
             GL11.glBlendFunc( GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA );
@@ -78,26 +72,31 @@ public class ProximityRadarFeature extends IToggleableFeature
 
             // Process the data and send the appropriate message
             Text text;
-            if ( type )
+            switch ( type )
             {
-                text = TextFactory.createTranslatable(
-                        "text.xenon.proximityradar.player",
-                        Double.toString( closestDistance ).substring( 0, 3 )
-                ).formatted(Formatting.RED, Formatting.BOLD);
+                case HOSTILE ->
+                {
+                    text = TextFactory.createTranslatable(
+                            "text.xenon.proximityradar.hostile",
+                            Double.toString( closestDistance ).substring( 0, 3 )
+                    ).formatted( Formatting.RED, Formatting.BOLD );
 
+                    Xenon.INSTANCE.client.player.sendMessage( text,  true );
+                }
+
+                case PLAYER ->
+                {
+                    text = TextFactory.createTranslatable(
+                            "text.xenon.proximityradar.player",
+                            Double.toString( closestDistance ).substring( 0, 3 )
+                    ).formatted( Formatting.RED, Formatting.BOLD );
+
+                    Xenon.INSTANCE.client.player.sendMessage( text,  true );
+                }
             }
-            else
-            {
-                text = TextFactory.createTranslatable(
-                        "text.xenon.proximityradar.hostile",
-                        Double.toString( closestDistance ).substring( 0, 3 )
-                ).formatted(Formatting.RED, Formatting.BOLD);
 
-            }
-            Xenon.INSTANCE.client.player.sendMessage( text,  true );
-
-            // Reset the closest detected distance
-            // I want static method variables :(
+            // Reset the closest detected distance and type
+            this.type = EntityScanResult.NONE;
             this.closestDistance = ProximityRadarGroup.range;
 
             matrices.pop();
@@ -115,10 +114,10 @@ public class ProximityRadarFeature extends IToggleableFeature
 
     /**
      * Scans an entity to check its type and distance from the player, and render the box and tracer.
-     * @param matrices
-     * @param entity
+     * @param matrices: Transformation matrix stack
+     * @param entity: Entity to scan
      */
-    private void scanEntityAndRenderHighlight(MatrixStack matrices, Entity entity )
+    private void scanEntityAndRenderHighlight( MatrixStack matrices, Entity entity )
     {
         final int range = ProximityRadarGroup.range;
 
@@ -133,15 +132,8 @@ public class ProximityRadarFeature extends IToggleableFeature
                 if ( distance < closestDistance )
                 {
                     closestDistance = distance;
-                    type = false;
+                    type = EntityScanResult.HOSTILE;
                 }
-
-                /*Text text = TextFactory.createTranslatable(
-                        "text.xenon.proximityradar.hostile",
-                        Double.toString( distance ).substring( 0, 3 )
-                ).formatted( Formatting.RED, Formatting.BOLD );
-
-                Xenon.INSTANCE.client.player.sendMessage( text,  true );*/
 
 
                 if ( ProximityRadarGroup.showBox )
@@ -155,15 +147,8 @@ public class ProximityRadarFeature extends IToggleableFeature
                 if ( distance < closestDistance )
                 {
                     closestDistance = distance;
-                    type = true;
+                    type = EntityScanResult.PLAYER;
                 }
-
-                /*Text text = TextFactory.createTranslatable(
-                        "text.xenon.proximityradar.player",
-                        Double.toString( distance ).substring( 0, 3 )
-                ).formatted( Formatting.RED, Formatting.BOLD );
-
-                Xenon.INSTANCE.client.player.sendMessage( text,  true );*/
 
 
                 if ( ProximityRadarGroup.showBox )
@@ -174,6 +159,7 @@ public class ProximityRadarFeature extends IToggleableFeature
             }
             else if ( entity instanceof ItemEntity && ProximityRadarGroup.detectItems )
             {
+                //type = EntityScanResult.ITEM;
                 /*Text text = TextFactory.createTranslatable(
                         "text.xenon.proximityradar.item",
                         Double.toString( distance ).substring( 0, 3 )
@@ -199,13 +185,12 @@ public class ProximityRadarFeature extends IToggleableFeature
                 entity.getPos().getY(),
                 entity.getPos().getZ()
         );
+
         matrixStack.scale(
                 entity.getWidth() + 0.1f,
                 entity.getHeight() + 0.1f,
                 entity.getWidth() + 0.1f
         );
-
-
 
         RenderSystem.setShaderColor(
                 color.getRed() / 255f,
@@ -213,6 +198,7 @@ public class ProximityRadarFeature extends IToggleableFeature
                 color.getBlue() / 255f,
                 1f
         );
+        
         RenderUtil.drawOutlinedBox( RenderUtil.DEFAULT_BOX, matrixStack );
 
         matrixStack.pop();
@@ -235,5 +221,15 @@ public class ProximityRadarFeature extends IToggleableFeature
         RenderUtil.drawLine( start, end, matrixStack );
 
         matrixStack.pop();
+    }
+
+    private enum EntityScanResult
+    {
+        HOSTILE,
+        //NEUTRAL,
+        //FRIENDLY,
+        PLAYER,
+        ITEM,
+        NONE;
     }
 }

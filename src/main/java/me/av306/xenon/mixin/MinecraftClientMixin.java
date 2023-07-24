@@ -44,11 +44,12 @@ public abstract class MinecraftClientMixin extends ReentrantThreadExecutor<Runna
     )
     private void onDisconnect( CallbackInfo ci )
     {
-        Xenon.INSTANCE.LOGGER.info( "client disconnect" );
+        //Xenon.INSTANCE.LOGGER.info( "client disconnect" );
         MinecraftClientEvents.DISCONNECT.invoker().onDisconnect();
         // This happens much later than ClientWorld#disconnect()
-        // The former happens immediately after hitting "disconnect", but the former
+        // The former happens immediately after hitting "disconnect", but it
         // fires after everything else shuts down and also when the client closes
         // And after any disconnection, whether from a failed connection or intended disconnection
+        // Also this fires when connecting too somehow
     }
 }
