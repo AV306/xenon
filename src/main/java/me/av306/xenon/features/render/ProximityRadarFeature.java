@@ -23,8 +23,6 @@ import org.lwjgl.opengl.GL11;
 
 public class ProximityRadarFeature extends IToggleableFeature
 {
-    private int ticks = 0;
-
     private double closestDistance = ProximityRadarGroup.range;
     private EntityScanResult type = EntityScanResult.NONE;
 
@@ -52,16 +50,12 @@ public class ProximityRadarFeature extends IToggleableFeature
     private ActionResult scanEntities( MatrixStack matrices )
     {
         // FIXME: figure out how to optimise this
-        //final int interval = ProximityRadarGroup.interval;
-        //ticks++;
 
         if (
-                /*ticks >= interval &&*/ this.isEnabled
+                this.isEnabled
                 && Xenon.INSTANCE.client.world != null && Xenon.INSTANCE.client.player != null
         )
         {
-            ticks = 0; // Reset counter
-
             // GL stuff
             GL11.glEnable( GL11.GL_BLEND );
             GL11.glBlendFunc( GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA );
@@ -191,13 +185,12 @@ public class ProximityRadarFeature extends IToggleableFeature
                 entity.getPos().getY(),
                 entity.getPos().getZ()
         );
+
         matrixStack.scale(
                 entity.getWidth() + 0.1f,
                 entity.getHeight() + 0.1f,
                 entity.getWidth() + 0.1f
         );
-
-
 
         RenderSystem.setShaderColor(
                 color.getRed() / 255f,
@@ -205,6 +198,7 @@ public class ProximityRadarFeature extends IToggleableFeature
                 color.getBlue() / 255f,
                 1f
         );
+        
         RenderUtil.drawOutlinedBox( RenderUtil.DEFAULT_BOX, matrixStack );
 
         matrixStack.pop();

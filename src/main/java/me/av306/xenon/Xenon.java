@@ -5,6 +5,7 @@ import me.av306.xenon.commands.*;
 import me.av306.xenon.config.FeatureConfigGroup;
 import me.av306.xenon.config.GeneralConfigGroup;
 import me.av306.xenon.config.feature.movement.FullKeyboardGroup;
+import me.av306.xenon.event.ClientWorldEvents;
 import me.av306.xenon.feature.*;
 import me.av306.xenon.features.*;
 import me.av306.xenon.features.chat.*;
@@ -14,8 +15,6 @@ import me.av306.xenon.mixin.MinecraftClientAccessor;
 import me.av306.xenon.util.KeybindUtil;
 import me.av306.xenon.util.text.TextFactory;
 import me.lortseam.completeconfig.data.Config;
-import me.lortseam.completeconfig.gui.ConfigScreenBuilder;
-import me.lortseam.completeconfig.gui.cloth.ClothConfigScreenBuilder;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.fabricmc.loader.api.Version;
@@ -98,6 +97,8 @@ public enum Xenon
         // set client and its accessor
         this.client = MinecraftClient.getInstance();
         this.clientAccessor = (MinecraftClientAccessor) this.client;
+
+        ClientWorldEvents.DISCONNECT.register( this::disableAllFeatures );
 			
         // register features
         initCommands();
@@ -113,7 +114,7 @@ public enum Xenon
     private void initFeatures()
     {
         this.modifierKey = KeybindUtil.registerKeybind(
-                "key.xenon.modifier",
+                "modifier",
                 GLFW.GLFW_KEY_LEFT_ALT,
                 "features"
         );
@@ -134,13 +135,14 @@ public enum Xenon
         if ( GeneralConfigGroup.enableTimer ) new TimerFeature();
         new WailaFeature();
         new ZoomFeature();
-        new BlackBox(); // BlackBox has been pushing 3.2.0 back for a long time :(
+        new BlackBox();
     }
 
 
     public void disableAllFeatures()
     {
         // FIXME: This feels very inefficient
+        Xenon.INSTANCE.LOGGER.info( "Exiting world, disabling all features" );
         ArrayList<IToggleableFeature> enabledFeatures_copy = new ArrayList<>( this.enabledFeatures );
         for ( IToggleableFeature feature : enabledFeatures_copy )
             if ( !feature.isPersistent() ) feature.disable(); // Don't disable if it's persistent (like CP)
@@ -153,8 +155,6 @@ public enum Xenon
     // Mod Menu handles update checks for us :)
     private void readVersionData()
     {
-        // assert that we're actually loaded
-        // If this ever fails, please, send me the logs.
         assert FabricLoader.getInstance().getModContainer( "xenon" ).isPresent();
         this.modContainer = FabricLoader.getInstance().getModContainer( "xenon" ).get();
         // Get version string

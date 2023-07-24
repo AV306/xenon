@@ -16,6 +16,7 @@
     "ClientPlayNetworkHandlerMixin",
     "ClientWorldMixin",
     "EntityRendererMixin",
+    "MobEntityRendererMixin",
     "GameOptionsAccessor",
     "GameRendererAccessor",
     "GameRendererMixin",
