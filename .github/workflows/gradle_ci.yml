@@ -9,10 +9,10 @@ name: Gradle CI
 
 on:  
   pull_request:
-    branches: [ 1.19-DEV ]
+    branches: [ 1.19-DEV, 1.20-DEV ]
     
   push:
-    branches: [ 1.19-DEV ]
+    branches: [ 1.19-DEV, 1.20-DEV ]
 
 jobs:
   build:
