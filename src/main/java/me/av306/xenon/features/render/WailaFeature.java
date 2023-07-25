@@ -51,7 +51,7 @@ public class WailaFeature extends IToggleableFeature
 
 		// get centre crosshair target
 		// seems to work fine for javier
-		HitResult hit = Xenon.INSTANCE.client.crosshairTarget;
+		HitResult hit = Xenon.INSTANCE.client.player.raycast( 100d, tickDelta, true );
 
 		// actual waila logic
 		if ( ticks >= interval )
