@@ -28,7 +28,7 @@ bin/
 
 # fabric
 run/
-run-1.19.4/
+run-*/
 remappedSrc/
 
 # replit
