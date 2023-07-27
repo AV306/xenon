@@ -9,7 +9,7 @@ public class FullBrightFeature extends IToggleableFeature
 {
     public FullBrightFeature()
     {
-        super( "Fullbright" );
+        super( "Fullbright", "fb", "gamma" );
     }
 	
     @Override

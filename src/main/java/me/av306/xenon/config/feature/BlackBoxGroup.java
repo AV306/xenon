@@ -12,7 +12,7 @@ public class BlackBoxGroup implements XenonConfigGroup
 	public static boolean showInFeatureList = true;
 
 	@ConfigEntry.Boolean
-	public static boolean reEnableOnWorldEnter = true;
+	public static boolean reEnableOnWorldEnter = false;
 
 	@ConfigEntry.BoundedInteger( min = 1, max = 100 )
 	@ConfigEntry.Slider
