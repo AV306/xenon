@@ -14,4 +14,12 @@ public class WailaGroup implements XenonConfigGroup
 
 	@ConfigEntry.Dropdown
 	public static ScreenPosition position = ScreenPosition.TOP_CENTER;
+
+	@ConfigEntry.BoundedInteger( min = 0, max = 1024 )
+	@ConfigEntry.Slider
+	public static int maxDistance = 64;
+
+	@ConfigEntry.BoundedInteger( min = -50, max = 50 )
+	@ConfigEntry.Slider
+	public static int yOffset = 10;
 }

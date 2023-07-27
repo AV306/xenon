@@ -28,6 +28,8 @@ public class MobEntityRendererMixin<T extends MobEntity, M extends EntityModel<T
     )
     private void onGetHasLabel( T entity, CallbackInfoReturnable<Boolean> cir )
     {
-        cir.setReturnValue( HealthDisplayFeature.getInstance().shouldForceEntityNameplate() );
+        // Don't block name tags when disabled
+        if ( HealthDisplayFeature.getInstance().shouldForceEntityNameplate() )
+            cir.setReturnValue( true );
     }
 }
