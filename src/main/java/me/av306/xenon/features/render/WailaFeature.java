@@ -51,7 +51,7 @@ public class WailaFeature extends IToggleableFeature
 
 		// get centre crosshair target
 		// seems to work fine for javier
-		HitResult hit = Xenon.INSTANCE.client.player.raycast( 100d, tickDelta, true );
+		HitResult hit = Xenon.INSTANCE.client.player.raycast( WailaGroup.maxDistance, tickDelta, true );
 
 		// actual waila logic
 		if ( ticks >= interval )
@@ -60,7 +60,7 @@ public class WailaFeature extends IToggleableFeature
 			ticks = 0;
 		}
 
-		// display block data (should go e ery frame otherwise it will flash)
+		// display block data (should go every frame otherwise it will flash)
 		this.drawDataText( drawContext, dataText );
 
 		return ActionResult.PASS;
@@ -68,7 +68,7 @@ public class WailaFeature extends IToggleableFeature
 
 	private void createDataText( HitResult hit )
 	{
-		switch (hit.getType())
+		switch ( hit.getType() )
 		{
 			case MISS ->
 			{
@@ -129,7 +129,7 @@ public class WailaFeature extends IToggleableFeature
 
 	private void drawDataText( DrawContext drawContext, Text text )
 	{
-		TextUtil.drawPositionedText( drawContext, text, WailaGroup.position, 0, 0, false, ColorUtil.RED );
+		TextUtil.drawPositionedText( drawContext, text, WailaGroup.position, 0, WailaGroup.yOffset, false, ColorUtil.RED );
 	}
 	
 	@Override
