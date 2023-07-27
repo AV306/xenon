@@ -6,7 +6,6 @@ import me.av306.xenon.Xenon;
 import me.av306.xenon.util.color.ColorUtil;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
@@ -35,6 +34,7 @@ public class TextUtil
 		int scaledWidth = Xenon.INSTANCE.client.getWindow().getScaledWidth();
 		int scaledHeight = Xenon.INSTANCE.client.getWindow().getScaledHeight();
 
+		// Default values for x and y
 		int x = 5 + xOffset, y = 5 + yOffset;
 
 		// the cases are designed to fall through to each other

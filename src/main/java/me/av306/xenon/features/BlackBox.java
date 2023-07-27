@@ -6,7 +6,6 @@ import me.av306.xenon.event.EntityDamageEvent;
 import me.av306.xenon.event.MinecraftClientEvents;
 import me.av306.xenon.feature.IToggleableFeature;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
