@@ -57,6 +57,8 @@ dependencies {
 
 	implementation "org.slf4j:slf4j-api:${project.slf4j_version}"
 
+	implementation "com.terraformersmc:modmenu:${project.modmenu_version}"
+
 	// GSON
 	//implementation "com.google.code.gson:gson:${project.gson_version}"
 }

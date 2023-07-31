@@ -1,0 +1,29 @@
+package me.av306.xenon;
+
+import com.terraformersmc.modmenu.api.*;
+import me.lortseam.completeconfig.gui.ConfigScreenBuilder;
+import me.lortseam.completeconfig.gui.cloth.ClothConfigScreenBuilder;
+import me.shedaniel.clothconfig2.api.ConfigBuilder;
+import net.minecraft.client.gui.screen.Screen;
+
+public class ModMenuIntegration implements ModMenuApi
+{
+    @Override
+    public ConfigScreenFactory<?> getModConfigScreenFactory()
+    {
+		try
+        {
+            ConfigScreenBuilder screenBuilder = new ClothConfigScreenBuilder(
+                    () -> ConfigBuilder.create()
+                    .transparentBackground()
+            );
+            Screen configScreen = screenBuilder.build( Xenon.INSTANCE.client.currentScreen, Xenon.INSTANCE.config );
+            return (screen) -> { return configScreen; };
+        }
+        catch ( Exception e )
+        {
+            Xenon.INSTANCE.LOGGER.error( "Encountered an exception while building the config screen!" );
+            e.printStackTrace();
+        }
+	}
+}

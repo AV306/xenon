@@ -19,7 +19,8 @@
   "environment": "client",
   "entrypoints": {
     "client": [ "me.av306.xenon.ClientInitializer" ],
-    "preLaunch": [ "me.av306.xenon.PreLaunchInitializer" ]
+    "preLaunch": [ "me.av306.xenon.PreLaunchInitializer" ],
+    "modmenu": [ "me.av306.xenon.ModMenuIntegration" ]
   },
   "mixins": [ "xenon.mixins.json" ],
 
