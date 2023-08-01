@@ -42,7 +42,7 @@ public class HealthDisplayFeature extends IToggleableFeature
         {
             LivingEntity livingEntity = (LivingEntity) entity;
 
-            text = text.copy().append( String.format( " §c(%f❤)§r", livingEntity.getHealth() ) );
+            text = text.copy().append( String.format( " §c(%.2f❤)§r", livingEntity.getHealth() ) );
         }
         catch ( ClassCastException ignored ) {}
 

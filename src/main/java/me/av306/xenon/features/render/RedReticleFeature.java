@@ -13,21 +13,19 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 
-public class RedReticleFeature extends IToggleableFeature
-{
+public class RedReticleFeature extends IToggleableFeature {
 
-    public RedReticleFeature()
-    {
-        super( "Red Reticle", "aimassist", "rr" );
-        RenderCrosshairEvent.START_RENDER.register( this::onStartRenderCrosshair );
-        RenderCrosshairEvent.END_RENDER.register( this::onEndRenderCrosshair );
+    public RedReticleFeature() {
+        super("Red Reticle", "aimassist", "rr");
+        RenderCrosshairEvent.START_RENDER.register(this::onStartRenderCrosshair);
+        RenderCrosshairEvent.END_RENDER.register(this::onEndRenderCrosshair);
     }
 
-    private ActionResult onStartRenderCrosshair( DrawContext drawContext )
-    {
+    private ActionResult onStartRenderCrosshair( DrawContext drawContext ) {
         if ( this.isEnabled )
         {
-            if ( RedReticleGroup.disableBlend ) RenderSystem.disableBlend();
+            if ( RedReticleGroup.disableBlend )
+                RenderSystem.disableBlend();
 
             HitResult hitResult = Xenon.INSTANCE.client.crosshairTarget;
 
@@ -40,8 +38,9 @@ public class RedReticleFeature extends IToggleableFeature
                 {
                     // Friendly!
                     // Green crosshair
-                    drawContext.setShaderColor( 0f, 1f, 0f, 1f );
-                } else if ( entity instanceof HostileEntity )
+                    drawContext.setShaderColor( 0f, 1f, 0f, 1f);
+                }
+                else if ( entity instanceof HostileEntity )
                 {
                     // Hostile and enemy!
                     // Red crosshair
@@ -49,7 +48,7 @@ public class RedReticleFeature extends IToggleableFeature
                 }
             }
 
-            drawContext.setShaderColor( 1f, 1f, 1f, 1f );
+            //drawContext.setShaderColor(1f, 1f, 1f, 1f);
         }
 
         return ActionResult.PASS;
@@ -57,13 +56,18 @@ public class RedReticleFeature extends IToggleableFeature
 
     private ActionResult onEndRenderCrosshair( DrawContext drawContext )
     {
-        if ( this.isEnabled ) RenderSystem.enableBlend();
+        if ( this.isEnabled )
+            RenderSystem.enableBlend();
+
+        drawContext.setShaderColor( 1f, 1f, 1f, 1f );
         return ActionResult.PASS;
     }
 
     @Override
-    protected void onEnable() {}
+    protected void onEnable() {
+    }
 
     @Override
-    protected void onDisable() {}
+    protected void onDisable() {
+    }
 }
