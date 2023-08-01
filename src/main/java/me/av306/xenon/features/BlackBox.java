@@ -23,6 +23,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.concurrent.*;
 
+// TODO: Finish other data sources after exams
 public class BlackBox extends IToggleableFeature
 {
 	private File logFile = null;

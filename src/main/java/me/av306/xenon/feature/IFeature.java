@@ -50,6 +50,7 @@ public abstract class IFeature
 	 * It is advised not to set this directly; use one of the constructors instead.
 	 */
 	protected KeyBinding keyBinding;
+	public KeyBinding getKeyBinding() { return this.keyBinding; }
 
 	/**
 	 * Sets whether this Feature should be hidden in FeatureList.
@@ -109,7 +110,7 @@ public abstract class IFeature
 		this.keyBinding = new KeyBinding(
 				"key.xenon." + name.toLowerCase().replaceAll( " ", "" ),
 				InputUtil.Type.KEYSYM,
-				this.key,
+				key,
 				"category.xenon." + this.category
 		);
 

@@ -79,7 +79,7 @@ public class CommandProcessor extends IToggleableFeature
         String[] args = Arrays.copyOfRange( cmd, 1, cmd.length );
 
         if ( !this.handleStandaloneCommand( name, args ) && !this.handleFeatureCommand( name, args ) )
-            Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocesor.unresolvable" );
+            Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocesor.unresolvable", name );
 
         return ActionResult.FAIL;
     }

@@ -113,6 +113,7 @@ public enum Xenon
     {
         new DebugCrashCommand();
         new HelpCommand();
+        new BindCommand();
     }
 
     private void initFeatures()
@@ -249,14 +250,13 @@ public enum Xenon
                 );
         try
         {
-            this.client.player.sendMessage(finalText, false);
+            this.client.player.sendMessage( finalText, false );
         }
         catch ( NullPointerException ignored ) {}
     }
 
     public void sendErrorMessage( String key, Object... args )
     {
-        // TODO: impl parameter packs?
         Text finalText = namePrefix.copy()
                 .append(
                         TextFactory.createTranslatable( key, args )
