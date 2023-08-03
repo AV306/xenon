@@ -21,7 +21,7 @@ public final class FullKeyboardFeature extends IToggleableFeature
 
     public FullKeyboardFeature()
     {
-        super( "FullKeyboard", "fullkey", "fullkb" );
+        super( "FullKeyboard", "fullkey", "fullkb", "fkb" );
 
         // Register extra keys
         this.virtualLeftMouseKey = KeybindUtil.registerKeybind(

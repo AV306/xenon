@@ -113,7 +113,8 @@ public enum Xenon
     {
         new DebugCrashCommand();
         new HelpCommand();
-        new BindCommand();
+        //new BindCommand();
+        new AliasCommand();
     }
 
     private void initFeatures()
