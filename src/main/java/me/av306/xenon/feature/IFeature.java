@@ -31,6 +31,7 @@ public abstract class IFeature
 	public void setName( String name ) { this.name = name; }
 
 	protected String category = "features";
+	public String getCategory() { return this.category; }
 
 	/**
 	 * Whether the server wishes to force-disable the feature
@@ -51,6 +52,7 @@ public abstract class IFeature
 	 */
 	protected KeyBinding keyBinding;
 	public KeyBinding getKeyBinding() { return this.keyBinding; }
+	public void setKeyBinding( KeyBinding keybinding ) { this.keyBinding = keybinding; }
 
 	/**
 	 * Sets whether this Feature should be hidden in FeatureList.
