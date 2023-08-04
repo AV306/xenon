@@ -89,7 +89,7 @@ public final class FullKeyboardFeature extends IToggleableFeature
     /**
      * Modify the mouse delta, so that the arrow keys control look angle.
      * Note: Mouse deltas are only used when the cursor is locked; i.e. when "actually playing"
-     * @param f: Delta delta :)
+     * @param f: Delta of the delta
      * @param accelerate: Make the delta change at an increasing rate. Not sure if this actually does anything
      */
     private void modifyMouseDelta( double f, boolean accelerate )
