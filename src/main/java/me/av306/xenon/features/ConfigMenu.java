@@ -44,18 +44,18 @@ public class ConfigMenu extends IFeature
         }
         catch ( UnsupportedOperationException unsupported )
         {
-            Xenon.INSTANCE.sendErrorMessage( "text.xenon.configmenu.unsupportedoperation" );
+            this.sendErrorMessage( "text.xenon.configmenu.unsupportedoperation" );
             unsupported.printStackTrace();
         }
         catch ( Exception e )
         {
-            Xenon.INSTANCE.sendErrorMessage( "text.xenon.configmenu.unknownexception" );
+            this.sendErrorMessage( "text.xenon.configmenu.unknownexception" );
             e.printStackTrace();
         }
         catch ( Error error )
         {
             error.printStackTrace();
-            Xenon.INSTANCE.sendErrorMessage( "text.xenon.configmenu.unknownerror" );
+            this.sendErrorMessage( "text.xenon.configmenu.unknownerror" );
         }
     }
 }

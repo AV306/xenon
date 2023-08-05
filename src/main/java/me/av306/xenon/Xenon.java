@@ -20,6 +20,7 @@ import net.fabricmc.loader.api.ModContainer;
 import net.fabricmc.loader.api.Version;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import org.lwjgl.glfw.GLFW;
@@ -57,19 +58,22 @@ public enum Xenon
 
     public HashMap<String, Command> commandRegistry = new HashMap<>();
 
-    private String versionString; //
+    private String versionString;
 
     public String getVersion() { return versionString; }
     
     public ModContainer modContainer;
 
     public KeyBinding modifierKey;
+
     /**
      * This field `namePrefix` should contain "[Xenon] " (note whitespace),
-     * and be formatted with Xenon's messsage format.
+     * and be formatted with the message format.
      */
     private final Text namePrefix = TextFactory.createLiteral( "[Xenon] " )
             .formatted( this.MESSAGE_FORMAT );
+
+    public MutableText getNamePrefixCopy() { return namePrefix.copy(); }
 
     //private boolean updateAvailable = false;
     //public boolean getUpdateAvailable() { return updateAvailable; }
@@ -199,13 +203,7 @@ public enum Xenon
         catch ( NullPointerException ignored ) {}
     }
 
-    /*public void sendLiteralInfoMessage( String literal, Object... args )
-    {
-        Text finalText = namePrefix.copy()
-                .append( TextFactory.createLiteral( literal, args))
-    }*/
-
-    public void sendInfoMessage( Text text )
+    /*public void sendInfoMessage( Text text )
     {
         Text finalText = namePrefix.copy()
                 .append( text );
@@ -284,5 +282,5 @@ public enum Xenon
             this.client.player.sendMessage( finalText, false );
         }
         catch ( NullPointerException ignored ) {}
-    }
+    }*/
 }

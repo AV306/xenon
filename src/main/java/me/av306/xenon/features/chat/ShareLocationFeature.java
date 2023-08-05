@@ -28,7 +28,7 @@ public class ShareLocationFeature extends IFeature
 				Math.round( currentPos.getX() ),
 				Math.round( currentPos.getY() ),
 				Math.round( currentPos.getZ() ),
-				""
+				Xenon.INSTANCE.client.world.getDimensionKey().getValue().toString()
 		);
 
 		Xenon.INSTANCE.client.getNetworkHandler().sendChatMessage( loc );

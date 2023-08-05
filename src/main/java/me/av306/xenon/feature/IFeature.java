@@ -149,7 +149,7 @@ public abstract class IFeature
 		if ( this.keyBinding.wasPressed() )
 			if ( this.forceDisabled )
 				// Server wishes to opt out of this feature
-				Xenon.INSTANCE.sendErrorMessage( "text.xenon.ifeature.forcedisabled" );
+				this.sendErrorMessage( "text.xenon.ifeature.forcedisabled" );
 			else this.enable();
 	}
 
@@ -215,25 +215,19 @@ public abstract class IFeature
 		// respond based on success flag
 		if ( result )
 		{
-			Xenon.INSTANCE.sendInfoMessage(
-					TextFactory.createTranslatable(
-							"text.xenon.ifeature.configchange.success",
-							this.name,
-							config,
-							value
-					)
+			this.sendInfoMessage(
+					"text.xenon.ifeature.configchange.success",
+					config,
+					value
 			);
 			Xenon.INSTANCE.config.save();
 		}
 		else
 		{
-			Xenon.INSTANCE.sendInfoMessage(
-					TextFactory.createTranslatable(
-							"text.xenon.ifeature.configchange.invalidconfig",
-							this.name,
-							config,
-							value
-					)
+			this.sendInfoMessage(
+					"text.xenon.ifeature.configchange.invalidconfig",
+					config,
+					value
 			);
 		}
 	}
@@ -257,22 +251,16 @@ public abstract class IFeature
 
 		if ( result )
 		{
-			Xenon.INSTANCE.sendInfoMessage(
-                TextFactory.createTranslatable(
-                    "text.xenon.ifeature.executeaction.success",
-					this.name,
+			this.sendInfoMessage(
+					"text.xenon.ifeature.executeaction.success",
 					Arrays.toString( action )
-				)
 			);
 		}
 		else
 		{
-			Xenon.INSTANCE.sendInfoMessage(
-				TextFactory.createTranslatable(
+			this.sendErrorMessage(
 					"text.xenon.ifeature.executeaction.fail",
-					this.name,
 					Arrays.toString( action )
-				).formatted( Xenon.INSTANCE.ERROR_FORMAT )
 			);
 		}
 	}
@@ -290,5 +278,39 @@ public abstract class IFeature
 	{
 		// TODO: add formatting
 		return TextFactory.createLiteral( "Whoops! This Feature doesn't have any documentation :(" );
+	}
+
+	protected void sendInfoMessage( String key, Object... args )
+	{
+		Text message = Xenon.INSTANCE.getNamePrefixCopy().append(
+				TextFactory.createTranslatable(
+						"text.xenon.message",
+						this.name,
+						TextFactory.createTranslatable( key, args )
+				)
+		);
+
+		try
+		{
+			Xenon.INSTANCE.client.player.sendMessage( message );
+		}
+		catch ( NullPointerException ignored ) {}
+	}
+
+	protected void sendErrorMessage( String key, Object... args )
+	{
+		Text message = Xenon.INSTANCE.getNamePrefixCopy().append(
+				TextFactory.createTranslatable(
+						"text.xenon.message",
+						this.name,
+						TextFactory.createTranslatable( key, args ).formatted( Xenon.INSTANCE.ERROR_FORMAT )
+				)
+		);
+
+		try
+		{
+			Xenon.INSTANCE.client.player.sendMessage( message );
+		}
+		catch ( NullPointerException ignored ) {}
 	}
 }

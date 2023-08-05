@@ -10,6 +10,6 @@ public class HelpCommand extends Command
 	@Override
 	public void execute( String[] args )
 	{
-		Xenon.INSTANCE.sendInfoMessage( "Help:" );
+		//this.sendInfoMessage( "Help:" );
 	}
 }
