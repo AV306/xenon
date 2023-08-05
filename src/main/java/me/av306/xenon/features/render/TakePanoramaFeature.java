@@ -44,8 +44,6 @@ public class TakePanoramaFeature extends IFeature
                 )
 		.formatted( Xenon.INSTANCE.SUCCESS_FORMAT );
 
-        Text msg = TextFactory.createTranslatable( "text.xenon.takepanorama.success", linkToPanoramas );
-
-        Xenon.INSTANCE.sendInfoMessage( msg );
+        this.sendInfoMessage(  "text.xenon.takepanorama.success", linkToPanoramas );
     }
 }

@@ -110,7 +110,7 @@ public class BlackBox extends IToggleableFeature
 		}
 		catch ( IOException ioe )
 		{
-			Xenon.INSTANCE.sendErrorMessage( "text.xenon.blabkbox.exception.write" );
+			this.sendErrorMessage( "text.xenon.blackbox.exception.write" );
 			ioe.printStackTrace();
 		}
 	}
@@ -205,7 +205,7 @@ public class BlackBox extends IToggleableFeature
 		}
 		catch ( IOException ioe )
 		{
-			Xenon.INSTANCE.sendErrorMessage( "text.xenon.blackbox.exception.creation" );
+			this.sendErrorMessage( "text.xenon.blackbox.exception.creation" );
 			ioe.printStackTrace();
 
             // Try to clean up resources
@@ -242,7 +242,7 @@ public class BlackBox extends IToggleableFeature
 		catch ( IOException ioe )
 		{
 			ioe.printStackTrace();
-			Xenon.INSTANCE.sendErrorMessage( "text.xenon.blackbox.exception.write" );
+			this.sendErrorMessage( "text.xenon.blackbox.exception.write" );
 		}
 		catch ( NullPointerException npe )
 		{
@@ -300,7 +300,7 @@ public class BlackBox extends IToggleableFeature
 			this.writeDataSafe( "Blackbox logging stopped. " );
 			this.logFileWriter.flush();
 		}
-		catch ( Exception e ) { e.printStackTrace(); Xenon.INSTANCE.sendErrorMessage( "text.xenon.blackbox.exception.disposal" ); }
+		catch ( Exception e ) { e.printStackTrace(); this.sendErrorMessage( "text.xenon.blackbox.exception.disposal" ); }
 		finally
 		{
 			this.dataWriterThread = null;

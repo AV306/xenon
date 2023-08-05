@@ -27,16 +27,15 @@ public class AliasCommand extends Command
 
             Xenon.INSTANCE.featureRegistry.put( alias, feature );
 
-            Xenon.INSTANCE.sendInfoMessage( "text.xenon.command.alias.success", args[0] );
+            this.sendInfoMessage( "text.xenon.command.alias.success", args[0] );
         }
         catch ( NullPointerException npe )
         {
-            // FIXME: We have a lot of repeated messages
-            Xenon.INSTANCE.sendErrorMessage( "text.xenon.command.unresolvable", this.name, args[0] );
+            this.sendErrorMessage( "text.xenon.command.unresolvable", this.name, args[0] );
         }
         catch ( ArrayIndexOutOfBoundsException oobe )
         {
-            Xenon.INSTANCE.sendErrorMessage( "text.xenon.command.notenoughargs", this.name, args.length, 2 );
+            this.sendErrorMessage( "text.xenon.command.notenoughargs", this.name, args.length, 2 );
         }
 	}
 }

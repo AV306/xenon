@@ -55,7 +55,7 @@ public class CommandProcessor extends IToggleableFeature
             // Should we warn the user that CP is disabled?
             if ( CommandProcessorGroup.warn )
             {
-                Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocessor.disabled" );
+                this.sendErrorMessage( "text.xenon.commandprocessor.disabled" );
 
                 return ActionResult.FAIL;
             }
@@ -63,7 +63,7 @@ public class CommandProcessor extends IToggleableFeature
         }
 
         // Report command
-        Xenon.INSTANCE.sendInfoMessage( "text.xenon.commandprocessor.report", text );
+       Xenon.INSTANCE.sendInfoMessage( "text.xenon.commandprocessor.report", text );
 
         // Remove prefix
         String[] cmd = deserialiseCommand( CommandProcessorGroup.prefix, text );
@@ -79,7 +79,7 @@ public class CommandProcessor extends IToggleableFeature
         String[] args = Arrays.copyOfRange( cmd, 1, cmd.length );
 
         if ( !this.handleStandaloneCommand( name, args ) && !this.handleFeatureCommand( name, args ) )
-            Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocesor.unresolvable", name );
+            this.sendErrorMessage( "text.xenon.commandprocesor.unresolvable", name );
 
         return ActionResult.FAIL;
     }
@@ -112,7 +112,7 @@ public class CommandProcessor extends IToggleableFeature
 
         if ( args.length < 1 )
         {
-            Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocesor.missing.action" );
+           this.sendErrorMessage( "text.xenon.commandprocesor.missing.action" );
             return true;
         }
 
@@ -129,13 +129,13 @@ public class CommandProcessor extends IToggleableFeature
                 }
                 catch ( ClassCastException cce )
                 {
-                    Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocessor.invalid.command.featurenottoggleable" );
+                    this.sendErrorMessage( "text.xenon.commandprocessor.invalid.command.featurenottoggleable" );
                 }
             }
 
             case "set" ->
             {
-                if ( args.length < 3 ) Xenon.INSTANCE.sendErrorMessage( "text.xenon.commandprocessor.missing.args", 3, args.length );
+                if ( args.length < 3 ) this.sendErrorMessage( "text.xenon.commandprocessor.missing.args", 3, args.length );
                 else feature.requestConfigChange( args[1], args[2] );
             }
 
