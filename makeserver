@@ -1,0 +1,15 @@
+#! /usr/bin/sh
+
+sys_arch=$(arch)
+
+echo $sys_arch
+
+if [ "$sys_arch" = "x86_64" ]
+then
+	wget https://cdn.azul.com/zulu/bin/zulu17.44.17-ca-crac-jdk17.0.8-linux_x64.tar.gz
+	tar -xvf ./zulu17.44.17-ca-crac-jdk17.0.8-linux_x64.tar.gz
+fi
+
+echo "eula=true" > eula.txt
+wget https://api.papermc.io/v2/projects/paper/versions/1.20.1/builds/126/downloads/paper-1.20.1-126.jar
+java -jar paper-1.20.1-126.jar
