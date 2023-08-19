@@ -96,13 +96,13 @@ public final class FullKeyboardFeature extends IToggleableFeature
     {
         if ( Xenon.INSTANCE.client.options.sprintKey.isPressed() )
         {
-            // FLick view
-            // TODO: How does vanilla rotate the player?
-            //if ( this.upKey.wasPressed() ) 
-            //if ( this.downKey.wasPressed() ) 
-            //if ( this.leftKey.wasPressed() )
-            //Xenon.INSTANCE.client.player.sendMessage( me.av306.xenon.util.text.TextFactory.createLiteral( String.valueOf( this.rightKey.wasPressed() ) ) );
-            //if ( this.rightKey.wasPressed() ) ((MouseAccessor) Xenon.INSTANCE.client.mouse).setCursorDeltaX( 100 );
+            // View flick
+            assert Xenon.INSTANCE.client.player != null;
+            // TODO: Do we need packets or something?
+            if ( this.upKey.wasPressed() ) Xenon.INSTANCE.client.player.setPitch( Xenon.INSTANCE.client.player.getPitch() - 90 );
+            if ( this.downKey.wasPressed() ) Xenon.INSTANCE.client.player.setPitch( Xenon.INSTANCE.client.player.getPitch() + 90 );
+            if ( this.leftKey.wasPressed() ) Xenon.INSTANCE.client.player.setYaw( Xenon.INSTANCE.client.player.getYaw() - 90 );
+            if ( this.rightKey.wasPressed() ) Xenon.INSTANCE.client.player.setYaw( Xenon.INSTANCE.client.player.getYaw() + 90 );
         }
         else if ( !accelerate )
         {
@@ -124,7 +124,6 @@ public final class FullKeyboardFeature extends IToggleableFeature
     /**
      * Modify the actual mouse position.
      * Note: Only used when the cursor is unlocked; i.e. anytime you can see the cursor, like in GUIs and chat
-     * @param keycode: GLFW keycode
      * @param f: Delta delta
      */
     private void modifyMousePos( double f )
