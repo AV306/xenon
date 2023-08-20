@@ -38,7 +38,6 @@ You can even use Xenon without CompleteConfig, but configs might not work proper
 - ProximityRadar entity tracer doesn't stay attached to camera centre (moves around during view bobbing)
 - FullKeyboard attack/break key double-binding does not work for attacking
 - Help command doesn't do anything
-- Red Reticle non-functional in 1.20
 
 ## Known incompatibilities:
 
