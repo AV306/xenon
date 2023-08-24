@@ -7,21 +7,48 @@ All are open for suggestions and PRs!
 **QuickChat**
 
 Send a custom message at the push of a button!
+
 Note: commands will be sent as a chat message, fix for that is WIP
+
+| **Option** | **Max/Min** | **Default Value** |
+|------------|-------------|-------------------|
+| Message    | NA          | (Blank)           |
 
 **MultiQuickChat**
 
 Send one of 10 custom message at the push of two buttons - the feature key and a number key
 
+| **Option** | **Max/Min** | **Default Value** |
+|------------|-------------|-------------------|
+| Message 0  | NA          | (Blank)           |
+| Message 1  | NA          | (Blank)           |
+| Message 2  | NA          | (Blank)           |
+| Message 3  | NA          | (Blank)           |
+| Message 4  | NA          | (Blank)           |
+| Message 5  | NA          | (Blank)           |
+| Message 6  | NA          | (Blank)           |
+| Message 7  | NA          | (Blank)           |
+| Message 8  | NA          | (Blank)           |
+| Message 9  | NA          | (Blank)           |
+
 **ShareLocation**
 
 Send a chat message with your current location and dimension, also at the push of a button. (WIP: /whisper support for public servers)
+
+**Infinite Chat Length**
+
+Remove the maximum chat length restriction.
 
 ### Movement
 
 **Timer**
 
-Speed up your actions! May be considered a hack on some servers, but still genuinely useful where it is allowed. USE AT YOUR OWN RISK; server opt-out available
+Speed up your actions! May be considered a hack on some servers, but still genuinely useful where it is allowed. USE AT YOUR OWN RISK; server opt-out available.
+
+| **Option**          | **Max/Min** | **Default Value** | **Comment**              |
+|---------------------|-------------|-------------------|--------------------------|
+| Speed               | 0.1/50.0    | 1.0               | TPS multiplier           |
+| Adjustment interval | 0.1/10.0    | 1.0               | Scroll adjustment amount |
 
 **FullKeyboard**
 
