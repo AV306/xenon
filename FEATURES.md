@@ -42,18 +42,53 @@ Full gamma, making every surface clearly visible without lighting effects (incom
 
 **ProximityRadar**
 
-Outlines nearby players and hostile mobs, through walls. May be considered a (Server opt-out available)
-- WAILA - Sub-par WAILA implementation; you're better off using another mod like WTHIT. This is just here for fun.
-- HealthDisplay - Shows mobs' name and health in their nameplates (the name text above their head)
-- Panorama Generator - Quickly generate panoramas that can be used in a custom title screen panorama resource pack
-- Zoom - Look at far-away objects, with adjustable zoom. Compatible with Australian Mode!
+Outlines nearby players and hostile mobs, optionally through walls. May be considered a hack. (Server opt-out available)
+
+**WAILA**
+
+What block is that?
+
+Sub-par WAILA implementation; you're better off using another mod like WTHIT. This is just here for fun.
+
+(This used to show entity health, but that was replaced by HealthDisplay. About the only special element here is that its range can br extended really far.)
+
+**HealthDisplay**
+
+Shows mobs' name and health in their nameplates (the name text above their head)
+
+**Panorama Generator**
+
+Generate a set of 6 square images in the format of the title screen panorama. Incompatible with shaders, unfortunately.
+
+**Zoom**
+
+Look at far-away objects! Adjustable with the scroll wheel.
+
+Compatible with Australian Mode!
 
 ### Misc
-- BlackBox - Records information like your position, health and death point(s) as you play. A Flight Data Recorder for Minecraft!
-- CommandProcessor - Enable/disable features, change their configs, get help and run macros, all from the chat. (Note: up/down previous message access broken as of 1.19+)
-- ConfigMenu - Change feature configs (Sometimes works, sometimes doesn't, sorry)
-- FeatureList - Lists the features you have enabled
-- LazyDFU Integration - Optimises DFU (DataFixerUpper) just like LazyDFU
+
+**BlackBox**
+
+Records information like your position, health and death point(s) as you play. A Flight Data Recorder for Minecraft!
+
+**CommandProcessor**
+
+Enable/disable features, change their configs,  and run macros, all from the chat.
+
+(Note: no up/down command history access as of 1.19+)
+
+**ConfigMenu**
+
+CompleteConfig configuration menu.
+
+**FeatureList**
+
+Shows your Xenon version and the features you have enabled.
+
+**LazyDFU Integration**
+
+Optimises DFU (DataFixerUpper) just like LazyDFU
 
 ### Coming soon
 
