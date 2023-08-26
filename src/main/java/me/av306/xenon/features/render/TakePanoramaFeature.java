@@ -35,7 +35,7 @@ public class TakePanoramaFeature extends IFeature
         // So we pass the root gamedir.
         Xenon.INSTANCE.client.takePanorama( runDir, resolution, resolution );
 
-        Text linkToPanoramas = TextFactory.createLiteral(panoramaFile.getName() + File.separator + "panorama0.png")
+        Text linkToPanoramas = TextFactory.createLiteral( panoramaFile.getName() + File.separator + "panorama0.png" )
                 .formatted( Formatting.UNDERLINE )
                 .styled(
                         style -> style.withClickEvent(
