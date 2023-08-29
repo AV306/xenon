@@ -21,7 +21,7 @@ Xenon, however, is more like a Swiss Army chainsaw (but nowhere near as powerful
 
 ### What "solutions" does Xenon have?
 
-Full documentation [here!](FEATURES.md)
+Full documentation [here!](docs/FEATURES.md)
 
 (Most features are unbound by default)
 
