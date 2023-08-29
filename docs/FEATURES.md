@@ -63,6 +63,8 @@ Disclaimer: Touchscreen still required for some UI interaction (ugh); MidnightCo
 
 Joke feature: simulates Australian Minecraft (upside down)
 
+<img src="https://cdn.modrinth.com/data/BsmAXLQn/images/3a851f012826d957e0e89da4f060940868c300c7.png" style="width: 600px;"></img>
+
 **FullBright**
 
 Full gamma, making every surface clearly visible without lighting effects (incompatible with most shaders)
