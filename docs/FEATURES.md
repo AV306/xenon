@@ -115,6 +115,8 @@ Sub-par WAILA implementation; you're better off using another mod like WTHIT. Th
 
 (This used to show entity health, but that was replaced by HealthDisplay. About the only special element here is that its range can br extended really far.)
 
+<img src="img/5B80582F-AF6F-4A64-8F23-183AA096ADDE.png" style="height: 300px;" />
+
 <br>
 
 **HealthDisplay**
