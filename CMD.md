@@ -4,6 +4,8 @@ Documentation for Xenon's command processor!
 
 (I could have just used client-side commands with Bridgadier, but it's too late to change now. Ah well)
 
+(Ok you know what, as soon as finals finish I'm moving everything to Brigadier; just bear with my terrible spaghetti code for a while longer)
+
 ### Basic command structure
 
 `<prefix character><feature / command name>[action (for feature), or argument, for command][more arguments...]`
