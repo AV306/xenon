@@ -91,6 +91,17 @@ Full gamma, making every surface clearly visible without lighting effects (incom
 
 Outlines nearby players and hostile mobs, optionally through walls. May be considered a hack. (Server opt-out available)
 
+| **Option**         | **Max/Min**    | **Default Value** | **Comment**                                                                               |
+|--------------------|----------------|-------------------|-------------------------------------------------------------------------------------------|
+| Range              | 1/100 (blocks) | 3                 | Entity scan radius                                                                        |
+| Show Entity Box    | NA             | True              | Draw a box around entities                                                                |
+| Show Entity Tracer | NA             | True              | Draw a line from the centre of your screen to entities                                    |
+| Detect Items       | NA             | True              | Highlight items                                                                           |
+| Detect Players     | NA             | True              | Highlight players                                                                         |
+| Player Box Color   | NA             | #ffffff (white)   | Color of the player highlight box and tracer. Use a hex color picker to find color values |
+| Hostile Box Color  | NA             | #ff00000 (red)    | Color of hostile entity highlight box and tracer                                          |
+| Item Box Color     | NA             | #74becf (aqua)    | Color of item highlight box and tracer                                                    |
+
 <br>
 
 **WAILA**
