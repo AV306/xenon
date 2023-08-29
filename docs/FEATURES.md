@@ -1,4 +1,4 @@
-## Xenon Feature Documentation
+![image](https://github.com/AV306/xenon/assets/66512356/521f5d59-9430-4799-9faa-249b0339cc63)## Xenon Feature Documentation
 
 All are open for suggestions and PRs!
 
@@ -101,6 +101,9 @@ Outlines nearby players and hostile mobs, optionally through walls. May be consi
 | Player Box Color   | NA             | #ffffff (white)   | Color of the player highlight box and tracer. Use a hex color picker to find color values |
 | Hostile Box Color  | NA             | #ff00000 (red)    | Color of hostile entity highlight box and tracer                                          |
 | Item Box Color     | NA             | #74becf (aqua)    | Color of item highlight box and tracer                                                    |
+
+<img src="https://cdn.modrinth.com/data/BsmAXLQn/images/1a57e4c1cf763620f5bc06102d807b33485cbdd6.png" style="height: 300px;" />
+
 
 <br>
 
