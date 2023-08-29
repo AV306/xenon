@@ -1,4 +1,4 @@
-![image](https://github.com/AV306/xenon/assets/66512356/521f5d59-9430-4799-9faa-249b0339cc63)## Xenon Feature Documentation
+## Xenon Feature Documentation
 
 All are open for suggestions and PRs!
 
