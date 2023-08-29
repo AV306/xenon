@@ -8,14 +8,14 @@ Documentation for Xenon's command processor!
 
 ### Basic command structure
 
-`<prefix character><feature / command name>[action (for feature), or argument, for command][more arguments...]`
+`<prefix character><feature / command name> [action (for feature) / argument (for command] [more arguments...]`
 
 Example feature command: `!fullkeyboard enable`
 "!" - prefix
 "fullkeyboard" - feature name
 "enable" - action
 
-Example standalone command: `!help listf`
+Example standalone command: `!help listf` (Note: I think this command is broken)
 "!" - prefix
 "help" - command name
 "listf" - argument
@@ -34,5 +34,5 @@ Example standalone command: `!help listf`
 ### Standalone command list
 
 - `crash`: Crashes Minecraft with an out-of-bounds array access
-- 
+
 `TODO`
