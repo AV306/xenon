@@ -102,7 +102,7 @@ Outlines nearby players and hostile mobs, optionally through walls. May be consi
 | Hostile Box Color  | NA             | #ff00000 (red)    | Color of hostile entity highlight box and tracer                                          |
 | Item Box Color     | NA             | #74becf (aqua)    | Color of item highlight box and tracer                                                    |
 
-<img src="https://cdn.modrinth.com/data/BsmAXLQn/images/1a57e4c1cf763620f5bc06102d807b33485cbdd6.png" style="height: 300px;" />
+<img src="https://cdn.modrinth.com/data/BsmAXLQn/images/1a57e4c1cf763620f5bc06102d807b33485cbdd6.png" style="width: 600px;" />
 
 
 <br>
@@ -115,7 +115,7 @@ Sub-par WAILA implementation; you're better off using another mod like WTHIT. Th
 
 (This used to show entity health, but that was replaced by HealthDisplay. About the only special element here is that its range can br extended really far.)
 
-<img src="img/5B80582F-AF6F-4A64-8F23-183AA096ADDE.png" style="height: 300px;" />
+<img src="img/5B80582F-AF6F-4A64-8F23-183AA096ADDE.png" style="width: 600px;" />
 
 <br>
 
@@ -123,7 +123,7 @@ Sub-par WAILA implementation; you're better off using another mod like WTHIT. Th
 
 Shows mobs' name and health in their nameplates (the name text above their head)
 
-<img src="img/249BD038-C12F-4640-BA52-99ECB8B8ABEA.jpeg" style="height: 300px;" />
+<img src="img/249BD038-C12F-4640-BA52-99ECB8B8ABEA.jpeg" style="width: 600px;" />
 
 <br>
 
