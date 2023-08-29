@@ -85,6 +85,8 @@ Sub-par WAILA implementation; you're better off using another mod like WTHIT. Th
 
 Shows mobs' name and health in their nameplates (the name text above their head)
 
+<img src="img/249BD038-C12F-4640-BA52-99ECB8B8ABEA.jpeg" style="height: 300px;" />
+
 **Panorama Generator**
 
 Generate a set of 6 square images in the format of the title screen panorama. Incompatible with shaders, unfortunately.
