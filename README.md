@@ -5,6 +5,8 @@
 
 **Note: I'll be taking a break from working on Xenon to concentrate on my studies; updates will happen much less frequently (not like they happen often anyway) Sorry!**
 
+**Note 2: VSCode web doesn't want to work on my iPad anymore so now I can't work on Xenon even if. I want to :(**
+
 Hi, thanks for stopping by this page! This is Xenon, a personal project of mine that I decided to publish to Modrinth and a couple of people decided to use.
 
 ### What does Xenon do?
