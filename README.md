@@ -13,11 +13,9 @@ Hi, thanks for stopping by this page! This is Xenon, a personal project of mine 
 
 ### What does Xenon do?
 
-Xenon tries to implement features similar to those in clients such as Badlion and Lunar, while maintaining compatibility with other mods. 
+Xenon tries to implement "quality-of-life" features similar to those in clients like Badlion and Lunar, while maintaining compatibility with other mods.
 
-Most mods follow the traditional "problem-solution" model - they give you a solution to a common problem.
-
-Xenon, however, is more like a Swiss Army chainsaw (but nowhere near as powerful) - it gives you a bunch of solutions and lets you figure out what to use them for.
+Most mods follow the traditional "problem-solution" model - they give you a solution to a common problem. Xenon, however, is more like a Swiss Army chainsaw (but nowhere near as powerful) - it gives you a bunch of solutions and lets you figure out what to use them for.
 
 (This is a side effect of the original reason I made Xenon, which was to solve niche/pedantic problems I had)
 
