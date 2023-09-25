@@ -1,11 +1,13 @@
 # Xenon: A lightweight Fabric utility client
 
-[![Gradle CI](https://github.com/AV306/xenon/actions/workflows/gradle_ci.yml/badge.svg?branch=1.19-DEV)](https://github.com/AV306/xenon/actions/workflows/gradle_ci.yml)
-[![Custom badge](https://img.shields.io/endpoint?color=3fcc98&url=https://hits.dwyl.com/AV306/xenon.json?show=unique)]()
+[![Gradle CI](https://github.com/AV306/xenon/actions/workflows/gradle_ci.yml/badge.svg?branch=1.20-DEV)](https://github.com/AV306/xenon/actions/workflows/gradle_ci.yml)
+[![Hits](https://img.shields.io/endpoint?color=3fcc98&url=https://hits.dwyl.com/AV306/xenon.json?show=unique)]()
 
 **Note: I'll be taking a break from working on Xenon to concentrate on my studies; updates will happen much less frequently (not like they happen often anyway) Sorry!**
 
-**Note 2: VSCode web doesn't want to work on my iPad anymore so now I can't work on Xenon even if. I want to :(**
+**Note 2: VSCode web doesn't want to work on my iPad anymore so now I can't work on Xenon even if I want to :(**
+
+**Note 3: 15 days to end of exams but 2 days to start of exams: ((((((((**
 
 Hi, thanks for stopping by this page! This is Xenon, a personal project of mine that I decided to publish to Modrinth and a couple of people decided to use.
 
@@ -13,11 +15,11 @@ Hi, thanks for stopping by this page! This is Xenon, a personal project of mine 
 
 ### What does Xenon do?
 
-Xenon tries to implement "quality-of-life" features similar to those in clients like Badlion and Lunar, while maintaining compatibility with other mods.
+Xenon tries to implement features similar to those in clients such as Badlion and Lunar, while maintaining compatibility with other mods. 
 
-Most mods follow the traditional "problem-solution" model - they give you a solution to a common problem. Xenon, however, is more like a Swiss Army chainsaw (but nowhere near as powerful) - it gives you a bunch of solutions and lets you figure out what to use them for.
+Most mods follow the traditional "problem-solution" model - they give you a solution to a common problem.
 
-(This is a side effect of the original reason I made Xenon, which was to solve niche/pedantic problems I had)
+Xenon, however, is more like a Swiss Army chainsaw (but nowhere near as powerful) - it gives you a bunch of solutions and lets you figure out what to use them for. This is a side effect of the original reason I made Xenon, which was to solve weird, niche and/or pedantic problems I had.
 
 <br>
 
@@ -30,13 +32,12 @@ Check them all out [here!](docs/FEATURES.md)
 A sample:
 
 - FullBright (fullbright: removes lighting effects, making everything visible, even at night)
-- HealthDisplay (Displays mobs' names and health in nameplates)
-- FullKeyboard (Move around without a mouse! Touchscreen still needed for UI interaction. WIP)
+- HealthDisplay (Displays mobs' names and health in name tags)
 - QuickChat (send a preset message with one button, commands WIP)
-- MultiQuickChat (QuickChat, but with up to 10 messages!)
+- MultiQuickChat (QuickChat, but with up to 10 messages)
 - Panorama Generator (make panoramas for resource packs! Incompatible with shaders unfortunately)
 - ShareLocation (share your location and dimension, not recommended for public survival servers, security WIP)
-- Australian Mode (Aussie Minecraft, approved by an actual Australian)
+- Australian Mode (Aussie Minecraft, approved by an Australian)
 - Zoom (Zoom, adjustable with the scroll wheel)
 - Halo "Red Reticle" (Makes your crosshair change color when pointing at hostile mobs, like in Halo games)
 - Debug crosshair size modification (Make the axes easier to see!)
@@ -47,9 +48,9 @@ A sample:
 
 (check these [here](https://fabricmc.net/develop))
 
-- Latest Fabric API (may not work with older ones, not really tested)
+- [Latest Fabric API](https://modrinth.com/mod/fabric-api) (may not work with older ones, not really tested)
 - Fabric Loader >=0.14.21
-- CompleteConfig 2.4.x
+- [CompleteConfig](https://modrinth.com/mod/completeconfig) 2.4.x
 
 Version numbers are fairly strict, if it says "1.19.4" that means it's only been tested on 1.19.4, but it will probably work on other 1.19.*x* versions, and no one will stop you.
 
@@ -58,6 +59,12 @@ Version numbers are fairly strict, if it says "1.19.4" that means it's only been
 ### Warning
 
 This project often has bugs and missing translation keys, as I unfortunately can't extensively test everything due to school and other commitments. If you find anything wrong, please raise an issue! PRs are very welcome.
+
+### Note on version numbers
+
+The current latest version is **4.1.1**. You might still see references to versions that appear "greater" than this (e.g. LDFU intg in 4.6.1), because I only started following proper SemVer around the time the 1.19.4/1.20 versions were released.
+
+Just get the greatest version number for your version and ignore those tagged "1.19" (e.g. "4.6.0+1.19" is *very* outdated compared to "4.1.0+1.19.4") and you should be fine :)
 
 <br>
 
