@@ -7,8 +7,8 @@ import net.minecraft.text.Text;
 public abstract class IToggleableFeature extends IFeature
 {
 	/**
- 	 * Text to display when the feature is enabled. Should not change after initialisation,
-     */
+ 	* Text to display when the feature is enabled. Should not change after initialisation,
+  	*/
     protected final Text enabledText;
 	
 	/**
@@ -55,11 +55,21 @@ public abstract class IToggleableFeature extends IFeature
     protected IToggleableFeature( String name, int key )
     {
         super( name, key );
+		
+		this.enabledText = TextFactory.createTranslatable( "text.xenon.itoggleablefeature.enabled", name )
+                .formatted( Xenon.INSTANCE.SUCCESS_FORMAT );
+        this.disabledText = TextFactory.createLiteral( "text.xenon.itoggleablefeature.disabled", name )
+                .formatted( Xenon.INSTANCE.SUCCESS_FORMAT );
     }
 
     protected IToggleableFeature( String name, int key, String... aliases )
     {
         super( name, key, aliases );
+
+		this.enabledText = TextFactory.createTranslatable( "text.xenon.itoggleablefeature.enabled", name )
+                .formatted( Xenon.INSTANCE.SUCCESS_FORMAT );
+        this.disabledText = TextFactory.createLiteral( "text.xenon.itoggleablefeature.disabled", name )
+                .formatted( Xenon.INSTANCE.SUCCESS_FORMAT );
     }
 
     /*@Override
