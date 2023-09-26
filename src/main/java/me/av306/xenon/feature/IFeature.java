@@ -15,21 +15,25 @@ import org.lwjgl.glfw.GLFW;
 import java.util.Arrays;
 
 /**
- * Base class for all features. You shouldn't need to touch this,
- * just extend it and implement its methods.
+ * Base class for all features, to be extended by other feature types and feature implementations.
  * NOTE: This *could* work by just using the subclass name field
  * to hide the superclass name field,
  * but let's try this way first.
+ * EDIT: this way works pretty nicely!
  */
 public abstract class IFeature
 {
 	/**
-	 * The Feature's DISPLAY name.
+	 * The Feature's display name, i.e. the name to be displayed in FeatureList
 	 */
 	protected String name = "IFeature";
 	public String getName() { return this.name; }
 	public void setName( String name ) { this.name = name; }
 
+	/**
+ 	 * The category for the feature in the keybinds page
+   	 * Doesn't do anything outside the keybind registration yet.
+   	 */
 	protected String category = "features";
 	public String getCategory() { return this.category; }
 
@@ -42,12 +46,12 @@ public abstract class IFeature
 	
 
 	/**
-	 * The key the Feature is bound to.
+	 * The key the Feature is bound to
 	 */
 	protected int key;
 
 	/**
-	 * The `KeyBinding` instance of the Feature.
+	 * The `KeyBinding` instance of the Feature
 	 * It is advised not to set this directly; use one of the constructors instead.
 	 */
 	protected KeyBinding keyBinding;
@@ -55,16 +59,16 @@ public abstract class IFeature
 	public void setKeyBinding( KeyBinding keybinding ) { this.keyBinding = keybinding; }
 
 	/**
-	 * Sets whether this Feature should be hidden in FeatureList.
+	 * Sets whether this Feature should be hidden in FeatureList
 	 */
 	private boolean hide = false;
 	public void setShouldHide( boolean shouldHide ) { this.hide = shouldHide; }
 	public boolean getShouldHide() { return this.hide; }
 
 	/**
-	 * Recommended constructor to call in a subclass.
+	 * Constructor that initialises a feature with the given display name, aliases and no default key
 	 * @param name: The Feature's display name
-	 * @param aliases: Aliases for the feature in CP. Should not contain the original name
+	 * @param aliases: Aliases for the feature in CP. <i>Technically can</i>, but should not, contain the name in the first argument
 	 */
 	protected IFeature( String name, String... aliases )
 	{
@@ -72,7 +76,7 @@ public abstract class IFeature
 	}
 
 	/**
-	 * Constructor with display name, aliases and pre-bound key.
+	 * Constructor that initialises a feature with a display name, aliases and pre-bound key
 	 * @param name: Display name
 	 * @param key: GLFW keycode to bind to
 	 * @param aliases: CommandProcessor aliases
@@ -87,7 +91,7 @@ public abstract class IFeature
 	}
 
 	/**
-	 * Name-only constructor.
+	 * Constructor that initialises a feature with a display name, no aliases and no default key
 	 * @param name: Display name
 	 */
 	protected IFeature( String name )
@@ -98,7 +102,7 @@ public abstract class IFeature
 	// random ones
 
 	/**
-	 * The basic constructor, with display name and pre-bound key.
+	 * Initialises a feature with a display name and default key
 	 * @param name: Display name
 	 * @param key: GLFW keycode to bind to
 	 */
@@ -141,7 +145,7 @@ public abstract class IFeature
 	}*/
 
 	/**
-	 * Method called when the key event is registered.
+	 * Key event callback (called when the feature key is pressed)
 	 * Override this for advanced behaviour (see ZoomFeature)
 	 */
 	protected void keyEvent()
@@ -154,8 +158,8 @@ public abstract class IFeature
 	}
 
 	/**
-	 * Method to enable a Feature. Used to hide shared logic.
-	 * Only override for advanced behaviour. Use onEnable() instead.
+	 * Method to enable a Feature "nicely", with stuff like the "enabled!" message
+	 * Only override for advanced behaviour. Overridde onEnable() instead
 	 */
 	public void enable()
 	{
@@ -172,38 +176,27 @@ public abstract class IFeature
 		onEnable();
 	}
 
-	// this goes in IToggleableFeature instead
-	/*public void disable()
-	{
-		//if ( !isEnabled ) return;
-			
-		isEnabled = false;
-
-		//Xenon.INSTANCE.featureManager.getEnabledFeatures().remove( name );
-		
-		onDisable();
-	}*/
-
 	/**
-	 * Abstract method that should contain logic for the feature.
+	 * Internal feature "enable" callback; called whenn the feature is enabled
 	 */
   	protected abstract void onEnable();
 
 	/**
-	 * Called when a config change is requested in CP.
+	 * Config change method, called when a feature change is requested in CP
 	 * Used to hide config change logic.
 	 * @param config: The name of the config
-	 * @param value: The value to set teh config to
+	 * @param value: The value to set the config to
 	 */
+	// FIXME: I don't think we should catch the NFE here
 	public void requestConfigChange( String config, String value )
 	{
 		// success flag
-        boolean result;
+        	boolean result;
 		
 		try
 		{
 			// attempt to change the config
-            result = this.onRequestConfigChange( config, value );
+            		result = this.onRequestConfigChange( config, value );
 		}
 		catch ( NumberFormatException nfe )
 		{
@@ -233,7 +226,7 @@ public abstract class IFeature
 	}
 
 	/**
-	 * Overrideable method that should contain logic for config changes.
+	 * Internal config change method, for the actual change of the config value
 	 * NOTE: Catch ALL exceptions EXCEPT NumberFormatExceptions in here.
 	 * @param config: The name of the config
 	 * @param value: The value to set the config to
@@ -241,13 +234,13 @@ public abstract class IFeature
 	protected boolean onRequestConfigChange( String config, String value ) { return false; }
 
 	/**
-	 * Method that hides execution logic.
+	 * Method that requests a feature to execute an action
 	 * See CP for an example of this.
 	 * @param action: An array containing the command.
 	 */
-    public void requestExecuteAction( String[] action )
+    	public void requestExecuteAction( String[] action )
 	{
-        boolean result = this.onRequestExecuteAction( action );
+        	boolean result = this.onRequestExecuteAction( action );
 
 		if ( result )
 		{
@@ -266,10 +259,10 @@ public abstract class IFeature
 	}
 
 	/**
-	 * Overridable method containing execution logic.
+	 * Internal method to handle execution of acttions
 	 * @param action: An array containing the command.
 	 */
-    protected boolean onRequestExecuteAction( String[] action ) { return true; }
+    	protected boolean onRequestExecuteAction( String[] action ) { return true; }
 
 	/**
 	 * Method to retrieve help text for a feature.
@@ -280,6 +273,7 @@ public abstract class IFeature
 		return TextFactory.createLiteral( "Whoops! This Feature doesn't have any documentation :(" );
 	}
 
+	
 	protected void sendInfoMessage( String key, Object... args )
 	{
 		Text message = Xenon.INSTANCE.getNamePrefixCopy().append(
