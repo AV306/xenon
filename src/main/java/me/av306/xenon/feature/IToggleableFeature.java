@@ -6,13 +6,23 @@ import net.minecraft.text.Text;
 
 public abstract class IToggleableFeature extends IFeature
 {
-    protected Text enabledText;
-    protected Text disabledText;
+	/**
+ 	 * Text to display when the feature is enabled. Should not change after initialisation,
+     */
+    protected final Text enabledText;
+	
+	/**
+ 	 * Text to display when the feature is disabled. Should not change after initialisation,
+     */
+    protected final Text disabledText;
 
+	/**
+ 	 * Whether the feature is enabled.
+     */
     protected boolean isEnabled = false;
 
     /**
-	 * Sets whether this feature should be disabled on exit
+	 * Whether this feature should be disabled on exit
 	 */
 	private boolean persistent = false;
 	public void setPersistent( boolean persistent ) { this.persistent = persistent; }
@@ -26,9 +36,9 @@ public abstract class IToggleableFeature extends IFeature
     {
         super( name );
 
-        this.enabledText = TextFactory.createLiteral( name + " ENABLED!" )
+        this.enabledText = TextFactory.createTranslatable( "text.xenon.itoggleablefeature.enabled", name )
                 .formatted( Xenon.INSTANCE.SUCCESS_FORMAT );
-        this.disabledText = TextFactory.createLiteral( name + " DISABLED!" )
+        this.disabledText = TextFactory.createLiteral( "text.xenon.itoggleablefeature.disabled", name )
                 .formatted( Xenon.INSTANCE.SUCCESS_FORMAT );
     }
 
@@ -36,9 +46,9 @@ public abstract class IToggleableFeature extends IFeature
     {
         super( name, aliases );
 
-        this.enabledText = TextFactory.createLiteral( name + " ENABLED!" )
+        this.enabledText = TextFactory.createTranslatable( "text.xenon.itoggleablefeature.enabled", name )
                 .formatted( Xenon.INSTANCE.SUCCESS_FORMAT );
-        this.disabledText = TextFactory.createLiteral( name + " DISABLED!" )
+        this.disabledText = TextFactory.createLiteral( "text.xenon.itoggleablefeature.disabled", name )
                 .formatted( Xenon.INSTANCE.SUCCESS_FORMAT );
     }
 
