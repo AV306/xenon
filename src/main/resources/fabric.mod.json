@@ -4,13 +4,17 @@
   "version": "${version}",
 
   "name": "Xenon",
-  "description": "Minecraft utility mod!",
-  "authors": [
-    "AV3_08"
+  "description": "Some neat tools for Minecraft",
+  "authors": [ "Blender" ],
+  "contributors": [
+    "Janvier726",
+    "AustinJason",
+    "Yeetbot3736"
   ],
   "contact": {
     "homepage": "https://modrinth.com/mod/xenon",
-    "sources": "https://github.com/AV306/xenon"
+    "sources": "https://github.com/AV306/xenon",
+    "issues": "https://github.com/AV306/xenon/issues"
   },
 
   "license": "MIT License",
@@ -24,14 +28,21 @@
   "mixins": [ "xenon.mixins.json" ],
 
   "depends": {
-    "fabricloader": ">=0.14.7",
+    "fabricloader": "*",
     "fabric-key-binding-api-v1": "*",
     "fabric": "*",
     "minecraft": "1.20.x",
     "java": ">=17"
   },
   "recommends": {
-    "completeconfig": "*"
+    "completeconfig": "*",
+    "cloth-config": "*"
+  },
+  "suggests": {
+    "sodium": "*",
+    "iris": "*",
+    "carpet": "*",
+    "xaeros-minimap": "*"
   },
   "conflicts": {
     "wurst-client": "*",
