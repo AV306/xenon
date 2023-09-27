@@ -1,0 +1,12 @@
+# Each line represents a (comma-space-seperated) set of versions whose builds are
+# compatible with one another.
+# E.g. A hyppthetical 1.20.1 build that can be used on 1.20, and vice versa
+
+1.18
+  No support, try at your own risk
+
+1.19
+  No support, try at your own risk
+
+1.20, 1.20.1 (Assumed)
+1.20.2
