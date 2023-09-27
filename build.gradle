@@ -140,5 +140,3 @@ publishing {
 		// retrieving dependencies.
 	}
 }
-
-java {
