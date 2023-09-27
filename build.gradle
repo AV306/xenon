@@ -87,7 +87,9 @@ jar {
 	from("LICENSE") {
 		rename { "${it}_${project.archivesBaseName}"}
 	}
+}
 
+jar {
 	toolchain {
 		languageVersion = JavaLanguageVersion.of( 17 )
 	}
