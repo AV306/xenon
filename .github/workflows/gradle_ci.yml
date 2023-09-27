@@ -13,10 +13,10 @@ on:
     
   push:
     paths:
-      - "src/**.java"
-      - "**.yml"
-      - "**.gradle"
-      - "**.properties
+      - 'src/**'
+      - '**.yml'
+      - '**.gradle'
+      - '**.properties'
       
     branches: [ 1.20-DEV, 1.20_MMC ]
 
