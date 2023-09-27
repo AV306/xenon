@@ -19,7 +19,6 @@ public class SettingsCommand extends Command
         /*Xenon.INSTANCE.client.setScreen(
             new OptionsScreen( Xenon.INSTANCE.client.currentScreen, Xenon.INSTANCE.client.options )
         );*/
-        //Util.throwOrPause( new RuntimeException() );
-        Xenon.INSTANCE.client.openPauseMenu( true );
+        //Util.pause( "Pause" );
     }
 }
