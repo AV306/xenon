@@ -56,15 +56,17 @@ Version numbers are fairly strict, if it says "1.19.4" that means it's only been
 
 <br>
 
+### A note on version numbers
+
+The current latest version is **4.2.0** for 1.20, 1.20.1 and 1.20.2. You might still see references to versions that appear "greater" than this (e.g. LDFU intg in 4.6.1), because I only started following proper SemVer around the time the 1.19.4/1.20 versions were released.
+
+Just get the greatest version number for your version and ignore those tagged "1.19" (e.g. "4.6.0+1.19" is *very* outdated compared to "4.1.0+1.19.4") and you should be fine :)
+
+<br>
+
 ### Warning
 
 This project often has bugs and missing translation keys, as I unfortunately can't extensively test everything due to school and other commitments. If you find anything wrong, please raise an issue! PRs are very welcome.
-
-### Note on version numbers
-
-The current latest version is **4.1.1**. You might still see references to versions that appear "greater" than this (e.g. LDFU intg in 4.6.1), because I only started following proper SemVer around the time the 1.19.4/1.20 versions were released.
-
-Just get the greatest version number for your version and ignore those tagged "1.19" (e.g. "4.6.0+1.19" is *very* outdated compared to "4.1.0+1.19.4") and you should be fine :)
 
 <br>
 
