@@ -80,18 +80,20 @@ public enum Xenon
 
     public void preLaunchInitialise()
     {
-        // Load our configs BEFORE the game loads.
-        // This is mainly because of the LazyDFU integration,
-        // where the DFU "optimisations" are executed BEFORE our initialisation.
-        // This can be here because it does not depend on MC.
+        // Load our configs BEFORE the game loads,
+		// to ensure that stuff like the DFU optimisation
+		// is able to read their configs before MC starts
         this.config.load();
+
+		// Read our version data
+        readVersionData();
+
+		// Generate main-menu-credits JSON
+		MainMenuCreditGenerator.generateJson();
     }
 
     public void initialise()
     {
-        // Read our version data
-        readVersionData();
-
         FabricLoader loader = FabricLoader.getInstance();
 
         // Check for CompleteConfig
