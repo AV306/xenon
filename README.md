@@ -7,7 +7,7 @@
 
 **Note 2: VSCode web doesn't want to work on my iPad anymore so now I can't work on Xenon even if I want to :(**
 
-**Note 3: 15 days to end of exams but 2 days to start of exams: ((((((((**
+**Exams tomorrow, wish me luck 🥲**
 
 Hi, thanks for stopping by this page! This is Xenon, a personal project of mine that I decided to publish to Modrinth and a couple of people decided to use.
 
