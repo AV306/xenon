@@ -8,24 +8,37 @@ import me.shedaniel.math.Color;
 @ConfigEntries( includeAll = true )
 public class ProximityRadarGroup implements XenonConfigGroup
 {
-    @ConfigEntry.BoundedInteger( min = 1, max = 100 )
-    public static int range = 3;
 
-    /*@ConfigEntry.BoundedInteger( min = 1, max = 10 )
-    @ConfigEntry.Slider
-    public static int lineThickness = 2;*/
+    @ConfigEntry.BoundedInteger( min = 1, max = 1000 )
+    public static int playerRange = 64;
 
-    @ConfigEntry.Boolean
-    public static boolean showBox = true;
+    @ConfigEntry.BoundedInteger( min = 1, max = 1000 )
+    public static int hostileRange = 20;
 
-    @ConfigEntry.Boolean
-    public static boolean showTracer = true;
+    @ConfigEntry.BoundedInteger( min = 1, max = 1000 )
+    public static int itemRange = 5;
+
 
     @ConfigEntry.Boolean
-    public static boolean detectItems = true;
+    public static boolean showPlayerBox = true;
 
     @ConfigEntry.Boolean
-    public static boolean detectPlayers = true;
+    public static boolean showPlayerTracer = true;
+
+
+    @ConfigEntry.Boolean
+    public static boolean showHostileBox = true;
+
+    @ConfigEntry.Boolean
+    public static boolean showHostileTracer = true;
+
+
+    @ConfigEntry.Boolean
+    public static boolean showItemBox = true;
+
+    @ConfigEntry.Boolean
+    public static boolean showItemTracer = true;
+
 
     @ConfigEntry.Color( alphaMode = false )
     public static Color playerBoxColor = Color.ofRGB( 255, 255, 255 );
@@ -35,5 +48,4 @@ public class ProximityRadarGroup implements XenonConfigGroup
 
     @ConfigEntry.Color( alphaMode = false )
     public static Color itemBoxColor = Color.ofRGB( 116, 190, 207 );
-
 }
