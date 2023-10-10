@@ -38,7 +38,7 @@ public abstract class IToggleableFeature extends IFeature
 
         this.enabledText = TextFactory.createTranslatable( "text.xenon.itoggleablefeature.enabled", name )
                 .formatted( Xenon.INSTANCE.SUCCESS_FORMAT );
-        this.disabledText = TextFactory.createLiteral( "text.xenon.itoggleablefeature.disabled", name )
+        this.disabledText = TextFactory.createTranslatable( "text.xenon.itoggleablefeature.disabled", name )
                 .formatted( Xenon.INSTANCE.SUCCESS_FORMAT );
     }
 
@@ -48,7 +48,7 @@ public abstract class IToggleableFeature extends IFeature
 
         this.enabledText = TextFactory.createTranslatable( "text.xenon.itoggleablefeature.enabled", name )
                 .formatted( Xenon.INSTANCE.SUCCESS_FORMAT );
-        this.disabledText = TextFactory.createLiteral( "text.xenon.itoggleablefeature.disabled", name )
+        this.disabledText = TextFactory.createTranslatable( "text.xenon.itoggleablefeature.disabled", name )
                 .formatted( Xenon.INSTANCE.SUCCESS_FORMAT );
     }
 
@@ -58,7 +58,7 @@ public abstract class IToggleableFeature extends IFeature
 		
 		this.enabledText = TextFactory.createTranslatable( "text.xenon.itoggleablefeature.enabled", name )
                 .formatted( Xenon.INSTANCE.SUCCESS_FORMAT );
-        this.disabledText = TextFactory.createLiteral( "text.xenon.itoggleablefeature.disabled", name )
+        this.disabledText = TextFactory.createTranslatable( "text.xenon.itoggleablefeature.disabled", name )
                 .formatted( Xenon.INSTANCE.SUCCESS_FORMAT );
     }
 
