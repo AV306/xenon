@@ -23,7 +23,8 @@ import org.lwjgl.opengl.GL11;
 
 public class ProximityRadarFeature extends IToggleableFeature
 {
-    private double closestDistance = ProximityRadarGroup.range;
+    private static final double MAX_POSSIBLE_DISTANCE = Math.max( Math.max( ProximityRadarGroup.playerRange, ProximityRadarGroup.hostileRange ), ProximityRadarGroup.itemRange );
+    private double closestDistance = MAX_POSSIBLE_DISTANCE;
     private EntityScanResult type = EntityScanResult.NONE;
 
     public ProximityRadarFeature()
@@ -51,12 +52,14 @@ public class ProximityRadarFeature extends IToggleableFeature
     {
         // FIXME: figure out how to optimise this
 
+        // Only run the scan if the feature is enabled and essential stuff isn't null
         if (
                 this.isEnabled
                 && Xenon.INSTANCE.client.world != null && Xenon.INSTANCE.client.player != null
         )
         {
             // GL stuff
+            // Makes the lines appear on top of everything
             GL11.glEnable( GL11.GL_BLEND );
             GL11.glBlendFunc( GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA );
             GL11.glEnable( GL11.GL_LINE_SMOOTH );
@@ -64,6 +67,7 @@ public class ProximityRadarFeature extends IToggleableFeature
 
             matrices.push();
 
+            // Idk what this does
             RenderUtil.applyRenderOffset( matrices );
 
             // Scan each entity
@@ -97,10 +101,11 @@ public class ProximityRadarFeature extends IToggleableFeature
 
             // Reset the closest detected distance and type
             this.type = EntityScanResult.NONE;
-            this.closestDistance = ProximityRadarGroup.range;
+            this.closestDistance = MAX_POSSIBLE_DISTANCE;
 
             matrices.pop();
 
+            // Reset GL stuff
             GL11.glDisable( GL11.GL_BLEND );
             GL11.glDisable( GL11.GL_LINE_SMOOTH );
 
@@ -119,60 +124,46 @@ public class ProximityRadarFeature extends IToggleableFeature
      */
     private void scanEntityAndRenderHighlight( MatrixStack matrices, Entity entity )
     {
-        final int range = ProximityRadarGroup.range;
-
+        // Grab entity data
         Vec3d entityPos = entity.getPos();
         Vec3d clientPos = Xenon.INSTANCE.client.player.getPos();
         double distance = entityPos.distanceTo( clientPos );
 
-        if ( distance < range )
+        if ( entity instanceof PlayerEntity && distance < ProximityRadarGroup.playerRange )
         {
-            if ( entity instanceof HostileEntity )
+            if ( distance < closestDistance )
             {
-                if ( distance < closestDistance )
-                {
-                    closestDistance = distance;
-                    type = EntityScanResult.HOSTILE;
-                }
-
-
-                if ( ProximityRadarGroup.showBox )
-                    drawEntityBox( entity, matrices, ProximityRadarGroup.hostileBoxColor );
-
-                if ( ProximityRadarGroup.showTracer )
-                    drawEntityTracer( entity, matrices, ProximityRadarGroup.hostileBoxColor );
+                type = EntityScanResult.PLAYER;
+                closestDistance = distance;
             }
-            else if ( entity instanceof PlayerEntity && ProximityRadarGroup.detectPlayers && entity != Xenon.INSTANCE.client.player )
+
+            if ( ProximityRadarGroup.showPlayerBox )
+                this.drawEntityBox( entity, matrices, ProximityRadarGroup.playerBoxColor );
+
+            if ( ProximityRadarGroup.showPlayerTracer )
+                this.drawEntityTracer( entity, matrices, ProximityRadarGroup.playerBoxColor );
+        }
+        else if ( entity instanceof HostileEntity && distance < ProximityRadarGroup.hostileRange )
+        {
+            if ( distance < closestDistance )
             {
-                if ( distance < closestDistance )
-                {
-                    closestDistance = distance;
-                    type = EntityScanResult.PLAYER;
-                }
-
-
-                if ( ProximityRadarGroup.showBox )
-                    this.drawEntityBox( entity, matrices, ProximityRadarGroup.playerBoxColor );
-
-                if ( ProximityRadarGroup.showTracer )
-                    drawEntityTracer( entity, matrices, ProximityRadarGroup.playerBoxColor );
+                type = EntityScanResult.HOSTILE;
+                closestDistance = distance;
             }
-            else if ( entity instanceof ItemEntity && ProximityRadarGroup.detectItems )
-            {
-                //type = EntityScanResult.ITEM;
-                /*Text text = TextFactory.createTranslatable(
-                        "text.xenon.proximityradar.item",
-                        Double.toString( distance ).substring( 0, 3 )
-                ).formatted( Formatting.RED, Formatting.BOLD );*/
 
-                //Xenon.INSTANCE.client.player.sendMessage( text,  true );
+            if ( ProximityRadarGroup.showHostileBox )
+                this.drawEntityBox( entity, matrices, ProximityRadarGroup.hostileBoxColor );
 
-                if ( ProximityRadarGroup.showBox )
-                    this.drawEntityBox( entity, matrices, ProximityRadarGroup.itemBoxColor );
+            if ( ProximityRadarGroup.showHostileTracer )
+                this.drawEntityTracer( entity, matrices, ProximityRadarGroup.hostileBoxColor );
+        }
+        else if ( entity instanceof ItemEntity && distance < ProximityRadarGroup.itemRange )
+        {
+            if ( ProximityRadarGroup.showItemBox )
+                this.drawEntityBox( entity, matrices, ProximityRadarGroup.itemBoxColor );
 
-                if ( ProximityRadarGroup.showTracer )
-                    drawEntityTracer( entity, matrices, ProximityRadarGroup.itemBoxColor );
-            }
+            if ( ProximityRadarGroup.showItemTracer )
+                this.drawEntityTracer( entity, matrices, ProximityRadarGroup.itemBoxColor );
         }
     }
 
