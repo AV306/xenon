@@ -129,7 +129,7 @@ public class ProximityRadarFeature extends IToggleableFeature
         Vec3d clientPos = Xenon.INSTANCE.client.player.getPos();
         double distance = entityPos.distanceTo( clientPos );
 
-        if ( entity instanceof PlayerEntity && distance < ProximityRadarGroup.playerRange )
+        if ( entity instanceof PlayerEntity && entity != Xenon.INSTANCE.client.player && distance < ProximityRadarGroup.playerRange )
         {
             if ( distance < closestDistance )
             {
