@@ -144,7 +144,7 @@
   "text.xenon.ifeature.forcedisabled": "The feature has been disabled by the server.",
   "text.xenon.ifeature.help": "[%s] %s",
   "text.xenon.itoggleablefeature.enabled": "%s ENABLED!",
-  "text.xenon.itoggleablefeature.disabled": "%S DISABLED!",
+  "text.xenon.itoggleablefeature.disabled": "%s DISABLED!",
   "text.xenon.proximityradar.hostile": "HOSTILE MOB IN RANGE (%s)",
   "text.xenon.proximityradar.player": "PLAYER IN RANGE (%s)",
   "text.xenon.sharelocation.location": "[%f %f %f] (%s)",
