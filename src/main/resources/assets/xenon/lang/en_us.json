@@ -60,7 +60,7 @@
   "config.xenon.featureconfiggroup.proximityradargroup.showPlayerBox": "Draw player box",
   "config.xenon.featureconfiggroup.proximityradargroup.showPlayerTracer": "Draw player tracer",
   "config.xenon.featureconfiggroup.proximityradargroup.showHostileBox": "Draw player box",
-  "config.xenon.featureconfiggroup.proximityradargroup.showPHostileTracer": "Draw player tracer",
+  "config.xenon.featureconfiggroup.proximityradargroup.showHostileTracer": "Draw player tracer",
   "config.xenon.featureconfiggroup.proximityradargroup.showItemBox": "Draw item box",
   "config.xenon.featureconfiggroup.proximityradargroup.showItemTracer": "Draw item tracer",
   "config.xenon.featureconfiggroup.quickchatgroup": "QuickChat Settings",
