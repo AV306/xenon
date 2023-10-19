@@ -3,12 +3,6 @@
 [![Gradle CI](https://github.com/AV306/xenon/actions/workflows/gradle_ci.yml/badge.svg?branch=1.20-DEV)](https://github.com/AV306/xenon/actions/workflows/gradle_ci.yml)
 [![Hits](https://img.shields.io/endpoint?color=3fcc98&url=https://hits.dwyl.com/AV306/xenon.json?show=unique)]()
 
-**Note: I'll be taking a break from working on Xenon to concentrate on my studies; updates will happen much less frequently (not like they happen often anyway) Sorry!**
-
-**Note 2: VSCode web doesn't want to work on my iPad anymore so now I can't work on Xenon even if I want to :(**
-
-**Exams tomorrow, wish me luck 🥲**
-
 Hi, thanks for stopping by this page! This is Xenon, a personal project of mine that I decided to publish to Modrinth and a couple of people decided to use.
 
 <br>
