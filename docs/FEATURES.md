@@ -60,6 +60,8 @@ Speed up your actions! May be considered a hack on some servers, but still genui
 | Speed               | 0.1/50.0    | 1.0               | TPS multiplier           |
 | Adjustment interval | 0.1/10.0    | 1.0               | Scroll adjustment amount |
 
+**Server opt-out:** `{{xenon restrict timer}}` (I forgor how the restriction system works so this might not work)
+
 <br>
 
 ### FullKeyboard
@@ -68,6 +70,8 @@ Play Minecraft using only your keyboard!
 Disclaimer: Touchscreen still required for some UI interaction (ugh); MidnightControls is *much* better.
 
 (This feature was designed so that I can play Minecraft on my school iPad over VNC)
+
+(it is a bit broken)
 
 <br>
 
@@ -91,17 +95,21 @@ Full gamma, making every surface clearly visible without lighting effects (incom
 
 Outlines nearby players and hostile mobs, optionally through walls. May be considered a hack. (Server opt-out available)
 
-| **Option**         | **Max/Min**    | **Default Value** | **Comment**                                                                               |
-|--------------------|----------------|-------------------|-------------------------------------------------------------------------------------------|
-| Range              | 1/100 (blocks) | 3                 | Entity scan radius                                                                        |
-| Show Entity Box    | NA             | True              | Draw a box around entities                                                                |
-| Show Entity Tracer | NA             | True              | Draw a line from the centre of your screen to entities                                    |
-| Detect Items       | NA             | True              | Highlight items                                                                           |
-| Detect Players     | NA             | True              | Highlight players                                                                         |
-| Player Box Color   | NA             | `#ffffff` (white)   | Color of the player highlight box and tracer. Use a hex color picker to find color values |
-| Hostile Box Color  | NA             | `#ff0000` (red)    | Color of hostile entity highlight box and tracer                                          |
-| Item Box Color     | NA             | `#74becf` (aqua)    | Color of item highlight box and tracer                                                    |
-
+| **Option**          | **Max/Min**        | **Default Value** | **Comment**                                                                               |
+|---------------------|--------------------|-------------------|-------------------------------------------------------------------------------------------|
+| Player Range        | 1 <-> 500 (blocks) | 20                | Player scan radius                                                                        |
+| Show Player Box     | NA                 | True              | Draw a box around players                                                                 |
+| Show Player Tracer. | NA                 | True              | Draw a line from the centre of your screen to players                                     |
+| Player Box Color    | NA                 | `#ffffff` (white) | Color of the player highlight box and tracer. Use a hex color picker to find color values |
+| Hostile Range       | 1 <-> 500 (blocks) | 20                | Player scan radius                                                                        |
+| Show Hostile Box    | NA                 | True              | Draw a box around hostile mobs                                                            |
+| Show Hostile Tracer | NA                 | True              | Draw a line from the centre of your screen to hostile mobs                                |
+| Hostile Box Color   | NA                 | `#ff0000` (red)   | Color of hostile entity highlight box and tracer                                          |
+| Item Range          | 1 <-> 500 (blocks) | 20                | Item scan radius                                                                          |
+| Show Hostile Box    | NA                 | True              | Draw a box around items                                                                   |
+| Show Hostile Tracer | NA                 | True              | Draw a line from the centre of your screen to items                                       |
+| Item Box Color      | NA                 | `#74becf` (aqua)  | Color of item highlight box and tracer                                                    |
+    
 <img src="https://cdn.modrinth.com/data/BsmAXLQn/images/1a57e4c1cf763620f5bc06102d807b33485cbdd6.png" style="width: 600px;" />
 
 
