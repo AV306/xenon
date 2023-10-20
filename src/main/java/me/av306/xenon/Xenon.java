@@ -19,6 +19,7 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.fabricmc.loader.api.Version;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
@@ -43,6 +44,7 @@ public enum Xenon
     public final Logger LOGGER = LoggerFactory.getLogger( this.MODID );
 
     public MinecraftClient client;
+
     public MinecraftClientAccessor clientAccessor;
 
     public final Formatting SUCCESS_FORMAT = Formatting.GREEN;
