@@ -1,8 +1,11 @@
 package me.av306.xenon.mixin;
 
 import com.mojang.authlib.GameProfile;
+import me.av306.xenon.config.GeneralConfigGroup;
 import me.av306.xenon.event.*;
 
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.world.ClientWorld;
@@ -13,6 +16,7 @@ import net.minecraft.util.math.Vec3d;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin( ClientPlayerEntity.class )
@@ -112,5 +116,17 @@ public abstract class ClientPlayerEntityMixin extends AbstractClientPlayerEntity
                 .onPlayerMove( movementType, movement );
 
         if ( result == ActionResult.FAIL ) ci.cancel();
+    }
+
+    @Redirect(
+            at = @At(
+                    value = "FIELD",
+                    target = "Lnet/minecraft/client/MinecraftClient;currentScreen:Lnet/minecraft/client/gui/screen/Screen;"
+            ),
+            method = "updateNausea"
+    )
+    private Screen getCurrentScreen( MinecraftClient client )
+    {
+        return GeneralConfigGroup.allowPortalGuis ? null : client.currentScreen;
     }
 }

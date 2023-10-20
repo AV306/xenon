@@ -21,4 +21,7 @@ public class GeneralConfigGroup implements XenonConfigGroup
 
     @ConfigEntry.Boolean
     public static boolean infiniteChatLength = true;
+
+    @ConfigEntry.Boolean
+    public static boolean allowPortalGuis = true;
 }

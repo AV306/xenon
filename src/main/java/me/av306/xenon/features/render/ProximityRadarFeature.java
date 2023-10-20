@@ -12,8 +12,13 @@ import me.shedaniel.math.Color;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
+import net.minecraft.entity.boss.dragon.EnderDragonEntity;
+import net.minecraft.entity.boss.dragon.EnderDragonPart;
+import net.minecraft.entity.mob.Hoglin;
 import net.minecraft.entity.mob.HostileEntity;
+import net.minecraft.entity.mob.ZombifiedPiglinEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
@@ -129,7 +134,7 @@ public class ProximityRadarFeature extends IToggleableFeature
         Vec3d clientPos = Xenon.INSTANCE.client.player.getPos();
         double distance = entityPos.distanceTo( clientPos );
 
-        if ( entity instanceof PlayerEntity && entity != Xenon.INSTANCE.client.player && distance < ProximityRadarGroup.playerRange )
+        if ( ProximityRadarGroup.detectPlayers && entity instanceof PlayerEntity && entity != Xenon.INSTANCE.client.player && distance < ProximityRadarGroup.playerRange )
         {
             if ( distance < closestDistance )
             {
@@ -143,8 +148,15 @@ public class ProximityRadarFeature extends IToggleableFeature
             if ( ProximityRadarGroup.showPlayerTracer )
                 this.drawEntityTracer( entity, matrices, ProximityRadarGroup.playerBoxColor );
         }
-        else if ( entity instanceof HostileEntity && distance < ProximityRadarGroup.hostileRange )
+        else if (
+                ProximityRadarGroup.detectHostiles &&
+                (entity instanceof HostileEntity || entity instanceof EnderDragonEntity || entity instanceof EnderDragonPart || (entity instanceof Hoglin && ProximityRadarGroup.detectHoglins)) &&
+                 distance < ProximityRadarGroup.hostileRange
+        )
         {
+            // Skip neutral zombified piglins
+            if ( entity instanceof ZombifiedPiglinEntity zombifiedPiglin && !zombifiedPiglin.isAngryAt( Xenon.INSTANCE.client.player ) && !ProximityRadarGroup.detectZombifiedPiglins ) return;
+
             if ( distance < closestDistance )
             {
                 type = EntityScanResult.HOSTILE;
@@ -157,13 +169,21 @@ public class ProximityRadarFeature extends IToggleableFeature
             if ( ProximityRadarGroup.showHostileTracer )
                 this.drawEntityTracer( entity, matrices, ProximityRadarGroup.hostileBoxColor );
         }
-        else if ( entity instanceof ItemEntity && distance < ProximityRadarGroup.itemRange )
+        else if ( ProximityRadarGroup.detectItems && entity instanceof ItemEntity && distance < ProximityRadarGroup.itemRange )
         {
             if ( ProximityRadarGroup.showItemBox )
                 this.drawEntityBox( entity, matrices, ProximityRadarGroup.itemBoxColor );
 
             if ( ProximityRadarGroup.showItemTracer )
                 this.drawEntityTracer( entity, matrices, ProximityRadarGroup.itemBoxColor );
+        }
+        else if ( ProximityRadarGroup.detectProjectiles && entity instanceof ProjectileEntity && distance < ProximityRadarGroup.projectileRange )
+        {
+            if ( ProximityRadarGroup.showProjectileBox )
+                this.drawEntityBox( entity, matrices, ProximityRadarGroup.projectileBoxColor );
+
+            if ( ProximityRadarGroup.showProjectileTracer )
+                this.drawEntityTracer( entity, matrices, ProximityRadarGroup.projectileBoxColor );
         }
     }
 
