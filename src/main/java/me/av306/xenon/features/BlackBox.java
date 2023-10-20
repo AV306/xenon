@@ -24,13 +24,21 @@ import java.time.LocalTime;
 import java.util.concurrent.*;
 
 // TODO: Finish other data sources after exams
+// ALso me after exams: Remind me what all this does again?
 public class BlackBox extends IToggleableFeature
 {
+	/**
+	 * Reference to the logfile
+	 */
 	private File logFile = null;
 	private OutputStreamWriter logFileWriter = null;
+
+	/**
+	 * The index of the log file, 1 (one) greater than the number of logfiles already created
+	 */
 	private int index = 0;
 
-	private ConcurrentLinkedQueue<LoggingData> dataQueue = new ConcurrentLinkedQueue<>();
+	private final ConcurrentLinkedQueue<LoggingData> dataQueue = new ConcurrentLinkedQueue<>();
 
 	private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool( 2 );
 	private ScheduledFuture<?> trackingLogTimerFuture = null;

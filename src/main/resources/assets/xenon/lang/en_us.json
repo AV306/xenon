@@ -122,6 +122,8 @@
   "text.xenon.command.unresolvable": "[%s] Could not resolve feature: %s",
   "text.xenon.command.notenoughargs": "[%s] Not enough arguments! %d provided, %d expected",
   "text.xenon.command.alias.success": "Successfully aliased %s to %s",
+  "text.xenon.command.register.classnotfound": "Could not find feature: %s",
+  "text.xenon.command.register.nosuchmethod": "Could not initialise feature: %s",
   "text.xenon.commandprocessor.report": "> %s",
   "text.xenon.commandprocessor.disabled": "CommandProcessor is disabled! Please enable it to use commands.",
   "text.xenon.commandprocessor.exception": "Oh no! An unexpected exception ocurred and this is very bad!!!",

@@ -119,6 +119,7 @@ public enum Xenon
         new HelpCommand();
         //new BindCommand();
         new AliasCommand();
+        new RegisterCommand();
     }
 
     private void initFeatures()
