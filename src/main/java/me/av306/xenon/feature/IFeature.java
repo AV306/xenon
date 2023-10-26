@@ -92,8 +92,9 @@ public abstract class IFeature
 		{
 			Xenon.INSTANCE.featureRegistry.put( alias.toLowerCase(), this );
 
+			// Register aliases as Brigadier commands
 			ClientCommandRegistrationCallback.EVENT.register(
-			(dispatcher, registryAccess, environment) -> dispatcher.register(
+			(dispatcher, registryAccess) -> dispatcher.register(
 				ClientCommandManager.literal( alias )
 						.executes( context -> 
 						{
@@ -152,7 +153,7 @@ public abstract class IFeature
 
 		// Register a Bridagier command (native minecraft client command)
 		ClientCommandRegistrationCallback.EVENT.register(
-			(dispatcher, registryAccess, environment) -> dispatcher.register(
+			(dispatcher, registryAccess) -> dispatcher.register(
 				ClientCommandManager.literal( name )
 						.executes( context -> 
 						{
