@@ -3,6 +3,8 @@ package me.av306.xenon.command;
 import me.av306.xenon.Xenon;
 import me.av306.xenon.util.text.TextFactory;
 import net.minecraft.text.Text;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
 
 public abstract class Command
 {
