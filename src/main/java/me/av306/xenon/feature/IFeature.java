@@ -98,6 +98,7 @@ public abstract class IFeature
 						.executes( context -> 
 						{
 							context.getSource().sendFeedback( TextFactory.createLiteral( "Executed command for " + alias ) );
+							return 1;
 						} )
 			)
 		);
@@ -156,6 +157,7 @@ public abstract class IFeature
 						.executes( context -> 
 						{
 							context.getSource().sendFeedback( TextFactory.createLiteral( "Executed command for " + name ) );
+							return 1;
 						} )
 			)
 		);
