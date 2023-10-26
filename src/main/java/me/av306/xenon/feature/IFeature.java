@@ -5,7 +5,8 @@ import me.av306.xenon.event.KeyEvent;
 import me.av306.xenon.event.MinecraftClientEvents;
 import me.av306.xenon.util.text.TextFactory;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
-import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
+//import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
+import static net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -99,7 +100,7 @@ public abstract class IFeature
 			// Register aliases as Brigadier command redirects
 			ClientCommandRegistrationCallback.EVENT.register(
 				(dispatcher, registryAccess) ->
-					dispatcher.register( ClientCommandManager.literal( alias ).redirect( this.commandNode ) )
+					dispatcher.register( literal( alias ).redirect( this.commandNode ) )
 			);
 		}
 	}
@@ -154,12 +155,18 @@ public abstract class IFeature
 			(dispatcher, registryAccess) -> 
 			{
 				this.commandNode = dispatcher.register(
-					ClientCommandManager.literal( name )
+					literal( name )
 							.executes( context -> 
 							{
 								context.getSource().sendFeedback( TextFactory.createLiteral( "Executed command for " + name ) );
 								return 1;
 							} )
+							.then( literal( "enable" ).executes( context -> this.enable() ) ) // Enable feature
+							.then( literal( "e" ).redirect( "enable" ) )											// Enable alias
+							.then( literal( "disable" ).executes( context -> this.disable() ) // Disable feature
+							.then( literal( "d" ).redirect( "disable" )												// Disable alias
+							//.then( literal( "set" ).then( TODO: config change command
+							
 				);
 			}
 		);
