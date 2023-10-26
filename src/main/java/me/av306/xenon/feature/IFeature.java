@@ -160,7 +160,7 @@ public abstract class IFeature
 								context.getSource().sendFeedback( TextFactory.createLiteral( "Executed command for " + name ) );
 								return 1;
 							} )
-				)
+				);
 			}
 		);
 	}
