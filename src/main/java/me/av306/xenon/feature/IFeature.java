@@ -6,6 +6,8 @@ import me.av306.xenon.event.MinecraftClientEvents;
 import me.av306.xenon.util.text.TextFactory;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
+import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
+import com.mojang.brigadier.tree.LiteralCommandNode;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.option.KeyBinding;
@@ -67,6 +69,8 @@ public abstract class IFeature
 	public void setShouldHide( boolean shouldHide ) { this.hide = shouldHide; }
 	public boolean getShouldHide() { return this.hide; }
 
+	private final LiteralCommandNode<FabricClientCommandSource> commandNode;
+
 	/**
 	 * Constructor that initialises a feature with the given display name, aliases and no default key
 	 * @param name: The Feature's display name
@@ -92,17 +96,11 @@ public abstract class IFeature
 		{
 			Xenon.INSTANCE.featureRegistry.put( alias.toLowerCase(), this );
 
-			// Register aliases as Brigadier commands
+			// Register aliases as Brigadier command redirects
 			ClientCommandRegistrationCallback.EVENT.register(
-			(dispatcher, registryAccess) -> dispatcher.register(
-				ClientCommandManager.literal( alias )
-						.executes( context -> 
-						{
-							context.getSource().sendFeedback( TextFactory.createLiteral( "Executed command for " + alias ) );
-							return 1;
-						} )
-			)
-		);
+				(dispatcher, registryAccess) ->
+					dispatcher.register( ClientCommandManager.literal( alias ).redirect( this.commandNode ) )
+			);
 		}
 	}
 
@@ -153,14 +151,17 @@ public abstract class IFeature
 
 		// Register a Bridagier command (native minecraft client command)
 		ClientCommandRegistrationCallback.EVENT.register(
-			(dispatcher, registryAccess) -> dispatcher.register(
-				ClientCommandManager.literal( name )
-						.executes( context -> 
-						{
-							context.getSource().sendFeedback( TextFactory.createLiteral( "Executed command for " + name ) );
-							return 1;
-						} )
-			)
+			(dispatcher, registryAccess) -> 
+			{
+				this.commandNode = dispatcher.register(
+					ClientCommandManager.literal( name )
+							.executes( context -> 
+							{
+								context.getSource().sendFeedback( TextFactory.createLiteral( "Executed command for " + name ) );
+								return 1;
+							} )
+				)
+			}
 		);
 	}
 
