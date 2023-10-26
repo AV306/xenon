@@ -4,6 +4,8 @@ import me.av306.xenon.Xenon;
 import me.av306.xenon.event.KeyEvent;
 import me.av306.xenon.event.MinecraftClientEvents;
 import me.av306.xenon.util.text.TextFactory;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.option.KeyBinding;
@@ -87,7 +89,19 @@ public abstract class IFeature
 
 		// register aliases
 		for ( String alias : aliases )
+		{
 			Xenon.INSTANCE.featureRegistry.put( alias.toLowerCase(), this );
+
+			ClientCommandRegistrationCallback.EVENT.register(
+			(dispatcher, registryAccess, environment) -> dispatcher.register(
+				ClientCommandManager.literal( alias )
+						.executes( context -> 
+						{
+							context.getSource().sendFeedback( TextFactory.createLiteral( "Executed command for " + alias ) );
+						} )
+			)
+		);
+		}
 	}
 
 	/**
@@ -133,6 +147,17 @@ public abstract class IFeature
 		Xenon.INSTANCE.featureRegistry.put(
 				name.replaceAll( " ", "" ).toLowerCase(),
 				this
+		);
+
+		// Register a Bridagier command (native minecraft client command)
+		ClientCommandRegistrationCallback.EVENT.register(
+			(dispatcher, registryAccess, environment) -> dispatcher.register(
+				ClientCommandManager.literal( name )
+						.executes( context -> 
+						{
+							context.getSource().sendFeedback( TextFactory.createLiteral( "Executed command for " + name ) );
+						} )
+			)
 		);
 	}
 
