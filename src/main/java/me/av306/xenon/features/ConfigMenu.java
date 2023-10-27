@@ -7,8 +7,6 @@ import me.lortseam.completeconfig.gui.cloth.ClothConfigScreenBuilder;
 import me.shedaniel.clothconfig2.api.AbstractConfigListEntry;
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.util.ActionResult;
-import org.lwjgl.glfw.GLFW;
 
 public class ConfigMenu extends IFeature
 {
@@ -35,7 +33,7 @@ public class ConfigMenu extends IFeature
         try
         {
             // build a new one every time we open
-            ConfigScreenBuilder screenBuilder = new ClothConfigScreenBuilder(
+            ConfigScreenBuilder<AbstractConfigListEntry<?>> screenBuilder = new ClothConfigScreenBuilder(
                     () -> ConfigBuilder.create()
                     .transparentBackground()
             );
