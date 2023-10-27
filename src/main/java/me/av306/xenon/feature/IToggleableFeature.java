@@ -2,7 +2,12 @@ package me.av306.xenon.feature;
 
 import me.av306.xenon.Xenon;
 import me.av306.xenon.util.text.TextFactory;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.minecraft.text.Text;
+import org.lwjgl.glfw.GLFW;
+
+import static net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.literal;
 
 public abstract class IToggleableFeature extends IFeature
 {
@@ -34,22 +39,12 @@ public abstract class IToggleableFeature extends IFeature
 
 	protected IToggleableFeature( String name )
     {
-        super( name );
-
-        this.enabledText = TextFactory.createTranslatable( "text.xenon.itoggleablefeature.enabled", name )
-                .formatted( Xenon.INSTANCE.SUCCESS_FORMAT );
-        this.disabledText = TextFactory.createTranslatable( "text.xenon.itoggleablefeature.disabled", name )
-                .formatted( Xenon.INSTANCE.SUCCESS_FORMAT );
+        this( name, GLFW.GLFW_KEY_UNKNOWN );
     }
 
     protected IToggleableFeature( String name, String... aliases )
     {
-        super( name, aliases );
-
-        this.enabledText = TextFactory.createTranslatable( "text.xenon.itoggleablefeature.enabled", name )
-                .formatted( Xenon.INSTANCE.SUCCESS_FORMAT );
-        this.disabledText = TextFactory.createTranslatable( "text.xenon.itoggleablefeature.disabled", name )
-                .formatted( Xenon.INSTANCE.SUCCESS_FORMAT );
+        this( name, GLFW.GLFW_KEY_UNKNOWN, aliases );
     }
 
     protected IToggleableFeature( String name, int key )
@@ -60,6 +55,14 @@ public abstract class IToggleableFeature extends IFeature
                 .formatted( Xenon.INSTANCE.SUCCESS_FORMAT );
         this.disabledText = TextFactory.createTranslatable( "text.xenon.itoggleablefeature.disabled", name )
                 .formatted( Xenon.INSTANCE.SUCCESS_FORMAT );
+
+        this.commandBuilder.then( literal( "disable" ).executes( context -> { this.disable(); return 1; } ) );
+        this.commandBuilder.then( literal( "d" ).executes( context -> { this.disable(); return 1; } ) );
+        this.commandBuilder.then( literal( "toggle" ).executes( context -> { this.toggle(); return 1; } ) );
+        this.commandBuilder.then( literal( "t" ).executes( context -> { this.toggle(); return 1; } ) );
+        ClientCommandRegistrationCallback.EVENT.register(
+                (dispatcher, registryAccess) -> dispatcher.register( this.commandBuilder )
+        );
     }
 
     protected IToggleableFeature( String name, int key, String... aliases )
@@ -68,8 +71,17 @@ public abstract class IToggleableFeature extends IFeature
 
 		this.enabledText = TextFactory.createTranslatable( "text.xenon.itoggleablefeature.enabled", name )
                 .formatted( Xenon.INSTANCE.SUCCESS_FORMAT );
-        this.disabledText = TextFactory.createLiteral( "text.xenon.itoggleablefeature.disabled", name )
+        this.disabledText = TextFactory.createTranslatable( "text.xenon.itoggleablefeature.disabled", name )
                 .formatted( Xenon.INSTANCE.SUCCESS_FORMAT );
+
+        // We're registering the things like thrice, but it works, so I'm not complaining
+        this.commandBuilder.then( literal( "disable" ).executes( context -> { this.disable(); return 1; } ) );
+        this.commandBuilder.then( literal( "d" ).executes( context -> { this.disable(); return 1; } ) );
+        this.commandBuilder.then( literal( "toggle" ).executes( context -> { this.toggle(); return 1; } ) );
+        this.commandBuilder.then( literal( "t" ).executes( context -> { this.toggle(); return 1; } ) );
+        ClientCommandRegistrationCallback.EVENT.register(
+                (dispatcher, registryAccess) -> dispatcher.register( this.commandBuilder )
+        );
     }
 
     /*@Override
