@@ -1,14 +1,19 @@
 package me.av306.xenon.feature;
 
+import com.mojang.brigadier.arguments.StringArgumentType;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import me.av306.xenon.Xenon;
-import me.av306.xenon.event.KeyEvent;
-import me.av306.xenon.event.MinecraftClientEvents;
 import me.av306.xenon.util.text.TextFactory;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
+import static net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.*;
+
+import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
+import com.mojang.brigadier.tree.LiteralCommandNode;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
-import net.minecraft.util.ActionResult;
 import net.minecraft.text.Text;
 import org.lwjgl.glfw.GLFW;
 
@@ -65,10 +70,14 @@ public abstract class IFeature
 	public void setShouldHide( boolean shouldHide ) { this.hide = shouldHide; }
 	public boolean getShouldHide() { return this.hide; }
 
+	protected LiteralCommandNode<FabricClientCommandSource> commandNode;
+	protected final LiteralArgumentBuilder<FabricClientCommandSource> commandBuilder;
+
 	/**
 	 * Constructor that initialises a feature with the given display name, aliases and no default key
 	 * @param name: The Feature's display name
 	 * @param aliases: Aliases for the feature in CP. <i>Technically can</i>, but should not, contain the name in the first argument
+	 * @see #IFeature(String, int, String...)
 	 */
 	protected IFeature( String name, String... aliases )
 	{
@@ -80,6 +89,7 @@ public abstract class IFeature
 	 * @param name: Display name
 	 * @param key: GLFW keycode to bind to
 	 * @param aliases: CommandProcessor aliases
+	 * @see #IFeature(String, int)
 	 */
 	protected IFeature( String name, int key, String... aliases )
 	{
@@ -87,12 +97,30 @@ public abstract class IFeature
 
 		// register aliases
 		for ( String alias : aliases )
+		{
 			Xenon.INSTANCE.featureRegistry.put( alias.toLowerCase(), this );
+
+			// Register aliases as Brigadier command redirects
+			ClientCommandRegistrationCallback.EVENT.register(
+				(dispatcher, registryAccess) ->
+					dispatcher.register(
+							literal( alias )
+									.executes( context ->
+									{
+										if ( this instanceof IToggleableFeature iToggleableFeature )
+											iToggleableFeature.toggle();
+										else this.enable();
+										return 1;
+									} )
+									.redirect( this.commandNode ) )
+			);
+		}
 	}
 
 	/**
 	 * Constructor that initialises a feature with a display name, no aliases and no default key
 	 * @param name: Display name
+	 * @see #IFeature(String, int)
 	 */
 	protected IFeature( String name )
 	{
@@ -109,7 +137,6 @@ public abstract class IFeature
 	protected IFeature( String name, int key )
 	{ 
 		this.name = name;
-
 		this.key = key;
 
 		// use the name passed in because some features change their name (e.g. timer)
@@ -130,9 +157,36 @@ public abstract class IFeature
 
 		// register our display name in the registry
 		// in lower case (for CP)
-		Xenon.INSTANCE.featureRegistry.put(
-				name.replaceAll( " ", "" ).toLowerCase(),
-				this
+		String formattedName = name.replaceAll( " ", "" ).toLowerCase();
+		Xenon.INSTANCE.featureRegistry.put( formattedName, this );
+
+		// Register a Brigadier command (native minecraft client command)
+		this.commandBuilder = literal( formattedName )
+				.executes( context ->
+				{
+					if ( this instanceof IToggleableFeature iToggleableFeature )
+						iToggleableFeature.toggle();
+					else this.enable();
+					return 1;
+				} );
+
+		this.commandBuilder.then( literal( "enable" ).executes( context -> { this.enable(); return 1; } ) );
+		this.commandBuilder.then( literal( "e" ).executes( context -> { this.enable(); return 1; } ) ); // Enable alias
+
+		/*this.commandBuilder.then( literal( "set" ) )
+				.then( argument( "config", StringArgumentType.greedyString() ) )
+				.then( argument( "value", StringArgumentType.greedyString() ) )
+				.executes( context ->
+				{
+					this.requestConfigChange(
+							StringArgumentType.getString( context, "config" ),
+							StringArgumentType.getString( context, "value" )
+					);
+					return 1;
+				} );*/
+
+		ClientCommandRegistrationCallback.EVENT.register(
+				(dispatcher, registryAccess) -> this.commandNode = dispatcher.register( this.commandBuilder )
 		);
 	}
 

@@ -3,6 +3,8 @@ package me.av306.xenon.command;
 import me.av306.xenon.Xenon;
 import me.av306.xenon.util.text.TextFactory;
 import net.minecraft.text.Text;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
 
 public abstract class Command
 {
@@ -13,6 +15,17 @@ public abstract class Command
 	{
 		this.name = name;
 		Xenon.INSTANCE.commandRegistry.put( this.name, this );
+
+		ClientCommandRegistrationCallback.EVENT.register(
+			(dispatcher, registryAccess) -> dispatcher.register(
+				ClientCommandManager.literal( name )
+						.executes( context -> 
+						{
+							context.getSource().sendFeedback( TextFactory.createLiteral( "Executed command for " + name ) );
+							return 1;
+						} )
+			)
+		);
 	}
 
 	public Command( String name, String... aliases )
@@ -20,7 +33,19 @@ public abstract class Command
 		this( name );
 		
 		for ( String alias : aliases )
+		{
 			Xenon.INSTANCE.commandRegistry.put( alias, this );
+			ClientCommandRegistrationCallback.EVENT.register(
+				(dispatcher, registryAccess) -> dispatcher.register(
+					ClientCommandManager.literal( alias )
+							.executes( context -> 
+							{
+								context.getSource().sendFeedback( TextFactory.createLiteral( "Executed command for " + alias ) );
+								return 1;
+							} )
+				)
+			);
+		}
 	}
 
 	/**
