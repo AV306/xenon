@@ -52,9 +52,11 @@ Version numbers are fairly strict, if it says "1.19.4" that means it's only been
 
 ### A note on version numbers
 
-The current latest version is **4.2.0** for 1.20, 1.20.1 and 1.20.2. You might still see references to versions that appear "greater" than this (e.g. LDFU intg in 4.6.1), because I only started following proper SemVer around the time the 1.19.4/1.20 versions were released.
+The current latest version is around **4.3.0** for 1.20.1 and 1.20.2. You might still see references to versions that appear "greater" than this (e.g. LDFU intg in 4.6.1), because I only started following proper SemVer around the time the 1.19.4/1.20 versions were released.
 
-Just get the greatest version number for your version and ignore those tagged "1.19" (e.g. "4.6.0+1.19" is *very* outdated compared to "4.1.0+1.19.4") and you should be fine :)
+Just get the greatest version number for your Minecraft version and ignore those tagged "1.19" (e.g. "4.6.0+1.19" is *very* outdated compared to "4.1.0+1.19.4") and you should be fine :)
+
+If you want a backport of Xenon for earlier Minecraft versions, feel free to raise an issue and I'll get to it as soon as I can!
 
 <br>
 
@@ -66,9 +68,9 @@ This project often has bugs and missing translation keys, as I unfortunately can
 
 ### Known Issues:
 
-- ProximityRadar entity highlights lag behind entity movements a little (wontfix)
-- ProximityRadar entity tracer doesn't stay attached to camera centre (moves around during view bobbing) (might fix someday)
-- FullKeyboard attack/break key double-binding does not work for attacking (please send help)
+- ProximityRadar entity highlights lag behind entity movements a little (idk how to fix this, might be resolved in 1.20)
+- ProximityRadar entity tracer doesn't stay attached to camera centre (moves around during view bobbing) (I'm gonna try, no promises though)
+- FullKeyboard attack/break key double-binding does not work for attacking (please send help, i cant fix it)
 - Help command doesn't do anything ( :( )
 
 <br>
@@ -86,11 +88,11 @@ This project often has bugs and missing translation keys, as I unfortunately can
 
 ### Server opt-out
 
-Servers can "opt-out" of any features they wish, by sending the following message through chat:
+Servers can "opt out" of any features they wish, by sending the following message through chat:
 
 `{{xenon restrict [feature name]}}`, replacing `[feature name]` with any alias for the feature, e.g. `{{xenon restrict proxradar}}` for ProximityRadar.
 
-Xenon will not display the opt-out "message", and the message will still be processed even if the client sets their interaction settings to disable chat.
+Xenon will not display the opt-out "message", and the message will still be processed even if the client sets their interaction settings to disable chat. (Hopefully)
 
 <br>
 
