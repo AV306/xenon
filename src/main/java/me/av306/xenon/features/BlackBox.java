@@ -28,16 +28,23 @@ import java.util.concurrent.*;
 public class BlackBox extends IToggleableFeature
 {
 	/**
-	 * Reference to the logfile
+	 * Reference to the log file
 	 */
 	private File logFile = null;
+	/**
+	 * Log file writer
+	 */
 	private OutputStreamWriter logFileWriter = null;
 
 	/**
 	 * The index of the log file, 1 (one) greater than the number of logfiles already created
+	 * (will be appended to the end of the filename)
 	 */
 	private int index = 0;
 
+	/**
+	 * Logging data queue, thread-safe
+	 */
 	private final ConcurrentLinkedQueue<LoggingData> dataQueue = new ConcurrentLinkedQueue<>();
 
 	private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool( 2 );
