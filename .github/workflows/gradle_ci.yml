@@ -9,7 +9,7 @@ name: Gradle CI
 
 on:  
   pull_request:
-    branches: [ 1.20-DEV, 1.20_MMC ]
+    branches: [ 1.20-DEV, eventfields-split ]
     
   push:
     paths:
@@ -18,7 +18,7 @@ on:
       - '**.gradle'
       - '**.properties'
       
-    branches: [ 1.20-DEV, 1.20_MMC ]
+    branches: [ 1.20-DEV, eventfields-split ]
 
 jobs:
   build:
