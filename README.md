@@ -3,6 +3,8 @@
 [![Gradle CI](https://github.com/AV306/xenon/actions/workflows/gradle_ci.yml/badge.svg?branch=1.20-DEV)](https://github.com/AV306/xenon/actions/workflows/gradle_ci.yml)
 [![Hits](https://img.shields.io/endpoint?color=3fcc98&url=https://hits.dwyl.com/AV306/xenon.json?show=unique)]()
 
+> Check Xenon out on [Modrinth!](https://modrinth.com/mod/xenon)
+
 Hi, thanks for stopping by this page! This is Xenon, a personal project of mine that I decided to publish to Modrinth and a couple of people decided to use.
 
 <br>
