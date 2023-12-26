@@ -2,9 +2,11 @@
 
 Documentation for Xenon's command processor!
 
-(I could have just used client-side commands with Bridgadier, but it's too late to change now. Ah well)
+~~(I could have just used client-side commands with Bridgadier, but it's too late to change now. Ah well)~~
 
-(Ok you know what, as soon as finals finish I'm moving everything to Brigadier; just bear with my terrible spaghetti code for a while longer)
+~~(Ok you know what, as soon as finals finish I'm moving everything to Brigadier; just bear with my terrible spaghetti code for a while longer)~~
+
+(I did it! Slash commands are now supported! The basic command structure is the same, except with a slash as the prefix)
 
 ### Basic command structure
 
@@ -29,7 +31,7 @@ Example standalone command: `!help listf` (Note: I think this command is broken)
 
 ### Feature name list
 
-`TODO`
+See [the feature documentation](/FEATURES.md).
 
 ### Standalone command list
 
