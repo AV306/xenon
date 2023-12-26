@@ -43,7 +43,7 @@ Send a chat message with your current location and dimension, also at the push o
 
 <br>
 
-### Infinite Chat Length
+### Infinite Chat Length (in `ConfigMenu > General Settings`)
 
 Remove the maximum chat length restriction.
 
@@ -151,7 +151,7 @@ Compatible with Australian Mode!
 
 ## Misc
 
-### **BlackBox
+### BlackBox
 
 Records information like your position, health and death point(s) as you play. A Flight Data Recorder for Minecraft!
 
@@ -161,11 +161,15 @@ Work in progress.
 
 ### CommandProcessor
 
+> See the [CommandProcessor dedicated documentation](/CMD.MD)
+
 Enable/disable features, change their configs, and run macros, all from the chat.
 
-(I'm gonna move all of this to Brigadier after exams, just bear with it for a little longer :/)
+~~(I'm gonna move all of this to Brigadier after exams, just bear with it for a little longer :/)~~
 
-**Limitations**
+(Update: Almost everything has been moved to Brigadier slash commands! They work the same way as CP commands)
+
+**Limitations (these don't apply to the slash commands)**
 
 - No command history access with arrow keys
 - Many features don't support config changes through commands
@@ -177,7 +181,7 @@ Enable/disable features, change their configs, and run macros, all from the chat
 
 CompleteConfig configuration menu.
 
-(yes)
+(yes.)
 
 <br>
 
@@ -187,7 +191,7 @@ Shows your Xenon version and the features you have enabled.
 
 <br>
 
-### LazyDFU Integration
+### LazyDFU Integration (in `ConfigMenu > General Settings`)
 
 Optimises DFU (DataFixerUpper) just like LazyDFU!
 
