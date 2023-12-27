@@ -24,8 +24,10 @@ public interface GetFovEvent
 
     ActionResult interact( Camera camera, float tickDelta, boolean changingFov );
 
-    public static class EventData
+    public class EventData
     {
-        public static float FOV_ZOOM_LEVEL = 1f;
+        public static double FOV_ZOOM_LEVEL = 1f;
+        public static float FOV_OVERRIDE = 0f;
+        public static boolean SHOULD_OVERRIDE_FOV = false;
     }
 }

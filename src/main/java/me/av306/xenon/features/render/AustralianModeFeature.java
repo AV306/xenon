@@ -20,7 +20,8 @@ public class AustralianModeFeature extends IToggleableFeature
     {
         if ( this.isEnabled )
             //EventFields.FOV_OVERRIDE = 360d - Xenon.INSTANCE.client.options.getFov().getValue();
-            EventFields.FOV_OVERRIDE = -Xenon.INSTANCE.client.options.getFov().getValue();
+            //EventFields.FOV_OVERRIDE = -Xenon.INSTANCE.client.options.getFov().getValue();
+            GetFovEvent.EventData.FOV_OVERRIDE = -Xenon.INSTANCE.client.options.getFov().getValue();
 
         return ActionResult.PASS;
     }
@@ -28,12 +29,14 @@ public class AustralianModeFeature extends IToggleableFeature
     @Override
     protected void onEnable()
     {
-        EventFields.shouldOverrideFov = true;
+        //EventFields.shouldOverrideFov = true;
+        GetFovEvent.EventData.SHOULD_OVERRIDE_FOV = true;
     }
 
     @Override
     protected void onDisable()
     {
-        EventFields.shouldOverrideFov = false;
+        //EventFields.shouldOverrideFov = false;
+        GetFovEvent.EventData.SHOULD_OVERRIDE_FOV = false;
     }
 }

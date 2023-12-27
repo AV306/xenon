@@ -1,5 +1,6 @@
 package me.av306.xenon.mixin;
 
+import me.av306.xenon.event.EntityRendererEvents;
 import me.av306.xenon.features.render.HealthDisplayFeature;
 import net.minecraft.entity.Entity;
 import net.minecraft.text.Text;
@@ -38,6 +39,8 @@ public class EntityRendererMixin<T extends Entity>
     {
         //if ( !HealthDisplayFeature.getInstance().getIsEnabled() ) return text1;
 
-        return HealthDisplayFeature.getInstance().modifyEntityLabelText( entity, text );
+        EntityRendererEvents.RENDER_LABEL_TEXT.invoker().onGetLabelText( entity, text );
+
+        return EntityRendererEvents.EventData.SHOULD_OVERRIDE_LABEL_TEXT ? EntityRendererEvents.EventData.LABEL_TEXT_OVERRIDE : text;
     }
 }

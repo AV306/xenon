@@ -46,21 +46,22 @@ public class ZoomFeature extends IFeature
                 // It should be 1 by default (no zoom when just enabled)
                 // the clamp will boost it up to 2
                 // eliminating the need for a local variable
-                EventFields.FOV_ZOOM_LEVEL = MathHelper.clamp(
-                        EventFields.FOV_ZOOM_LEVEL,
+                 GetFovEvent.EventData.FOV_ZOOM_LEVEL = MathHelper.clamp(
+                    GetFovEvent.EventData.FOV_ZOOM_LEVEL,
                         ZoomGroup.minZoom,
                         ZoomGroup.maxZoom
                 );
 
                 // Adjust our mouse sensitivity based on zoom
                 Xenon.INSTANCE.client.options.getMouseSensitivity()
-                        .setValue( this.originalMouseSensitivity / EventFields.FOV_ZOOM_LEVEL );
+                        .setValue( this.originalMouseSensitivity / GetFovEvent.EventData.FOV_ZOOM_LEVEL );
 
             }
             else
             {
                 // Zoom not needed, reset zoom level
-                EventFields.FOV_ZOOM_LEVEL = 1d;
+                //EventFields.FOV_ZOOM_LEVEL = 1d;
+                GetFovEvent.EventData.FOV_ZOOM_LEVEL = 1f;
 
                 // Reset sensitivity
                 Xenon.INSTANCE.client.options.getMouseSensitivity()
@@ -92,8 +93,8 @@ public class ZoomFeature extends IFeature
         {
             // Scrolling up zooms in,
             // scrolling down zooms out
-            if ( vertical > 0 ) EventFields.FOV_ZOOM_LEVEL *= (1 + ZoomGroup.scrollInterval);
-            else if ( vertical < 0 ) EventFields.FOV_ZOOM_LEVEL *= (1 - ZoomGroup.scrollInterval);
+            if ( vertical > 0 ) GetFovEvent.EventData.FOV_ZOOM_LEVEL *= (1 + ZoomGroup.scrollInterval);
+            else if ( vertical < 0 ) GetFovEvent.EventData.FOV_ZOOM_LEVEL *= (1 - ZoomGroup.scrollInterval);
         }
 
         return ActionResult.PASS;
