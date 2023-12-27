@@ -49,9 +49,11 @@ public abstract class GameRendererMixin implements AutoCloseable, SynchronousRes
         //if ( EventFields.shouldOverrideFov ) cir.setReturnValue( EventFields.FOV_OVERRIDE / EventFields.FOV_ZOOM_LEVEL );
         //else cir.setReturnValue( (cir.getReturnValue() + EventFields.FOV_MODIFIER) / EventFields.FOV_ZOOM_LEVEL );
 
-        // I have never used the other two things I added (modifier and override)
-        // so out they go
-        cir.setReturnValue( cir.getReturnValue() / GetFovEvent.EventData.FOV_ZOOM_LEVEL );
+        cir.setReturnValue(
+                (GetFovEvent.EventData.SHOULD_OVERRIDE_FOV
+                        ? GetFovEvent.EventData.FOV_OVERRIDE
+                        : cir.getReturnValue()) / GetFovEvent.EventData.FOV_ZOOM_LEVEL
+        );
 
         //Xenon.INSTANCE.sendInfoMessage( String.valueOf( cir.getReturnValue() ) );
     }

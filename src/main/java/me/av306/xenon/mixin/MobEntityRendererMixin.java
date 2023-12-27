@@ -1,18 +1,11 @@
 package me.av306.xenon.mixin;
 
-import me.av306.xenon.Xenon;
-import me.av306.xenon.event.MinecraftClientEvents;
-import me.av306.xenon.features.render.HealthDisplayFeature;
-import me.av306.xenon.util.text.TextFactory;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.world.ClientWorld;
+import me.av306.xenon.event.MobEntityRendererEvents;
 import net.minecraft.entity.mob.MobEntity;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Text;
-import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.MobEntityRenderer;
 import net.minecraft.client.render.entity.model.EntityModel;
 
+import net.minecraft.util.ActionResult;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -29,7 +22,10 @@ public class MobEntityRendererMixin<T extends MobEntity, M extends EntityModel<T
     private void onGetHasLabel( T entity, CallbackInfoReturnable<Boolean> cir )
     {
         // Don't block name tags when disabled
-        if ( HealthDisplayFeature.getInstance().shouldForceEntityNameplate() )
+        //if ( HealthDisplayFeature.getInstance().shouldForceEntityNameplate() )
+            //cir.setReturnValue( true );
+
+        if ( MobEntityRendererEvents.RENDER_LABEL_TEXT.invoker().onGetHasLabel( entity ) == ActionResult.FAIL )
             cir.setReturnValue( true );
     }
 }
