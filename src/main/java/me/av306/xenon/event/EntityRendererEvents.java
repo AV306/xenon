@@ -2,15 +2,13 @@ package me.av306.xenon.event;
 
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
-import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 
 public interface EntityRendererEvents
 {
-	Event<GetLabelText> RENDER_LABEL_TEXT = EventFactory.createArrayBacked(
+	Event<GetLabelText> GET_LABEL_TEXT = EventFactory.createArrayBacked(
 			GetLabelText.class,
 			(listeners) -> (entity, text) ->
 			{
@@ -25,15 +23,36 @@ public interface EntityRendererEvents
 			}
 	);
 
+	Event<GetHasLabel> GET_HAS_LABEL = EventFactory.createArrayBacked(
+			GetHasLabel.class,
+			(listeners) -> (entity) ->
+			{
+				for ( GetHasLabel listener : listeners )
+				{
+					ActionResult result = listener.onGetHasLabel( entity );
+
+					if ( result != ActionResult.PASS ) return result;
+				}
+
+				return ActionResult.PASS;
+			}
+	);
+
 	@FunctionalInterface
 	interface GetLabelText<T extends Entity>
 	{
 		ActionResult onGetLabelText( T entity, Text text );
 	}
 
+	@FunctionalInterface
+	interface GetHasLabel<T extends Entity>
+	{
+		ActionResult onGetHasLabel( T entity );
+	}
+
 	class EventData
 	{
-		public static Text LABEL_TEXT_OVERRIDE;
+		public static Text LABEL_TEXT_OVERRIDE = null;
 		public static boolean SHOULD_OVERRIDE_LABEL_TEXT = false;
 	}
 }

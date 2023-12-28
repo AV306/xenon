@@ -21,11 +21,12 @@ public class MobEntityRendererMixin<T extends MobEntity, M extends EntityModel<T
     )
     private void onGetHasLabel( T entity, CallbackInfoReturnable<Boolean> cir )
     {
-        // Don't block name tags when disabled
-        //if ( HealthDisplayFeature.getInstance().shouldForceEntityNameplate() )
-            //cir.setReturnValue( true );
+        // Decide whether to force nameplates, block them or do nothing
+        ActionResult result = MobEntityRendererEvents.GET_HAS_LABEL.invoker().onGetHasLabel( entity );
 
-        if ( MobEntityRendererEvents.RENDER_LABEL_TEXT.invoker().onGetHasLabel( entity ) == ActionResult.FAIL )
+        if ( result == ActionResult.SUCCESS )
             cir.setReturnValue( true );
+        else if ( result == ActionResult.FAIL )
+            cir.setReturnValue( false );
     }
 }
