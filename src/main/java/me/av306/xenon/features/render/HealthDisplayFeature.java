@@ -14,38 +14,38 @@ import net.minecraft.util.ActionResult;
 // FIXME: Make this adhere to my convention that feature-specific code should not be in mixins
 public class HealthDisplayFeature extends IToggleableFeature
 {
-	private static HealthDisplayFeature INSTANCE;
-	public static HealthDisplayFeature getInstance() { return INSTANCE; }
 	public HealthDisplayFeature()
 	{
 		super( "HealthDisplay", "hd", "healthdisp" );
 
-		//	HudRenderCallback.EVENT.register( this::onHudRender );
-		INSTANCE = this;
+		MobEntityRendererEvents.GET_HAS_LABEL.register( this::shouldForceEntityNameplate );
 
-		MobEntityRendererEvents.RENDER_LABEL_TEXT.register( this::shouldForceEntityNameplate );
-
-		EntityRendererEvents.RENDER_LABEL_TEXT.register( this::getLabelText );
+		EntityRendererEvents.GET_LABEL_TEXT.register( this::getLabelText );
 	}
 
 	private ActionResult getLabelText( Entity entity, Text text )
 	{
-		if ( !this.isEnabled ) return ActionResult.PASS;
-
-		try
+		if ( this.isEnabled )
 		{
-			LivingEntity livingEntity = (LivingEntity) entity;
+			try
+			{
+				LivingEntity livingEntity = (LivingEntity) entity;
 
-			EntityRendererEvents.EventData.LABEL_TEXT_OVERRIDE = text.copy().append( String.format( " §c(%.2f❤)§r", livingEntity.getHealth() ) );
+				EntityRendererEvents.EventData.LABEL_TEXT_OVERRIDE = text.copy().append( String.format( " §c(%.2f❤)§r", livingEntity.getHealth() ) );
+			}
+			catch ( ClassCastException ignored )
+			{
+				// Play nicely with Labels
+				EntityRendererEvents.EventData.LABEL_TEXT_OVERRIDE = text;
+			}
 		}
-		catch ( ClassCastException ignored ) {}
 
 		return ActionResult.PASS;
 	}
 
 	private ActionResult shouldForceEntityNameplate( MobEntity mobEntity )
 	{
-		return this.isEnabled ? ActionResult.FAIL : ActionResult.PASS;
+		return this.isEnabled ? ActionResult.SUCCESS : ActionResult.PASS;
 	}
 
 	@Override
