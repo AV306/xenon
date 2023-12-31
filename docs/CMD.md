@@ -17,13 +17,14 @@ Example feature command: `!fullkeyboard enable`
 "fullkeyboard" - feature name
 "enable" - action
 
-Example standalone command: `!help listf` (Note: I think this command is broken)
+Example standalone command: `!help listf` (Note: this command is broken)
 "!" - prefix
 "help" - command name
 "listf" - argument
 
 ### Feature action list
 
+- No action (Slash command only): Toggle the feature if possible, otherwise runs it
 - `e, enable, on`: Enable the target feature
 - `d, disable, off`: Disable the target feature
 - `set`: Change a setting of the target feature (Note: implementation across features is incomplete)
