@@ -47,6 +47,7 @@ A sample:
 - [Latest Fabric API](https://modrinth.com/mod/fabric-api) (may not work with older ones, not really tested)
 - Fabric Loader >=0.14.21
 - [CompleteConfig](https://modrinth.com/mod/completeconfig) 2.4.x
+- Cloth Config API
 
 Version numbers are fairly strict, if it says "1.19.4" that means it's only been tested on 1.19.4, but it will probably work on other 1.19.*x* versions, and no one will stop you.
 
