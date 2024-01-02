@@ -149,7 +149,7 @@ public enum Xenon
         if ( GeneralConfigGroup.enableTimer ) new TimerFeature();
         new WailaFeature();
         new ZoomFeature();
-        new BlackBox();
+        //new BlackBox(); // Blackbox is a bit broken
     }
 
 
@@ -166,10 +166,11 @@ public enum Xenon
             feature.setForceDisabled( false );
     }
 
+
     // Mod Menu handles update checks for us :)
     private void readVersionData()
     {
-        assert FabricLoader.getInstance().getModContainer( "xenon" ).isPresent();
+        //assert FabricLoader.getInstance().getModContainer( "xenon" ).isPresent();
         this.modContainer = FabricLoader.getInstance().getModContainer( "xenon" ).get();
         // Get version string
         Version ver = modContainer.getMetadata().getVersion();
@@ -216,7 +217,7 @@ public enum Xenon
             this.client.player.sendMessage( finalText, false );
         }
         catch ( NullPointerException ignored ) {}
-    }
+    }*/
 
     public void sendWarningMessage( String key )
     {
@@ -229,7 +230,18 @@ public enum Xenon
         catch ( NullPointerException ignored ) {}
     }
 
-    public void sendWarningMessage( Text text )
+    public void sendWarningMessage( String key, Object... args )
+    {
+        Text finalText = namePrefix.copy()
+                .append( TextFactory.createTranslatable( key, args ).formatted( this.WARNING_FORMAT ) );
+        try
+        {
+            this.client.player.sendMessage( finalText, false );
+        }
+        catch ( NullPointerException ignored ) {}
+    }
+
+    /*public void sendWarningMessage( Text text )
     {
         Text finalText = namePrefix.copy()
                 .append(
@@ -241,11 +253,10 @@ public enum Xenon
             this.client.player.sendMessage( finalText, false );
         }
         catch ( NullPointerException ignored ) {}
-    }
+    }*/
 
     public void sendErrorMessage( String key )
     {
-        // TODO: impl parameter packs?
         Text finalText = namePrefix.copy()
                 .append(
                         TextFactory.createTranslatable( key )
@@ -273,8 +284,7 @@ public enum Xenon
         catch ( NullPointerException ignored ) {}
     }
 
-    // FIXME
-    public void sendErrorMessage( Text text )
+    /*public void sendErrorMessage( Text text )
     {
         Text finalText = namePrefix.copy()
                 .append(

@@ -2,7 +2,7 @@ package me.av306.xenon.features;
 
 import me.av306.xenon.Xenon;
 import me.av306.xenon.config.feature.BlackBoxGroup;
-import me.av306.xenon.event.EntityDamageEvent;
+import me.av306.xenon.event.ClientPlayNetworkHandlerEvents;
 import me.av306.xenon.event.MinecraftClientEvents;
 import me.av306.xenon.feature.IToggleableFeature;
 import net.fabricmc.loader.api.FabricLoader;
@@ -23,14 +23,14 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.concurrent.*;
 
-// TODO: Finish other data sources after exams
-// ALso me after exams: Remind me what all this does again?
+// what the fck is all this spaghetti doing
 public class BlackBox extends IToggleableFeature
 {
 	/**
 	 * Reference to the log file
 	 */
 	private File logFile = null;
+
 	/**
 	 * Log file writer
 	 */
@@ -47,26 +47,36 @@ public class BlackBox extends IToggleableFeature
 	 */
 	private final ConcurrentLinkedQueue<LoggingData> dataQueue = new ConcurrentLinkedQueue<>();
 
+	/**
+	 * Concurrent thread scheduler
+	 */
 	private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool( 2 );
+
+	/**
+	 * Timer future for the tracking logger (the one that logs your position and stuff periodically)
+	 */
 	private ScheduledFuture<?> trackingLogTimerFuture = null;
+
+	/**
+	 * Timer future for the data writer
+	 */
 	private ScheduledFuture<?> dataWriterThread = null;
 
 	public BlackBox()
 	{
 		super( "BlackBox" );
 
-		//this.setShouldHide( BlackBoxGroup.showInFeatureList );
+		// Register the event that enabled BB when you join a world
 		MinecraftClientEvents.JOIN_WORLD_TAIL.register( world ->
 		{
 			if ( BlackBoxGroup.reEnableOnWorldEnter ) this.enable();
-
 			return ActionResult.PASS;
 		} );
 
 		// Register logging hooks
 
 		// Player attack event hook
-		EntityDamageEvent.EVENT.register( this::onPlayerDamaged );
+		ClientPlayNetworkHandlerEvents.ENTITY_DAMAGED.register( this::onPlayerDamaged );
 	}
 
 	private ActionResult onPlayerDamaged( EntityDamageS2CPacket packet )

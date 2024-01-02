@@ -1,11 +1,13 @@
 package me.av306.xenon.mixin;
 
 import me.av306.xenon.Xenon;
-import me.av306.xenon.event.EntityDamageEvent;
+import me.av306.xenon.event.ClientPlayNetworkHandlerEvents;
 import me.av306.xenon.feature.IFeature;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.network.packet.s2c.play.ChatMessageS2CPacket;
 import net.minecraft.network.packet.s2c.play.EntityDamageS2CPacket;
+import net.minecraft.network.packet.s2c.play.HealthUpdateS2CPacket;
+import net.minecraft.network.packet.s2c.play.PlayerRespawnS2CPacket;
 import net.minecraft.util.ActionResult;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -24,9 +26,12 @@ public class ClientPlayNetworkHandlerMixin
     {
         // FIXME: Need to test
         // FIXME: Seriously. It's been like 4 months... :/
+        // FIXME: Maybe next year
+
         // Hook into this method to ensure that the packet is always received and processed
         // Otherwise people could just disable chat messages.
         // This is about as early as we can hook
+        // TODO: do something like Do A Barrel Roll where we receive a custom packet
 
         // Grab the packet content
         String content = packet.body().content();
@@ -63,7 +68,29 @@ public class ClientPlayNetworkHandlerMixin
     )
     private void onOnEntityDamage( EntityDamageS2CPacket packet, CallbackInfo ci )
     {
-        if ( EntityDamageEvent.EVENT.invoker().interact( packet ) == ActionResult.FAIL )
+        if ( ClientPlayNetworkHandlerEvents.ENTITY_DAMAGED.invoker().onEntityDamaged( packet ) == ActionResult.FAIL )
+            ci.cancel();
+    }
+
+    @Inject(
+            at = @At( "HEAD" ),
+            method = "onHealthUpdate(Lnet/minecraft/network/packet/s2c/play/HealthUpdateS2CPacket;)V",
+            cancellable = true
+    )
+    private void onOnHealthUpdate( HealthUpdateS2CPacket packet, CallbackInfo ci )
+    {
+        if ( ClientPlayNetworkHandlerEvents.PLAYER_HEALTH_UPDATE.invoker().onPlayerHealthUpdated( packet ) == ActionResult.FAIL )
+            ci.cancel();
+    }
+
+    @Inject(
+            at = @At( "HEAD" ),
+            method = "onPlayerRespawn",
+            cancellable = true
+    )
+    private void onOnPlayerRespawn( PlayerRespawnS2CPacket packet, CallbackInfo ci )
+    {
+        if ( ClientPlayNetworkHandlerEvents.PLAYER_RESPAWN.invoker().onPlayerRespawned( packet ) == ActionResult.FAIL )
             ci.cancel();
     }
 }

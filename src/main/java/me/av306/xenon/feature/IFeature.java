@@ -101,18 +101,17 @@ public abstract class IFeature
 			Xenon.INSTANCE.featureRegistry.put( alias.toLowerCase(), this );
 
 			// Register aliases as Brigadier command redirects
-			ClientCommandRegistrationCallback.EVENT.register(
-				(dispatcher, registryAccess) ->
-					dispatcher.register(
-							literal( alias )
-									.executes( context ->
-									{
-										if ( this instanceof IToggleableFeature iToggleableFeature )
-											iToggleableFeature.toggle();
-										else this.enable();
-										return 1;
-									} )
-									.redirect( this.commandNode ) )
+			ClientCommandRegistrationCallback.EVENT.register( (dispatcher, registryAccess) ->
+					dispatcher.register( literal( alias )
+							.executes( context ->
+							{
+								// Toggle if it's toggleable, otherwise simply enable
+								if ( this instanceof IToggleableFeature iToggleableFeature ) iToggleableFeature.toggle();
+								else this.enable();
+
+								return 1;
+							} )
+							.redirect( this.commandNode ) )
 			);
 		}
 	}
