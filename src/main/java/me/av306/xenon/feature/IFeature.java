@@ -171,6 +171,18 @@ public abstract class IFeature
 
 		this.commandBuilder.then( literal( "enable" ).executes( context -> { this.enable(); return 1; } ) );
 		this.commandBuilder.then( literal( "e" ).executes( context -> { this.enable(); return 1; } ) ); // Enable alias
+		this.commandBuilder.then( literal( "help" ) )
+					.executes( context ->
+					{
+						this.sendInfoMessage( this.getHelpText( null ) );
+						return 1;
+					} )
+					/*.then( argument( "keyword", StringArgumentType.word() ) )
+					.executes( context ->
+					{
+						this.sendInfoMessage( this.getHelpText( StringArgumentType.getString( context, "keyword" ) ) );
+						return 1;
+					} )*/;
 
 		/*this.commandBuilder.then( literal( "set" ) )
 				.then( argument( "config", StringArgumentType.greedyString() ) )
@@ -320,13 +332,30 @@ public abstract class IFeature
 	/**
 	 * Method to retrieve help text for a feature.
 	 */
-	public Text getHelpText( String[] args )
+	public Text getHelpText( String argument )
 	{
 		// TODO: add formatting
 		return TextFactory.createLiteral( "Whoops! This Feature doesn't have any documentation :(" );
 	}
 
-	
+
+	protected void sendInfoMessage( Text text )
+	{
+		Text message = Xenon.INSTANCE.getNamePrefixCopy().append(
+				TextFactory.createTranslatable(
+						"text.xenon.message",
+						this.name,
+						text
+				)
+		);
+
+		try
+		{
+			Xenon.INSTANCE.client.player.sendMessage( message );
+		}
+		catch ( NullPointerException ignored ) {}
+	}
+
 	protected void sendInfoMessage( String key, Object... args )
 	{
 		Text message = Xenon.INSTANCE.getNamePrefixCopy().append(
