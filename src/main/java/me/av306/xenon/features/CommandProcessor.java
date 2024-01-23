@@ -243,23 +243,15 @@ public class CommandProcessor extends IToggleableFeature
     }
 
     @Override
-    public Text getHelpText( String[] args )
+    public Text getHelpText( String arg )
     {
         // example: !cp help listf
         // args[0]
 
-        MutableText helpText = MutableText.of( TextContent.EMPTY ).append( "[CommandProcessor] " );
+        // 23-01-2024: I have no clue what this does, also I have no memory of making this but it seems neat
+        MutableText helpText = TextFactory.createLiteral( "[CommandProcessor] " );
 
-        if ( args.length < 1 )
-        {
-            // Whoops! No help arguments were passed in.
-            // Change the args variable to point to a new String[]
-            // with exactly one help argument
-            // so that it will proceed to the default branch without an NPE.
-            args = new String[]{ " " };
-        }
-
-        switch( args[0] )
+        switch( arg )
         {
             case "listf", "listfeatures", "features", "lf", "aliases" ->
             {
