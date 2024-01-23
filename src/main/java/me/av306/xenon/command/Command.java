@@ -1,5 +1,9 @@
 package me.av306.xenon.command;
 
+import static net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.*;
+
+import com.mojang.brigadier.arguments.StringArgumentType;
+
 import me.av306.xenon.Xenon;
 import me.av306.xenon.util.text.TextFactory;
 import net.minecraft.text.Text;
@@ -19,11 +23,18 @@ public abstract class Command
 		ClientCommandRegistrationCallback.EVENT.register(
 			(dispatcher, registryAccess) -> dispatcher.register(
 				ClientCommandManager.literal( name )
-						.executes( context -> 
+						.executes( context ->
 						{
-							context.getSource().sendFeedback( TextFactory.createLiteral( "Executed command for " + name ) );
+							this.execute( null );
 							return 1;
 						} )
+						/*.then( argument( "arguments", StringArgumentType.greedyString() ))
+						.executes( context -> 
+						{
+							//context.getSource().sendFeedback( TextFactory.createLiteral( "Executed command for " + name ) );
+							this.execute( StringArgumentType.getString( context, "arguments" ).split( " " ) );
+							return 1;
+						} )*/ // FIXME: I really have no idea why string arguments don't work
 			)
 		);
 	}
@@ -38,18 +49,26 @@ public abstract class Command
 			ClientCommandRegistrationCallback.EVENT.register(
 				(dispatcher, registryAccess) -> dispatcher.register(
 					ClientCommandManager.literal( alias )
-							.executes( context -> 
-							{
-								context.getSource().sendFeedback( TextFactory.createLiteral( "Executed command for " + alias ) );
-								return 1;
-							} )
+						.executes( context ->
+						{
+							this.execute( null );
+							return 1;
+						} )
+
+						/*.then( argument( "args", StringArgumentType.greedyString() ))
+						.executes( context -> 
+						{
+							//context.getSource().sendFeedback( TextFactory.createLiteral( "Executed command for " + name ) );
+							this.execute( StringArgumentType.getString( context, "args" ).split( " " ) );
+							return 1;
+						} )*/
 				)
 			);
 		}
 	}
 
 	/**
-	 * Implementations must handle empty arguments
+	 * Implementations must handle empty or null arguments, to allow customisable default arguments
 	 */
 	public abstract void execute( String[] args );
 
