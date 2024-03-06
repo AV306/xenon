@@ -8,6 +8,10 @@ import me.av306.xenon.mixinterface.IMouse;
 import me.av306.xenon.util.KeybindUtil;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.option.KeyBinding;
+import net.minecraft.entity.Entity;
+import net.minecraft.util.Hand;
+import net.minecraft.util.hit.EntityHitResult;
+import net.minecraft.util.hit.HitResult;
 import org.lwjgl.glfw.GLFW;
 
 public final class FullKeyboardFeature extends IToggleableFeature
@@ -68,8 +72,23 @@ public final class FullKeyboardFeature extends IToggleableFeature
     {
         if ( !this.isEnabled ) return;
 
-        // FIXME: virtual attack key only works for block breaking, not attacking
-        // Best guess is attack is a wasPressed() call, but block breaking is an isPressed()
+        // Left mouse stuff
+        boolean leftMousePressed = this.virtualLeftMouseKey.isPressed();
+        // Arm swing
+
+        // Attack
+        if ( leftMousePressed )
+        {
+            if ( Xenon.INSTANCE.client.crosshairTarget.getType() == HitResult.Type.ENTITY )
+            {
+                Entity e = ((EntityHitResult) Xenon.INSTANCE.client.crosshairTarget).getEntity();
+                //Xenon.INSTANCE.client.player.attack( entityHitResult.getEntity() );
+                Xenon.INSTANCE.client.interactionManager.attackEntity( Xenon.INSTANCE.client.player, e );
+            }
+
+            Xenon.INSTANCE.client.player.swingHand( Hand.MAIN_HAND );
+        }
+
         Xenon.INSTANCE.client.options.attackKey.setPressed( this.virtualLeftMouseKey.isPressed() );
         Xenon.INSTANCE.client.options.useKey.setPressed( this.virtualRightMouseKey.isPressed() );
         
@@ -98,7 +117,7 @@ public final class FullKeyboardFeature extends IToggleableFeature
         {
             // View flick
             assert Xenon.INSTANCE.client.player != null;
-            // TODO: Do we need packets or something?
+
             if ( this.upKey.wasPressed() ) Xenon.INSTANCE.client.player.setPitch( Xenon.INSTANCE.client.player.getPitch() - 90 );
             if ( this.downKey.wasPressed() ) Xenon.INSTANCE.client.player.setPitch( Xenon.INSTANCE.client.player.getPitch() + 90 );
             if ( this.leftKey.wasPressed() ) Xenon.INSTANCE.client.player.setYaw( Xenon.INSTANCE.client.player.getYaw() - 90 );
