@@ -3,6 +3,7 @@ package me.av306.xenon.commands;
 import me.av306.xenon.Xenon;
 import me.av306.xenon.command.Command;
 import net.minecraft.client.Keyboard;
+import net.minecraft.client.util.GlfwUtil;
 
 public class DebugCrashCommand extends Command
 {
@@ -15,6 +16,10 @@ public class DebugCrashCommand extends Command
 
 		// MC catches the OOBE :(
 		args[args.length] = "";
+
+		if ( args[0].equals( "force" ) ) GlfwUtil.makeJvmCrash();
+		//System.exit( -1 );
+
 		//Xenon.INSTANCE.client.keyboard.pollDebugCrash();
 
 		//if ( args[0].equals( "confirm" ) )
