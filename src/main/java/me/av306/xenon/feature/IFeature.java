@@ -6,8 +6,6 @@ import me.av306.xenon.Xenon;
 import me.av306.xenon.util.text.TextFactory;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
-import static net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.*;
-
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -102,16 +100,11 @@ public abstract class IFeature
 
 			// Register aliases as Brigadier command redirects
 			ClientCommandRegistrationCallback.EVENT.register( (dispatcher, registryAccess) ->
-					dispatcher.register( literal( alias )
-							.executes( context ->
-							{
-								// Toggle if it's toggleable, otherwise simply enable
-								if ( this instanceof IToggleableFeature iToggleableFeature ) iToggleableFeature.toggle();
-								else this.enable();
-
-								return 1;
-							} )
-							.redirect( this.commandNode ) )
+					dispatcher.register(
+							ClientCommandManager.literal( alias )
+									.executes( context -> { this.toggleOrElseEnable(); return 1; } )
+									.redirect( this.commandNode )
+					)
 			);
 		}
 	}
@@ -126,7 +119,6 @@ public abstract class IFeature
 		this( name, GLFW.GLFW_KEY_UNKNOWN );
 	}
 
-	// random ones
 
 	/**
 	 * Initialises a feature with a display name and default key
@@ -134,11 +126,13 @@ public abstract class IFeature
 	 * @param key: GLFW keycode to bind to
 	 */
 	protected IFeature( String name, int key )
-	{ 
+	{
+		// Set fields
 		this.name = name;
 		this.key = key;
 
-		// use the name passed in because some features change their name (e.g. timer)
+		// Use the name passed in for keybind
+		// because some features change their name (e.g. timer)
 		this.keyBinding = new KeyBinding(
 				"key.xenon." + name.toLowerCase().replaceAll( " ", "" ),
 				InputUtil.Type.KEYSYM,
@@ -146,56 +140,57 @@ public abstract class IFeature
 				"category.xenon." + this.category
 		);
 
-		// register our keybind
+		// Register keybind and key event
 		KeyBindingHelper.registerKeyBinding( this.keyBinding );
+		ClientTickEvents.END_CLIENT_TICK.register( client -> this.keyEvent() );
 
-		// register our key event
-		ClientTickEvents.END_CLIENT_TICK.register(
-				client -> this.keyEvent()
-		);
-
-		// register our display name in the registry
-		// in lower case (for CP)
+		// Register display name in CP registry
 		String formattedName = name.replaceAll( " ", "" ).toLowerCase();
 		Xenon.INSTANCE.featureRegistry.put( formattedName, this );
 
 		// Register a Brigadier command (native minecraft client command)
-		this.commandBuilder = literal( formattedName )
-				.executes( context ->
-				{
-					if ( this instanceof IToggleableFeature iToggleableFeature )
-						iToggleableFeature.toggle();
-					else this.enable();
-					return 1;
-				} );
+		// FIXME: this causes issues with commands accepting more than one string argument
+		this.commandBuilder = ClientCommandManager.literal( formattedName )
+				.executes( context -> { this.toggleOrElseEnable(); return 1; } );
 
-		this.commandBuilder.then( literal( "enable" ).executes( context -> { this.enable(); return 1; } ) );
-		this.commandBuilder.then( literal( "e" ).executes( context -> { this.enable(); return 1; } ) ); // Enable alias
-		this.commandBuilder.then( literal( "help" ) )
-					.executes( context ->
-					{
+		this.commandBuilder.then( ClientCommandManager.literal( "enable" ).executes( context -> { this.enable(); return 1; } ) );
+		this.commandBuilder.then( ClientCommandManager.literal( "e" ).executes( context -> { this.enable(); return 1; } ) ); // Enable alias
+		
+		this.commandBuilder.then(
+				ClientCommandManager.literal( "help" )
+						.executes( context ->
+						{
 						this.sendInfoMessage( this.getHelpText( null ) );
 						return 1;
-					} )
-					/*.then( argument( "keyword", StringArgumentType.word() ) )
-					.executes( context ->
-					{
-						this.sendInfoMessage( this.getHelpText( StringArgumentType.getString( context, "keyword" ) ) );
-						return 1;
-					} )*/;
+						} )
+						.then( ClientCommandManager.argument( "keyword", StringArgumentType.word() )
+								.executes( context ->
+								{
+									this.sendInfoMessage( this.getHelpText( StringArgumentType.getString( context, "keyword" ) ) );
+									return 1;
+								} )
+						)
+		);
 
-		/*this.commandBuilder.then( literal( "set" ) )
-				.then( argument( "config", StringArgumentType.greedyString() ) )
-				.then( argument( "value", StringArgumentType.greedyString() ) )
-				.executes( context ->
-				{
-					this.requestConfigChange(
-							StringArgumentType.getString( context, "config" ),
-							StringArgumentType.getString( context, "value" )
-					);
-					return 1;
-				} );*/
+		// Holy fk I DID IT
+		this.commandBuilder.then(
+			ClientCommandManager.literal( "set" )
+					.then(
+							ClientCommandManager.argument( "config", StringArgumentType.string() )
+									.then( ClientCommandManager.argument( "value", StringArgumentType.string() )
+											.executes( context ->
+											{
+												this.requestConfigChange(
+														StringArgumentType.getString( context, "config" ),
+														StringArgumentType.getString( context, "value" )
+												);
+												return 1;
+											} )
+									)
+					)
+		);
 
+		// Register command
 		ClientCommandRegistrationCallback.EVENT.register(
 				(dispatcher, registryAccess) -> this.commandNode = dispatcher.register( this.commandBuilder )
 		);
@@ -220,6 +215,12 @@ public abstract class IFeature
 				// Server wishes to opt out of this feature
 				this.sendErrorMessage( "text.xenon.ifeature.forcedisabled" );
 			else this.enable();
+	}
+
+	protected void toggleOrElseEnable()
+	{
+		if ( this instanceof IToggleableFeature itf ) itf.toggle();
+		else this.enable();
 	}
 
 	/**
