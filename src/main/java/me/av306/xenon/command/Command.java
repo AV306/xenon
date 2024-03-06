@@ -1,13 +1,15 @@
 package me.av306.xenon.command;
 
-import static net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.*;
-
 import com.mojang.brigadier.arguments.StringArgumentType;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
+import com.mojang.brigadier.tree.CommandNode;
+import com.mojang.brigadier.tree.LiteralCommandNode;
 
 import me.av306.xenon.Xenon;
 import me.av306.xenon.util.text.TextFactory;
 import net.minecraft.text.Text;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
+import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
 
 public abstract class Command
@@ -15,26 +17,30 @@ public abstract class Command
 	protected final String name;
 	public String getName() { return this.name; }
 
+	protected LiteralCommandNode<FabricClientCommandSource> commandNode;
+
 	public Command( String name )
 	{
 		this.name = name;
 		Xenon.INSTANCE.commandRegistry.put( this.name, this );
 
 		ClientCommandRegistrationCallback.EVENT.register(
-			(dispatcher, registryAccess) -> dispatcher.register(
-				ClientCommandManager.literal( name )
-						.executes( context ->
-						{
-							this.execute( null );
-							return 1;
-						} )
-						/*.then( argument( "arguments", StringArgumentType.greedyString() ))
-						.executes( context -> 
-						{
-							//context.getSource().sendFeedback( TextFactory.createLiteral( "Executed command for " + name ) );
-							this.execute( StringArgumentType.getString( context, "arguments" ).split( " " ) );
-							return 1;
-						} )*/ // FIXME: I really have no idea why string arguments don't work
+			(dispatcher, registryAccess) -> this.commandNode = dispatcher.register(
+					// you need to put the .then() ON the literal()
+					ClientCommandManager.literal( name )
+							.executes( context ->
+							{
+								this.execute( null );
+								return 1;
+							} )
+							.then( ClientCommandManager.argument( "args", StringArgumentType.greedyString() )
+									.executes( context -> 
+									{
+										//context.getSource().sendFeedback( TextFactory.createLiteral( "Executed command for " + name ) );
+										this.execute( StringArgumentType.getString( context, "args" ).split( " " ) );
+										return 1;
+									} )
+							)
 			)
 		);
 	}
@@ -53,7 +59,7 @@ public abstract class Command
 						{
 							this.execute( null );
 							return 1;
-						} )
+						} ).redirect( this.commandNode )
 
 						/*.then( argument( "args", StringArgumentType.greedyString() ))
 						.executes( context -> 
