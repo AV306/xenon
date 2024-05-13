@@ -19,8 +19,7 @@ import java.util.Arrays;
 
 /**
  * Base class for all features, to be extended by other feature types and feature implementations.
- * NOTE: This *could* work by just using the subclass name field
- * to hide the superclass name field,
+ * note: This *could* work by just using the subclass name field to hide the superclass name field,
  * but let's try this way first.
  * EDIT: this way works pretty nicely!
  */
@@ -234,6 +233,12 @@ public abstract class IFeature
 		//if ( isEnabled ) return;
 			
 		//this.isEnabled = true;
+
+		if ( this.isForceDisabled() )
+		{
+			Xenon.INSTANCE.sendInfoMessage( "text.xenon.featureblocked" );
+			return;
+		}
 
 		Xenon.INSTANCE.LOGGER.info( this.getName() + " enabled!" );
 

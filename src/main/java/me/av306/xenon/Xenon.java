@@ -16,6 +16,7 @@ import me.av306.xenon.mixin.MinecraftClientAccessor;
 import me.av306.xenon.util.KeybindUtil;
 import me.av306.xenon.util.text.TextFactory;
 import me.lortseam.completeconfig.data.Config;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.fabricmc.loader.api.Version;
@@ -24,6 +25,8 @@ import net.minecraft.client.option.KeyBinding;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Identifier;
+
 import org.lwjgl.glfw.GLFW;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
@@ -77,6 +80,8 @@ public enum Xenon
 
     public MutableText getNamePrefixCopy() { return namePrefix.copy(); }
 
+    public final Identifier BLOCKED_FEATURE_PACKET = new Identifier( this.MODID, "block_feature" );
+
     //private boolean updateAvailable = false;
     //public boolean getUpdateAvailable() { return updateAvailable; }
 
@@ -105,6 +110,9 @@ public enum Xenon
         this.clientAccessor = (MinecraftClientAccessor) this.client;
 
         ClientWorldEvents.DISCONNECT.register( this::disableAllFeatures );
+
+        // Register packet handler
+        registerPacketHandlers();
 			
         // register features
         initCommands();
@@ -113,6 +121,28 @@ public enum Xenon
         // Register config screen with ModMenu if present
         /*if ( FabricLoader.getInstance().isModLoaded( "cloth-config" ) )
             ConfigScreenBuilder.setMain( this.MODID, new ClothConfigScreenBuilder() );*/
+    }
+
+    private void registerPacketHandlers()
+    {
+        ClientPlayNetworking.registerGlobalReceiver(
+            this.BLOCKED_FEATURE_PACKET,
+            (client, handler, buf, responseSender) ->
+            {
+                String name = buf.readString();
+                IFeature feature = this.featureRegistry.get( name );
+                try
+                {
+                    feature.setForceDisabled( true );
+                    this.LOGGER.info( "Server blocks feature: {}", feature.getName() );
+                    this.sendInfoMessage( "text.xenon.featureblocked", feature.getName() );
+                }
+                catch ( NullPointerException npe )
+                {
+                    this.LOGGER.info( "Server blocks non-existent feature: {}", name );
+                }
+            }
+        );
     }
 
     private void initCommands()
