@@ -74,8 +74,11 @@ public class MultiQuickChatFeature extends IFeature
             // send the message
             if ( !message.isBlank() )
             {
-                // cancel if the message is not blank
-                Xenon.INSTANCE.client.getNetworkHandler().sendChatMessage( message );
+                // Send a command if the message starts with a slash
+                if ( message.startsWith( "/" ) )
+                    Xenon.INSTANCE.client.getNetworkHandler().sendChatCommand( message.replace( "/", "" ) );
+                else Xenon.INSTANCE.client.getNetworkHandler().sendChatMessage( message );
+
                 return ActionResult.FAIL;
             }
         }

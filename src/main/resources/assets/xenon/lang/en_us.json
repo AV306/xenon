@@ -124,6 +124,7 @@
   "key.xenon.waila": "WAILA (What Am I Looking At)",
   "key.xenon.zoom": "Zoom",
   
+  "text.xenon.featureblocked": "%s has been disabled by the server.",
   "text.xenon.blackbox.ioexception.creation": "An exception occurred creating the log file :(",
   "text.xenon.blackbox.ioexception.write": "An exception occurred while writing to the log file :(",
   "text.xenon.blackbox.ioexception.disposal": "An exception occurred while cleaning up the log file, you might want to restart your PC to clean up potential memory leaks",

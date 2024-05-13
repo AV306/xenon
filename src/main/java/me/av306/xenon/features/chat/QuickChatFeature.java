@@ -16,12 +16,14 @@ public class QuickChatFeature extends IFeature
     {
         assert Xenon.INSTANCE.client.player != null;
 
-        // field will be updated every time configs are changed
-        Xenon.INSTANCE.client.getNetworkHandler().sendChatMessage( QuickChatGroup.message );
+        // Send it as a command if the message starts with a "/"
+        if ( QuickChatGroup.message.startsWith( "/" ) )
+            Xenon.INSTANCE.client.getNetworkHandler().sendChatCommand( QuickChatGroup.message.replace( "/", "" ) );
+        else Xenon.INSTANCE.client.getNetworkHandler().sendChatMessage( QuickChatGroup.message );
     }
 
     @Override
-    public boolean onRequestConfigChange(String config, String value )
+    public boolean onRequestConfigChange( String config, String value )
     {
         boolean result = config.contains( "message" ) || config.contains( "msg" );
 

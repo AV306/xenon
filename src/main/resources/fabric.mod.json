@@ -22,6 +22,7 @@
 
   "environment": "client",
   "entrypoints": {
+    "main": [ "me.av306.xenon.MainInitializer" ],
     "client": [ "me.av306.xenon.ClientInitializer" ],
     "preLaunch": [ "me.av306.xenon.PreLaunchInitializer" ]
   },

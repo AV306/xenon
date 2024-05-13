@@ -37,3 +37,5 @@ remappedSrc/
 .classpath
 .breakpoints
 replit.nix
+
+except/
