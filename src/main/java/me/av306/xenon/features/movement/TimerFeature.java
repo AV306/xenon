@@ -11,8 +11,6 @@ import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.MathHelper;
 
-import java.util.Timer;
-
 /**
  * A client-sided TPS booster to speed up basically everything.
  */
@@ -21,6 +19,8 @@ public class TimerFeature extends IToggleableFeature
     public TimerFeature()
     {
         super( "Timer" );
+
+        this.setForceDisabled( true );
 
         BeginRenderTickEvent.EVENT.register( this::onBeginRenderTick );
 
