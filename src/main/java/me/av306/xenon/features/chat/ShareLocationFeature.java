@@ -3,6 +3,7 @@ package me.av306.xenon.features.chat;
 import me.av306.xenon.Xenon;
 import me.av306.xenon.feature.IFeature;
 import me.av306.xenon.util.text.TextFactory;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.dimension.DimensionType;
 
@@ -28,7 +29,7 @@ public class ShareLocationFeature extends IFeature
 				Math.round( currentPos.getX() ),
 				Math.round( currentPos.getY() ),
 				Math.round( currentPos.getZ() ),
-				Xenon.INSTANCE.client.world.getDimensionKey().getValue().toString()
+				RegistryKeys.toDimensionKey( Xenon.INSTANCE.client.world.getRegistryKey() ).getValue().toString()
 		);
 
 		Xenon.INSTANCE.client.getNetworkHandler().sendChatMessage( loc );

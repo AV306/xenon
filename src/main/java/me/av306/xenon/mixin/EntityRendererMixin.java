@@ -35,13 +35,13 @@ public class EntityRendererMixin<T extends Entity>
 
     @ModifyVariable(
             argsOnly = true,
-            method = "renderLabelIfPresent(Lnet/minecraft/entity/Entity;Lnet/minecraft/text/Text;Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V",
+            method = "renderLabelIfPresent(Lnet/minecraft/entity/Entity;Lnet/minecraft/text/Text;Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;IF)V",
             at = @At(
                     value = "LOAD",
                     ordinal = 1
             )
     )
-    private Text modifyLabelText( Text text, T entity, Text textOther, MatrixStack matrices, VertexConsumerProvider vertexConsumerProvider, int light )
+    private Text modifyLabelText( Text text, T entity, Text textOther, MatrixStack matrices, VertexConsumerProvider vertexConsumerProvider, int light, float tickDelta )
     {
         //if ( !HealthDisplayFeature.getInstance().getIsEnabled() ) return text1;
 

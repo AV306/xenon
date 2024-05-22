@@ -12,6 +12,7 @@ import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.s2c.play.EntityDamageS2CPacket;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Difficulty;
@@ -161,7 +162,7 @@ public class BlackBox extends IToggleableFeature
 		data.difficulty = props.getDifficulty();
 		data.isHardcore = props.isHardcore();
 		data.isDifficultyLocked = props.isDifficultyLocked();
-		data.spawnPos.set( props.getSpawnX(), props.getSpawnY(), props.getSpawnZ() );
+		data.spawnPos.set( props.getSpawnPos().getX(), props.getSpawnPos().getY(), props.getSpawnPos().getZ() );
 		data.spawnAngle = props.getSpawnAngle();
 		data.time = props.getTime();
 
@@ -181,7 +182,9 @@ public class BlackBox extends IToggleableFeature
 		net.minecraft.client.network.ClientPlayerEntity player = Xenon.INSTANCE.client.player;
 
 		// Log dimension name
-		data.dimension = Xenon.INSTANCE.client.world.getDimensionKey().getValue();
+		// Something changed in Minecraft from 1.20.4 to .6; idk if this works
+		// Guess we'll find out in ShareLocation
+		data.dimension = RegistryKeys.toDimensionKey( Xenon.INSTANCE.client.world.getRegistryKey() ).getValue();
 		// Log position
 		data.position = player.getPos();
 		// Log velocity
@@ -386,7 +389,7 @@ public class BlackBox extends IToggleableFeature
 			this.difficulty = props.getDifficulty();
 			this.isHardcore = props.isHardcore();
 			this.isDifficultyLocked = props.isDifficultyLocked();
-			this.spawnPos.set( props.getSpawnX(), props.getSpawnY(), props.getSpawnZ() );
+			this.spawnPos.set( props.getSpawnPos().getX(), props.getSpawnPos().getY(), props.getSpawnPos().getZ() );
 			this.spawnAngle = props.getSpawnAngle();
 			this.time = props.getTime();
 
@@ -445,7 +448,7 @@ public class BlackBox extends IToggleableFeature
 			net.minecraft.client.network.ClientPlayerEntity player = Xenon.INSTANCE.client.player;
 
 			// Log dimension name
-			this.dimension = Xenon.INSTANCE.client.world.getDimensionKey().getValue();
+			this.dimension = RegistryKeys.toDimensionKey( Xenon.INSTANCE.client.world.getRegistryKey() ).getValue();
 			// Log position
 			this.position = player.getPos();
 			// Log velocity

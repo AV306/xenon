@@ -1,5 +1,6 @@
 package me.av306.xenon.mixin;
 
+import com.llamalad7.mixinextras.sugar.Local;
 import me.av306.xenon.Xenon;
 import me.av306.xenon.event.EventFields;
 import me.av306.xenon.event.GameRenderEvents;
@@ -12,6 +13,7 @@ import net.minecraft.resource.ResourceManager;
 import net.minecraft.resource.SynchronousResourceReloader;
 import net.minecraft.util.ActionResult;
 
+import org.joml.Matrix4f;
 import org.objectweb.asm.Opcodes;
 
 import org.spongepowered.asm.mixin.Final;
@@ -65,11 +67,14 @@ public abstract class GameRendererMixin implements AutoCloseable, SynchronousRes
                    opcode = Opcodes.GETFIELD,
                    ordinal = 0
            ),
-           method = "renderWorld(FJLnet/minecraft/client/util/math/MatrixStack;)V",
+           method = "renderWorld(FJ)V",
            cancellable = true
    )
-    private void onRenderWorld( float tickDelta, long finishTimeNanos, MatrixStack matrices, CallbackInfo ci )
+    private void onRenderWorld( float tickDelta, long finishTimeNanos, CallbackInfo ci, @Local( ordinal = 1 ) Matrix4f matrix4f2 ) // we gotta steal the world matrix
     {
+        MatrixStack matrices = new MatrixStack();
+        matrices.multiplyPositionMatrix( matrix4f2 );
+
         ActionResult result = GameRenderEvents.RENDER_WORLD.invoker()
                 .onRenderWorld( tickDelta, finishTimeNanos, matrices );
 

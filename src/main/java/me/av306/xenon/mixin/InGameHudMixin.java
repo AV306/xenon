@@ -21,11 +21,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class InGameHudMixin
 {
     @Inject(
-            at = @At(
+            /*at = @At(
                     value = "INVOKE",
                     target = "Lnet/minecraft/client/gui/hud/InGameHud;renderStatusEffectOverlay(Lnet/minecraft/client/gui/DrawContext;)V", // render AFTER vignette without doing shit to the portal overlay
                     shift = At.Shift.AFTER
-            ),
+            ),*/
+            at = @At( "TAIL" ),
             method = "render(Lnet/minecraft/client/gui/DrawContext;F)V",
             cancellable = true
     )
@@ -39,15 +40,16 @@ public class InGameHudMixin
     }
 
     @Inject(
-            at = @At(
+            /*at = @At(
                     value = "FIELD",
                     target = "Lnet/minecraft/client/gui/hud/InGameHud;scaledHeight:I", // right after scaledHeight is set
                     opcode = Opcodes.PUTFIELD,
                     ordinal = 0
-            ),
+            ),*/
+            at = @At( "HEAD" ),
             method = "render(Lnet/minecraft/client/gui/DrawContext;F)V",
             cancellable = true
-    ) // Inject right AFTER scaledHeight is set, because we use it a lot
+    ) // InGameHudRenderer became a LOT more complicated, I have no clue where to inject this and it doesn't seem to be used anywhere :/
     private void onStartRender( DrawContext drawContext, float tickDelta, CallbackInfo ci )
     {
         ActionResult result = RenderInGameHudEvent.START.invoker()
@@ -70,26 +72,26 @@ public class InGameHudMixin
 
     @Inject(
             at = @At( "HEAD" ),
-            method = "renderCrosshair(Lnet/minecraft/client/gui/DrawContext;)V",
+            method = "renderCrosshair(Lnet/minecraft/client/gui/DrawContext;F)V",
             cancellable = true
     )
-    private void onRenderCrosshair( DrawContext drawContext, CallbackInfo ci )
+    private void onRenderCrosshair( DrawContext context, float tickDelta, CallbackInfo ci )
     {
         if ( RenderCrosshairEvent.START_RENDER.invoker()
-                .onStartRenderCrosshair( drawContext ) == ActionResult.FAIL )
+                .onStartRenderCrosshair( context, tickDelta ) == ActionResult.FAIL )
             ci.cancel();
     }
 
     @Inject(
             at = @At( "TAIL" ),
-            method = "renderCrosshair(Lnet/minecraft/client/gui/DrawContext;)V",
+            method = "renderCrosshair(Lnet/minecraft/client/gui/DrawContext;F)V",
             cancellable = true
     )
-    private void onEndRenderCrosshair( DrawContext drawContext, CallbackInfo ci )
+    private void onEndRenderCrosshair( DrawContext context, float tickDelta, CallbackInfo ci )
     {
 
         if ( RenderCrosshairEvent.END_RENDER.invoker()
-                .onEndRenderCrosshair( drawContext ) == ActionResult.FAIL )
+                .onEndRenderCrosshair( context, tickDelta ) == ActionResult.FAIL )
             ci.cancel();
     }
 }

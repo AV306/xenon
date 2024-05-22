@@ -73,14 +73,18 @@ public enum Xenon
 
     /**
      * This field `namePrefix` should contain "[Xenon] " (note whitespace),
-     * and be formatted with the message format.
+     * and be formatted with the message format (aqua)
      */
     private final Text namePrefix = TextFactory.createLiteral( "[Xenon] " )
             .formatted( this.MESSAGE_FORMAT );
 
     public MutableText getNamePrefixCopy() { return namePrefix.copy(); }
 
+    /**
+     * Identifier for the opt-out packet
+     */
     public final Identifier BLOCKED_FEATURE_PACKET = new Identifier( this.MODID, "block_feature" );
+    public final Identifier PERMIT_FEATURE_PACKET = new Identifier( this.MODID, "permit_feature" );
 
     //private boolean updateAvailable = false;
     //public boolean getUpdateAvailable() { return updateAvailable; }
@@ -102,8 +106,8 @@ public enum Xenon
         FabricLoader loader = FabricLoader.getInstance();
 
         // Check for CompleteConfig
-        if ( loader.isModLoaded( "completeconfig-base" ) )
-            Xenon.INSTANCE.LOGGER.warn( "CompleteConfig not detected! Some features will not work properly." );
+        //if ( loader.isModLoaded( "completeconfig-base" ) )
+        //    Xenon.INSTANCE.LOGGER.warn( "CompleteConfig not detected! Some features will not work properly." );
 		
         // set client and its accessor
         this.client = MinecraftClient.getInstance();
@@ -112,7 +116,7 @@ public enum Xenon
         ClientWorldEvents.DISCONNECT.register( this::disableAllFeatures );
 
         // Register packet handler
-        registerPacketHandlers();
+        //registerPacketHandlers();
 			
         // register features
         initCommands();
@@ -123,7 +127,7 @@ public enum Xenon
             ConfigScreenBuilder.setMain( this.MODID, new ClothConfigScreenBuilder() );*/
     }
 
-    private void registerPacketHandlers()
+    /*private void registerPacketHandlers()
     {
         ClientPlayNetworking.registerGlobalReceiver(
             this.BLOCKED_FEATURE_PACKET,
@@ -143,7 +147,26 @@ public enum Xenon
                 }
             }
         );
-    }
+
+        ClientPlayNetworking.registerGlobalReceiver(
+                this.PERMIT_FEATURE_PACKET,
+                (client, handler, buf, responseSender) ->
+                {
+                    String name = buf.readString();
+                    IFeature feature = this.featureRegistry.get( name );
+                    try
+                    {
+                        feature.setForceDisabled( false );
+                        this.LOGGER.info( "Server permits feature: {}", feature.getName() );
+                        this.sendInfoMessage( "text.xenon.featurepermitted", feature.getName() );
+                    }
+                    catch ( NullPointerException npe )
+                    {
+                        this.LOGGER.info( "Server permits non-existent feature: {}", name );
+                    }
+                }
+        );
+    }*/
 
     private void initCommands()
     {
