@@ -3,6 +3,7 @@ package me.av306.xenon.mixin;
 import me.av306.xenon.Xenon;
 import me.av306.xenon.event.MinecraftClientEvents;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.DownloadingTerrainScreen;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.util.thread.ReentrantThreadExecutor;
@@ -19,9 +20,9 @@ public abstract class MinecraftClientMixin extends ReentrantThreadExecutor<Runna
     
     @Inject(
             at = @At( "HEAD" ),
-            method = "joinWorld(Lnet/minecraft/client/world/ClientWorld;)V"
+            method = "joinWorld(Lnet/minecraft/client/world/ClientWorld;Lnet/minecraft/client/gui/screen/DownloadingTerrainScreen$WorldEntryReason;)V"
     )
-    private void onJoinWorld( ClientWorld world, CallbackInfo ci )
+    private void onJoinWorld( ClientWorld world, DownloadingTerrainScreen.WorldEntryReason worldEntryReason, CallbackInfo ci )
     {
         // This happens really early, right after the "logged in at position" message
         // So chat messages won't show
@@ -31,9 +32,9 @@ public abstract class MinecraftClientMixin extends ReentrantThreadExecutor<Runna
 
     @Inject(
             at = @At( "TAIL" ),
-            method = "joinWorld(Lnet/minecraft/client/world/ClientWorld;)V"
+            method = "joinWorld(Lnet/minecraft/client/world/ClientWorld;Lnet/minecraft/client/gui/screen/DownloadingTerrainScreen$WorldEntryReason;)V"
     )
-    private void onJoinWorldTail( ClientWorld world, CallbackInfo ci )
+    private void onJoinWorldTail( ClientWorld world, DownloadingTerrainScreen.WorldEntryReason worldEntryReason, CallbackInfo ci )
     {
         MinecraftClientEvents.JOIN_WORLD_TAIL.invoker().onJoinWorld( world );
     }

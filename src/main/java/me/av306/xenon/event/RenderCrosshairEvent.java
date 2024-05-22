@@ -10,11 +10,11 @@ public class RenderCrosshairEvent
 {
     public static final Event<StartRender> START_RENDER = EventFactory.createArrayBacked(
             StartRender.class,
-            (listeners) -> (drawContext) ->
+            (listeners) -> (drawContext, tickDelta) ->
             {
                 for ( StartRender listener : listeners )
                 {
-                    ActionResult result = listener.onStartRenderCrosshair( drawContext );
+                    ActionResult result = listener.onStartRenderCrosshair( drawContext, tickDelta );
 
                     if ( result != ActionResult.PASS ) return result;
                 }
@@ -25,11 +25,11 @@ public class RenderCrosshairEvent
 
     public static final Event<EndRender> END_RENDER = EventFactory.createArrayBacked(
             EndRender.class,
-            (listeners) -> (drawContext) ->
+            (listeners) -> (drawContext, tickDelta) ->
             {
                 for ( EndRender listener : listeners )
                 {
-                    ActionResult result = listener.onEndRenderCrosshair( drawContext );
+                    ActionResult result = listener.onEndRenderCrosshair( drawContext, tickDelta );
 
                     if ( result != ActionResult.PASS ) return result;
                 }
@@ -41,12 +41,12 @@ public class RenderCrosshairEvent
     @FunctionalInterface
     public interface StartRender
     {
-        ActionResult onStartRenderCrosshair( DrawContext drawContext );
+        ActionResult onStartRenderCrosshair( DrawContext drawContext, float tickDelta );
     }
 
     @FunctionalInterface
     public interface EndRender
     {
-        ActionResult onEndRenderCrosshair( DrawContext drawContext );
+        ActionResult onEndRenderCrosshair( DrawContext drawContext, float tickDelta );
     }
 }

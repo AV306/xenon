@@ -30,7 +30,7 @@ public class ClientPlayerInteractionManagerMixin
         PlayerDamageBlockEvent.EVENT.invoker().interact( pos, direction );
     }
 
-    @Inject(
+    /*@Inject(
             at = @At( "HEAD" ),
             method = "getReachDistance()F",
             cancellable = true
@@ -45,9 +45,9 @@ public class ClientPlayerInteractionManagerMixin
         reach += EventFields.REACH_MODIFIER;
 
         cir.setReturnValue( reach );
-    }
+    }*/
 
-    @Inject(
+    /*@Inject(
             at = @At("HEAD"),
             method = "hasExtendedReach()Z",
             cancellable = true
@@ -56,5 +56,5 @@ public class ClientPlayerInteractionManagerMixin
     {
         if ( EventFields.REACH_MODIFIER != 0f )
             cir.setReturnValue( true );
-    }
+    }*/
 }

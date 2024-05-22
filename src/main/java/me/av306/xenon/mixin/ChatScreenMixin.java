@@ -40,10 +40,10 @@ public class ChatScreenMixin extends Screen
 	// Trust
 	@Inject(
 			at = @At( "HEAD" ),
-			method = "sendMessage(Ljava/lang/String;Z)Z",
+			method = "sendMessage(Ljava/lang/String;Z)V",
 			cancellable = true
 	)
-	public void onSendMessage( String message, boolean addToHistory, CallbackInfoReturnable<Boolean> cir )
+	public void onSendMessage( String message, boolean addToHistory, CallbackInfo ci )
 	{
 		if ( (message = normalize(message)).isEmpty() ) return;
 
@@ -51,7 +51,7 @@ public class ChatScreenMixin extends Screen
 
 		if ( result == ActionResult.FAIL )
 		{
-			cir.setReturnValue( true );
+			ci.cancel();
 			return;
 		}
 

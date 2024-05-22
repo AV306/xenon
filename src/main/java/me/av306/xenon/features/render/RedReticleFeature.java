@@ -17,11 +17,11 @@ public class RedReticleFeature extends IToggleableFeature {
 
     public RedReticleFeature() {
         super("Red Reticle", "aimassist", "rr");
-        RenderCrosshairEvent.START_RENDER.register(this::onStartRenderCrosshair);
-        RenderCrosshairEvent.END_RENDER.register(this::onEndRenderCrosshair);
+        RenderCrosshairEvent.START_RENDER.register( this::onStartRenderCrosshair );
+        RenderCrosshairEvent.END_RENDER.register( this::onEndRenderCrosshair );
     }
 
-    private ActionResult onStartRenderCrosshair( DrawContext drawContext ) {
+    private ActionResult onStartRenderCrosshair( DrawContext drawContext, float tickDelta ) {
         if ( this.isEnabled )
         {
             if ( RedReticleGroup.disableBlend )
@@ -54,7 +54,7 @@ public class RedReticleFeature extends IToggleableFeature {
         return ActionResult.PASS;
     }
 
-    private ActionResult onEndRenderCrosshair( DrawContext drawContext )
+    private ActionResult onEndRenderCrosshair( DrawContext drawContext, float tickDelta )
     {
         if ( this.isEnabled )
             RenderSystem.enableBlend();

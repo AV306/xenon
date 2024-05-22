@@ -1,6 +1,6 @@
 plugins {
 	id 'java'
-	id 'fabric-loom' version '1.5-SNAPSHOT'
+	id 'fabric-loom' version '1.6-SNAPSHOT'
 	id 'maven-publish'
 }
 
@@ -84,7 +84,7 @@ java {
 
 	
 	toolchain {
-		languageVersion = JavaLanguageVersion.of( 17 )
+		languageVersion = JavaLanguageVersion.of( 21 )
 	}
 }
 
