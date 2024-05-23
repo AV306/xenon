@@ -12,7 +12,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin( ChatScreen.class )
 public class ChatScreenMixin extends Screen
@@ -54,8 +53,5 @@ public class ChatScreenMixin extends Screen
 			ci.cancel();
 			return;
 		}
-
-		// Unlike Wurst, this doesn't let you modify the message.
-		// You shouldn't need to do that anyway.
 	}
 }

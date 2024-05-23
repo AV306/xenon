@@ -16,6 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin( EntityRenderer.class )
 public class EntityRendererMixin<T extends Entity>
 {
+    @SuppressWarnings( "unchecked" )
     @Inject(
             method = "hasLabel(Lnet/minecraft/entity/Entity;)Z",
             at = @At( "HEAD" ),
@@ -39,7 +40,7 @@ public class EntityRendererMixin<T extends Entity>
             at = @At(
                     value = "LOAD",
                     ordinal = 1
-            )
+            ) // Target the read of the first local variable (the Text to be rendered)
     )
     private Text modifyLabelText( Text text, T entity, Text textOther, MatrixStack matrices, VertexConsumerProvider vertexConsumerProvider, int light, float tickDelta )
     {
@@ -50,6 +51,8 @@ public class EntityRendererMixin<T extends Entity>
 
         Text textOverride = EntityRendererEvents.EventData.LABEL_TEXT_OVERRIDE;
 
-        return EntityRendererEvents.EventData.SHOULD_OVERRIDE_LABEL_TEXT && textOverride != null ? EntityRendererEvents.EventData.LABEL_TEXT_OVERRIDE : text;
+        return EntityRendererEvents.EventData.SHOULD_OVERRIDE_LABEL_TEXT && textOverride != null ?
+                EntityRendererEvents.EventData.LABEL_TEXT_OVERRIDE :
+                text;
     }
 }

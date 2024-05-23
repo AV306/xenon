@@ -212,7 +212,7 @@ public abstract class IFeature
 		if ( this.keyBinding.wasPressed() )
 			if ( this.forceDisabled )
 				// Server wishes to opt out of this feature
-				this.sendErrorMessage( "text.xenon.ifeature.forcedisabled" );
+				this.sendErrorMessage( "text.xenon.ifeature.blocked", this.getName() );
 			else this.enable();
 	}
 
@@ -234,11 +234,11 @@ public abstract class IFeature
 			
 		//this.isEnabled = true;
 
-		if ( this.isForceDisabled() )
+		/*if ( this.forceDisabled )
 		{
 			Xenon.INSTANCE.sendInfoMessage( "text.xenon.featureblocked" );
 			return;
-		}
+		}*/
 
 		Xenon.INSTANCE.LOGGER.info( this.getName() + " enabled!" );
 

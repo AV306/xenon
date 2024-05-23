@@ -97,7 +97,12 @@ public abstract class IToggleableFeature extends IFeature
     protected void keyEvent()
     {
         if ( this.keyBinding.wasPressed() && !Xenon.INSTANCE.modifierKey.isPressed() )
-            this.toggle();
+        {
+            if ( this.forceDisabled )
+                Xenon.INSTANCE.sendErrorMessage( "text.xenon.ifeature.blocked", this.name );
+        
+            else this.toggle();
+        }
     }
 
     @Override
@@ -107,7 +112,7 @@ public abstract class IToggleableFeature extends IFeature
 
         this.isEnabled = true;
 
-        Xenon.INSTANCE.LOGGER.info( this.getName() + " enabled!" );
+        Xenon.INSTANCE.LOGGER.info( "{} enabled!", this.getName() );
 
         Xenon.INSTANCE.enabledFeatures.add( this );
 

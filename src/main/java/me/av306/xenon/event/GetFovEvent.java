@@ -22,7 +22,27 @@ public interface GetFovEvent
             }
     );
 
+    Event<GetFovEvent2> EVENT2 = EventFactory.createArrayBacked(
+            GetFovEvent2.class,
+            (listeners) -> (fov) ->
+            {
+                for ( GetFovEvent2 listener : listeners )
+                {
+                    ActionResult result = listener.interact( fov );
+
+                    if ( result != ActionResult.PASS ) return result;
+                }
+
+                return ActionResult.PASS;
+            }
+    );
+
     ActionResult interact( Camera camera, float tickDelta, boolean changingFov );
+
+    public interface GetFovEvent2
+    {
+        ActionResult interact( double fov );
+    }
 
     public class EventData
     {
