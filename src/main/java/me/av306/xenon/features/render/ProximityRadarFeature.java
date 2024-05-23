@@ -36,6 +36,8 @@ public class ProximityRadarFeature extends IToggleableFeature
     {
         super( "ProximityRadar", "proxradar", "pr" );
 
+        this.setForceDisabled( true );
+
         // Perform entity scanning in the render thread
         // because they're gonna be rendered somewhere before this anyway,
         // and we're rendering stuff too

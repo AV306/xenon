@@ -1,5 +1,6 @@
 package me.av306.xenon;
 
+import me.av306.xenon.packets.OptInPacketPayload;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
@@ -12,16 +13,17 @@ public class MainInitializer implements ModInitializer
 	@Override
 	public void onInitialize()
 	{
-		Xenon.INSTANCE.LOGGER.info( "Doing server-side initialisation..." );
+		//if ( )
+		Xenon.INSTANCE.LOGGER.info( "Doing logical server-side initialisation..." );
 
 		// TODO
 		ServerPlayConnectionEvents.JOIN.register( (handler, sender, server) ->
 		{
-			/*Packet packet = new P
-			PacketByteBuf pak = PacketByteBufs.create();
-			pak.writeString( "timer" );
-			sender.sendPacket( pak );
-			//sender.sendPacket( Xenon.INSTANCE.BLOCKED_FEATURE_PACKET, pak );*/
+			// Uncomment this line and replace the placeholder text
+			// with the name of the feature you wish to block.
+			// Timer and ProxRadar are blocked by default, and will be
+			// removed in a future version.
+			//sender.sendPacket( new OptOutPacketPayload( "[FEATURE_NAME_HERE]" ) );
 		} );
 	}
 }

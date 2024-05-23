@@ -16,7 +16,7 @@ sudo apt update
 
 sudo apt install qt6-base-dev libqt6core5compat6 -y
 
-sudo apt install tcpdump -y
+#sudo apt install tcpdump -y
 
 # Cleanup
 sudo apt autoremove

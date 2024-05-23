@@ -13,10 +13,13 @@ import me.av306.xenon.features.chat.*;
 import me.av306.xenon.features.movement.*;
 import me.av306.xenon.features.render.*;
 import me.av306.xenon.mixin.MinecraftClientAccessor;
+import me.av306.xenon.packets.OptInPacketPayload;
+import me.av306.xenon.packets.OptOutPacketPayload;
 import me.av306.xenon.util.KeybindUtil;
 import me.av306.xenon.util.text.TextFactory;
 import me.lortseam.completeconfig.data.Config;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.fabricmc.loader.api.Version;
@@ -26,6 +29,7 @@ import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.dynamic.Codecs;
 
 import org.lwjgl.glfw.GLFW;
 import org.slf4j.LoggerFactory;
@@ -83,8 +87,8 @@ public enum Xenon
     /**
      * Identifier for the opt-out packet
      */
-    public final Identifier BLOCKED_FEATURE_PACKET = new Identifier( this.MODID, "block_feature" );
-    public final Identifier PERMIT_FEATURE_PACKET = new Identifier( this.MODID, "permit_feature" );
+    public final Identifier BLOCK_FEATURE_PACKET_ID = new Identifier( this.MODID, "block_feature" );
+    public final Identifier PERMIT_FEATURE_PACKET_ID = new Identifier( this.MODID, "permit_feature" );
 
     //private boolean updateAvailable = false;
     //public boolean getUpdateAvailable() { return updateAvailable; }
@@ -116,7 +120,7 @@ public enum Xenon
         ClientWorldEvents.DISCONNECT.register( this::disableAllFeatures );
 
         // Register packet handler
-        //registerPacketHandlers();
+        registerPacketHandlers();
 			
         // register features
         initCommands();
@@ -127,46 +131,41 @@ public enum Xenon
             ConfigScreenBuilder.setMain( this.MODID, new ClothConfigScreenBuilder() );*/
     }
 
-    /*private void registerPacketHandlers()
+    private void registerPacketHandlers()
     {
-        ClientPlayNetworking.registerGlobalReceiver(
-            this.BLOCKED_FEATURE_PACKET,
-            (client, handler, buf, responseSender) ->
+        PayloadTypeRegistry.playS2C().register( OptOutPacketPayload.ID, OptOutPacketPayload.CODEC );
+        ClientPlayNetworking.registerGlobalReceiver( OptOutPacketPayload.ID, (payload, context) ->
+        {
+            try
             {
-                String name = buf.readString();
-                IFeature feature = this.featureRegistry.get( name );
-                try
-                {
-                    feature.setForceDisabled( true );
-                    this.LOGGER.info( "Server blocks feature: {}", feature.getName() );
-                    this.sendInfoMessage( "text.xenon.featureblocked", feature.getName() );
-                }
-                catch ( NullPointerException npe )
-                {
-                    this.LOGGER.info( "Server blocks non-existent feature: {}", name );
-                }
+                this.featureRegistry.get( payload.featureName() ).setForceDisabled( true );
+                this.LOGGER.info( "{} blocked by server", payload.featureName() );
+                this.sendInfoMessage( "text.xenon.featureblocked", payload.featureName() );
             }
-        );
+            catch ( NullPointerException npe )
+            {
+                // Feature not present, error
+                this.LOGGER.warn( "Server blocks non-existent feature {}", payload.featureName() );
+            }
+        } );
 
-        ClientPlayNetworking.registerGlobalReceiver(
-                this.PERMIT_FEATURE_PACKET,
-                (client, handler, buf, responseSender) ->
-                {
-                    String name = buf.readString();
-                    IFeature feature = this.featureRegistry.get( name );
-                    try
-                    {
-                        feature.setForceDisabled( false );
-                        this.LOGGER.info( "Server permits feature: {}", feature.getName() );
-                        this.sendInfoMessage( "text.xenon.featurepermitted", feature.getName() );
-                    }
-                    catch ( NullPointerException npe )
-                    {
-                        this.LOGGER.info( "Server permits non-existent feature: {}", name );
-                    }
-                }
-        );
-    }*/
+        PayloadTypeRegistry.playS2C().register( OptInPacketPayload.ID, OptInPacketPayload.CODEC );
+        ClientPlayNetworking.registerGlobalReceiver( OptInPacketPayload.ID, (payload, context) ->
+        {
+            try
+            {
+                this.featureRegistry.get( payload.featureName() ).setForceDisabled( false );
+                this.LOGGER.info( "{} blocked by server", payload.featureName() );
+                this.sendInfoMessage( "text.xenon.featurepermitted", payload.featureName() );
+            }
+            catch ( NullPointerException npe )
+            {
+                // Feature not present, error
+                this.LOGGER.warn( "Server permits non-existent feature {}", payload.featureName() );
+            }
+
+        } );
+    }
 
     private void initCommands()
     {

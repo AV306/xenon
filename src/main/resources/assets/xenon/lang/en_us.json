@@ -158,7 +158,7 @@
   "text.xenon.ifeature.configchange.success": "Successfully changed config \"%s\" to value %s!",
   "text.xenon.ifeature.executeaction.fail": "Failed to execute action: %s",
   "text.xenon.ifeature.executeaction.success": "Successfully executed action: %s",
-  "text.xenon.ifeature.forcedisabled": "The feature has been disabled by the server.",
+  "text.xenon.ifeature.blocked": "Feature \"%s\" is blocked.",
   "text.xenon.ifeature.help": "[%s] %s",
   "text.xenon.itoggleablefeature.enabled": "%s ENABLED!",
   "text.xenon.itoggleablefeature.disabled": "%s DISABLED!",
