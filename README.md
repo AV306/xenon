@@ -5,6 +5,17 @@
 
 > Check Xenon out on [Modrinth!](https://modrinth.com/mod/xenon)
 
+> [!CAUTION]
+> Xenon will likely **no longer be updated to newer Minecraft versions**, because by design, the *entire* set of events and mixins must be updated in order for it to work. (there's a lot of them)
+>
+> This is very tedious and makes Xenon updates very slow to release, so I've decided to split Xenon up into self-contained modules and put them in another repo.
+>
+> If all goes well, everything from Xenon should make it into this new project; I'll put the new repo link here when it's ready.
+>
+> Thanks for using Xenon all this while :)
+
+<br>
+
 Hi, thanks for stopping by this page! This is Xenon, a personal project of mine that I decided to publish to Modrinth and a couple of people decided to use.
 
 <br>
