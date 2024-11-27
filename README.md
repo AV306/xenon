@@ -6,11 +6,9 @@
 > Check Xenon out on [Modrinth!](https://modrinth.com/mod/xenon)
 
 > [!CAUTION]
-> Xenon will likely **no longer be updated to newer Minecraft versions**, because by design, the *entire* set of events and mixins must be updated in order for it to work. (there's a lot of them)
+> Xenon will most likely not receive any new features for a long time, as my initial emphasis on having rigid, uniform structures for everything has made it an absolute pain to update.
 >
-> This is very tedious and makes Xenon updates very slow to release, so I've decided to split Xenon up into self-contained modules and put them in another repo.
->
-> If all goes well, everything from Xenon should make it into this new project; I'll put the new repo link here when it's ready.
+> I *will* probably update it to 1.21.x sometime, though!
 >
 > Thanks for using Xenon all this while :)
 
@@ -24,9 +22,9 @@ Hi, thanks for stopping by this page! This is Xenon, a personal project of mine 
 
 Xenon tries to implement features similar to those in clients such as Badlion and Lunar, while maintaining compatibility with other mods. 
 
-Most mods follow the traditional "problem-solution" model - they give you a solution to a common problem.
+Most mods follow the traditional "problem-solution" model - they give you a solution to a common problem. Xenon, however, is more like a Swiss Army chainsaw (but nowhere near as powerful) - it gives you a bunch of solutions and lets you figure out what to use them for.
 
-Xenon, however, is more like a Swiss Army chainsaw (but nowhere near as powerful) - it gives you a bunch of solutions and lets you figure out what to use them for. This is a side effect of the original reason I made Xenon, which was to solve weird, niche and/or pedantic problems I had.
+This is a side effect of the original reason I made Xenon, which was to solve weird, niche and/or pedantic problems I had.
 
 <br>
 
