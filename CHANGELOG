@@ -34,6 +34,6 @@
     Fixed a number of bugs in ProximityRadar (entity warning text doesn't necessarily show closest entity)
     Added scroll-wheel adjustment of some feature configs with a modifier key
 
-4.3.0 (planned)
-    Optimisations???
-    "Friends" system???
+4.7.0 (wip)
+    Make sure everything still works
+    Feature: show actual ping value in player list
