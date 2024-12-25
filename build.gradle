@@ -1,10 +1,10 @@
 plugins {
 	id 'java'
-	id 'fabric-loom' version '1.6-SNAPSHOT'
+	id 'fabric-loom' version '1.8-SNAPSHOT'
 	id 'maven-publish'
 }
 
-sourceCompatibility = JavaVersion.VERSION_17
+sourceCompatibility = JavaVersion.VERSION_21
 targetCompatibility = JavaVersion.VERSION_17
 
 archivesBaseName = project.archives_base_name
