@@ -58,7 +58,7 @@ public class TimerFeature extends IToggleableFeature
     {
         if ( this.isEnabled )
         {
-            RenderTickCounter renderTickCounter = ((MinecraftClientAccessor) Xenon.INSTANCE.client).getRenderTickCounter();
+            RenderTickCounter renderTickCounter = Xenon.INSTANCE.client.getRenderTickCounter();
 
             // Get the duration of the last frame
             float lastFrameDurationLocal = ((RenderTickCounterAccessor) renderTickCounter).getLastFrameDuration();

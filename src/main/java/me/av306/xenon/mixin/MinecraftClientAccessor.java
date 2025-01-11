@@ -8,6 +8,7 @@ import org.spongepowered.asm.mixin.gen.Accessor;
 @Mixin( MinecraftClient.class )
 public interface MinecraftClientAccessor
 {
-    @Accessor
-    RenderTickCounter getRenderTickCounter();
+    // Not needed for 1.21-1.21.1
+    //@Accessor
+    //RenderTickCounter getRenderTickCounter();
 }

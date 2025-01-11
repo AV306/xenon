@@ -1,13 +1,10 @@
 plugins {
 	id 'java'
-	id 'fabric-loom' version '1.8-SNAPSHOT'
+	id 'fabric-loom' version '1.9-SNAPSHOT'
 	id 'maven-publish'
 }
 
-sourceCompatibility = JavaVersion.VERSION_21
-targetCompatibility = JavaVersion.VERSION_17
-
-archivesBaseName = project.archives_base_name
+base.archivesBaseName = project.archives_base_name
 version = project.mod_version
 group = project.maven_group
 
@@ -71,7 +68,7 @@ processResources {
 
 tasks.withType( JavaCompile ).configureEach {
 	// Minecraft 1.18 (1.18-pre2) upwards uses Java 17.
-	it.options.release = 21
+	it.options.release = 17
 	
 	//it.options.compilerArgs.add( "--enable-preview" )
 }
@@ -82,6 +79,8 @@ java {
 	// If you remove this line, sources will not be generated.
 	withSourcesJar()
 
+	sourceCompatibility = JavaVersion.VERSION_21
+	targetCompatibility = JavaVersion.VERSION_17
 	
 	toolchain {
 		languageVersion = JavaLanguageVersion.of( 21 )
