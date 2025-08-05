@@ -3,14 +3,13 @@
 [![Gradle CI](https://github.com/AV306/xenon/actions/workflows/gradle_ci.yml/badge.svg?branch=1.20-DEV)](https://github.com/AV306/xenon/actions/workflows/gradle_ci.yml)
 [![Hits](https://img.shields.io/endpoint?color=3fcc98&url=https://hits.dwyl.com/AV306/xenon.json?show=unique)]()
 
+> [!INFO]
 > Check Xenon out on [Modrinth!](https://modrinth.com/mod/xenon)
 
 > [!CAUTION]
-> Xenon will most likely not receive any new features for a long time, as my initial emphasis on having rigid, uniform structures for everything has made it an absolute pain to update.
+> Unfortunately, Xenon has been discontinued. It will **no longer receive updates**.
 >
-> I *will* probably update it to 1.21.x sometime, though!
->
-> Thanks for using Xenon all this while :)
+> A successor for newer Minecraft versions is in development! Thanks for using Xenon all this while :)
 
 <br>
 
