@@ -3,13 +3,10 @@
 [![Gradle CI](https://github.com/AV306/xenon/actions/workflows/gradle_ci.yml/badge.svg?branch=1.20-DEV)](https://github.com/AV306/xenon/actions/workflows/gradle_ci.yml)
 [![Hits](https://img.shields.io/endpoint?color=3fcc98&url=https://hits.dwyl.com/AV306/xenon.json?show=unique)]()
 
-> [!INFO]
-> Check Xenon out on [Modrinth!](https://modrinth.com/mod/xenon)
-
 > [!CAUTION]
 > Unfortunately, Xenon has been discontinued. It will **no longer receive updates**.
 >
-> A successor for newer Minecraft versions is in development! Thanks for using Xenon all this while :)
+> [Argon](https://github.com/AV306/argon) is Xenon's successor! Thanks for using Xenon all this while :)
 
 <br>
 
