@@ -6,6 +6,7 @@ import me.av306.xenon.config.FeatureConfigGroup;
 import me.av306.xenon.config.GeneralConfigGroup;
 import me.av306.xenon.config.feature.movement.FullKeyboardGroup;
 import me.av306.xenon.event.ClientWorldEvents;
+import me.av306.xenon.event.MinecraftClientEvents;
 import me.av306.xenon.feature.*;
 import me.av306.xenon.features.*;
 import me.av306.xenon.features.accessibility.*;
@@ -27,6 +28,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.dynamic.Codecs;
@@ -133,6 +135,12 @@ public enum Xenon
 
     private void registerPacketHandlers()
     {
+        MinecraftClientEvents.JOIN_WORLD.register( world ->
+        {
+            for ( IFeature feature : this.featureRegistry.values() ) feature.setForceDisabled( false );
+            this.LOGGER.info( "Cleared opt-in/opt-out state" );
+            return ActionResult.PASS;
+        } );
         PayloadTypeRegistry.playS2C().register( OptOutPacketPayload.ID, OptOutPacketPayload.CODEC );
         ClientPlayNetworking.registerGlobalReceiver( OptOutPacketPayload.ID, (payload, context) ->
         {
@@ -155,7 +163,7 @@ public enum Xenon
             try
             {
                 this.featureRegistry.get( payload.featureName() ).setForceDisabled( false );
-                this.LOGGER.info( "{} blocked by server", payload.featureName() );
+                this.LOGGER.info( "{} permitted by server", payload.featureName() );
                 this.sendInfoMessage( "text.xenon.featurepermitted", payload.featureName() );
             }
             catch ( NullPointerException npe )
